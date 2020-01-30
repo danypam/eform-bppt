@@ -7,3 +7,6 @@
         <li>ubah nama database</li>
     </ol>
 </ol>
+
+<img src="https://media.giphy.com/media/DUmrG73RygBhe/giphy.gif" style="float:left"/>
+
