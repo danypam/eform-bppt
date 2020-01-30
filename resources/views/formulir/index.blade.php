@@ -20,7 +20,7 @@
                                         <div class="panel-body post-body-form bg-white">
                                             <a class="label label-default btn-danger" href="#">Form</a>
                                             <h3 class="post-title-form">
-                                                <a href="form-builder/form/{{$form->identifier}}">{{$form->name}}</a>
+                                                <a href="/form/{{$form->identifier}}">{{$form->name}}</a>
                                             </h3>
 
                                             <div class="post-author-form">

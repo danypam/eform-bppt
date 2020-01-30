@@ -31,7 +31,7 @@
                 <li><a href="/pegawai" class=""><i class="lnr lnr-user"></i> <span>Pegawai</span></a></li>
                 @endif
 {{--                @if (auth()->user()->can('form-list') || auth()->user()->can('form-delete') || auth()->user()->can('form-create')|| auth()->user()->can('form-edit')|| auth()->user()->can('form-input'))--}}
-                <li><a href="/form-builder/forms" class=""><i class="lnr lnr-user"></i> <span>Form Builder</span></a></li>
+                <li><a href="/forms" class=""><i class="lnr lnr-user"></i> <span>Form Builder</span></a></li>
                 <li><a href="/formulir" class=""><i class="lnr lnr-user"></i> <span>Formulir</span></a></li>
 {{--                @endif--}}
                 @if (auth()->user()->can('task-list') || auth()->user()->can('task-approve'))
