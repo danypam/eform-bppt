@@ -6,6 +6,7 @@
         <li>rename .env.example jadi .env </li>
         <li>ubah nama database</li>
     </ol>
+    <li>php artisan key:generate
 </ol>
 
 <img src="https://media.giphy.com/media/DUmrG73RygBhe/giphy.gif" style="float:left"/>
