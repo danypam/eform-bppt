@@ -81,7 +81,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="tab-bottom-left1">
                                     <ul class="list-unstyled activity-timeline">
-                                    @foreach($data as $d)
+
                                             <li>
 {{--                                                <i class="fa fa-comment activity-icon"></i>--}}
 {{--                                                <i class="fa fa-check activity-icon"></i>--}}
