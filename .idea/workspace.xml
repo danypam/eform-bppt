@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5a2ac792-10fe-4e40-8ac3-4b2ad8b0c342" name="Default Changelist" comment="">
+
+    <list default="true" id="a75b21dc-75d1-4385-aaa2-f3bc1c0c5a7d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/includes/_sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/includes/_sidebar.blade.php" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,6 +113,14 @@
   </component>
   <component name="ProjectId" id="1WwJGOsZkwx6ZyDdP3npd53YDhV" />
   <component name="ProjectLevelVcsManager">
+      <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
+    </include_path>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -123,6 +134,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Controllers" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/assets/img" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
@@ -162,7 +174,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5a2ac792-10fe-4e40-8ac3-4b2ad8b0c342" name="Default Changelist" comment="" />
+      <changelist id="729d70bc-94f4-42a3-bb80-3ae4477e15db" name="Default Changelist" comment="" />
       <created>1580054627887</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -185,6 +197,7 @@
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
       <updated>1580445599705</updated>
+      <workItem from="1580438698748" duration="3376000" />
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
@@ -205,7 +218,10 @@
     <state x="423" y="167" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728@0.0.1366.728" timestamp="1580439760827" />
     <state x="387" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1580261936015">
       <screen x="0" y="0" width="1280" height="720" />
+    <state x="387" y="114" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1580439127071">
+      <screen x="0" y="0" width="1280" height="688" />
     </state>
+    <state x="387" y="114" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.688@0.0.1280.688" timestamp="1580439127071" />
     <state x="387" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.720@0.0.1280.720" timestamp="1580261936015" />
     <state x="413" y="120" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1580192070566" />
     <state x="281" y="0" key="CommitChangelistDialog2" timestamp="1580445592745">
@@ -240,7 +256,11 @@
     <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1580437229671" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1580441464217">
       <screen x="0" y="0" width="1366" height="728" />
+    <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1580182834221" />
+    <state x="433" y="43" width="672" height="642" key="search.everywhere.popup" timestamp="1580441522398">
+      <screen x="0" y="0" width="1280" height="688" />
     </state>
+    <state x="433" y="43" width="672" height="642" key="search.everywhere.popup/0.0.1280.688@0.0.1280.688" timestamp="1580441522398" />
     <state x="324" y="48" width="672" height="671" key="search.everywhere.popup/0.0.1280.720@0.0.1280.720" timestamp="1580405347550" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1580441464217" />
   </component>

@@ -161,8 +161,10 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+
         Spatie\Activitylog\ActivitylogServiceProvider::class,
 
+        Barryvdh\DomPDF\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -230,6 +232,8 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Activity' => Spatie\Activitylog\ActivitylogFacade::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+
     ],
 
 ];
