@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="729d70bc-94f4-42a3-bb80-3ae4477e15db" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ExportController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/layouts/bppt.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/layouts/pmi.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/vendor/formbuilder/my_submissions/submission_pdf.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/roles.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/roles.iml" afterDir="false" />
+
+    <list default="true" id="a75b21dc-75d1-4385-aaa2-f3bc1c0c5a7d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/formbuilder/forms/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vendor/formbuilder/forms/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/formbuilder/my_submissions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vendor/formbuilder/my_submissions/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/includes/_sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/includes/_sidebar.blade.php" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,6 +108,11 @@
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
       <path value="$PROJECT_DIR$/vendor/laravelcollective/html" />
       <path value="$PROJECT_DIR$/vendor/jazmy/jaz-form-builder" />
+      <path value="$PROJECT_DIR$/vendor/spatie/activitylog" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="1WwJGOsZkwx6ZyDdP3npd53YDhV" />
+  <component name="ProjectLevelVcsManager">
       <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
       <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
       <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
@@ -124,7 +120,6 @@
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
     </include_path>
   </component>
-  <component name="ProjectId" id="1WwJGOsZkwx6ZyDdP3npd53YDhV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -138,8 +133,10 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Controllers" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/public/assets/img" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -147,6 +144,8 @@
       <recent name="E:\LaravelProjek\roles\resources\views\auth\" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\LaravelProjek\GitHub\bppt\app\Http\Controllers" />
+      <recent name="E:\LaravelProjek\GitHub\bppt" />
       <recent name="E:\pkl\bppt\app\Http" />
       <recent name="E:\pkl\bppt\app\Http\Controllers" />
       <recent name="E:\pkl\bppt" />
@@ -187,8 +186,20 @@
       <workItem from="1580175364822" duration="18531000" />
       <workItem from="1580228310444" duration="21836000" />
       <workItem from="1580402725014" duration="3211000" />
+      <workItem from="1580436284609" duration="158000" />
+      <workItem from="1580436645070" duration="387000" />
+      <workItem from="1580437074338" duration="150000" />
+      <workItem from="1580438402014" duration="7346000" />
+    </task>
+    <task id="LOCAL-00001" summary="LOG ACTIVITY">
+      <created>1580445599705</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1580445599705</updated>
       <workItem from="1580438698748" duration="3376000" />
     </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,22 +207,28 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="LOG ACTIVITY" />
+    <option name="LAST_COMMIT_MESSAGE" value="LOG ACTIVITY" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="396" y="165" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1580403643204">
-      <screen x="0" y="0" width="1280" height="720" />
+    <state x="423" y="167" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1580439760827">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="396" y="165" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.720@0.0.1280.720" timestamp="1580403643204" />
+    <state x="423" y="167" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728@0.0.1366.728" timestamp="1580439760827" />
+    <state x="387" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1580261936015">
+      <screen x="0" y="0" width="1280" height="720" />
     <state x="387" y="114" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1580439127071">
       <screen x="0" y="0" width="1280" height="688" />
     </state>
     <state x="387" y="114" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.688@0.0.1280.688" timestamp="1580439127071" />
     <state x="387" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.720@0.0.1280.720" timestamp="1580261936015" />
     <state x="413" y="120" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1580192070566" />
-    <state x="263" y="0" key="CommitChangelistDialog2" timestamp="1580406027369">
-      <screen x="0" y="0" width="1280" height="720" />
+    <state x="281" y="0" key="CommitChangelistDialog2" timestamp="1580445592745">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="263" y="0" key="CommitChangelistDialog2/0.0.1280.720@0.0.1280.720" timestamp="1580406027369" />
+    <state x="281" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1580445592745" />
     <state width="1237" height="176" key="GridCell.Tab.0.bottom" timestamp="1580229308223">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
@@ -228,16 +245,23 @@
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state width="1237" height="176" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1580229308223" />
-    <state x="484" y="285" key="NewPhpFileDialog" timestamp="1580233881018">
-      <screen x="0" y="0" width="1280" height="720" />
+    <state x="517" y="288" key="NewPhpFileDialog" timestamp="1580440937367">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="484" y="285" key="NewPhpFileDialog/0.0.1280.720@0.0.1280.720" timestamp="1580233881018" />
+    <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1580440937367" />
+    <state x="184" y="7" key="SettingsEditor" timestamp="1580437229671">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1580437229671" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1580441464217">
+      <screen x="0" y="0" width="1366" height="728" />
     <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1580182834221" />
     <state x="433" y="43" width="672" height="642" key="search.everywhere.popup" timestamp="1580441522398">
       <screen x="0" y="0" width="1280" height="688" />
     </state>
     <state x="433" y="43" width="672" height="642" key="search.everywhere.popup/0.0.1280.688@0.0.1280.688" timestamp="1580441522398" />
     <state x="324" y="48" width="672" height="671" key="search.everywhere.popup/0.0.1280.720@0.0.1280.720" timestamp="1580405347550" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1580190920952" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1580441464217" />
   </component>
 </project>

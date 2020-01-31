@@ -10,7 +10,7 @@
                 <div class="panel panel-profile">
                     <div class="clearfix">
                         <!-- LEFT COLUMN -->
-                        <div class="profile-left">
+                        <div class="col-md-5">
                             <!-- PROFILE HEADER -->
                             <div class="profile-header">
                                 <div class="overlay"></div>
@@ -69,7 +69,7 @@
                         </div>
                         <!-- END LEFT COLUMN -->
                         <!-- RIGHT COLUMN -->
-                        <div class="profile-right">
+                        <div class="col-md-6">
 
                             <!-- END AWARDS -->
                             <!-- TABBED CONTENT -->
@@ -81,22 +81,15 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="tab-bottom-left1">
                                     <ul class="list-unstyled activity-timeline">
-                                        <li>
-                                            <i class="fa fa-comment activity-icon"></i>
-                                            <p>Commented on post <a href="#">Prototyping</a> <span class="timestamp">2 minutes ago</span></p>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-cloud-upload activity-icon"></i>
-                                            <p>Uploaded new file <a href="#">Proposal.docx</a> to project <a href="#">New Year Campaign</a> <span class="timestamp">7 hours ago</span></p>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-plus activity-icon"></i>
-                                            <p>Added <a href="#">Martin</a> and <a href="#">3 others colleagues</a> to project repository <span class="timestamp">Yesterday</span></p>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-check activity-icon"></i>
-                                            <p>Finished 80% of all <a href="#">assigned tasks</a> <span class="timestamp">1 day ago</span></p>
-                                        </li>
+                                    @foreach($data as $d)
+                                            <li>
+{{--                                                <i class="fa fa-comment activity-icon"></i>--}}
+{{--                                                <i class="fa fa-check activity-icon"></i>--}}
+{{--                                                <i class="fa fa-cloud-upload activity-icon"></i>--}}
+                                                <i class="fa fa-comment activity-icon"></i>
+                                                <p>{{$d->text}}<span class="timestamp">{{\Carbon\Carbon::parse($d->created_at)->diffForHumans()}}</span></p>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                     <div class="margin-top-30 text-center"><a href="#" class="btn btn-default">See all activity</a></div>
                                 </div>

@@ -20,19 +20,25 @@ class UserController extends Controller
 {
     public function profile($id)
     {
+        $data = DB::table('activity_log')->limit(7)
+            ->LeftJoin('users','users.id','=','activity_log.user_id')
+            ->select('activity_log.*','users.name')
+            ->orderBy('created_at','DESC')
+            ->where('user_id',auth()->user()->id)
+            ->get();
+
         $data_unitjab = UnitJabatan::all();
-        $data_role = Role::all();
         $data_jabatan = Jabatan::all();
         $data_unit = UnitKerja::all();
         $peg = Pegawai::find($id);
-        return view('profile',['peg'=>$peg,'data_unitjab'=>$data_unitjab,'data_jabatan'=>$data_jabatan,'data_unit'=>$data_unit]);
+        return view('profile',['data'=>$data,'peg'=>$peg,'data_unitjab'=>$data_unitjab,'data_jabatan'=>$data_jabatan,'data_unit'=>$data_unit]);
     }
 
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('users.index',compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        User::where('created_at', '<', Carbon::now()->subDays(1))->delete();
+        $data = User::all();
+        return view('users.index',compact('data'));
     }
 
     public function create()

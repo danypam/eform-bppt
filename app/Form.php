@@ -11,9 +11,13 @@ use App\User;
 use App\Submission;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Spatie\Activitylog\LogsActivityInterface;
+use Spatie\Activitylog\LogsActivity;
 
-class Form extends Model
+class Form extends Model implements LogsActivityInterface
 {
+    use LogsActivity;
+
     const FORM_PUBLIC = "PUBLIC";
     const FORM_PRIVATE = "PRIVATE";
 
@@ -158,5 +162,25 @@ class Form extends Model
                             'type' => $entry['type'] ?? null,
                         ];
                     });
+    }
+
+    public function getActivityDescriptionForEvent($eventName)
+    {
+        if ($eventName == 'created')
+        {
+            return 'Form was created';
+        }
+
+        if ($eventName == 'updated')
+        {
+            return 'Form  was updated';
+        }
+
+        if ($eventName == 'deleted')
+        {
+            return 'Form  was deleted';
+        }
+
+        return '';
     }
 }

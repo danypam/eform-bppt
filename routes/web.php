@@ -106,6 +106,9 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/{id}/profile', 'UserController@profile');
 
+    Route::get('/log','LogController@index');
+    Route::get('/log/{id}/delete','LogController@delete');
+
     Route::resource('/formulir', 'FormulirController');
 
     Route::resource('/inbox', 'InboxController');
