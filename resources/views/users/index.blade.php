@@ -16,6 +16,9 @@
                                 </div>
                             </div>
                             <div class="panel-body">
+                                <?php
+                                $i=0;
+                                ?>
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
@@ -29,7 +32,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($data as $key => $user)
+                                    @foreach($data as $user)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             <td>{{ $user->name }}</td>
@@ -71,5 +74,12 @@
     </div>
 
 @stop
+@section('footer')
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable();
+        })
+    </script>
 
+@stop
 

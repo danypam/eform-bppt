@@ -44,6 +44,7 @@
                             <li><a href="/{{auth()->user()->id}}/profile" class="">My Profile</a></li>
                             <li><a href="/auth/ubahpass" class="">Ubah Password</a></li>
                             @role('Admin')
+                            <li><a href="/log" class="">Log Activity</a></li>
                             <li><a href="/roles" class="">Role</a></li>
                             <li><a href="/permission" class="">Permission</a></li>
                             <li><a href="/users" class="">Akses Akun</a></li>
