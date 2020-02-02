@@ -116,7 +116,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/submissions/{id}/reject','InboxController@reject');
 
     Route::get('/dashboard','DashboardController@index');
-    Route::get('/{id}/profile','PegawaiController@profile');
+//    Route::get('/{id}/profile','PegawaiController@profile');
 
     Route::get('/forms_pdf','ExportController@forms_pdf');
     Route::get('/{id}/submission_pdf','ExportController@submission_pdf');
