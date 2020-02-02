@@ -26,9 +26,7 @@ class InboxController extends Controller
 //        $datapeg = Pegawai::all()
 //            ->where('user_id',auth()->user()->id);
 //        dd($datapeg);
-        $peg = DB::table('pegawai')
-            ->where('user_id',auth()->user()->id)
-            ->first();
+
 //        dd($peg->unit_jabatan_id);
 
         //admin
@@ -46,9 +44,14 @@ class InboxController extends Controller
                 ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
                 ->join('forms as f','form_submissions.form_id','=','f.id')
                 ->join('unit_jabatan as uj', 'uj.id_unit_jabatan', '=', 'p.unit_jabatan_id')
-                ->where('uj.kode_unitatas1', '=', $peg->unit_jabatan_id)
-                ->orwhere('uj.kode_unitatas2', '=', $peg->unit_jabatan_id)
-                ->orwhere('form_submissions.status', '=', '0')
+                ->where('form_submissions.status', '=', '0')
+                ->where(function ($q){
+                    $peg = DB::table('pegawai')
+                        ->where('user_id',auth()->user()->id)
+                        ->first();
+                    $q->where('uj.kode_unitatas1', '=', $peg->unit_jabatan_id)
+                        ->orwhere('uj.kode_unitatas2', '=', $peg->unit_jabatan_id);
+                })
                 ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
                 ->get();
             return view('/inbox/index',['inboxs'=>$inboxs]);

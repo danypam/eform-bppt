@@ -89,7 +89,6 @@
                                                 <i class="fa fa-comment activity-icon"></i>
                                                 <p>{{$d->text}}<span class="timestamp">{{\Carbon\Carbon::parse($d->created_at)->diffForHumans()}}</span></p>
                                             </li>
-                                        @endforeach
                                     </ul>
                                     <div class="margin-top-30 text-center"><a href="#" class="btn btn-default">See all activity</a></div>
                                 </div>

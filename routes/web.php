@@ -120,4 +120,6 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/forms_pdf','ExportController@forms_pdf');
     Route::get('/{id}/submission_pdf','ExportController@submission_pdf');
+
+    Route::resource('/task', 'PicController');
 });

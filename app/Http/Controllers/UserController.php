@@ -36,7 +36,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        User::where('created_at', '<', Carbon::now()->subDays(1))->delete();
+        //User::where('created_at', '<', Carbon::now()->subDays(1))->delete();
         $data = User::all();
         return view('users.index',compact('data'));
     }

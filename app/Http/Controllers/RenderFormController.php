@@ -70,6 +70,7 @@ class RenderFormController extends Controller
 
             $form->submissions()->create([
                 'user_id' => $user_id,
+                'status' => 0,
                 'content' => $input,
             ]);
 
