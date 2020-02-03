@@ -15,9 +15,9 @@
 
 <body>
     <style type="text/css">
-        table tr{
+        /*table tr {
             text-align: center;
-        }
+        }*/
 
         table.table-borderless td, .table.table-borderless th {
             border: 0 !important;
@@ -34,43 +34,50 @@
 <div class="container">
     @yield('content')
     <br>
-            {{--<div class="row-cols-3" >
-                <div class="col">                                       </div>
-                <div class="col"> Mengetahui,                           </div>
-                <div class="col"> Menyetujui,                           </div>
-            </div>
-            <div class="row" >
-                <div class="col"> Pemohon        </div>
-                <div class="col"> Ka. Unit Kerja/Atasan Langsung        </div>
-                <div class="col"> Ka. Bidang Infrastruktur Informasi    </div>
-            </div>
-            <div class="row">
-                <div class="col"> __________________                    </div>
-                <div class="col"> __________________                    </div>
-                <div class="col"> __________________                    </div>
-            </div>
-            <div class="row" style="background-color: #2b542c">
-                <div class="col">                                       </div>
-                <div class="col">                                       </div>
-                <div class="col"> Amir Dahlan, S.T.,M. Kom              </div>
-            </div>--}}
-
-
     <table class="table table-borderless">
         <thead>
         <tr >
-            <th scope="col-sm-4" ></th>
-            <th scope="col-sm-4" ></th>
-            <th scope="col-sm-4" ></th>
+            <th scope="col" width="33%" ></th>
+            <th scope="col" width="33%" ></th>
+            <th scope="col" width="33%" ></th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="text-center">
             <td>                                       </td>
             <td> Mengetahui,                           </td>
             <td> Menyetujui,                           </td>
         </tr>
-
+        <tr class="text-center">
+            <td> Pemohon </td>
+            <td> Ka. Unit Kerja/Atasan Langsung     </td>
+            <td> Ka. Bidang Infrastruktur Informasi </td>
+        </tr>
+        <tr class="text-center" >
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+        <tr class="text-center" >
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+        <tr class="text-center" >
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+        <tr class="text-center" >
+            <td>__________________________</td>
+            <td>__________________________</td>
+            <td>__________________________</td>
+        </tr>
+        <tr class="text-center">
+            <td class="col">                                       </td>
+            <td class="col">                                       </td>
+            <td class="col"> Amir Dahlan, S.T.,M. Kom              </td>
+        </tr>
         </tbody>
     </table>
 
@@ -79,40 +86,6 @@
 </body>
 </html>
 
-
-
-
-{{--<table class="table table-borderless" text-align="center">
-
-    <thead>
-    <tr >
-        <th scope="col">--}}{{--created at--}}{{--</th>
-        <th scope="col">Mengetahui,</th>
-        <th scope="col">Menyetujui,</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td wi--}}{{--dth="100"--}}{{-->Pemohon</td>
-        <td --}}{{--width ="140"--}}{{-- >Ka. Unit Kerja/Atasan Langsung </td>
-        <td --}}{{--width ="140"--}}{{-->Ka. Bidang Infrastruktur Informasi</td>
-    </tr>
-    <tr>
-        <td colspan="3" height ="70">  </td>
-    </tr>
-    <tr>
-        <td>__________________</td>
-        <td>__________________</td>
-        <td>__________________</td>
-    </tr>
-
-    <tr>
-        <td></td>
-        <td></td>
-        <td> Amir Dahlan, S.T.,M. Kom </td>
-    </tr>
-    </tbody>
-</table>--}}
 
 
 
