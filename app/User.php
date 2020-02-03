@@ -64,4 +64,8 @@ class User extends Authenticatable implements LogsActivityInterface
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public static $login_validation_rules=[
+        'email'=>'required|email|exists:users',
+        'password'=>'required'
+    ];
 }
