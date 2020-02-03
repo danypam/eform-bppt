@@ -10,10 +10,10 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INFORMASI PEGAWAI</h3>
+                                <h3 class="panel-title">EMPLOYEES INFORMATION</h3>
                                 <div class="right">
                                     @can('pegawai-create')
-                                    <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal">Tambah Pegawai</a>
+                                    <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal" >Add Employee</a>
                                     @endcan
                                 </div>
                             </div>
@@ -22,8 +22,8 @@
                                     <thead>
                                     <tr>
                                         <th>NIP</th>
-                                        <th>NAMA LENGKAP</th>
-                                        <th>NO TELP</th>
+                                        <th>NAME</th>
+                                        <th>PHONE NUMBER</th>
                                         <th>EMAIL</th>
                                         <th>UNIT KERJA</th>
                                         <th>JABATAN</th>
@@ -32,7 +32,7 @@
                                         <th>JABATAN</th>
                                         <th>UNIT JABATAN</th>
                                         <th>STATUS</th>
-                                        <th>AKSI</th>
+                                        <th>ACTION</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -76,10 +76,10 @@
                                             {{--                                            }--}}
                                             <td>
                                                 @can('pegawai-edit')
-                                                <a href="/pegawai/{{$peg->id}}/edit" class="btn btn-warning btn-sm">Ubah</a>
+                                                <a href="/pegawai/{{$peg->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
                                                 @endcan
                                                 @can('pegawai-delete')
-                                                    <a href="#" class="btn btn-danger btn-sm delete" pegawai-id="{{$peg->id}}">Hapus</a>
+                                                    <a href="#" class="btn btn-danger btn-sm delete" pegawai-id="{{$peg->id}}">Delete</a>
                                                 @endcan
                                             </td>
                                         </tr>
@@ -116,11 +116,11 @@
                             <input name="nip18" type="text" class="form-control" id="exampleFormControlInput1" placeholder="NIP 2">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Nama Lengkap</label>
+                            <label for="exampleFormControlInput1">Name</label>
                             <input name="nama_lengkap" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Lengkap">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">No Telp</label>
+                            <label for="exampleFormControlInput1">Phone Number</label>
                             <input name="no_hp" type="text" class="form-control" id="exampleFormControlInput1" placeholder="No Telp">
                         </div>
                         <div class="form-group">
@@ -172,14 +172,14 @@
                                 @endforeach
                             </select>
                         </div>
-
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                    </form>
-                </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                     </div>
             </div>
+
         </div>
     </div>
 @stop

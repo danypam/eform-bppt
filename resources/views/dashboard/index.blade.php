@@ -58,7 +58,7 @@
                     <div class="col-md-12">
                         <div class="panel panel-scrolling">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Grafik</h3>
+                                <h3 class="panel-title">Chart</h3>
                                 <div id="chartSurat"></div>
                             </div>
                         </div>

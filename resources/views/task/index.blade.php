@@ -22,7 +22,7 @@
                                     <thead>
                                     <tr>
                                         <th>NIP</th>
-                                        <th>NAMA LENGKAP</th>
+                                        <th>Name</th>
                                         <th>Jenis Form</th>
                                         <th>Status</th>
                                         <th>Created At</th>

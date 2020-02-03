@@ -22,11 +22,11 @@
                                         <input value="{{$pegawai->nip18}}" name="nip18" type="text" class="form-control" id="exampleFormControlInput1" placeholder="nip">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleFormControlInput1">Nama Lengkap</label>
+                                        <label for="exampleFormControlInput1">Name</label>
                                         <input value="{{$pegawai->nama_lengkap}}" name="nama_lengkap" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Lengkap">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleFormControlInput1">No Telp</label>
+                                        <label for="exampleFormControlInput1">Phone Number</label>
                                         <input value="{{$pegawai->no_hp}}" name="no_hp" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nomor Telp">
                                     </div>
                                     <div class="form-group">
@@ -73,10 +73,10 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleFormControlInput1">Foto</label>
+                                        <label for="exampleFormControlInput1">Photo</label>
                                         <input  name="foto" type="file" class="form-control">
                                     </div>
-                                    <button type="submit" class="btn btn-warning">Ubah</button>
+                                    <button type="submit" class="btn btn-warning">Save</button>
                                 </form>
                             </div>
                         </div>

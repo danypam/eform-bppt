@@ -10,10 +10,10 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INFORMASI PERMISSION</h3>
+                                <h3 class="panel-title">PERMISSION</h3>
                                 <div class="right">
                                     @can('permission-create')
-                                        <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal">Tambah Permission</a>
+                                        <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal">Add Permission</a>
                                     @endcan
                                 </div>
                             </div>
@@ -24,10 +24,10 @@
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>NO</th>
-                                        <th>NAMA PERMISSION</th>
-                                        <th>DIKELOLA</th>
-                                        <th>AKSI</th>
+                                        <th>NUMBER</th>
+                                        <th>PERMISSION</th>
+                                        <th>MANAGED</th>
+                                        <th>ACTION</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -38,10 +38,10 @@
                                             <td>{{$permis->created_at}}</td>
                                             <td>
                                                 @can('permission-edit')
-                                                    <a href="/permission/{{$permis->id}}/edit" class="btn btn-warning btn-sm">Ubah</a>
+                                                    <a href="/permission/{{$permis->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
                                                 @endcan
                                                 @can('permission-delete')
-                                                    <a href="#" class="btn btn-danger btn-sm delete" permission-id="{{$permis->id}}">Hapus</a>
+                                                    <a href="#" class="btn btn-danger btn-sm delete" permission-id="{{$permis->id}}">Delete</a>
                                                 @endcan
                                             </td>
                                         </tr>
@@ -61,7 +61,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">TAMBAH DATA PERMISSION</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">ADD PERMISSION</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -70,14 +70,14 @@
                     <form action="/permission/create" method="POST">
                         {{csrf_field()}}
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Nama Permission</label>
-                            <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="nama permission">
+                            <label for="exampleFormControlInput1">Permission</label>
+                            <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="permission">
                         </div>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                     </form>
                 </div>
             </div>

@@ -21,9 +21,9 @@
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>No</th>
+                                        <th>Number</th>
                                         <th>Name</th>
-                                        <th>Dikelola</th>
+                                        <th>Managed</th>
                                         <th width="280px">Action</th>
                                     </tr>
                                     </thead>
@@ -36,7 +36,7 @@
                                             <td>
                                                 <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a>
                                                 @can('role-edit')
-                                                    <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Acces</a>
+                                                    <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Access</a>
                                                 @endcan
                                                 @can('role-delete')
                                                     {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
