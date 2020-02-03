@@ -10,7 +10,7 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">PERMISSION</h3>
+                                <h3 class="panel-title">PERMISSIONS</h3>
                                 <div class="right">
                                     @can('permission-create')
                                         <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal">Add Permission</a>
@@ -70,15 +70,15 @@
                     <form action="/permission/create" method="POST">
                         {{csrf_field()}}
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Permission</label>
+                            <label for="exampleFormControlInput1">Permissions</label>
                             <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="permission">
                         </div>
-
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
+
                 </div>
             </div>
         </div>

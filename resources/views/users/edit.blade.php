@@ -10,7 +10,7 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">EDIT USER</h3>
+                                <h3 class="panel-title">EDIT</h3>
                                 <div class="right">
                                     <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
                                 </div>

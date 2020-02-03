@@ -99,7 +99,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">TAMBAH DATA JABATAN</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">New Employee</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -130,7 +130,7 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Unit Kerja</label>
                             <select name="unit_id" class="form-control" id="exampleFormControlSelect1">
-                                <option value="">-pilih-</option>
+                                <option value="">-select-</option>
                                 @foreach($data_unit as $unit)
                                     <option value="{{$unit->id}}">{{$unit->nama_unit}}</option>
                                 @endforeach
@@ -139,7 +139,7 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Jabatan</label>
                             <select name="jabatan_id" class="form-control" id="exampleFormControlSelect1">
-                                <option value="">-pilih-</option>
+                                <option value="">-select-</option>
                                 @foreach($data_jabatan as $jab)
                                     <option value="{{$jab->id}}">{{$jab->nama_jabatan}}</option>
                                 @endforeach
@@ -148,7 +148,7 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Unit Jabatan</label>
                             <select name="unit_jabatan_id" class="form-control selectpicker" id="exampleFormControlSelect1" data-live-search="true">
-                                <option value="">-pilih-</option>
+                                <option value="">-select-</option>
                                 @foreach($data_unitjab as $unjab)
                                     <option value="{{$unjab->id_unit_jabatan}}">{{$unjab->unit}}</option>
                                 @endforeach
@@ -157,7 +157,7 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Nama Atasan</label>
                             <select name="nip_atas" class="form-control" id="exampleFormControlSelect1">
-                                <option value="">-pilih-</option>
+                                <option value="">-select-</option>
                                 @foreach($pegawai as $p)
                                     <option value="{{$p->id}}">{{$p->nama_lengkap}}</option>
                                 @endforeach
@@ -166,7 +166,7 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Role</label>
                             <select name="role" class="form-control" id="exampleFormControlSelect1">
-                                <option value="">-pilih-</option>
+                                <option value="">-select-</option>
                                 @foreach($data_role as $rol)
                                     <option value="{{$rol->name}}">{{$rol->name}}</option>
                                 @endforeach
