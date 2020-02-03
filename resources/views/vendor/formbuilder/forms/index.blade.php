@@ -9,10 +9,9 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INFORMASI PEGAWAI</h3>
+                                <h3 class="panel-title">FORMS</h3>
                             </div>
                             <div class="panel-body">
-                                Forms
                                 <div class="btn-toolbar float-md-right" role="toolbar">
                                     <div class="btn-group" role="group" aria-label="Third group">
                                         <a href="{{ route('formbuilder::forms.create') }}" class="btn btn-primary btn-sm">
