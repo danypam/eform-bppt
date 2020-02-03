@@ -10,7 +10,7 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INFORMASI ALAMAT</h3>
+                                <h3 class="panel-title">ACTIVITIES</h3>
                             </div>
                             <div class="panel-body">
                                 <?php
