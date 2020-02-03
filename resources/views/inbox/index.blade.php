@@ -49,7 +49,7 @@
                                             @endif
                                             <td>{{$inbox->created_at}}</td>
                                             <td>
-                                                <a href="/form-builder/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
 
                                                 @if($inbox->status == -1)
                                                     <a href="/submissions/{{$inbox->submission_id}}/approve" class="btn btn-primary btn-sm hidden">Approve</a>

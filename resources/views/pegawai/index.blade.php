@@ -187,7 +187,7 @@
     <script>
         $(document).ready(function () {
             $('#datatable').DataTable({
-                scrollY:     300,
+                scrollX:     300,
                 scroller:    true
             });
 

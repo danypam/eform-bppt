@@ -2,9 +2,10 @@
     <div class="sidebar-scroll">
         <nav>
             <ul class="nav">
-
+{{--                test submit--}}
                 <li><a href="/dashboard" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
                 <li><a href="/inbox" class=""><i class="lnr lnr-user"></i> <span>Inbox</span></a></li>
+                <li><a href="/task" class=""><i class="lnr lnr-user"></i> <span>Task</span></a></li>
                 <li>
                     <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>CRUD</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                     <div id="subPages" class="collapse ">
@@ -44,6 +45,7 @@
                             <li><a href="/{{auth()->user()->id}}/profile" class="">My Profile</a></li>
                             <li><a href="/auth/ubahpass" class="">Ubah Password</a></li>
                             @role('Admin')
+                            <li><a href="/log" class="">Log Activity</a></li>
                             <li><a href="/roles" class="">Role</a></li>
                             <li><a href="/permission" class="">Permission</a></li>
                             <li><a href="/users" class="">Akses Akun</a></li>

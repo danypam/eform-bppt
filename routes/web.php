@@ -106,6 +106,9 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/{id}/profile', 'UserController@profile');
 
+    Route::get('/log','LogController@index');
+    Route::get('/log/{id}/delete','LogController@delete');
+
     Route::resource('/formulir', 'FormulirController');
 
     Route::resource('/inbox', 'InboxController');
@@ -113,8 +116,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/submissions/{id}/reject','InboxController@reject');
 
     Route::get('/dashboard','DashboardController@index');
-    Route::get('/{id}/profile','PegawaiController@profile');
+//    Route::get('/{id}/profile','PegawaiController@profile');
 
     Route::get('/forms_pdf','ExportController@forms_pdf');
     Route::get('/{id}/submission_pdf','ExportController@submission_pdf');
+
+    Route::resource('/task', 'PicController');
 });
