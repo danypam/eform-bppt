@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,7 +15,7 @@ class AuthController extends Controller
     }
     public function postlogin(Request $request)
     {
-
+        $this->validate($request, User::$login_validation_rules);
         if (Auth::attempt($request->only('email','password','status'))){
             if(auth()->user()->status == true) {
                 if ($request->password == '123456') {

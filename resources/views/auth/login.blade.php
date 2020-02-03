@@ -35,13 +35,19 @@
                         </div>
                         <form class="form-auth-small" action="/postlogin" method="POST">
                             {{csrf_field()}}
-                            <div class="form-group">
+                            <div class="form-group{{$errors->has('email')? ' has-error':''}}">
                                 <label for="signin-email" class="control-label sr-only">Email</label>
-                                <input name="email" type="email" class="form-control" id="signin-email"  placeholder="Email">
+                                <input name="email" type="text" class="form-control" id="signin-email"  placeholder="Email" value="{{old('email')}}">
+                                @if ($errors->has('email'))
+                                    <span class="help-block">{{ $errors->first('email') }}</span>
+                                @endif
                             </div>
-                            <div class="form-group">
+                            <div class="form-group{{$errors->has('password')? ' has-error':''}}">
                                 <label for="signin-password" class="control-label sr-only">Password</label>
                                 <input name="password" type="password" class="form-control" id="signin-password"  placeholder="Password">
+                                @if ($errors->has('password'))
+                                    <span class="help-block">{{ $errors->first('password') }} </span>
+                                @endif
                             </div>
                             <div class="form-group clearfix">
                                 <label class="fancy-checkbox element-left">
