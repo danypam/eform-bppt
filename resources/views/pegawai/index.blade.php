@@ -187,8 +187,8 @@
     <script>
         $(document).ready(function () {
             $('#datatable').DataTable({
-                scrollX:     300,
-                scroller:    true
+                scroller:    true,
+                scrollX:     300
             });
 
             $('.delete').click(function () {

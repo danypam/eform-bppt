@@ -5,6 +5,7 @@
 {{--                test submit--}}
                 <li><a href="/dashboard" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
                 <li><a href="/inbox" class=""><i class="lnr lnr-user"></i> <span>Inbox</span></a></li>
+                <li><a href="{{ route('formbuilder::my-submissions.index') }}" class=""><i class="lnr lnr-user"></i> <span>My Submissions</span></a></li>
                 <li><a href="/task" class=""><i class="lnr lnr-user"></i> <span>Tasks</span></a></li>
                 <li>
                     <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>CRUD</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
