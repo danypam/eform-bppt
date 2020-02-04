@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    @role('Admin')
+
     <div class="main">
         <!-- MAIN CONTENT -->
         <div class="main-content">
@@ -19,7 +19,7 @@
                                     <span class="icon"><i class="fa fa-download"></i></span>
                                     <p>
                                         <span class="number">1,252</span><br>
-                                        <span class="title label label-default">Papers</span>
+                                        <span class="title label label-default">Submissions</span>
                                     </p>
                                 </div>
                             </div>
@@ -28,6 +28,15 @@
                                     <span class="icon"><i class="fa fa-shopping-bag"></i></span>
                                     <p>
                                         <span class="number">203</span><br>
+                                        <span class="title label label-warning">New</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="metric">
+                                    <span class="icon"><i class="fa fa-bar-chart"></i></span>
+                                    <p>
+                                        <span class="number">350</span><br>
                                         <span class="title label label-warning">Pending</span>
                                     </p>
                                 </div>
@@ -37,7 +46,7 @@
                                     <span class="icon"><i class="fa fa-eye"></i></span>
                                     <p>
                                         <span class="number">274</span><br>
-                                        <span class="title label label-info">On Progress</span>
+                                        <span class="title label label-info">On Going</span>
                                     </p>
                                 </div>
                             </div>
@@ -46,7 +55,16 @@
                                     <span class="icon"><i class="fa fa-bar-chart"></i></span>
                                     <p>
                                         <span class="number">350</span><br>
-                                        <span class="title label label-success">Complete</span>
+                                        <span class="title label label-success">Completed</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="metric">
+                                    <span class="icon"><i class="fa fa-bar-chart"></i></span>
+                                    <p>
+                                        <span class="number">350</span><br>
+                                        <span class="title label label-danger">Rejected</span>
                                     </p>
                                 </div>
                             </div>
@@ -101,12 +119,86 @@
         </div>
     </div>
     <!-- END MAIN CONTENT -->
-    @endrole
+
 @endsection
 
 @section('footer')
+<script>
+    Highcharts.chart('chartSurat', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Submissions'
+        },
+        /*subtitle: {
+            text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
+        },*/
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'],
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Jumlah',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' millions'
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -0,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor:
+                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+            shadow: true
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'form1',
+            data: [107, 31, 635, 203, 2]
+        }, {
+            name: 'form1',
+            data: [133, 156, 947, 408, 6]
+        }, {
+            name: 'form1',
+            data: [814, 841, 3714, 727, 31]
+        }, {
+            name: 'form1',
+            data: [1216, 1001, 7436, 738, 40]
+        }, {
+            name: 'form1',
+            data: [1216, 1001, 4436, 738, 40]
+        }]
+    });
 
-    <script>
+
+</script>
+
+@endsection
+
+{{--<script>
         Highcharts.chart('chartSurat', {
             chart: {
                 type: 'column'
@@ -119,8 +211,7 @@
             },
             xAxis: {
                 categories: [
-                    'Form Emal',
-                    'Form Domain',
+                    'Form Emal'
                 ],
                 crosshair: true
             },
@@ -162,6 +253,4 @@
                 data: [1,8]
             }]
         });
-    </script>
-@endsection
-
+    </script>--}}

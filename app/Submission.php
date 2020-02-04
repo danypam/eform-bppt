@@ -208,4 +208,12 @@ class Submission extends Model implements LogsActivityInterface
 
         return '';
     }
+
+    public static function subs_bulan(){
+        $tahun = date('Y');
+        $category = [];
+        $series=[];
+
+        
+    }
 }
