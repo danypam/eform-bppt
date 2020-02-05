@@ -32,6 +32,13 @@
                         <div class="header">
                             <div class="logo text-center"><img src="{{asset('assets/img/logofix2.png')}}"  alt=""></div>
                             <p class="lead">Login to your account</p>
+                            @if(Session::has('error'))
+                                @if(isset($error) || Session::has('error') )
+                                    <div class="alert alert-danger">
+                                        <strong>Your Account is not Active!</strong><br> {{ isset($error) ? $info : Session::get('error') }}
+                                    </div>
+                                @endif
+                            @endif
                         </div>
                         <form class="form-auth-small" action="/postlogin" method="POST">
                             {{csrf_field()}}

@@ -35,8 +35,8 @@ class JabatanController extends Controller
 
     public function create(Request $request)
     {
+      //  $this->validate($request, Jabatan::$create_validation_rules);
         Jabatan::create($request->all());
-
         return redirect('/jabatan')->with('sukses','Data Berhasil Ditambah');
     }
 
@@ -47,6 +47,7 @@ class JabatanController extends Controller
     }
     public function update(Request $request,$id)
     {
+        //$this->validate($request, Jabatan::$edit_validation_rules);
         $jabatan = Jabatan::find($id);
         $jabatan->update($request->all());
         return redirect('/jabatan')->with('sukses','Data berhasil diupdate');
