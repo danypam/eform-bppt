@@ -38,7 +38,10 @@
                                             @if($task->status == -1)
                                                 <td><span class="label label-danger">REJECTED</span></td>
                                             @endif
-                                            @if($task->status == 0 || $task->status == 1)
+                                            @if($task->status == 0)
+                                                <td><span class="label label-primary">NEW</span></td>
+                                            @endif
+                                            @if($task->status == 1)
                                                 <td><span class="label label-warning">PENDING</span></td>
                                             @endif
                                             @if($task->status == 2)

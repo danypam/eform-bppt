@@ -73,12 +73,11 @@
                             <label for="exampleFormControlInput1">Permissions</label>
                             <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="permission">
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-
                 </div>
             </div>
         </div>
@@ -89,7 +88,7 @@
         $(document).ready(function () {
             $('#datatable').DataTable();
 
-            $('.delete').click(function () {
+            $('#datatable').on( "click",'.delete', function()  {
                 var permis_id = $(this).attr('permission-id');
                 swal({
                     title: "Are you sure?",
