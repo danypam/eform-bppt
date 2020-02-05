@@ -10,7 +10,7 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                php            <h3 class="panel-title">Inbox</h3>
+                                           <h3 class="panel-title">TASKS</h3>
                                 <div class="right">
                                     @can('pegawai-create')
                                         {{--                                        <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal">Tambah Pegawai</a>--}}
@@ -22,7 +22,7 @@
                                     <thead>
                                     <tr>
                                         <th>NIP</th>
-                                        <th>NAMA LENGKAP</th>
+                                        <th>Name</th>
                                         <th>Jenis Form</th>
                                         <th>Status</th>
                                         <th>Created At</th>

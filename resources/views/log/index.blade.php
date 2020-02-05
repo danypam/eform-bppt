@@ -10,7 +10,7 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INFORMASI ALAMAT</h3>
+                                <h3 class="panel-title">ACTIVITIES</h3>
                             </div>
                             <div class="panel-body">
                                 <?php
@@ -21,10 +21,10 @@
                                     <tr>
                                         <th>NO</th>
                                         <th>USER</th>
-                                        <th>DESKRIPSI</th>
-                                        <th>DIAKSES</th>
-                                        <th>DIKELOLA</th>
-                                        <th>AKSI</th>
+                                        <th>DESCRIPTION</th>
+                                        <th>ACCESSED</th>
+                                        <th>MANAGED</th>
+                                        <th>ACTION</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -37,7 +37,7 @@
                                             <td><span class="label label-default ">{{\Carbon\Carbon::parse($a->created_at)->diffForHumans()}}</span></td>
                                             <td>
                                                 @can('log-delete')
-                                                    <a href="#" class="btn btn-danger btn-sm delete" log-id="{{$a->id}}">Hapus</a>
+                                                    <a href="#" class="btn btn-danger btn-sm delete" log-id="{{$a->id}}">Delete</a>
                                                 @endcan
                                             </td>
                                         </tr>

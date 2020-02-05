@@ -10,9 +10,9 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">USERS MANAGEMENT</h3>
+                                <h3 class="panel-title">MANAGE USERS</h3>
                                 <div class="right">
-                                    <a class="btn btn-primary" href="{{ route('users.create') }}"> Create New User</a>
+                                    <a class="btn btn-primary" href="{{ route('users.create') }}"> Add New User</a>
                                 </div>
                             </div>
                             <div class="panel-body">
@@ -22,13 +22,13 @@
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>NO</th>
-                                        <th>NAMA</th>
+                                        <th>NUMBER</th>
+                                        <th>NAME</th>
                                         <th>EMAIL</th>
                                         <th>ROLE</th>
                                         <th>STATUS</th>
-                                        <th>DIKELOLA</th>
-                                        <th>AKSI</th>
+                                        <th>MANAGED</th>
+                                        <th>ACTION</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -44,7 +44,7 @@
                                                     @endforeach
                                                 @endif
                                             @if($user->status == true)
-                                                <td><span class="label label-success">Aktif</span></td>
+                                                <td><span class="label label-success">Active</span></td>
                                             @else
                                                 <td><span class="label label-danger ">Suspend</span></td>
                                             @endif

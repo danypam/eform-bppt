@@ -8,7 +8,7 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Inputs</h3>
+                                <h3 class="panel-title">EDIT</h3>
                             </div>
                             <div class="panel-body">
                                 <form action="/jabatan/{{$jabatan->id}}/update" method="POST">

@@ -41,7 +41,7 @@
                                     <ul class="list-unstyled list-justify">
                                         <li><b>NIP 1</b> <span>{{$data_pegawai->nip}}</span></li>
                                         <li><b>NIP 2</b><span>{{$data_pegawai->nip18}}</span></li>
-                                        <li><b>No Telp</b> <span>{{$data_pegawai->no_hp}}</span></li>
+                                        <li><b>Phone Number</b> <span>{{$data_pegawai->no_hp}}</span></li>
                                         <li><b>Email</b> <span>{{$data_pegawai->email}}</span></li>
                                         @foreach($data_jabatan as $j)
                                             @if($j->id == $data_pegawai->jabatan_id)

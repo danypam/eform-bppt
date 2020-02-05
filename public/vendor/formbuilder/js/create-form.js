@@ -193,6 +193,7 @@ jQuery(function() {
             // console.log(formBuilderArrayData)
 
             var pic_array = $('#pic').val();
+            console.log(pic_array[0]);
             var pic_json = JSON.stringify(pic_array);
 
             var postData = {
