@@ -106,11 +106,10 @@
                             <label for="exampleFormControlInput1">SINGKATAN</label>
                             <input name="singkat" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Singkatan">
                         </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
                     </form>
                 </div>
             </div>
