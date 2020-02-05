@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use DB;
 
 use Illuminate\Http\Request;
+use jazmy\FormBuilder\Models\Form;
+use jazmy\FormBuilder\Models\Submission;
 
 class DashboardController extends Controller
 {
@@ -16,5 +18,13 @@ class DashboardController extends Controller
             ->get();
 
         return view('dashboard.index',['data'=>$data]);
+    }
+
+    public function chart()
+    {
+        $submissions = Submission::getForUser($user);
+        $forms = Form::getForUser(auth()->user());
+
+        return view('formbuilder::forms.index', compact('forms'));
     }
 }

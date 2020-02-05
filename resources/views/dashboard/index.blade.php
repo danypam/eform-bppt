@@ -126,7 +126,7 @@
 <script>
     Highcharts.chart('chartSurat', {
         chart: {
-            type: 'bar'
+            type: 'line'
         },
         title: {
             text: 'Submissions'
@@ -135,7 +135,7 @@
             text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
         },*/
         xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'],
+            categories: [],
             title: {
                 text: null
             }
