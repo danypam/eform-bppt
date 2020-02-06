@@ -13,7 +13,11 @@ use jazmy\FormBuilder\Helper;
 use jazmy\FormBuilder\Models\Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use Throwable;
+use App\User;
+use App\Notifications\NewForm;
+use jazmy\FormBuilder\Models\Submission;
 
 class RenderFormController extends Controller
 {
@@ -60,6 +64,15 @@ class RenderFormController extends Controller
         \Mail::to('littleodysoo@gmail.com')->send(new email_atasan($details));
         DB::beginTransaction();
 
+        $users = User::whereHas('roles',function($q){
+            $q->where('name','atasan');
+        })->get();
+        if (\Notification::send($users, new NewForm(Submission::latest('id')->first())))
+        {
+            return back();
+        }
+
+
         try {
             $input = $request->except('_token');
 
@@ -81,7 +94,6 @@ class RenderFormController extends Controller
                 'content' => $input,
             ]);
             DB::commit();
-
             return redirect()
                     ->route('formbuilder::form.feedback', $identifier)
                     ->with('success', 'Form successfully submitted. Please wait');
@@ -92,6 +104,10 @@ class RenderFormController extends Controller
 
             return back()->withInput()->with('error', Helper::wtf());
         }
+
+    }
+    public function notification(){
+        return auth()->user()->unreadNotifications;
     }
 
     /**

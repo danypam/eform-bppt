@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Mail\email_kepala;
 use App\Pegawai;
 use App\UnitJabatan;
+use App\Submission;
 use Illuminate\Http\Request;
-use DB;
-use jazmy\FormBuilder\Models\Submission;
+use Illuminate\Support\Facades\Auth;
+use \Illuminate\Support\Facades\DB;
+use PhpParser\Node\Scalar\String_;
 
 class InboxController extends Controller
 {
@@ -19,8 +21,8 @@ class InboxController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:inbox-list-mengetahui|inbox-list-menyetujui|inbox-list-all', ['only' => ['index','show']]);
-        $this->middleware('permission:inbox-list-mengetahui-edit|inbox-list-menyetujui-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:inbox-list-mengetahui|inbox-list-menyetujui|inbox-list-all|inbox-list-mengetahui-menyetujui', ['only' => ['index','show']]);
+        $this->middleware('permission:inbox=approve-all|inbox-approve-mengetahui|inbox-approve-menyetujui|inbox-approve-mengetahui-menyetujui', ['only' => ['edit','update']]);
     }
     public function index()
     {
@@ -36,11 +38,13 @@ class InboxController extends Controller
             $inboxs = DB::table('form_submissions')
                 ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
                 ->join('forms as f','form_submissions.form_id','=','f.id')
-                ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->select('nama_lengkap','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->orderBy('created_at', 'desc')
                 ->get();
             return view('/inbox/index',['inboxs'=>$inboxs]);
         }
-        if (auth()->user()->can('inbox-list-mengetahui')){
+        //atasan langsung
+        else if (auth()->user()->can('inbox-list-mengetahui')){
             $inboxs = DB::table('form_submissions')
                 ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
                 ->join('forms as f','form_submissions.form_id','=','f.id')
@@ -53,29 +57,71 @@ class InboxController extends Controller
                     $q->where('uj.kode_unitatas1', '=', $peg->unit_jabatan_id)
                         ->orwhere('uj.kode_unitatas2', '=', $peg->unit_jabatan_id);
                 })
-                ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->select('nama_lengkap','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->orderBy('created_at', 'desc')
                 ->get();
             return view('/inbox/index',['inboxs'=>$inboxs]);
         }
-        if(auth()->user()->can('inbox-list-menyetujui')){
+        //kepala
+        else if(auth()->user()->can('inbox-list-menyetujui')){
             $inboxs = DB::table('form_submissions')
                 ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
                 ->join('forms as f','form_submissions.form_id','=','f.id')
-                ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->select('nama_lengkap','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
                 ->where('form_submissions.status', '=', '1')
+                ->orderBy('created_at', 'desc')
+                ->get();
+            return view('/inbox/index',['inboxs'=>$inboxs]);
+        }
+        //atasan langsung sekaligus kepala
+        else if(auth()->user()->can('inbox-list-mengetahui-menyetujui')){
+            $inboxs = DB::table('form_submissions')
+                ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
+                ->join('forms as f','form_submissions.form_id','=','f.id')
+                ->join('unit_jabatan as uj', 'uj.id_unit_jabatan', '=', 'p.unit_jabatan_id')
+                ->select('nama_lengkap','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->where(function($q) {
+                    $peg = DB::table('pegawai')
+                        ->where('user_id',auth()->user()->id)
+                        ->first();
+                    $q->where('form_submissions.status', '=', '0')
+                        ->where('uj.kode_unitatas1', '=', $peg->unit_jabatan_id)
+                        ->orwhere('uj.kode_unitatas2', '=', $peg->unit_jabatan_id);
+                })
+                ->orWhere('form_submissions.status', '=', '1')
+                ->orderBy('created_at', 'desc')
                 ->get();
             return view('/inbox/index',['inboxs'=>$inboxs]);
         }
     }
 
+    public function commit($id){
+        //Search ID Pegawai
+        return DB::table('form_submissions')->where([
+                        'id' => $id
+                    ])->update([
+                        'status' => DB::raw('status + 1')
+                    ]);
+    }
+
+    public function fillWhoApprove($id_form_submission, $column){
+
+
+        //get id pegawai
+        $id_pegawai = DB::table('pegawai')
+                        ->select('id')
+                        ->where('user_id','=',Auth()->user()->id)
+                        ->first();
+
+        return DB::table('form_submissions')->where([
+             'id' => $id_form_submission
+            ])->update([
+            $column => DB::raw(Auth::user()->id)
+            ]);
+    }
+
     public function approve($id)
     {
-//        $details = [
-//            'title' => 'Fajar Agustian',
-//            'body' => 'Please check this link'
-//        ];
-//
-//        \Mail::to('fajar654@gmail.com')->send(new email_kepala($details));
         DB::beginTransaction();
         DB::table('form_submissions')->where([
             'id'=>$id
@@ -84,8 +130,68 @@ class InboxController extends Controller
         ]);
 
         return redirect('/inbox')->with('sukses','Formulir Berhasil DiSetujui');
+        //tingkatan status
+
+
+        $isFilled = DB::table('form_submissions')
+            ->select('mengetahui', 'menyetujui', 'pic', 'status')
+            ->where('id', '=', $id)
+        ->first();
+
+            //approve all
+            if(auth()->user()->can('inbox-approve-all')) {
+                if(!isset($isFilled->mengetahui)
+                    || !isset($isFilled->menyetujui)
+                    || !isset($isFilled->pic)){
+                    //$this->commit($id);
+                    return redirect('/inbox')->with('sukses', 'Formulir Berhasil DiSetujui');
+                }
+                else{
+                    return redirect('/inbox')->with('error', 'Formulir Telah Dieksekusi oleh user lain');
+                }
+                //approve mengetahui sekaligus menyetujui
+            }else if(auth()->user()->can('inbox-approve-mengetahui-menyetujui')){
+                DB::beginTransaction();
+                try{
+                    if(!isset($isFilled->mengetahui)){
+                        $this->commit($id);
+                        $this->fillWhoApprove($id, "mengetahui");
+                    }
+                    if(!isset($isFilled->menyetujui)){
+                        $this->commit($id);
+                        $this->fillWhoApprove($id, "menyetujui");
+                    }
+                    DB::commit();
+                    return redirect('/inbox')->with('sukses', 'Formulir Berhasil DiSetujui');
+                }catch (Throwable $e){
+                    DB::rollback();
+                    return redirect('/inbox')->with('error', 'Error');
+                }
+            } else if(auth()->user()->can('inbox-approve-menyetujui')){
+                DB::beginTransaction();
+                if(!($isFilled->menyetujui)){
+                     $this->commit($id);
+                     $this->fillWhoApprove($id, "menyetujui");
+                    DB::commit();
+                    return redirect('/inbox')->with('sukses', 'Formulir Berhasil DiSetujui');
+                }else{
+                    DB::rollback();
+                    return redirect('/inbox')->with('error', 'Formulir Telah Dieksekusi oleh user lain');
+                }
+            }else if(auth()->user()->can('inbox-approve-mengetahui')) {
+                if ((!$isFilled->mengetahui)) {
+                    $this->commit($id);
+                    $this->fillWhoApprove($id, "menyetujui");
+                    DB::commit();
+                    return redirect('/inbox')->with('sukses', 'Formulir Berhasil DiSetujui');
+                } else {
+                    DB::rollback();
+                    return redirect('/inbox')->with('error', 'Formulir Telah Dieksekusi oleh user lain');
+                }
+            }
 
     }
+
     public function reject($id)
     {
         DB::table('form_submissions')->where([

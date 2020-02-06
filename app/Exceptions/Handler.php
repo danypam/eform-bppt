@@ -51,5 +51,6 @@ class Handler extends ExceptionHandler
         }
         return parent::render($request,$exception);
         //return redirect()->action('AuthController@login')->with('error','Your login session has expired, please log ');
+
     }
 }
