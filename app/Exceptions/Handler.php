@@ -50,6 +50,6 @@ class Handler extends ExceptionHandler
             return response()->json(['User have not permission for this page access.']);
         }
 
-        return redirect()->action('AuthController@login')->with('error','Your login session has expired, please login again');;
+        return redirect()->action('AuthController@login')->with('error','Your login session has expired, please login again');
     }
 }

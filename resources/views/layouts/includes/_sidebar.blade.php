@@ -2,11 +2,15 @@
     <div class="sidebar-scroll">
         <nav>
             <ul class="nav">
-{{--                test submit--}}
                 <li><a href="/dashboard" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
                 <li><a href="/inbox" class=""><i class="lnr lnr-user"></i> <span>Inbox</span></a></li>
+                @if (auth()->user()->can('submission-list'))
                 <li><a href="{{ route('formbuilder::my-submissions.index') }}" class=""><i class="lnr lnr-user"></i> <span>My Submissions</span></a></li>
+                @endif
+                @if (auth()->user()->can('task-list') || auth()->user()->can('task-approve'))
                 <li><a href="/task" class=""><i class="lnr lnr-user"></i> <span>Tasks</span></a></li>
+                @endif
+                @can('crud-management')
                 <li>
                     <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>CRUD</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                     <div id="subPages" class="collapse ">
@@ -29,16 +33,17 @@
                         </ul>
                     </div>
                 </li>
+                @endcan
                 @if (auth()->user()->can('pegawai-list') || auth()->user()->can('pegawai-delete') || auth()->user()->can('pegawai-create')|| auth()->user()->can('pegawai-edit'))
                 <li><a href="/pegawai" class=""><i class="lnr lnr-user"></i> <span>Employees</span></a></li>
                 @endif
-{{--                @if (auth()->user()->can('form-list') || auth()->user()->can('form-delete') || auth()->user()->can('form-create')|| auth()->user()->can('form-edit')|| auth()->user()->can('form-input'))--}}
+                @if (auth()->user()->can('form-list') || auth()->user()->can('form-delete') || auth()->user()->can('form-create')|| auth()->user()->can('form-edit'))
                 <li><a href="/forms" class=""><i class="lnr lnr-user"></i> <span>Form Builder</span></a></li>
-                <li><a href="/formulir" class=""><i class="lnr lnr-user"></i> <span>Forms</span></a></li>
-{{--                @endif--}}
-                @if (auth()->user()->can('task-list') || auth()->user()->can('task-approve'))
-                <li><a href="panels.html" class=""><i class="lnr lnr-user"></i> <span>Tasks</span></a></li>
                 @endif
+                @if(auth()->user()->can('form-input'))
+                <li><a href="/formulir" class=""><i class="lnr lnr-user"></i> <span>Forms</span></a></li>
+                @endif
+
                 <li>
                     <a href="#subPages1" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Settings</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                     <div id="subPages1" class="collapse ">
