@@ -24,7 +24,7 @@ class AuthController extends Controller
                     return redirect('/dashboard');
                 }
             }else{
-                return redirect('/login')->with('error','Please Contact (021) 757 91262');
+                return redirect('/login')->with('error','Your Account is not Active.Please Contact (021) 757 91262');
             }
         }
         return redirect('/login');

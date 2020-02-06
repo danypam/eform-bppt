@@ -11,11 +11,6 @@
                         <div class="panel">
                             <div class="panel-heading">
                                 <h3 class="panel-title">INBOX</h3>
-                                <div class="right">
-                                    @can('pegawai-create')
-{{--                                        <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal">Tambah Pegawai</a>--}}
-                                    @endcan
-                                </div>
                             </div>
                             <div class="panel-body">
                                 <table class="table table-hover" id="datatable">
