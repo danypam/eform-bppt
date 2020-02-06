@@ -10,20 +10,26 @@
 
         <div id="navbar-menu">
             <ul class="nav navbar-nav navbar-right">
+
+{{--                <submission id="app" v-bind:submissions="submissions"></submission>--}}
+                @if(Auth::check())
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
                         <i class="lnr lnr-alarm"></i>
-                        <span class="badge bg-danger">5</span>
+                        <span class="badge bg-danger">{{auth()->user()->unreadNotifications->count()}}</span>
                     </a>
                     <ul class="dropdown-menu notifications">
-                        <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
-                        <li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
-                        <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li>
-                        <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
-                        <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li>
-                        <li><a href="#" class="more">See all notifications</a></li>
+                        @if(auth()->user()->unreadNotifications->count())
+                            @foreach(auth()->user()->unreadNotifications as $notifications)
+                        <li><a href="/inbox" class="notification-item"><span class="dot bg-success"></span>New Form {{$notifications->data['submission']['form_id']}} submit by {{$notifications->data['submission']['user_id']}}</a></li>
+                            @endforeach
+                                <li><a href="/inbox" class="more">See all notifications</a></li>
+                        @else
+                            <li><p class="more">No Notification</p></li>
+                        @endif
                     </ul>
                 </li>
+                @endif
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{auth()->user()->pegawai->getFoto()}}" class="img-circle" alt="Avatar"> <span>{{auth()->user()->name}}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
                     <ul class="dropdown-menu">
