@@ -10,13 +10,12 @@
                     <div class="col-md-12">
                         <div class="panel" style="width: auto">
                             <div class="panel-heading">
-                                <div class="btn-toolbar float-md-right" role="toolbar">
-                                    <div class="btn-group">
-                                        <a href="{{ route('formbuilder::forms.create') }}" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-plus-circle"></i> Create a New Form
+                                <h3 class="panel-title">TYPE OF FORM </h3>
+                                <div class="right">
+                                        <a href="{{ route('formbuilder::forms.create') }}" class="btn btn-info btn-lg">
+                                            <i class="fa fa-plus-circle"></i> Create a New Type of Form
                                         </a>
                                     </div>
-                                </div>
                             </div>
                             <div class="panel-body">
                             @if($forms->count())
@@ -53,13 +52,13 @@
                                                     <a href="{{ route('formbuilder::forms.submissions.index', $form) }}" class="btn btn-primary btn-sm" title="View submissions for form '{{ $form->name }}'">
                                                         <i class="fa fa-th-list"></i> Data
                                                     </a>
-                                                    <a href="{{ route('formbuilder::forms.show', $form) }}" class="btn btn-primary btn-sm" title="Preview form '{{ $form->name }}'">
-                                                        <i class="fa fa-eye"></i>
+                                                    <a href="{{ route('formbuilder::forms.show', $form) }}" class="btn btn-success btn-sm" title="Preview form '{{ $form->name }}'">
+                                                        <i class="lnr lnr-eye"></i>
                                                     </a>
-                                                    <a href="{{ route('formbuilder::forms.edit', $form) }}" class="btn btn-primary btn-sm" title="Edit form">
+                                                    <a href="{{ route('formbuilder::forms.edit', $form) }}" class="btn btn-warning btn-sm" title="Edit form">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
-                                                    <button class="btn btn-primary btn-sm clipboard" data-clipboard-text="{{ route('formbuilder::form.render', $form->identifier) }}" data-message="" data-original="" title="Copy form URL to clipboard">
+                                                    <button class="btn btn-dark btn-sm clipboard" data-clipboard-text="{{ route('formbuilder::form.render', $form->identifier) }}" data-message="" data-original="" title="Copy form URL to clipboard">
                                                         <i class="fa fa-clipboard"></i>
                                                     </button>
 

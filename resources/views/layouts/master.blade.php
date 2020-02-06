@@ -14,7 +14,8 @@
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
     <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-    <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}">
+
+
     <!-- GOOGLE FONTS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
@@ -57,6 +58,7 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
+
 @yield('footer')
 <script>
     @if(Session::has('warning'))

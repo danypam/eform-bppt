@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\email_kepala;
 use App\Pegawai;
 use App\UnitJabatan;
 use Illuminate\Http\Request;
@@ -69,11 +70,19 @@ class InboxController extends Controller
 
     public function approve($id)
     {
+//        $details = [
+//            'title' => 'Fajar Agustian',
+//            'body' => 'Please check this link'
+//        ];
+//
+//        \Mail::to('fajar654@gmail.com')->send(new email_kepala($details));
+        DB::beginTransaction();
         DB::table('form_submissions')->where([
             'id'=>$id
         ])->update([
             'status'=> DB::raw('status + 1')
         ]);
+
         return redirect('/inbox')->with('sukses','Formulir Berhasil DiSetujui');
 
     }

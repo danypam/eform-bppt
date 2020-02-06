@@ -35,7 +35,7 @@
                             @if(Session::has('error'))
                                 @if(isset($error) || Session::has('error') )
                                     <div class="alert alert-danger">
-                                        <strong>Your Account is not Active!</strong><br> {{ isset($error) ? $info : Session::get('error') }}
+                                       {{ isset($error) ? $info : Session::get('error') }}
                                     </div>
                                 @endif
                             @endif

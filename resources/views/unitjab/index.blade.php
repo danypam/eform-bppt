@@ -21,13 +21,13 @@
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>KATEGORI</th>
+                                        <th>Category</th>
                                         <th>KODE UNIT JABATAN</th>
                                         <th>UNIT</th>
                                         <th>UNIT ATASAN 1</th>
                                         <th>UNIT ATASAN 2</th>
-                                        <th>SINGKATAN</th>
-                                        <th>AKSI</th>
+                                        <th>Abbreviation</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
