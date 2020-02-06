@@ -32,4 +32,8 @@ class Jabatan extends Model implements LogsActivityInterface
 
         return '';
     }
+//    public static $edit_validation_rules=[
+//        'nama_jabatan'=>'required|exists:jabatan|regex:/^[A-Z\s]+$/',
+//        'eselon'=>'required|min:1|regex:\^[A-Z]+\.[a-z]+$/'
+//    ];
 }

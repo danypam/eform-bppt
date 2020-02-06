@@ -49,7 +49,8 @@ class Handler extends ExceptionHandler
         if ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
             return response()->json(['User have not permission for this page access.']);
         }
-        
-        return parent::render($request, $exception);
+        return parent::render($request,$exception);
+        //return redirect()->action('AuthController@login')->with('error','Your login session has expired, please log ');
+
     }
 }

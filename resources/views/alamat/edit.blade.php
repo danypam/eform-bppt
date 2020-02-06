@@ -15,7 +15,7 @@
                                     {{csrf_field()}}
                                     <div class="form-group">
                                         <label for="exampleFormControlInput1">Address</label>
-                                        <textarea  name="alamat" type="text" class="form-control" id="exampleFormControlInput1" placeholder="input address">{{$data_alamat->alamat}}</textarea>
+                                        <textarea  name="alamat" type="text" class="form-control" id="exampleFormControlInput1" placeholder="input address" required>{{$data_alamat->alamat}}</textarea>
                                     </div>
                                     <button type="submit" class="btn btn-warning">Save</button>
                                 </form>

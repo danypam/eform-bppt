@@ -46,7 +46,7 @@
                                         <label for="exampleFormControlInput1">SINGKATAN</label>
                                         <input value="{{$data_unitjab->singkat}}" name="singkat" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Singkatan">
                                     </div>
-                                    <button type="submit" class="btn btn-warning">Ubah</button>
+                                    <button type="submit" class="btn btn-warning">Save</button>
                                 </form>
                             </div>
                         </div>

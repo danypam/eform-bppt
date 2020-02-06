@@ -11,19 +11,14 @@
                         <div class="panel">
                             <div class="panel-heading">
                                            <h3 class="panel-title">TASKS</h3>
-                                <div class="right">
-                                    @can('pegawai-create')
-                                        {{--                                        <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal">Tambah Pegawai</a>--}}
-                                    @endcan
-                                </div>
                             </div>
                             <div class="panel-body">
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>NIP</th>
+                                        <th>Employee ID Number</th>
                                         <th>Name</th>
-                                        <th>Jenis Form</th>
+                                        <th>Form Type</th>
                                         <th>Status</th>
                                         <th>Created At</th>
                                         <th>Action</th>
@@ -38,7 +33,10 @@
                                             @if($task->status == -1)
                                                 <td><span class="label label-danger">REJECTED</span></td>
                                             @endif
-                                            @if($task->status == 0 || $task->status == 1)
+                                            @if($task->status == 0)
+                                                <td><span class="label label-primary">NEW</span></td>
+                                            @endif
+                                            @if($task->status == 1)
                                                 <td><span class="label label-warning">PENDING</span></td>
                                             @endif
                                             @if($task->status == 2)
@@ -50,12 +48,13 @@
                                             <td>{{$task->created_at}}</td>
                                             <td>
                                                 <a href="/forms/{{$task->form_id}}/submissions/{{$task->submission_id}}" class="btn btn-warning btn-sm">View</a>
-
+                                                @can('task-take')
                                                 @if($task->status == -1)
                                                     <a href="/submissions/{{$task->submission_id}}/approve" class="btn btn-primary btn-sm hidden">Take</a>
                                                 @else
                                                     <a href="/submissions/{{$task->submission_id}}/approve" class="btn btn-primary btn-sm">Take</a>
                                                 @endif
+                                                 @endcan
 
                                             </td>
                                         </tr>

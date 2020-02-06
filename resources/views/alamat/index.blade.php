@@ -13,7 +13,7 @@
                                 <h3 class="panel-title">LOCATIONS</h3>
                                 <div class="right">
                                     @can('alamat-create')
-                                        <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal">Add New Location</a>
+                                        <a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#exampleModal">Add New Location</a>
                                     @endcan
                                 </div>
                             </div>
@@ -24,10 +24,10 @@
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>NUMBER</th>
-                                        <th>ADDRESS</th>
-                                        <th>MANAGED</th>
-                                        <th>ACTION</th>
+                                        <th>No</th>
+                                        <th>Address</th>
+                                        <th>Updated At</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -71,14 +71,13 @@
                         {{csrf_field()}}
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Address</label>
-                            <textarea name="alamat" type="text" class="form-control" id="exampleFormControlInput1" placeholder="input address"></textarea>
+                            <textarea name="alamat" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Input Your Address"required></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-
                 </div>
             </div>
         </div>

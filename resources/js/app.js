@@ -5,9 +5,9 @@
  */
 
 require('./bootstrap');
-
 window.Vue = require('vue');
-
+window._ = require('lodash');
+window,$ = window.jQuery = require('jquery');
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -19,7 +19,27 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('submission', require('./components/FormNotification.vue').default);
+const app = new Vue({
+    el: '#app',
+    data: {
+        submissions: '',
+    },
+    created(){
+        if (window.Laravel.userId){
+            axios.post('/notification/submission/notification').then(response => {
+                this.submissions = response.data;
+                console.log(response.data)
+            });
+            Echo.private('App.User.'+window.Laravel.userId).notification((response)=>{
+                data = {"data":response};
+                this.submissions.push(data);
+                console.log(response);
+            });
+        }
+    }
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -27,6 +47,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-});
+// const app = new Vue({
+//     el: '#app',
+// });

@@ -33,6 +33,10 @@ class PicController extends Controller
         return view('/task/index',['tasks'=>$tasks]);
     }
 
+    public function take($id){
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

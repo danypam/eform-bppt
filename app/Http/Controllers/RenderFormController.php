@@ -8,11 +8,16 @@ Last Updated: 12/29/2018
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\email_atasan;
 use jazmy\FormBuilder\Helper;
 use jazmy\FormBuilder\Models\Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use Throwable;
+use App\User;
+use App\Notifications\NewForm;
+use jazmy\FormBuilder\Models\Submission;
 
 class RenderFormController extends Controller
 {
@@ -51,8 +56,22 @@ class RenderFormController extends Controller
     public function submit(Request $request, $identifier)
     {
         $form = Form::where('identifier', $identifier)->firstOrFail();
+        $details = [
+            'title' => 'Annisa Daffa',
+            'body' => 'Please check this link'
+        ];
 
+        \Mail::to('littleodysoo@gmail.com')->send(new email_atasan($details));
         DB::beginTransaction();
+
+        $users = User::whereHas('roles',function($q){
+            $q->where('name','atasan');
+        })->get();
+        if (\Notification::send($users, new NewForm(Submission::latest('id')->first())))
+        {
+            return back();
+        }
+
 
         try {
             $input = $request->except('_token');
@@ -63,22 +82,21 @@ class RenderFormController extends Controller
                 // store the file and set it's path to the value of the key holding it
                 if ($file->isValid()) {
                     $input[$key] = $file->store('fb_uploads', 'public');
+
                 }
+
             }
 
             $user_id = auth()->user()->id ?? null;
-
             $form->submissions()->create([
                 'user_id' => $user_id,
                 'status' => 0,
                 'content' => $input,
             ]);
-
             DB::commit();
-
             return redirect()
                     ->route('formbuilder::form.feedback', $identifier)
-                    ->with('success', 'Form successfully submitted.');
+                    ->with('success', 'Form successfully submitted. Please wait');
         } catch (Throwable $e) {
             info($e);
 
@@ -86,6 +104,10 @@ class RenderFormController extends Controller
 
             return back()->withInput()->with('error', Helper::wtf());
         }
+
+    }
+    public function notification(){
+        return auth()->user()->unreadNotifications;
     }
 
     /**

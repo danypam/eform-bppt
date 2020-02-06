@@ -10,10 +10,10 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INFORMASI UNIT KERJA</h3>
+                                <h3 class="panel-title">DEPARTMENT</h3>
                                 <div class="right">
                                     @can('unit-create')
-                                    <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal">Tambah Unit Kerja</a>
+                                    <a href="#" class="btn btn-info btn-lg " data-toggle="modal" data-target="#exampleModal">Add New Department</a>
                                     @endcan
                                 </div>
                             </div>
@@ -21,14 +21,14 @@
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>KODE UNIT KERJA</th>
-                                        <th>NAMA UNIT KERJA</th>
-                                        <th>ALAMAT</th>
-                                        <th>SINGKATAN UNIT</th>
-                                        <th>JABATAN</th>
-                                        <th>AKUN KEPALA</th>
-                                        <th>DIKELOLA</th>
-                                        <th>AKSI</th>
+                                        <th>Department ID</th>
+                                        <th>Name of Department</th>
+                                        <th>Address</th>
+                                        <th>Abbreviation of Department</th>
+                                        <th>Position</th>
+                                        <th>Head Account</th>
+                                        <th>Created At</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -76,16 +76,16 @@
                         {{csrf_field()}}
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Kode Unit</label>
-                            <input name="kode_unit" type="text" class="form-control" id="exampleFormControlInput1" placeholder="kode unit">
+                            <input name="kode_unit" type="text" class="form-control" id="exampleFormControlInput1" value="{{old('kode_unit')}}"placeholder="kode unit"required>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Nama Unit Kerja</label>
-                            <input name="nama_unit" type="text" class="form-control" id="exampleFormControlInput1" placeholder="nama unit kerja">
+                            <input name="nama_unit" type="text" class="form-control" id="exampleFormControlInput1" placeholder="nama unit kerja"required>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Alamat</label>
-                            <select name="alamat_id" class="form-control" id="exampleFormControlSelect1">
-                                <option value="">-pilih-</option>
+                            <select name="alamat_id" class="form-control" id="exampleFormControlSelect1"required>
+                                <option selected disabled value="">-select-</option>
                                 @foreach($data_alamat as $al)
                                     <option value="{{$al->id}}">{{$al->alamat}}</option>
                                 @endforeach
@@ -93,25 +93,25 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Singkatan Unit Kerja</label>
-                            <input name="singkatan_unit" type="text" class="form-control" id="exampleFormControlInput1" placeholder="singkatan unit kerja">
+                            <input name="singkatan_unit" type="text" class="form-control" id="exampleFormControlInput1" placeholder="singkatan unit kerja"required>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Akun Kepala</label>
-                            <input name="akun_kepala" type="text" class="form-control" id="exampleFormControlInput1" placeholder="akun kepala">
+                            <input name="akun_kepala" type="text" class="form-control" id="exampleFormControlInput1" placeholder="akun kepala"required>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Jabatan</label>
-                            <select name="jabatan_id" class="form-control" id="exampleFormControlSelect1">
-                                <option value="">-pilih-</option>
+                            <select name="jabatan_id" class="form-control" id="exampleFormControlSelect1"required>
+                                <option selected disabled value="">-select-</option>
                                 @foreach($data_jabatan as $jab)
                                     <option value="{{$jab->id}}">{{$jab->nama_jabatan}}</option>
                                 @endforeach
                             </select>
                         </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
                     </form>
                 </div>
             </div>

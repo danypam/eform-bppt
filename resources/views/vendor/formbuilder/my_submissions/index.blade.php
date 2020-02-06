@@ -1,5 +1,5 @@
-@extends('formbuilder::layout')
-
+{{--@extends('formbuilder::layout')--}}
+@extends('layouts.master')
 @section('content')
     <div class="main">
         <div class="main-content">
@@ -10,9 +10,6 @@
                             <div class="col-md-12">
                                 <div class="card rounded-0">
                                     <div class="card-header">
-                                        <a href="{{ route('formbuilder::forms.index') }}" class="btn btn-primary float-md-right btn-sm" title="Back To My Forms">
-                                            <i class="fa fa-th-list"></i> My Forms
-                                        </a>
                                         <h1 class="card-title">
                                             {{ $pageTitle }} ({{ $submissions->count() }})
                                         </h1>
@@ -20,13 +17,13 @@
 
                                     @if($submissions->count())
                                         <div class="table-responsive">
-                                            <table class="table table-bordered d-table table-striped pb-0 mb-0">
+                                            <table class="table" id="datatable">
                                                 <thead>
                                                 <tr>
-                                                    <th class="five">#</th>
-                                                    <th class="">Form</th>
-                                                    <th class="twenty-five">Updated On</th>
-                                                    <th class="twenty-five">Created On</th>
+                                                    <th class="five">NO</th>
+                                                    <th class="">Form Type</th>
+                                                    <th class="twenty-five">Updated At</th>
+                                                    <th class="twenty-five">Created At</th>
                                                     <th class="fifteen">Actions</th>
                                                 </tr>
                                                 </thead>
@@ -87,4 +84,14 @@
         </div>
     </div>
     </div>
-@endsection
+@stop
+@section('footer')
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable({
+                autoWidth: false,
+                scroller:    true,
+            });
+        })
+    </script>
+@stop

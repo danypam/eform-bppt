@@ -7,13 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <!-- VENDOR CSS -->
-    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendor/font-awesome/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendor/linearicons/style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/font-awesome/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/linearicons/style.css')}}">
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/main.css')}}">
     <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-    <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/demo.css')}}">
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
     <!-- ICONS -->
@@ -32,6 +32,13 @@
                         <div class="header">
                             <div class="logo text-center"><img src="{{asset('assets/img/logofix2.png')}}"  alt=""></div>
                             <p class="lead">Login to your account</p>
+                            @if(Session::has('error'))
+                                @if(isset($error) || Session::has('error') )
+                                    <div class="alert alert-danger">
+                                        {{ isset($error) ? $info : Session::get('error') }}
+                                    </div>
+                                @endif
+                            @endif
                         </div>
                         <form class="form-auth-small" action="/postlogin" method="POST">
                             {{csrf_field()}}

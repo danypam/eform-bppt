@@ -1,4 +1,5 @@
-@extends('formbuilder::layout')
+{{--@extends('formbuilder::layout')--}}
+@extends('layouts.master')
 
 @section('content')
 
@@ -7,36 +8,30 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="panel">
+                        <div class="panel" style="width: auto">
                             <div class="panel-heading">
-                                <h3 class="panel-title">FORMS</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="btn-toolbar float-md-right" role="toolbar">
-                                    <div class="btn-group" role="group" aria-label="Third group">
-                                        <a href="{{ route('formbuilder::forms.create') }}" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-plus-circle"></i> Create a New Form
-                                        </a>
-
-                                        <a href="{{ route('formbuilder::my-submissions.index') }}" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-th-list"></i> My Submissions
+                                <h3 class="panel-title">TYPE OF FORM </h3>
+                                <div class="right">
+                                        <a href="{{ route('formbuilder::forms.create') }}" class="btn btn-info btn-lg">
+                                            <i class="fa fa-plus-circle"></i> Create a New Type of Form
                                         </a>
                                     </div>
-                                </div>
                             </div>
-
+                            <div class="panel-body">
                             @if($forms->count())
-                                <div class="table-responsive">
-                                    <table class="table table-bordered d-table table-striped pb-0 mb-0">
+                                    <table class="table table-hover"  {{--table-bordered d-table table-striped pb-0 mb-0 --}} id="datatable" style="width: 100%">
                                         <thead>
                                         <tr>
-                                            <th class="five">#</th>
+                                            <th>No</th>
                                             <th>Name</th>
-                                            <th class="ten">Visibility</th>
-                                            <th class="fifteen">Allows Edit?</th>
-                                            <th class="ten">Submissions</th>
-                                            <th class="twenty-five">Actions</th>
-                                        </tr>
+                                            <th>Visibility</th>
+                                            <th>Allows Edit?</th>
+                                            <th>Sub missions</th>
+                                            <th>PIC</th>
+                                            <th>Created At</th>
+                                            <th>Update At</th>
+                                            <th>Actions</th>
+
                                         </thead>
                                         <tbody>
                                         @foreach($forms as $form)
@@ -47,16 +42,23 @@
                                                 <td>{{ $form->allowsEdit() ? 'YES' : 'NO' }}</td>
                                                 <td>{{ $form->submissions_count }}</td>
                                                 <td>
+                                                    @foreach(json_decode($form->pic) as $pic)
+                                                        <b>{{$loop->iteration}}</b>  {{". ". \App\Http\Controllers\FormController::getNamePic($pic)->nama_lengkap . " (" . \App\Http\Controllers\FormController::getNamePic($pic)->nip . ")"}}<hr style='margin:0'>
+                                                    @endforeach
+                                                </td>
+                                                <td>{{ $form->created_at }}</td>
+                                                <td>{{ $form->updated_at }}</td>
+                                                <td>
                                                     <a href="{{ route('formbuilder::forms.submissions.index', $form) }}" class="btn btn-primary btn-sm" title="View submissions for form '{{ $form->name }}'">
                                                         <i class="fa fa-th-list"></i> Data
                                                     </a>
-                                                    <a href="{{ route('formbuilder::forms.show', $form) }}" class="btn btn-primary btn-sm" title="Preview form '{{ $form->name }}'">
-                                                        <i class="fa fa-eye"></i>
+                                                    <a href="{{ route('formbuilder::forms.show', $form) }}" class="btn btn-success btn-sm" title="Preview form '{{ $form->name }}'">
+                                                        <i class="lnr lnr-eye"></i>
                                                     </a>
-                                                    <a href="{{ route('formbuilder::forms.edit', $form) }}" class="btn btn-primary btn-sm" title="Edit form">
+                                                    <a href="{{ route('formbuilder::forms.edit', $form) }}" class="btn btn-warning btn-sm" title="Edit form">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
-                                                    <button class="btn btn-primary btn-sm clipboard" data-clipboard-text="{{ route('formbuilder::form.render', $form->identifier) }}" data-message="" data-original="" title="Copy form URL to clipboard">
+                                                    <button class="btn btn-dark btn-sm clipboard" data-clipboard-text="{{ route('formbuilder::form.render', $form->identifier) }}" data-message="" data-original="" title="Copy form URL to clipboard">
                                                         <i class="fa fa-clipboard"></i>
                                                     </button>
 
@@ -73,7 +75,6 @@
                                         @endforeach
                                         </tbody>
                                     </table>
-                                </div>
                                 @if($forms->hasPages())
                                     <div class="card-footer mb-0 pb-0">
                                         <div>{{ $forms->links() }}</div>
@@ -86,10 +87,25 @@
                                     </h4>
                                 </div>
                             @endif
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@endsection
+
+
+
+@stop
+@section('footer')
+            <script>
+                $(document).ready(function () {
+                    $('#datatable').DataTable({
+                        autoWidth: false,
+                        scroller:    true,
+                    });
+                })
+            </script>
+@stop
+
