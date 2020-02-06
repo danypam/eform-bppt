@@ -29,10 +29,6 @@
                                                                     <strong>{{ $errors->first('name') }}</strong>
                                                                 </span>
                                                     @endif
-
-
-
-
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -99,21 +95,21 @@
                                                 <div id="fb-editor" class="fb-editor"></div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
-                                <button type="button" class="btn btn-primary fb-clear-btn">
-                                    <i class="fa fa-remove"></i> Clear Form
-                                </button>
-                                <button type="button" class="btn btn-primary fb-save-btn">
-                                    <i class="fa fa-save"></i> Submit &amp; Save Form
-                                </button>
+                                            <button type="button" class="btn btn-primary fb-clear-btn">
+                                                <i class="fa fa-remove"></i> Clear Form
+                                            </button>
+                                            <button type="button" class="btn btn-primary fb-save-btn">
+                                                <i class="fa fa-save"></i> Submit &amp; Save Form
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 @endsection
 
 @push(config('formbuilder.layout_js_stack', 'scripts'))

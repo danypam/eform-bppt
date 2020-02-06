@@ -18,7 +18,7 @@
                                 <div class="metric">
                                     <span class="icon"><i class="fa fa-download"></i></span>
                                     <p>
-                                        <span class="number">1,252</span><br>
+                                        <span class="number">{{$status['all']}}</span><br>
                                         <span class="title label label-default">Submissions</span>
                                     </p>
                                 </div>
@@ -27,7 +27,7 @@
                                 <div class="metric">
                                     <span class="icon"><i class="fa fa-shopping-bag"></i></span>
                                     <p>
-                                        <span class="number">203</span><br>
+                                        <span class="number">{{$status['new']}}</span><br>
                                         <span class="title label label-warning">New</span>
                                     </p>
                                 </div>
@@ -36,7 +36,7 @@
                                 <div class="metric">
                                     <span class="icon"><i class="fa fa-bar-chart"></i></span>
                                     <p>
-                                        <span class="number">350</span><br>
+                                        <span class="number">{{$status['pending']}}</span><br>
                                         <span class="title label label-warning">Pending</span>
                                     </p>
                                 </div>
@@ -45,7 +45,7 @@
                                 <div class="metric">
                                     <span class="icon"><i class="fa fa-eye"></i></span>
                                     <p>
-                                        <span class="number">274</span><br>
+                                        <span class="number">{{$status['onGoing']}}</span><br>
                                         <span class="title label label-info">On Going</span>
                                     </p>
                                 </div>
@@ -54,7 +54,7 @@
                                 <div class="metric">
                                     <span class="icon"><i class="fa fa-bar-chart"></i></span>
                                     <p>
-                                        <span class="number">350</span><br>
+                                        <span class="number">{{$status['completed']}}</span><br>
                                         <span class="title label label-success">Completed</span>
                                     </p>
                                 </div>
@@ -63,7 +63,7 @@
                                 <div class="metric">
                                     <span class="icon"><i class="fa fa-bar-chart"></i></span>
                                     <p>
-                                        <span class="number">350</span><br>
+                                        <span class="number">{{$status['rejected']}}</span><br>
                                         <span class="title label label-danger">Rejected</span>
                                     </p>
                                 </div>
@@ -126,7 +126,7 @@
 <script>
     Highcharts.chart('chartSurat', {
         chart: {
-            type: 'line'
+            type: 'column'
         },
         title: {
             text: 'Submissions'
@@ -135,7 +135,7 @@
             text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
         },*/
         xAxis: {
-            categories: [],
+            categories: {!! json_encode($category['category']) !!},
             title: {
                 text: null
             }
@@ -164,7 +164,7 @@
             layout: 'vertical',
             align: 'right',
             verticalAlign: 'top',
-            x: -0,
+            x: -80,
             y: 80,
             floating: true,
             borderWidth: 1,
@@ -175,22 +175,7 @@
         credits: {
             enabled: false
         },
-        series: [{
-            name: 'form1',
-            data: [107, 31, 635, 203, 2]
-        }, {
-            name: 'form1',
-            data: [133, 156, 947, 408, 6]
-        }, {
-            name: 'form1',
-            data: [814, 841, 3714, 727, 31]
-        }, {
-            name: 'form1',
-            data: [1216, 1001, 7436, 738, 40]
-        }, {
-            name: 'form1',
-            data: [1216, 1001, 4436, 738, 40]
-        }]
+        series:{!! json_encode($category['series']) !!}
     });
 
 
