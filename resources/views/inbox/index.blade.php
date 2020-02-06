@@ -10,7 +10,7 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Inbox</h3>
+                                <h3 class="panel-title">INBOX</h3>
                                 <div class="right">
                                     @can('pegawai-create')
 {{--                                        <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal">Tambah Pegawai</a>--}}
@@ -21,9 +21,9 @@
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>NIP</th>
-                                        <th>NAMA LENGKAP</th>
-                                        <th>Jenis Form</th>
+                                        <th>Email</th>
+                                        <th>Name</th>
+                                        <th>Form</th>
                                         <th>Status</th>
                                         <th>Created At</th>
                                         <th>Action</th>
@@ -32,13 +32,16 @@
                                     <tbody>
                                     @foreach($inboxs as $inbox)
                                         <tr>
-                                            <td>{{$inbox->nip}}</td>
+                                            <td>{{$inbox->email}}</td>
                                             <td>{{$inbox->nama_lengkap}}</td>
                                             <td>{{$inbox->name}}</td>
                                             @if($inbox->status == -1)
                                             <td><span class="label label-danger">REJECTED</span></td>
                                             @endif
-                                            @if($inbox->status == 0 || $inbox->status == 1)
+                                            @if($inbox->status == 0)
+                                                <td><span class="label label-primary">NEW</span></td>
+                                            @endif
+                                            @if($inbox->status == 1)
                                                 <td><span class="label label-warning">PENDING</span></td>
                                             @endif
                                             @if($inbox->status == 2)

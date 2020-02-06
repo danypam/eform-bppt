@@ -41,7 +41,7 @@
                                     <ul class="list-unstyled list-justify">
                                         <li><b>NIP 1</b> <span>{{auth()->user()->pegawai->nip}}</span></li>
                                         <li><b>NIP 2</b><span>{{auth()->user()->pegawai->nip18}}</span></li>
-                                        <li><b>No Telp</b> <span>{{auth()->user()->pegawai->no_hp}}</span></li>
+                                        <li><b>Phone Number</b> <span>{{auth()->user()->pegawai->no_hp}}</span></li>
                                         <li><b>Email</b> <span>{{auth()->user()->pegawai->email}}</span></li>
                                         @foreach($data_jabatan as $j)
                                             @if($j->id == auth()->user()->pegawai->jabatan_id)

@@ -5,6 +5,7 @@
 
     <div class="main">
         <div class="main-content">
+
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
@@ -13,7 +14,7 @@
                                 <h3 class="panel-title">INFORMASI JABATAN</h3>
                                 <div class="right">
                                     @can('jabatan-create')
-                                    <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal">Tambah Jabatan</a>
+                                    <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal" id="tambahjabatan">Tambah Jabatan</a>
                                     @endcan
                                 </div>
                             </div>
@@ -68,25 +69,30 @@
                         {{csrf_field()}}
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Nama Jabatan</label>
-                            <input name="nama_jabatan" type="text" class="form-control" id="exampleFormControlInput1" placeholder="nama jabatan">
-                            <small id="emailHelp" class="form-text text-muted">nama jabatan kapital</small>
+                            <input name="nama_jabatan" type="text" class="form-control" id="exampleFormControlInput1" pattern="^[A-Z\s]{0,}$" placeholder="nama jabatan"value="{{old('nama_jabatan')}}"required>
+                            <small id="emailHelp" class="form-text text-muted"> Nama Jabatan Harus Kapital </small>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Eselon</label>
-                            <input name="eselon" type="text" class="form-control" id="exampleFormControlInput1" placeholder="eselon">
-                        </div>
+                            <input name="eselon" type="text" class="form-control" id="exampleFormControlInput1"pattern="^[A-Z]+\.[a-z]{0,5}$" placeholder="eselon"required>
+                            <small id="eselon" class="form-text text-muted"> Format : huruf.huruf Misal: I.a </small>
 
+                        </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+               
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
 @stop
 @section('footer')
+
     <script>
         $(document).ready(function () {
             $('#datatable').DataTable();
@@ -111,7 +117,71 @@
                         }
                     });
             });
+
+            // jQuery('#ajaxSubmit').click(function(e){
+            //     e.preventDefault();
+            //     $.ajaxSetup({
+            //         headers: {
+            //             'X-CSRF-TOKEN': $('meta[name="viewport"]').attr('content')
+            //         }
+            //     });
+            //     jQuery.ajax({
+            //         url: "/jabatan/create",
+            //         method: 'post',
+            //         data: {
+            //             nama_jabatan: jQuery('#nama_jabatan').val(),
+            //             eselon: jQuery('#eselon').val(),
+            //         },
+            //         success: function(result){
+            //             if(result.errors)
+            //             {
+            //                 jQuery('.text-danger').html('');
+            //
+            //                 jQuery.each(result.errors, function(key, value){
+            //                     jQuery('.text-danger').show();
+            //                     jQuery('.text-danger').append('<li>'+value+'</li>');
+            //
+            //                 });
+            //             }
+            //             else
+            //             {
+            //                 jQuery('.text-danger').hide();
+            //                 $('#tambahjabatan').hide();
+            //                 $('#exampleModal').modal('hide');
+            //             }
+            //         }});
+            // });
+            // $('#exampleModal').validate(
+            //     {
+            //         rules : {
+            //             nama_jabatan: {
+            //                 required: true,
+            //                 messages: {
+            //                     required: "The Nama Jabatan field is required",
+            //                 }
+            //             },
+            //             eselon: {
+            //                 required: true,
+            //                 alphanumeric: true,
+            //                 messages: {
+            //                     required: "The eselon field is required",
+            //                     alphanumeric: "Should include alpha and number"
+            //                 },
+            //                 highlight: function (element) {
+            //                     $(element)
+            //                         .closest('.form-group')
+            //                         .removeClass('success')
+            //                         .addClass('error');
+            //                        $('#exampleModal').modal('show');
+            //
+            //                 }
+            //             }
+            //         }
+            //     });
+
         })
+
+
     </script>
 
 @stop

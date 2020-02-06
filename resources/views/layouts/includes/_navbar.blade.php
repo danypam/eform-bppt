@@ -7,7 +7,6 @@
             <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
         </div>
 
-
         <div id="navbar-menu">
             <ul class="nav navbar-nav navbar-right">
 

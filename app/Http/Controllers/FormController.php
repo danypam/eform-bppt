@@ -45,6 +45,12 @@ class FormController extends Controller
         return view('formbuilder::forms.index', compact('pageTitle', 'forms'));
     }
 
+    public static function getNamePic($id){
+        return DB::table('pegawai')
+            ->select('nama_lengkap', 'nip')
+            ->find($id);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

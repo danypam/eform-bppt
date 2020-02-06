@@ -10,10 +10,10 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INFORMASI PEGAWAI</h3>
+                                <h3 class="panel-title">EMPLOYEES INFORMATION</h3>
                                 <div class="right">
                                     @can('pegawai-create')
-                                    <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal">Tambah Pegawai</a>
+                                    <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal" >Add Employee</a>
                                     @endcan
                                 </div>
                             </div>
@@ -22,8 +22,8 @@
                                     <thead>
                                     <tr>
                                         <th>NIP</th>
-                                        <th>NAMA LENGKAP</th>
-                                        <th>NO TELP</th>
+                                        <th>NAME</th>
+                                        <th>PHONE NUMBER</th>
                                         <th>EMAIL</th>
                                         <th>UNIT KERJA</th>
                                         <th>JABATAN</th>
@@ -32,7 +32,7 @@
                                         <th>JABATAN</th>
                                         <th>UNIT JABATAN</th>
                                         <th>STATUS</th>
-                                        <th>AKSI</th>
+                                        <th>ACTION</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -76,10 +76,10 @@
                                             {{--                                            }--}}
                                             <td>
                                                 @can('pegawai-edit')
-                                                <a href="/pegawai/{{$peg->id}}/edit" class="btn btn-warning btn-sm">Ubah</a>
+                                                <a href="/pegawai/{{$peg->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
                                                 @endcan
                                                 @can('pegawai-delete')
-                                                    <a href="#" class="btn btn-danger btn-sm delete" pegawai-id="{{$peg->id}}">Hapus</a>
+                                                    <a href="#" class="btn btn-danger btn-sm delete" pegawai-id="{{$peg->id}}">Delete</a>
                                                 @endcan
                                             </td>
                                         </tr>
@@ -99,7 +99,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">TAMBAH DATA JABATAN</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">New Employee</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -116,11 +116,11 @@
                             <input name="nip18" type="text" class="form-control" id="exampleFormControlInput1" placeholder="NIP 2">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Nama Lengkap</label>
+                            <label for="exampleFormControlInput1">Name</label>
                             <input name="nama_lengkap" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Lengkap">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">No Telp</label>
+                            <label for="exampleFormControlInput1">Phone Number</label>
                             <input name="no_hp" type="text" class="form-control" id="exampleFormControlInput1" placeholder="No Telp">
                         </div>
                         <div class="form-group">
@@ -130,7 +130,7 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Unit Kerja</label>
                             <select name="unit_id" class="form-control" id="exampleFormControlSelect1">
-                                <option value="">-pilih-</option>
+                                <option value="">-select-</option>
                                 @foreach($data_unit as $unit)
                                     <option value="{{$unit->id}}">{{$unit->nama_unit}}</option>
                                 @endforeach
@@ -139,7 +139,7 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Jabatan</label>
                             <select name="jabatan_id" class="form-control" id="exampleFormControlSelect1">
-                                <option value="">-pilih-</option>
+                                <option value="">-select-</option>
                                 @foreach($data_jabatan as $jab)
                                     <option value="{{$jab->id}}">{{$jab->nama_jabatan}}</option>
                                 @endforeach
@@ -148,7 +148,7 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Unit Jabatan</label>
                             <select name="unit_jabatan_id" class="form-control selectpicker" id="exampleFormControlSelect1" data-live-search="true">
-                                <option value="">-pilih-</option>
+                                <option value="">-select-</option>
                                 @foreach($data_unitjab as $unjab)
                                     <option value="{{$unjab->id_unit_jabatan}}">{{$unjab->unit}}</option>
                                 @endforeach
@@ -157,7 +157,7 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Nama Atasan</label>
                             <select name="nip_atas" class="form-control" id="exampleFormControlSelect1">
-                                <option value="">-pilih-</option>
+                                <option value="">-select-</option>
                                 @foreach($pegawai as $p)
                                     <option value="{{$p->id}}">{{$p->nama_lengkap}}</option>
                                 @endforeach
@@ -166,20 +166,20 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Role</label>
                             <select name="role" class="form-control" id="exampleFormControlSelect1">
-                                <option value="">-pilih-</option>
+                                <option value="">-select-</option>
                                 @foreach($data_role as $rol)
                                     <option value="{{$rol->name}}">{{$rol->name}}</option>
                                 @endforeach
                             </select>
                         </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
                     </form>
                 </div>
-            </div>
+                </div>
+
         </div>
     </div>
 @stop
@@ -187,8 +187,8 @@
     <script>
         $(document).ready(function () {
             $('#datatable').DataTable({
-                scrollX:     300,
-                scroller:    true
+                scroller:    true,
+                scrollX:     300
             });
 
             $('.delete').click(function () {

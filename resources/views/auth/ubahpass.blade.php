@@ -13,24 +13,24 @@
                             <div class="panel">
                                 <div class="panel-heading">
 
-                                    <h3 class="panel-title">UBAH PASSWORD</h3>
+                                    <h3 class="panel-title">CHANGE PASSWORD</h3>
                                 </div>
                                 <div class="panel-body">
                                     <form action="/auth/ubahpass/update" method="POST">
                                         {{csrf_field()}}
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">OLD PASSWORD</label>
-                                            <input  name="password_lama" type="password" class="form-control" id="exampleFormControlInput1" placeholder="Password Lama">
+                                            <label for="exampleFormControlInput1">RECENT PASSWORD</label>
+                                            <input  name="password_lama" type="password" class="form-control" id="exampleFormControlInput1" placeholder="Recent Password ">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleFormControlInput1">NEW PASSWORD</label>
-                                            <input name="password_baru" type="password" class="form-control" id="exampleFormControlInput1" placeholder="Password Baru">
+                                            <input name="password_baru" type="password" class="form-control" id="exampleFormControlInput1" placeholder="New Password">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleFormControlInput1">CONFIRM PASSWORD</label>
                                             <input name="password_confirm" type="password" class="form-control" id="exampleFormControlInput1" placeholder="Confirm Password">
                                         </div>
-                                        <button type="submit" class="btn btn-warning">Ubah</button>
+                                        <button type="submit" class="btn btn-warning">Save</button>
                                     </form>
                                 </div>
                             </div>

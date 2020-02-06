@@ -17,7 +17,8 @@
         "laravelcollective/html": "^5.8",
         "pusher/pusher-php-server": "~3.0",
         "spatie/activitylog": "^2.4",
-        "spatie/laravel-permission": "^2.37"
+        "spatie/laravel-permission": "^2.37",
+      "ext-json": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

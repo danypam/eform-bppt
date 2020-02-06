@@ -10,10 +10,10 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INFORMASI ALAMAT</h3>
+                                <h3 class="panel-title">LOCATIONS</h3>
                                 <div class="right">
                                     @can('alamat-create')
-                                        <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal">Tambah Alamat</a>
+                                        <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal">Add New Location</a>
                                     @endcan
                                 </div>
                             </div>
@@ -24,10 +24,10 @@
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>NO</th>
-                                        <th>ALAMAT</th>
-                                        <th>DIKELOLA</th>
-                                        <th>AKSI</th>
+                                        <th>NUMBER</th>
+                                        <th>ADDRESS</th>
+                                        <th>MANAGED</th>
+                                        <th>ACTION</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -38,10 +38,10 @@
                                             <td>{{$al->created_at}}</td>
                                             <td>
                                                 @can('alamat-edit')
-                                                    <a href="/alamat/{{$al->id}}/edit" class="btn btn-warning btn-sm">Ubah</a>
+                                                    <a href="/alamat/{{$al->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
                                                 @endcan
                                                 @can('alamat-delete')
-                                                    <a href="#" class="btn btn-danger btn-sm delete" alamat-id="{{$al->id}}">Hapus</a>
+                                                    <a href="#" class="btn btn-danger btn-sm delete" alamat-id="{{$al->id}}">Delete</a>
                                                 @endcan
                                             </td>
                                         </tr>
@@ -61,7 +61,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">TAMBAH DATA ALAMAT</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">New Location</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -70,13 +70,13 @@
                     <form action="/alamat/create" method="POST">
                         {{csrf_field()}}
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Alamat</label>
-                            <textarea name="alamat" type="text" class="form-control" id="exampleFormControlInput1" placeholder="alamat"></textarea>
+                            <label for="exampleFormControlInput1">Address</label>
+                            <textarea name="alamat" type="text" class="form-control" id="exampleFormControlInput1" placeholder="input address"></textarea>
                         </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
                     </form>
                 </div>
             </div>
