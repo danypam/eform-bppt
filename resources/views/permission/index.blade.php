@@ -13,7 +13,7 @@
                                 <h3 class="panel-title">PERMISSIONS</h3>
                                 <div class="right">
                                     @can('permission-create')
-                                        <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal">Add Permission</a>
+                                        <a href="#" class="btn btn-info btn-lg " data-toggle="modal" data-target="#exampleModal">Add Permission</a>
                                     @endcan
                                 </div>
                             </div>

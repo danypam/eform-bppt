@@ -12,7 +12,7 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title">MANAGE USERS</h3>
                                 <div class="right">
-                                    <a class="btn btn-primary" href="{{ route('users.create') }}"> Add New User</a>
+                                    <a class="btn btn-info btn-lg" href="{{ route('users.create') }}"> Add New User</a>
                                 </div>
                             </div>
                             <div class="panel-body">
@@ -50,12 +50,12 @@
                                             @endif
                                             <td>{{$user->created_at}}</td>
                                             <td>
-                                                <a class="btn btn-info btn-sm" href="{{ route('users.show',$user->id) }}">Show</a>
+                                                <a class="btn btn-secondary btn-sm" href="{{ route('users.show',$user->id) }}">Show</a>
                                                 <a class="btn btn-primary btn-sm" href="{{ route('users.edit',$user->id) }}">Edit</a>
                                                 @if($user->status == false)
-                                                    <a href="/users/{{$user->id}}/deletee" class="btn btn-success btn-sm ">Aktif</a>
+                                                    <a href="/users/{{$user->id}}/deletee" class="btn btn-success btn-sm ">Active</a>
                                                 @else
-                                                    <a href="/users/{{$user->id}}/delete" class="btn btn-danger btn-sm ">NonAktif</a>
+                                                    <a href="/users/{{$user->id}}/delete" class="btn btn-danger btn-sm ">Non-Active</a>
                                                 @endif
 {{--                                                {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}--}}
 {{--                                                {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}--}}
