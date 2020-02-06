@@ -57,14 +57,14 @@
 </div>
 <!-- END WRAPPER -->
 <!-- Javascript -->
-<script type="text/css" src="{{asset('assets/vendor/jquery/jquery.min.js')}}"></script>
-<script type="text/css" src="{{asset('assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-<script type="text/css" src="{{asset('assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
-<script type="text/css" src="{{asset('assets/scripts/klorofil-common.js')}}"></script>
-<script type="text/css" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-<script type="text/css" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script type="text/css" src="https://code.highcharts.com/highcharts.js"></script>
+<script src="{{asset('assets/vendor/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+<script  src="{{asset('assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
+<script  src="{{asset('assets/scripts/klorofil-common.js')}}"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script  src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script  src="https://code.highcharts.com/highcharts.js"></script>
 @yield('footer')
 <script>
     @if(Session::has('warning'))
@@ -78,10 +78,10 @@
     @endif
 </script>
 <!-- Latest compiled and minified JavaScript -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
 
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/i18n/defaults-*.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/i18n/defaults-*.min.js"></script>
 
 @stack('scripts')
 </body>
