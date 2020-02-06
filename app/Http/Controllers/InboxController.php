@@ -105,8 +105,6 @@ class InboxController extends Controller
     }
 
     public function fillWhoApprove($id_form_submission, $column){
-
-
         //get id pegawai
         $id_pegawai = DB::table('pegawai')
                         ->select('id')
@@ -116,30 +114,20 @@ class InboxController extends Controller
         return DB::table('form_submissions')->where([
              'id' => $id_form_submission
             ])->update([
-            $column => DB::raw(Auth::user()->id)
+            $column => $id_pegawai->id
             ]);
     }
 
     public function approve($id)
     {
-        DB::beginTransaction();
-        DB::table('form_submissions')->where([
-            'id'=>$id
-        ])->update([
-            'status'=> DB::raw('status + 1')
-        ]);
-
-        return redirect('/inbox')->with('sukses','Formulir Berhasil DiSetujui');
-        //tingkatan status
-
-
         $isFilled = DB::table('form_submissions')
             ->select('mengetahui', 'menyetujui', 'pic', 'status')
             ->where('id', '=', $id)
         ->first();
 
             //approve all
-            if(auth()->user()->can('inbox-approve-all')) {
+                if(auth()->user()->can('inbox-approve-all')) {
+
                 if(!isset($isFilled->mengetahui)
                     || !isset($isFilled->menyetujui)
                     || !isset($isFilled->pic)){
@@ -147,7 +135,7 @@ class InboxController extends Controller
                     return redirect('/inbox')->with('sukses', 'Formulir Berhasil DiSetujui');
                 }
                 else{
-                    return redirect('/inbox')->with('error', 'Formulir Telah Dieksekusi oleh user lain');
+                    return redirect('/inbox')->with('error  ', 'Formulir Telah Dieksekusi oleh user lain');
                 }
                 //approve mengetahui sekaligus menyetujui
             }else if(auth()->user()->can('inbox-approve-mengetahui-menyetujui')){
@@ -179,11 +167,12 @@ class InboxController extends Controller
                     return redirect('/inbox')->with('error', 'Formulir Telah Dieksekusi oleh user lain');
                 }
             }else if(auth()->user()->can('inbox-approve-mengetahui')) {
+                DB::beginTransaction();
                 if ((!$isFilled->mengetahui)) {
                     $this->commit($id);
-                    $this->fillWhoApprove($id, "menyetujui");
+                    $this->fillWhoApprove($id, "mengetahui");
                     DB::commit();
-                    return redirect('/inbox')->with('sukses', 'Formulir Berhasil DiSetujui');
+                    return redirect('/inbox')->with('sukses', 'masuk Berhasil DiSetujui');
                 } else {
                     DB::rollback();
                     return redirect('/inbox')->with('error', 'Formulir Telah Dieksekusi oleh user lain');

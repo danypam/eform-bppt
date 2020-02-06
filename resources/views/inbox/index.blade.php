@@ -39,10 +39,10 @@
                                             @if($inbox->status == 1)
                                                 <td><span class="label label-warning">PENDING</span></td>
                                             @endif
-                                            @if($inbox->status == 2)
+                                            @if($inbox->status == 2 || $inbox->status == 3)
                                             <td><span class="label label-primary">ON GOING</span></td>
                                             @endif
-                                            @if($inbox->status == 3)
+                                            @if($inbox->status == 4)
                                                 <td>C<span class="label label-success">COMPLETE</span></td>
                                             @endif
                                             <td>{{$inbox->created_at}}</td>

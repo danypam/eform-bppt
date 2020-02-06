@@ -22,7 +22,7 @@
                                                 <tr>
                                                     <th class="five">NO</th>
                                                     <th class="">Form Type</th>
-                                                    <th class="twenty-five">Updated At</th>
+                                                    <th class="twenty-five">Status</th>
                                                     <th class="twenty-five">Created At</th>
                                                     <th class="fifteen">Actions</th>
                                                 </tr>
@@ -32,8 +32,23 @@
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $submission->form->name }}</td>
-                                                        <td>{{ $submission->updated_at->toDayDateTimeString() }}</td>
+                                                        @if($submission->status == -1)
+                                                            <td><span class="label label-danger">REJECTED</span></td>
+                                                        @endif
+                                                        @if($submission->status == 0)
+                                                            <td><span class="label label-primary">NEW</span></td>
+                                                        @endif
+                                                        @if($submission->status == 1)
+                                                            <td><span class="label label-warning">PENDING</span></td>
+                                                        @endif
+                                                        @if($submission->status == 2 || $submission->status == 3)
+                                                            <td><span class="label label-primary">ON GOING</span></td>
+                                                        @endif
+                                                        @if($submission->status == 4)
+                                                            <td><span class="label label-success">COMPLETE</span></td>
+                                                        @endif
                                                         <td>{{ $submission->created_at->toDayDateTimeString() }}</td>
+
                                                         <td>
                                                             <a href="{{ route('formbuilder::my-submissions.show', [$submission->id]) }}" class="btn btn-primary btn-sm" title="View submission">
                                                                 <i class="fa fa-eye"></i> View

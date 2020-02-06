@@ -19,9 +19,9 @@
                     </a>
                     <ul class="dropdown-menu notifications">
                         @if(auth()->user()->unreadNotifications->count())
-                            @foreach(auth()->user()->unreadNotifications as $notifications)
-                        <li><a href="/inbox" class="notification-item"><span class="dot bg-success"></span>New Form {{$notifications->data['submission']['form_id']}} submit by {{$notifications->data['submission']['user_id']}}</a></li>
-                            @endforeach
+{{--                            @foreach(auth()->user()->unreadNotifications as $notifications)--}}
+{{--                        <li><a href="/inbox" class="notification-item"><span class="dot bg-success"></span>New Form {{$notifications->data['submission']['form_id']}} submit by {{$notifications->data['submission']['user_id']}}</a></li>--}}
+{{--                            @endforeach--}}
                                 <li><a href="/inbox" class="more">See all notifications</a></li>
                         @else
                             <li><p class="more">No Notification</p></li>

@@ -9,8 +9,8 @@
                 <!-- OVERVIEW -->
                 <div class="panel panel-headline">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Weekly Overview</h3>
-                        <p class="panel-subtitle">Period: Oct 14, 2016 - Oct 21, 2016</p>
+                        <h3 class="panel-title">Report Status</h3>
+                        <p class="panel-subtitle">All Time</p>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -38,6 +38,15 @@
                                     <p>
                                         <span class="number">{{$status['pending']}}</span><br>
                                         <span class="title label label-warning">Pending</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="metric">
+                                    <span class="icon"><i class="fa fa-id-badge"></i></span>
+                                    <p>
+                                        <span class="number">{{$status['waitForPic']}}</span><br>
+                                        <span class="title label label-info">Wait For PIC</span>
                                     </p>
                                 </div>
                             </div>

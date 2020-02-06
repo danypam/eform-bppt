@@ -1,4 +1,5 @@
 @extends('layouts.master')
+{{--@extends('formbuilder::layout')--}}
 
 @section('content')
     <div class="main">
@@ -37,17 +38,16 @@
                                             </div>
                                         </h5>
                                     </div>
-
-                                    <ul class="list-group list-group-flush">
+                                    <table class="table"  style="table-layout: fixed">
                                         @foreach($form_headers as $header)
-                                            <li class="list-group-item">
-                                                <strong>{{ $header['label'] ?? title_case($header['name']) }}: </strong>
-                                                <span class="float-right">
-                                                    {{ $submission->renderEntryContent($header['name'], $header['type']) }}
-                                                </span>
-                                            </li>
+                                            <tbody style="border: none">
+                                            <tr>
+                                                <td style="border: none;word-wrap: break-word; width: 20%"><strong>{{ $header['label'] ?? title_case($header['name']) }}: </strong></td>
+                                                <td  style="border: none;word-wrap: break-word; width: 80%" class="float-right"><span>{{ $submission->renderEntryContent($header['name'], $header['type']) }}</span></td>
+                                            </tr>
+                                            </tbody>
                                         @endforeach
-                                    </ul>
+                                    </table>
                                 </div>
                             </div>
 

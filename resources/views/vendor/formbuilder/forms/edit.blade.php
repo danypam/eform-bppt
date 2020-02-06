@@ -82,6 +82,22 @@
                                                     @endif
                                                 </div>
                                             </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="letter-code" class="col-form-label">Letter Code</label>
+                                                    <input id="letter-code" value="{{$form->letter_code}}" type="text" class="form-control" required placeholder="Enter Letter Code" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="pic" class="col-form-label" style="display: block">PIC</label>
+                                                    <select id="pic" class="selectpicker" multiple data-live-search="true"  data-width="100%" required>
+                                                        @foreach($pegawai as $peg)
+                                                            <option value="{{$peg->id}}">{{$peg->nama_lengkap." (".$peg->nip.")"}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="row">
@@ -112,10 +128,24 @@
             </div>
         </div>
     </div>
-    </div>
+
+
+
 @endsection
 
 @push(config('formbuilder.layout_js_stack', 'scripts'))
+<script>
+
+    $(document).ready(function (){
+        var data = {!! $form->pic /*json_decode($form->pic, true)*/ !!};
+        console.log(data.toString());
+
+        $.each(data.toString().split(","), function(i,e){
+            $("#pic option[value='" + e + "']").prop("selected", true);
+        });
+    });
+</script>
+
 <script type="text/javascript">
     window.FormBuilder = window.FormBuilder || {}
     window.FormBuilder.form_roles = @json($form_roles);

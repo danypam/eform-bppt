@@ -214,10 +214,11 @@ class Submission extends Model implements LogsActivityInterface
         $all = Self::get()->count();
         $new = Self::where('status','0')->get()->count();
         $pending = Self::where('status','1')->get()->count();
-        $onGoing = Self::where('status','2')->get()->count();
-        $completed = Self::where('status','3')->get()->count();
+        $waitForPic = Self::where('status','2')->get()->count();
+        $onGoing = Self::where('status','3')->get()->count();
+        $completed = Self::where('status','4')->get()->count();
         $rejected = Self::where('status','-1')->get()->count();
-      return ['all'=>$all,'new'=>$new,'pending'=>$pending,'onGoing'=>$onGoing,'completed'=>$completed,'rejected'=>$rejected];
+      return ['all'=>$all,'new'=>$new,'pending'=>$pending,'onGoing'=>$onGoing,'completed'=>$completed,'rejected'=>$rejected, 'waitForPic'=>$waitForPic];
     }
 
     public static function count_form()
@@ -229,9 +230,10 @@ class Submission extends Model implements LogsActivityInterface
 
         $series[0]['name'] = 'new';
         $series[1]['name'] = 'pending';
-        $series[2]['name'] = 'onGoing';
-        $series[3]['name'] = 'completed';
-        $series[4]['name'] = 'rejected';
+        $series[2]['name'] = 'waitForPic';
+        $series[3]['name'] = 'onGoing';
+        $series[4]['name'] = 'completed';
+        $series[5]['name'] = 'rejected';
 
      /*   $series[0]=[];
         $series[1]=[];
@@ -248,6 +250,7 @@ class Submission extends Model implements LogsActivityInterface
                 $series[1]['data'][]= self::where('status','=','1')->where('form_id','=',$fm->id)->get()->count();
                 $series[2]['data'][]= self::where('status','=','2')->where('form_id','=',$fm->id)->get()->count();
                 $series[3]['data'][]= self::where('status','=','3')->where('form_id','=',$fm->id)->get()->count();
+                $series[4]['data'][]= self::where('status','=','4')->where('form_id','=',$fm->id)->get()->count();
                 $series[4]['data'][]= self::where('status','=','-1')->where('form_id','=',$fm->id)->get()->count();
             //}
 

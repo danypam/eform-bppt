@@ -122,6 +122,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/{id}/submission_pdf','ExportController@submission_pdf');
 
     Route::resource('/task', 'PicController');
+    Route::get('/task/{id}/take','PicController@take');
+    Route::get('/task/{id}/cancel','PicController@cancel');
+    Route::get('/task/{id}/complete','PicController@complete');
 
     Route::post('/notification/submission/notification','RenderFormController@notification');
 });

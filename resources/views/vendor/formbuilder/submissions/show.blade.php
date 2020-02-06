@@ -1,4 +1,4 @@
-@extends('formbuilder::layout')
+@extends('layouts.master')
 
 @section('content')
     <div class="main">
@@ -16,26 +16,28 @@
                                         <a href="{{ route('formbuilder::forms.submissions.index', $submission->form->id) }}" class="btn btn-primary float-md-right btn-sm" title="Back To Submissions">
                                             <i class="fa fa-arrow-left"></i>
                                         </a>
-                                        <form action="{{ route('formbuilder::forms.submissions.destroy', [$submission->form, $submission]) }}" method="POST" id="deleteSubmissionForm_{{ $submission->id }}" class="d-inline-block">
+                          {{--              <form action="{{ route('formbuilder::forms.submissions.destroy', [$submission->form, $submission]) }}" method="POST" id="deleteSubmissionForm_{{ $submission->id }}" class="d-inline-block">
                                             @csrf
                                             @method('DELETE')
 
                                             <button type="submit" class="btn btn-danger btn-sm rounded-0 confirm-form" data-form="deleteSubmissionForm_{{ $submission->id }}" data-message="Delete submission" title="Delete this submission?">
                                                 <i class="fa fa-trash-o"></i>
                                             </button>
-                                        </form>
+                                        </form>--}}
                                     </div>
                                 </div>
-                                <ul class="list-group list-group-flush">
+                                <div>
+                                <table class="table"  style="table-layout: fixed">
                                     @foreach($form_headers as $header)
-                                        <li class="list-group-item">
-                                            <strong>{{ $header['label'] ?? title_case($header['name']) }}: </strong>
-                                            <span class="float-right">
-                                                    {{ $submission->renderEntryContent($header['name'], $header['type']) }}
-                                                </span>
-                                        </li>
+                                        <tbody style="border: none">
+                                        <tr>
+                                            <td style="border: none;word-wrap: break-word; width: 20%"><strong>{{ $header['label'] ?? title_case($header['name']) }}: </strong></td>
+                                            <td  style="border: none;word-wrap: break-word; width: 80%" class="float-right"><span>{{ $submission->renderEntryContent($header['name'], $header['type']) }}</span></td>
+                                        </tr>
+                                        </tbody>
                                     @endforeach
-                                </ul>
+                                </table>
+                                </div>
                             </div>
                         </div>
                     </div>

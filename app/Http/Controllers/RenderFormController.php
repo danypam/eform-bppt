@@ -9,6 +9,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Mail\email_atasan;
+use App\Pegawai;
 use jazmy\FormBuilder\Helper;
 use jazmy\FormBuilder\Models\Form;
 use Illuminate\Http\Request;
@@ -55,13 +56,13 @@ class RenderFormController extends Controller
      */
     public function submit(Request $request, $identifier)
     {
-        $form = Form::where('identifier', $identifier)->firstOrFail();
-        $details = [
-            'title' => 'Annisa Daffa',
-            'body' => 'Please check this link'
-        ];
+       $form = Form::where('identifier', $identifier)->firstOrFail();
+                 $details = [
+                    'title' => 'Annisa Daffa',
+                    'body' => 'Please check this link'
+                ];
 
-        \Mail::to('littleodysoo@gmail.com')->send(new email_atasan($details));
+                \Mail::to('littleodysoo@gmail.com')->send(new email_atasan($details));
         DB::beginTransaction();
 
         $users = User::whereHas('roles',function($q){
@@ -94,15 +95,17 @@ class RenderFormController extends Controller
                 'content' => $input,
             ]);
             DB::commit();
-            return redirect()
+           /* return redirect()
                     ->route('formbuilder::form.feedback', $identifier)
-                    ->with('success', 'Form successfully submitted. Please wait');
+                    ->with('success', 'Form successfully submitted. Please wait');*/
+            return redirect('/my-submissions    ')->with('sukses', 'Formulir Berhasil diajukan');
         } catch (Throwable $e) {
             info($e);
 
             DB::rollback();
 
             return back()->withInput()->with('error', Helper::wtf());
+
         }
 
     }
