@@ -46,7 +46,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-warning">Ubah</button>
+                                        <button type="submit" class="btn btn-warning">Save</button>
                                 </form>
                             </div>
                         </div>

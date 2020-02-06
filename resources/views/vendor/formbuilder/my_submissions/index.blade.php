@@ -20,10 +20,10 @@
                                             <table class="table" id="datatable">
                                                 <thead>
                                                 <tr>
-                                                    <th class="five">#</th>
-                                                    <th class="">Form</th>
-                                                    <th class="twenty-five">Updated On</th>
-                                                    <th class="twenty-five">Created On</th>
+                                                    <th class="five">NO</th>
+                                                    <th class="">Form Type</th>
+                                                    <th class="twenty-five">Updated At</th>
+                                                    <th class="twenty-five">Created At</th>
                                                     <th class="fifteen">Actions</th>
                                                 </tr>
                                                 </thead>

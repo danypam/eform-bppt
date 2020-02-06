@@ -18,7 +18,7 @@
                                     <tr>
                                         <th>Email</th>
                                         <th>Name</th>
-                                        <th>Form</th>
+                                        <th>Form Type</th>
                                         <th>Status</th>
                                         <th>Created At</th>
                                         <th>Action</th>

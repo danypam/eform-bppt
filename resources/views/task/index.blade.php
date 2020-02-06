@@ -16,9 +16,9 @@
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>NIP</th>
+                                        <th>Employee ID Number</th>
                                         <th>Name</th>
-                                        <th>Jenis Form</th>
+                                        <th>Form Type</th>
                                         <th>Status</th>
                                         <th>Created At</th>
                                         <th>Action</th>

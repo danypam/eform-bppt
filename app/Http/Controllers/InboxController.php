@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\email_kepala;
 use App\Pegawai;
 use App\UnitJabatan;
 use App\Submission;
@@ -121,6 +122,14 @@ class InboxController extends Controller
 
     public function approve($id)
     {
+        DB::beginTransaction();
+        DB::table('form_submissions')->where([
+            'id'=>$id
+        ])->update([
+            'status'=> DB::raw('status + 1')
+        ]);
+
+        return redirect('/inbox')->with('sukses','Formulir Berhasil DiSetujui');
         //tingkatan status
 
 
