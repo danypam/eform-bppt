@@ -94,6 +94,9 @@
             </div>
         </div>
     </div>
+
+
+
 @stop
 @section('footer')
             <script>
@@ -105,3 +108,4 @@
                 })
             </script>
 @stop
+

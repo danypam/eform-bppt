@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    @role('Admin')
+
     <div class="main">
         <!-- MAIN CONTENT -->
         <div class="main-content">
@@ -18,8 +18,8 @@
                                 <div class="metric">
                                     <span class="icon"><i class="fa fa-download"></i></span>
                                     <p>
-                                        <span class="number">1,252</span><br>
-                                        <span class="title label label-default">Papers</span>
+                                        <span class="number">{{$status['all']}}</span><br>
+                                        <span class="title label label-default">Submissions</span>
                                     </p>
                                 </div>
                             </div>
@@ -27,7 +27,16 @@
                                 <div class="metric">
                                     <span class="icon"><i class="fa fa-shopping-bag"></i></span>
                                     <p>
-                                        <span class="number">203</span><br>
+                                        <span class="number">{{$status['new']}}</span><br>
+                                        <span class="title label label-warning">New</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="metric">
+                                    <span class="icon"><i class="fa fa-bar-chart"></i></span>
+                                    <p>
+                                        <span class="number">{{$status['pending']}}</span><br>
                                         <span class="title label label-warning">Pending</span>
                                     </p>
                                 </div>
@@ -36,8 +45,8 @@
                                 <div class="metric">
                                     <span class="icon"><i class="fa fa-eye"></i></span>
                                     <p>
-                                        <span class="number">274</span><br>
-                                        <span class="title label label-info">On Progress</span>
+                                        <span class="number">{{$status['onGoing']}}</span><br>
+                                        <span class="title label label-info">On Going</span>
                                     </p>
                                 </div>
                             </div>
@@ -45,8 +54,17 @@
                                 <div class="metric">
                                     <span class="icon"><i class="fa fa-bar-chart"></i></span>
                                     <p>
-                                        <span class="number">350</span><br>
-                                        <span class="title label label-success">Complete</span>
+                                        <span class="number">{{$status['completed']}}</span><br>
+                                        <span class="title label label-success">Completed</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="metric">
+                                    <span class="icon"><i class="fa fa-bar-chart"></i></span>
+                                    <p>
+                                        <span class="number">{{$status['rejected']}}</span><br>
+                                        <span class="title label label-danger">Rejected</span>
                                     </p>
                                 </div>
                             </div>
@@ -101,12 +119,71 @@
         </div>
     </div>
     <!-- END MAIN CONTENT -->
-    @endrole
+
 @endsection
 
 @section('footer')
+<script>
+    Highcharts.chart('chartSurat', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Submissions'
+        },
+        /*subtitle: {
+            text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
+        },*/
+        xAxis: {
+            categories: {!! json_encode($category['category']) !!},
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Jumlah',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' millions'
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -80,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor:
+                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+            shadow: true
+        },
+        credits: {
+            enabled: false
+        },
+        series:{!! json_encode($category['series']) !!}
+    });
 
-    <script>
+
+</script>
+
+@endsection
+
+{{--<script>
         Highcharts.chart('chartSurat', {
             chart: {
                 type: 'column'
@@ -119,8 +196,7 @@
             },
             xAxis: {
                 categories: [
-                    'Form Emal',
-                    'Form Domain',
+                    'Form Emal'
                 ],
                 crosshair: true
             },
@@ -162,6 +238,4 @@
                 data: [1,8]
             }]
         });
-    </script>
-@endsection
-
+    </script>--}}

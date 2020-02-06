@@ -208,4 +208,56 @@ class Submission extends Model implements LogsActivityInterface
 
         return '';
     }
+
+    public static function count_submission()
+    {
+        $all = Self::get()->count();
+        $new = Self::where('status','0')->get()->count();
+        $pending = Self::where('status','1')->get()->count();
+        $onGoing = Self::where('status','2')->get()->count();
+        $completed = Self::where('status','3')->get()->count();
+        $rejected = Self::where('status','-1')->get()->count();
+      return ['all'=>$all,'new'=>$new,'pending'=>$pending,'onGoing'=>$onGoing,'completed'=>$completed,'rejected'=>$rejected];
+    }
+
+    public static function count_form()
+    {
+
+        $forms=Form::all();
+        $form_submissions=self::all();
+        $category = [];
+
+        $series[0]['name'] = 'new';
+        $series[1]['name'] = 'pending';
+        $series[2]['name'] = 'onGoing';
+        $series[3]['name'] = 'completed';
+        $series[4]['name'] = 'rejected';
+
+     /*   $series[0]=[];
+        $series[1]=[];
+        $series[2]=[];
+        $series[3]=[];
+        $series[4]=[];*/
+
+        foreach ($forms as $fm)
+        {
+            $category[] = $fm->name;
+            //$id=$fm->id;
+            //foreach ($form_submissions as $sub){
+                $series[0]['data'][]= self::where('status','=','0')->where('form_id','=',$fm->id)->get()->count();
+                $series[1]['data'][]= self::where('status','=','1')->where('form_id','=',$fm->id)->get()->count();
+                $series[2]['data'][]= self::where('status','=','2')->where('form_id','=',$fm->id)->get()->count();
+                $series[3]['data'][]= self::where('status','=','3')->where('form_id','=',$fm->id)->get()->count();
+                $series[4]['data'][]= self::where('status','=','-1')->where('form_id','=',$fm->id)->get()->count();
+            //}
+
+
+        }
+        //dd($category);
+        //dd($series[0]['data']);
+        return ['category' => $category, 'series' => $series];
+
+
+    }
+
 }

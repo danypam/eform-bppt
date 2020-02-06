@@ -144,6 +144,11 @@ class Form extends Model implements LogsActivityInterface
                     ->paginate(100);
     }
 
+    public static function chart()
+    {
+
+    }
+
     /**
      * Get an array containing the name of the fields in the form and their label
      *
