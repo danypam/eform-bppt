@@ -10,7 +10,7 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">PERMISSIONS</h3>
+                                <h3 class="panel-title">Permission</h3>
                                 <div class="right">
                                     @can('permission-create')
                                         <a href="#" class="btn btn-info btn-lg " data-toggle="modal" data-target="#exampleModal">Add Permission</a>
@@ -24,10 +24,10 @@
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>NUMBER</th>
-                                        <th>PERMISSION</th>
-                                        <th>MANAGED</th>
-                                        <th>ACTION</th>
+                                        <th>No</th>
+                                        <th>Permission</th>
+                                        <th>Updated At</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>

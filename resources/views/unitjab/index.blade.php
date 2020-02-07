@@ -10,10 +10,10 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INFORMASI UNIT JABATAN</h3>
+                                <h3 class="panel-title">Position Unit Data</h3>
                                 <div class="right">
                                     @can('unitjab-create')
-                                    <a href="#" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#exampleModal">Tambah Unit Jabatan</a>
+                                    <a href="#" class="btn btn-info btn-lg " data-toggle="modal" data-target="#exampleModal">Add New Position Unit</a>
                                     @endcan
                                 </div>
                             </div>
@@ -22,10 +22,10 @@
                                     <thead>
                                     <tr>
                                         <th>Category</th>
-                                        <th>KODE UNIT JABATAN</th>
-                                        <th>UNIT</th>
-                                        <th>UNIT ATASAN 1</th>
-                                        <th>UNIT ATASAN 2</th>
+                                        <th>ID Position Unit</th>
+                                        <th>Department</th>
+                                        <th>Unit Atasan 1</th>
+                                        <th>Unit Atasan 2</th>
                                         <th>Abbreviation</th>
                                         <th>Action</th>
                                     </tr>
@@ -41,10 +41,10 @@
                                             <td>{{$a->singkat}}</td>
                                             <td>
                                                 @can('unitjab-edit')
-                                                <a href="/unitjab/{{$a->id_unit_jabatan}}/edit" class="btn btn-warning btn-sm">Ubah</a>
+                                                <a href="/unitjab/{{$a->id_unit_jabatan}}/edit" class="btn btn-warning btn-sm">Edit</a>
                                                 @endcan
                                                 @can('unitjab-delete')
-                                                    <a href="#" class="btn btn-danger btn-sm delete" unitjab-id="{{$a->id_unit_jabatan}}">Hapus</a>
+                                                    <a href="#" class="btn btn-danger btn-sm delete" unitjab-id="{{$a->id_unit_jabatan}}">Delete</a>
                                                 @endcan
                                             </td>
                                         </tr>
@@ -64,7 +64,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">TAMBAH DATA UNIT JABATAN</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Data</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -73,42 +73,43 @@
                     <form action="/unitjab/create" method="POST">
                         {{csrf_field()}}
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">KATEGORI</label>
-                            <input name="kategori" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Kategori">
+                            <label for="exampleFormControlInput1">Kategori</label>
+                            <input name="kategori" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Kategori"required>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">KODE UNIT JABATAN</label>
-                            <input name="id_unit_jabatan" type="text" class="form-control" id="exampleFormControlInput1" placeholder="ID Unit Jabatan">
+                            <label for="exampleFormControlInput1">Kode Unit Jabatan</label>
+                            <input name="id_unit_jabatan" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Kode Unit Jabatan"pattern="[0-9]{2,}"required>
+                            <small id="kodeunit" class="form-text text-muted">Numeric Characters Only. At Least 2 Characters </small>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">UNIT</label>
-                            <input name="unit" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Unit">
+                            <label for="exampleFormControlInput1">Unit Kerja</label>
+                            <input name="unit" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Unit Kerja"required>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">UNIT ATAS PERTAMA</label>
-                            <select name="kode_unitatas1" class="form-control" id="exampleFormControlSelect1">
-                                <option>-pilih-</option>
+                            <label for="exampleFormControlSelect1">Unit Atasan Pertama</label>
+                            <select name="kode_unitatas1" class="form-control selectpicker"  data-live-search="true" id="exampleFormControlSelect1"required>
+                                <option selected disabled value="">-select-</option>
                                 @foreach($data_unitjab1 as $jab1)
                                     <option value="{{$jab1->id_unit_jabatan}}">{{$jab1->unit}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">UNIT ATAS KEDUA</label>
-                            <select name="kode_unitatas2" class="form-control" id="exampleFormControlSelect1">
-                                <option>-pilih-</option>
+                            <label for="exampleFormControlSelect1">Unit Atasan Kedua</label>
+                            <select name="kode_unitatas2" class="form-control selectpicker"  data-live-search="true" id="exampleFormControlSelect1"required>
+                                <option selected disabled value="">-select-</option>
                                 @foreach($data_unitjab1 as $jab2)
                                     <option value="{{$jab2->id_unit_jabatan}}">{{$jab2->unit}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">SINGKATAN</label>
-                            <input name="singkat" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Singkatan">
+                            <label for="exampleFormControlInput1">Sngkatan</label>
+                            <input name="singkat" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Singkatan"required>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
                 </div>

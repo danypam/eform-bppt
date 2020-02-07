@@ -10,9 +10,9 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">ADD NEW USER</h3>
+                                <h3 class="panel-title">Add New User</h3>
                                 <div class="right">
-                                    <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
+                                    <a class="btn btn-primary" href="{{ route('users.index') }}">Back</a>
                                 </div>
                             </div>
                             <div class="panel-body">
@@ -31,31 +31,31 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>Name:</strong>
+                                            <strong>Name</strong>
                                             {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>Email:</strong>
+                                            <strong>Email</strong>
                                             {!! Form::text('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>Password:</strong>
+                                            <strong>Password</strong>
                                             {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>Confirm Password:</strong>
+                                            <strong>Confirm Password</strong>
                                             {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>Role:</strong>
+                                            <strong>Role</strong>
                                             {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
                                         </div>
                                     </div>

@@ -22,13 +22,13 @@
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>NUMBER</th>
-                                        <th>NAME</th>
-                                        <th>EMAIL</th>
-                                        <th>ROLE</th>
-                                        <th>STATUS</th>
-                                        <th>MANAGED</th>
-                                        <th>ACTION</th>
+                                        <th>No</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>Updated At</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>

@@ -16,7 +16,7 @@
                                     {{csrf_field()}}
                                     <div class="form-group">
                                         <label for="exampleFormControlInput1">Kode Unit</label>
-                                        <input value="{{$data_unit->kode_unit}}" name="kode_unit" type="text" class="form-control" id="exampleFormControlInput1" placeholder="nama jabatan">
+                                        <input value="{{$data_unit->kode_unit}}" name="kode_unit" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Jabatan">
                                         <small id="emailHelp" class="form-text text-muted">Kode Unit</small>
                                     </div>
                                     <div class="form-group">

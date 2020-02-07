@@ -10,7 +10,7 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">ACTIVITIES</h3>
+                                <h3 class="panel-title">Log Activities</h3>
                             </div>
                             <div class="panel-body">
                                 <?php
@@ -19,12 +19,12 @@
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>NO</th>
-                                        <th>USER</th>
-                                        <th>DESCRIPTION</th>
-                                        <th>ACCESSED</th>
-                                        <th>MANAGED</th>
-                                        <th>ACTION</th>
+                                        <th>No</th>
+                                        <th>User</th>
+                                        <th>Description</th>
+                                        <th>IP Address</th>
+                                        <th>Updated At</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>

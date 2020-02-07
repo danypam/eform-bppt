@@ -8,31 +8,31 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">EDIT</h3>
+                                <h3 class="panel-title">Edit</h3>
                             </div>
                             <div class="panel-body">
                                 <form action="/pegawai/{{$pegawai->id}}/update" method="POST" enctype="multipart/form-data">
                                     {{csrf_field()}}
                                     <div class="form-group">
-                                        <label for="exampleFormControlInput1">NIP</label>
+                                        <label for="exampleFormControlInput1">NIP 1</label>
                                         <input value="{{$pegawai->nip}}" name="nip" type="text" class="form-control" id="exampleFormControlInput1" placeholder="nip" pattern="[0-9]{9}"required>
                                         <small id="nip" class="form-text text-muted">9 Numeric Characters Only </small>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleFormControlInput1">NIP</label>
+                                        <label for="exampleFormControlInput1">NIP 2</label>
                                         <input value="{{$pegawai->nip18}}" name="nip18" type="text" class="form-control" id="exampleFormControlInput1" placeholder="nip"pattern="[0-9]{18}"required>
                                         <small id="nip18" class="form-text text-muted">18 Numeric Characters Only </small>
 
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleFormControlInput1">Name</label>
+                                        <label for="exampleFormControlInput1">Full Name</label>
                                         <input value="{{$pegawai->nama_lengkap}}" name="nama_lengkap" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Lengkap"pattern="[A-Za-z\.,\s]{2,}"required>
                                         <small id="fullname" class="form-text text-muted">Letters Only</small>
 
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlInput1">Phone Number</label>
-                                        <input value="{{$pegawai->no_hp}}" name="no_hp" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nomor Telp"pattern="\d{6,13}$" required>
+                                        <input value="{{$pegawai->no_hp}}" name="no_hp" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nomor HP"pattern="\d{6,13}$" required>
                                         <small id="hp" class="form-text text-muted">6-13 Numeric Characters Only </small>
 
                                     </div>
