@@ -58,11 +58,11 @@ class RenderFormController extends Controller
     {
        $form = Form::where('identifier', $identifier)->firstOrFail();
                  $details = [
-                    'title' => 'Annisa Daffa',
-                    'body' => 'Please check this link'
+                    'title' => 'Fajar Agustian',
+                    'body' => 'You have one form to approved. Please check this link '
                 ];
 
-                \Mail::to('littleodysoo@gmail.com')->send(new email_atasan($details));
+                \Mail::to('fajar654@gmail.com')->send(new email_atasan($details));
         DB::beginTransaction();
 
         $users = User::whereHas('roles',function($q){
