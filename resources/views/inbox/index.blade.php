@@ -43,7 +43,7 @@
                                             <td><span class="label label-primary">ON GOING</span></td>
                                             @endif
                                             @if($inbox->status == 4)
-                                                <td>C<span class="label label-success">COMPLETE</span></td>
+                                                <td><span class="label label-success">COMPLETE</span></td>
                                             @endif
                                             <td>{{$inbox->created_at}}</td>
                                             <td>
@@ -180,8 +180,7 @@
     <script>
         $(document).ready(function () {
             $('#datatable').DataTable({
-                scrollY:     300,
-                scroller:    true
+
             });
 
             $('.delete').click(function () {

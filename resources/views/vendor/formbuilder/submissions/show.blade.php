@@ -27,12 +27,12 @@
                                     </div>
                                 </div>
                                 <div>
-                                <table class="table"  style="table-layout: fixed">
+                                <table class="table"  style="table-layout: fixed;font-family: sans-serif">
                                     @foreach($form_headers as $header)
                                         <tbody style="border: none">
                                         <tr>
-                                            <td style="border: none;word-wrap: break-word; width: 20%"><strong>{{ $header['label'] ?? title_case($header['name']) }}: </strong></td>
-                                            <td  style="border: none;word-wrap: break-word; width: 80%" class="float-right"><span>{{ $submission->renderEntryContent($header['name'], $header['type']) }}</span></td>
+                                            <td style="border: none;word-wrap: break-word; width: 50%"><strong>{{ $header['label'] ?? title_case($header['name']) }} </strong></td>
+                                            <td  style="border: none;word-wrap: break-word; width: 50%" class="float-right"><span>: {{ $submission->renderEntryContent($header['name'], $header['type']) }}</span></td>
                                         </tr>
                                         </tbody>
                                     @endforeach

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Mail\email_kepala;
+use App\Notifications\NewForm;
 use App\Pegawai;
 use App\UnitJabatan;
 use App\Submission;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\DB;
@@ -22,7 +24,7 @@ class InboxController extends Controller
     function __construct()
     {
         $this->middleware('permission:inbox-list-mengetahui|inbox-list-menyetujui|inbox-list-all|inbox-list-mengetahui-menyetujui', ['only' => ['index','show']]);
-        $this->middleware('permission:inbox=approve-all|inbox-approve-mengetahui|inbox-approve-menyetujui|inbox-approve-mengetahui-menyetujui', ['only' => ['edit','update']]);
+        $this->middleware('permission:inbox-approve-all|inbox-approve-mengetahui|inbox-approve-menyetujui|inbox-approve-mengetahui-menyetujui', ['only' => ['edit','update']]);
     }
     public function index()
     {
@@ -160,7 +162,15 @@ class InboxController extends Controller
                 if(!($isFilled->menyetujui)){
                      $this->commit($id);
                      $this->fillWhoApprove($id, "menyetujui");
-                    DB::commit();
+                     DB::commit();
+                    $users = User::whereHas('roles',function($q){
+                        $q->where('name','pic');
+                    })->get();
+                    if (\Notification::send($users, new NewForm(Submission::latest('id')->first())))
+                    {
+                        return back();
+                    }
+
                     return redirect('/inbox')->with('sukses', 'Formulir Berhasil DiSetujui');
                 }else{
                     DB::rollback();
@@ -172,7 +182,14 @@ class InboxController extends Controller
                     $this->commit($id);
                     $this->fillWhoApprove($id, "mengetahui");
                     DB::commit();
-                    return redirect('/inbox')->with('sukses', 'masuk Berhasil DiSetujui');
+                    $users = User::whereHas('roles',function($q){
+                        $q->where('name','kepala');
+                    })->get();
+                    if (\Notification::send($users, new NewForm(Submission::latest('id')->first())))
+                    {
+                        return back();
+                    }
+                    return redirect('/inbox')->with('sukses', 'Form Berhasil DiSetujui');
                 } else {
                     DB::rollback();
                     return redirect('/inbox')->with('error', 'Formulir Telah Dieksekusi oleh user lain');
