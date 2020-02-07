@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\NewForm;
 use App\Pegawai;
 use App\UnitJabatan;
 use App\Submission;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\DB;
@@ -21,7 +23,7 @@ class InboxController extends Controller
     function __construct()
     {
         $this->middleware('permission:inbox-list-mengetahui|inbox-list-menyetujui|inbox-list-all|inbox-list-mengetahui-menyetujui', ['only' => ['index','show']]);
-        $this->middleware('permission:inbox=approve-all|inbox-approve-mengetahui|inbox-approve-menyetujui|inbox-approve-mengetahui-menyetujui', ['only' => ['edit','update']]);
+        $this->middleware('permission:inbox-approve-all|inbox-approve-mengetahui|inbox-approve-menyetujui|inbox-approve-mengetahui-menyetujui', ['only' => ['edit','update']]);
     }
     public function index()
     {
@@ -115,7 +117,7 @@ class InboxController extends Controller
         return DB::table('form_submissions')->where([
              'id' => $id_form_submission
             ])->update([
-            $column => DB::raw(Auth::user()->id)
+            $column => $id_pegawai
             ]);
     }
 
@@ -164,7 +166,15 @@ class InboxController extends Controller
                      $this->commit($id);
                      $this->fillWhoApprove($id, "menyetujui");
                     DB::commit();
-                    return redirect('/inbox')->with('sukses', 'Formulir Berhasil DiSetujui');
+                    $users = User::whereHas('roles',function($q){
+                        $q->where('name','pic');
+                    })->get();
+                    if (\Notification::send($users, new NewForm(Submission::latest('id')->first())))
+                    {
+                        return back();
+                    }
+
+                    return redirect('/inbox')->with('sukses', 'Formulir Berhasil DiSetujui Kepala');
                 }else{
                     DB::rollback();
                     return redirect('/inbox')->with('error', 'Formulir Telah Dieksekusi oleh user lain');
@@ -172,9 +182,17 @@ class InboxController extends Controller
             }else if(auth()->user()->can('inbox-approve-mengetahui')) {
                 if ((!$isFilled->mengetahui)) {
                     $this->commit($id);
-                    $this->fillWhoApprove($id, "menyetujui");
+                    $this->fillWhoApprove($id, "mengetahui");
                     DB::commit();
-                    return redirect('/inbox')->with('sukses', 'Formulir Berhasil DiSetujui');
+                    $users = User::whereHas('roles',function($q){
+                        $q->where('name','kepala');
+                    })->get();
+                    if (\Notification::send($users, new NewForm(Submission::latest('id')->first())))
+                    {
+                        return back();
+                    }
+
+                    return redirect('/inbox')->with('sukses', 'Formulir Berhasil DiSetujui Atasan');
                 } else {
                     DB::rollback();
                     return redirect('/inbox')->with('error', 'Formulir Telah Dieksekusi oleh user lain');

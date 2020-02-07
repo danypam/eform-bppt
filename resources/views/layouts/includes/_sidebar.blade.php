@@ -3,6 +3,7 @@
         <nav>
             <ul class="nav">
                 <li><a href="/dashboard" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+
                 <li><a href="/inbox" class=""><i class="lnr lnr-user"></i> <span>Inbox</span></a></li>
                 @if (auth()->user()->can('submission-list'))
                 <li><a href="{{ route('formbuilder::my-submissions.index') }}" class=""><i class="lnr lnr-user"></i> <span>My Submissions</span></a></li>
@@ -37,7 +38,7 @@
                 @if (auth()->user()->can('pegawai-list') || auth()->user()->can('pegawai-delete') || auth()->user()->can('pegawai-create')|| auth()->user()->can('pegawai-edit'))
                 <li><a href="/pegawai" class=""><i class="lnr lnr-user"></i> <span>Employees</span></a></li>
                 @endif
-                @if (auth()->user()->can('form-list') || auth()->user()->can('form-delete') || auth()->user()->can('form-create')|| auth()->user()->can('form-edit'))
+                @if (auth()->user()->can('form-list'))
                 <li><a href="/forms" class=""><i class="lnr lnr-user"></i> <span>Form Builder</span></a></li>
                 @endif
                 @if(auth()->user()->can('form-input'))

@@ -16,7 +16,7 @@ use Spatie\Permission\Models\Role;
 use Throwable;
 use App\User;
 use App\Notifications\NewForm;
-use jazmy\FormBuilder\Models\Submission;
+use App\Submission;
 
 class RenderFormController extends Controller
 {
@@ -103,9 +103,9 @@ class RenderFormController extends Controller
         }
 
     }
-    public function notification(){
-        return auth()->user()->unreadNotifications;
-    }
+//    public function notification(){
+//        return auth()->user()->unreadNotifications;
+//    }
 
     /**
      * Display a feedback page

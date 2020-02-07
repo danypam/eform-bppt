@@ -7,13 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-{{--    <script src="{{asset('js/app.js')}}" async defer></script>--}}
-{{--    <script>window.Laravel = <?php echo json_encode(['csrfToken'=>csrf_token(),]); ?></script>--}}
-{{--    @if(!auth()->guest())--}}
-{{--        <script>--}}
-{{--            window.Laravel.userId = <?php echo auth()->user()->id;?>--}}
-{{--        </script>--}}
-{{--    @endif--}}
+
     <!-- VENDOR CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}">
@@ -21,6 +15,7 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/linearicons/style.css')}}">
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+    <link  rel="stylesheet" href="{{asset('css/main.css')}}" />
     <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
     <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}">
     <!-- GOOGLE FONTS -->
@@ -65,6 +60,8 @@
 <script charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 <script  src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script  src="https://code.highcharts.com/highcharts.js"></script>
+<script src="{{asset('js/progress-bar.js')}}"></script>
+{{--<script src="{{asset('js/appp.js')}}"></script>--}}
 @yield('footer')
 <script>
     @if(Session::has('warning'))
