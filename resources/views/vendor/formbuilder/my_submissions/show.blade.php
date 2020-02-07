@@ -100,16 +100,32 @@
 @endsection
 @section('footer')
     <script>
-        ProgressBar.singleStepAnimation = 1500;
-        ProgressBar.init(
-            [ 'NEW',
-                'PENDING',
-                'ON GOING',
-                'COMPLETED',
-                'REJECT'
-            ],
-            'COMPLETED',
-            'progress-bar-wrapper' // created this optional parameter for container name (otherwise default container created)
-        );
+        $(document).ready(function () {
+            var status = {!! $submission->status!!};
+            var wizard = '';
+            if (status === 0){
+                wizard = 'NEW';
+            }else if(status === 1 || status === 2){
+                wizard = 'PENDING';
+            }else if(status === 3){
+                wizard = 'ON GOING';
+            }else if(status === 4){
+                wizard = 'COMPLETED';
+            }else{
+                wizard = 'REJECT';
+            }
+            ProgressBar.singleStepAnimation = 1500;
+            ProgressBar.init(
+                [ 'NEW',
+                    'PENDING',
+                    'ON GOING',
+                    'COMPLETED',
+                    'REJECT'
+                ],
+                wizard,
+                'progress-bar-wrapper' // created this optional parameter for container name (otherwise default container created)
+            );
+        });
+
     </script>
 @stop
