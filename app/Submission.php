@@ -251,7 +251,7 @@ class Submission extends Model implements LogsActivityInterface
                 $series[2]['data'][]= self::where('status','=','2')->where('form_id','=',$fm->id)->get()->count();
                 $series[3]['data'][]= self::where('status','=','3')->where('form_id','=',$fm->id)->get()->count();
                 $series[4]['data'][]= self::where('status','=','4')->where('form_id','=',$fm->id)->get()->count();
-                $series[4]['data'][]= self::where('status','=','-1')->where('form_id','=',$fm->id)->get()->count();
+                $series[5]['data'][]= self::where('status','=','-1')->where('form_id','=',$fm->id)->get()->count();
             //}
 
 

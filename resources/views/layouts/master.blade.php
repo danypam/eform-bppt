@@ -7,13 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
 {{--    <!-- VENDOR CSS -->--}}
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendor/font-awesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendor/linearicons/style.css')}}">
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+    <link  rel="stylesheet" href="{{asset('css/main.css')}}" />
     <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
 
 
@@ -59,10 +62,15 @@
 <script charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 <script  src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script  src="https://code.highcharts.com/highcharts.js"></script>
+
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<script src="{{asset('js/progress-bar.js')}}"></script>
+{{--<script src="{{asset('js/appp.js')}}"></script>--}}
+
 @yield('footer')
 <script>
     @if(Session::has('warning'))
