@@ -135,7 +135,7 @@
 <script>
     Highcharts.chart('chartSurat', {
         chart: {
-            type: 'column'
+            type: 'line'
         },
         title: {
             text: 'Submissions'
