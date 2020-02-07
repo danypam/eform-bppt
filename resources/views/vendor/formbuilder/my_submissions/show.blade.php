@@ -8,6 +8,19 @@
                 <div class="panel">
                     <div class="panel-body">
                         <div class="row justify-content-center">
+                                <div class="col-md-12">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">WIZARD STEP STATUS</h3>
+
+                                        </div>
+                                </div>
+                            </div>
+                        <div class="progress-bar-wrapper"></div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="row justify-content-center">
                             <div class="col-md-8">
                                 <div class="card rounded-0">
                                     <div class="card-header">
@@ -80,7 +93,23 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 @endsection
+@section('footer')
+    <script>
+        ProgressBar.singleStepAnimation = 1500;
+        ProgressBar.init(
+            [ 'NEW',
+                'PENDING',
+                'ON GOING',
+                'COMPLETED',
+                'REJECT'
+            ],
+            'COMPLETED',
+            'progress-bar-wrapper' // created this optional parameter for container name (otherwise default container created)
+        );
+    </script>
+@stop
