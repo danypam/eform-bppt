@@ -123,6 +123,7 @@
 @endsection
 
 @section('footer')
+
 <script>
     Highcharts.chart('chartSurat', {
         chart: {
