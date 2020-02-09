@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
 use Spatie\Activitylog\LogsActivityInterface;
 use Spatie\Activitylog\LogsActivity;
+use  Carbon\Carbon;
+/*use Carbon\Carbon;*/
 
 class Submission extends Model implements LogsActivityInterface
 {
@@ -24,6 +26,9 @@ class Submission extends Model implements LogsActivityInterface
 	 * @var string
 	 */
 	protected $table = 'form_submissions';
+	//protected $dateFormat='yy-MM-dd HH:mm:ss';
+   // protected $dates = ['YY-MM-DD HH:mm:ss','created_at'];
+
 
     /**
      * The attributes that are not assignable.
@@ -253,22 +258,20 @@ class Submission extends Model implements LogsActivityInterface
     {
 
         $forms=Form::all();
-        $bulan=date('MM');
+        //$date=$forms->created_at->get();
+        //$tahun=Carbon::createFromFormat('Y-M-D HH:mm:ss', $date)->year;
+        //$created_at=self::createFromFormat('Y-M-D HH:mm:ss', 'created_at')->year;
+        $tahun=Carbon::createFromFormat('Y-M-D HH:mm:ss', 'created_at')->year;
 
 
-         $category = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEPT','OCT','NOV','DES'];
+        $category = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEPT','OCT','NOV','DES'];
 
-
-$i=1;
+        $i=1;
         foreach($forms as $fm) {
-            $series[]['name'][] = $fm->name;
-            for($i=1;$i<13;$i++){
 
-                $series[]['data'][$i]= self::where('form_id','=',$fm->id)->get()->count();
-            }
-            /*for($i=$bulan;$i<13;$i++){
-                        $series[]['data'][]= self::where('form_id','=',$fm->id)->where('created_at', '=',$i)->get()->count();
-                    }*/
+            $series[]['name'] = $fm->name;
+            $series[]['data'][]= self::where('form_id','=',$fm->id)->
+                where($fm->created_at,'=',$tahun)->get()->count();
 
         }
             //dd($series);
