@@ -21,8 +21,10 @@ class DashboardController extends Controller
             ->get();
 
         $status=\App\Submission::count_submission();
-        $category=\App\Submission::count_form();
+        $chart1=\App\Submission::count_form();
+        $chart2=\App\Submission::count_form2();
 
-        return view('dashboard.index',['data'=>$data,'category'=>$category,'status'=>$status]);
+
+        return view('dashboard.index',['data'=>$data,'chart1'=>$chart1,'status'=>$status,'chart2'=>$chart2]);
     }
 }

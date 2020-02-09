@@ -79,6 +79,10 @@
                                 <h3 class="panel-title">Chart</h3>
                                 <div id="chartSurat"></div>
                             </div>
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Chart</h3>
+                                <div id="chartForm"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -125,34 +129,34 @@
 @section('footer')
 
 <script>
+
+    // CHART 1 //
     Highcharts.chart('chartSurat', {
         chart: {
-            type: 'column'
+            type: 'spline'
         },
         title: {
             text: 'Submissions'
         },
-        /*subtitle: {
-            text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
-        },*/
+
         xAxis: {
-            categories: {!! json_encode($category['category']) !!},
+            categories: {!! json_encode($chart1['category']) !!},
             title: {
                 text: null
             }
         },
         yAxis: {
-            min: 0,
+            min: 1,
             title: {
                 text: 'Jumlah',
-                align: 'high'
+                align: 'medium'
             },
             labels: {
-                overflow: 'justify'
+                overflow: 'high'
             }
         },
         tooltip: {
-            valueSuffix: ' millions'
+            valueSuffix: ' pieces'
         },
         plotOptions: {
             bar: {
@@ -176,9 +180,63 @@
         credits: {
             enabled: false
         },
-        series:{!! json_encode($category['series']) !!}
+        series:{!! json_encode($chart1['series']) !!},
     });
 
+
+//CHART 2//
+
+    Highcharts.chart('chartForm', {
+        chart: {
+            type: 'spline'
+        },
+        title: {
+            text: 'Submissions'
+        },
+
+        xAxis: {
+            categories: {!! json_encode($chart2['category']) !!},
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 1,
+            title: {
+                text: 'Jumlah',
+                align: 'medium'
+            },
+            labels: {
+                overflow: 'high'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' pieces'
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -80,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor:
+                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+            shadow: true
+        },
+        credits: {
+            enabled: false
+        },
+        series:{!! json_encode($chart2['series']) !!},
+    });
 
 </script>
 

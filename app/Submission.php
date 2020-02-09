@@ -7,8 +7,8 @@ Last Updated: 12/29/2018
 ----------------------*/
 namespace App;
 
-use App\User;
 use App\Form;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
@@ -235,32 +235,45 @@ class Submission extends Model implements LogsActivityInterface
         $series[4]['name'] = 'completed';
         $series[5]['name'] = 'rejected';
 
-     /*   $series[0]=[];
-        $series[1]=[];
-        $series[2]=[];
-        $series[3]=[];
-        $series[4]=[];*/
 
         foreach ($forms as $fm)
         {
             $category[] = $fm->name;
-            //$id=$fm->id;
-            //foreach ($form_submissions as $sub){
                 $series[0]['data'][]= self::where('status','=','0')->where('form_id','=',$fm->id)->get()->count();
                 $series[1]['data'][]= self::where('status','=','1')->where('form_id','=',$fm->id)->get()->count();
                 $series[2]['data'][]= self::where('status','=','2')->where('form_id','=',$fm->id)->get()->count();
                 $series[3]['data'][]= self::where('status','=','3')->where('form_id','=',$fm->id)->get()->count();
                 $series[4]['data'][]= self::where('status','=','4')->where('form_id','=',$fm->id)->get()->count();
                 $series[5]['data'][]= self::where('status','=','-1')->where('form_id','=',$fm->id)->get()->count();
-            //}
+        }
+        return ['category' => $category, 'series' => $series];
+    }
 
+    public static function count_form2()
+    {
+
+        $forms=Form::all();
+        $bulan=date('MM');
+
+
+         $category = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEPT','OCT','NOV','DES'];
+
+
+$i=1;
+        foreach($forms as $fm) {
+            $series[]['name'][] = $fm->name;
+            for($i=1;$i<13;$i++){
+
+                $series[]['data'][$i]= self::where('form_id','=',$fm->id)->get()->count();
+            }
+            /*for($i=$bulan;$i<13;$i++){
+                        $series[]['data'][]= self::where('form_id','=',$fm->id)->where('created_at', '=',$i)->get()->count();
+                    }*/
 
         }
-        //dd($category);
-        //dd($series[0]['data']);
-        return ['category' => $category, 'series' => $series];
-
-
+            //dd($series);
+            //dd($category);
+        return [ 'series' => $series,'category' => $category];
     }
 
 }
