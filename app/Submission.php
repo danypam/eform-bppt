@@ -7,13 +7,15 @@ Last Updated: 12/29/2018
 ----------------------*/
 namespace App;
 
-use App\User;
 use App\Form;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
 use Spatie\Activitylog\LogsActivityInterface;
 use Spatie\Activitylog\LogsActivity;
+use  Carbon\Carbon;
+/*use Carbon\Carbon;*/
 
 class Submission extends Model implements LogsActivityInterface
 {
@@ -24,6 +26,9 @@ class Submission extends Model implements LogsActivityInterface
 	 * @var string
 	 */
 	protected $table = 'form_submissions';
+	//protected $dateFormat='yy-MM-dd HH:mm:ss';
+   // protected $dates = ['YY-MM-DD HH:mm:ss','created_at'];
+
 
     /**
      * The attributes that are not assignable.
@@ -235,32 +240,45 @@ class Submission extends Model implements LogsActivityInterface
         $series[4]['name'] = 'completed';
         $series[5]['name'] = 'rejected';
 
-     /*   $series[0]=[];
-        $series[1]=[];
-        $series[2]=[];
-        $series[3]=[];
-        $series[4]=[];*/
 
         foreach ($forms as $fm)
         {
             $category[] = $fm->name;
-            //$id=$fm->id;
-            //foreach ($form_submissions as $sub){
                 $series[0]['data'][]= self::where('status','=','0')->where('form_id','=',$fm->id)->get()->count();
                 $series[1]['data'][]= self::where('status','=','1')->where('form_id','=',$fm->id)->get()->count();
                 $series[2]['data'][]= self::where('status','=','2')->where('form_id','=',$fm->id)->get()->count();
                 $series[3]['data'][]= self::where('status','=','3')->where('form_id','=',$fm->id)->get()->count();
                 $series[4]['data'][]= self::where('status','=','4')->where('form_id','=',$fm->id)->get()->count();
                 $series[5]['data'][]= self::where('status','=','-1')->where('form_id','=',$fm->id)->get()->count();
-            //}
+        }
+        return ['category' => $category, 'series' => $series];
+    }
+
+    public static function count_form2()
+    {
+
+        $forms=Form::all();
+        //$date=$forms->created_at->get();
+        //$tahun=Carbon::createFromFormat('Y-M-D HH:mm:ss', $date)->year;
+        //$created_at=self::createFromFormat('Y-M-D HH:mm:ss', 'created_at')->year;
+        $tahun=Carbon::createFromFormat('Y-M-D HH:mm:ss', 'created_at')->year;
+
+
+        $category = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEPT','OCT','NOV','DES'];
+
+        $i=1;
+        foreach($forms as $fm) {
+
+
+            $series[]['name'] = $fm->name;
+            $series[]['data'][]= self::where('form_id','=',$fm->id)->
+                where($fm->created_at,'=',$tahun)->get()->count();
 
 
         }
-        //dd($category);
-        //dd($series[0]['data']);
-        return ['category' => $category, 'series' => $series];
-
-
+            //dd($series);
+            //dd($category);
+        return [ 'series' => $series,'category' => $category];
     }
 
 }
