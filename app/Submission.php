@@ -264,7 +264,7 @@ $i=1;
             $series[]['name'][] = $fm->name;
             for($i=1;$i<13;$i++){
 
-                $series[]['data'][$i]= self::where('form_id','=',$fm->id)->get()->count();
+                $series[]['data'][]= self::where('form_id','=',$fm->id)->get()->count();
             }
             /*for($i=$bulan;$i<13;$i++){
                         $series[]['data'][]= self::where('form_id','=',$fm->id)->where('created_at', '=',$i)->get()->count();
