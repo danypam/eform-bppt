@@ -135,7 +135,7 @@
 <script>
     Highcharts.chart('chartSurat', {
         chart: {
-            type: 'line'
+            type: 'spline'
         },
         title: {
             text: 'Submissions'
@@ -150,17 +150,17 @@
             }
         },
         yAxis: {
-            min: 0,
+            min: 1,
             title: {
                 text: 'Jumlah',
-                align: 'high'
+                align: 'medium'
             },
             labels: {
                 overflow: 'justify'
             }
         },
         tooltip: {
-            valueSuffix: ' millions'
+            valueSuffix: ' pcs'
         },
         plotOptions: {
             bar: {
@@ -192,59 +192,3 @@
 
 @endsection
 
-{{--<script>
-        Highcharts.chart('chartSurat', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Grafik Surat Masuk'
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: [
-                    'Form Emal'
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Jumlah Surat'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y} buah</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [{
-                name: 'Jumlah',
-                data: [50, 23]
-            },{
-                name: 'On Progress',
-                data: [10,13]
-            },{
-                name: 'Complete',
-                data: [5,6]
-            },{
-                name: 'Pending',
-                data: [43,12]
-
-            },{
-                name: 'Reject',
-                data: [1,8]
-            }]
-        });
-    </script>--}}
