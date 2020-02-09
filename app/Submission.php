@@ -269,9 +269,11 @@ class Submission extends Model implements LogsActivityInterface
         $i=1;
         foreach($forms as $fm) {
 
+
             $series[]['name'] = $fm->name;
             $series[]['data'][]= self::where('form_id','=',$fm->id)->
                 where($fm->created_at,'=',$tahun)->get()->count();
+
 
         }
             //dd($series);
