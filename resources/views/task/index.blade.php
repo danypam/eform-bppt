@@ -52,7 +52,7 @@
                                                 @if($task->status == 4)
                                                     <td>C<span class="label label-success">COMPLETE</span></td>
                                                 @endif
-                                                <td>{{$task->created_at}}</td>
+                                                <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($task->created_at)}}</td>
                                                 <td>
                                                     <a href="/forms/{{$task->form_id}}/submissions/{{$task->submission_id}}" class="btn btn-warning btn-sm">View</a>
                                                     @can('task-take')
@@ -103,7 +103,7 @@
                                                 @if($mytask->status == 4)
                                                     <td><span class="label label-success">COMPLETE</span></td>
                                                 @endif
-                                                <td>{{$mytask->created_at}}</td>
+                                                <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($mytask->created_at)}}</td>
                                                 <td>
                                                     <a href="/forms/{{$mytask->form_id}}/submissions/{{$mytask->submission_id}}" class="btn btn-warning btn-sm">View</a>
                                                     @can('task-take')
@@ -157,7 +157,7 @@
                                                     @if($complete->status == 4)
                                                         <td><span class="label label-success">COMPLETE</span></td>
                                                     @endif
-                                                    <td>{{$complete->created_at}}</td>
+                                                    <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($complete->created_at)}}</td>
                                                     <td>
                                                         <a href="/forms/{{$complete->form_id}}/submissions/{{$complete->submission_id}}" class="btn btn-warning btn-sm">View</a>
                                                         @can('task-take')

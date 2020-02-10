@@ -45,7 +45,7 @@
                                             @if($inbox->status == 4)
                                                 <td><span class="label label-success">COMPLETE</span></td>
                                             @endif
-                                            <td>{{$inbox->created_at}}</td>
+                                            <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($inbox->created_at)}}</td>
                                             <td>
                                                 <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
                                             @can('inbox-management')

@@ -46,8 +46,9 @@
                                                         @endif
                                                         @if($submission->status == 4)
                                                             <td><span class="label label-success">COMPLETE</span></td>
-                                                        @endif
-                                                        <td>{{ $submission->created_at->toDayDateTimeString() }}</td>
+                                                                @endif
+                                                                <td>{{ \App\Http\Controllers\TimeController::time_elapsed_string($submission->created_at->toDayDateTimeString()) }}</td>
+
 
                                                         <td>
                                                             <a href="{{ route('formbuilder::my-submissions.show', [$submission->id]) }}" class="btn btn-primary btn-sm" title="View submission">

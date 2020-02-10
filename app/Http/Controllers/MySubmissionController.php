@@ -8,6 +8,8 @@ Last Updated: 12/29/2018
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Pegawai;
+use DateTime;
 use jazmy\FormBuilder\Models\Submission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,6 +41,7 @@ class MySubmissionController extends Controller
 
         $submissions = Submission::getForUser($user);
 
+
         $pageTitle = "My Submissions";
 
         return view('formbuilder::my_submissions.index', compact('submissions', 'pageTitle'));
@@ -56,12 +59,12 @@ class MySubmissionController extends Controller
         $submission = Submission::where(['user_id' => $user->id, 'id' => $id])
                             ->with('form')
                             ->firstOrFail();
-
+        $identitas = Pegawai::with('unit_kerja', 'unit_jabatan')->find(auth()->user()->id);
         $form_headers = $submission->form->getEntriesHeader();
 
         $pageTitle = "View Submission";
 
-        return view('formbuilder::my_submissions.show', compact('submission', 'pageTitle', 'form_headers'));
+        return view('formbuilder::my_submissions.show', compact('submission', 'pageTitle', 'form_headers', 'identitas'));
     }
 
     /**
@@ -143,5 +146,11 @@ class MySubmissionController extends Controller
         return redirect()
                     ->route('formbuilder::my-submissions.index')
                     ->with('success', 'Submission deleted!');
+    }
+
+    public static function getNamePegawai($id){
+        return DB::table('pegawai')
+            ->select('nama_lengkap', 'nip')
+            ->find($id);
     }
 }

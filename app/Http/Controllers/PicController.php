@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Submission;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
 
@@ -39,7 +40,6 @@ class PicController extends Controller
         return DB::table('form_submissions')
             ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
             ->join('forms as f','form_submissions.form_id', '=', 'f.id')
-//            ->whereJsonContains('f.pic', $pic)
             ->whereRaw("JSON_SEARCH(f.pic, 'one', $pic->id) is not null")
             ->where('form_submissions.status', '=', $status)
             ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
@@ -55,7 +55,7 @@ class PicController extends Controller
         ]);
     }
 
-    public function fillWhoApprove($id_form_submission, $column){
+    public function fillWhoTake($id_form_submission){
         //get id pegawai
         $id_pegawai = DB::table('pegawai')
             ->select('id')
@@ -65,7 +65,9 @@ class PicController extends Controller
         return DB::table('form_submissions')->where([
             'id' => $id_form_submission
         ])->update([
-            $column => $id_pegawai->id
+            'pic' => $id_pegawai->id,
+            'pic_at' => Carbon::now()->toDateTimeString()
+
         ]);
     }
 
@@ -79,7 +81,7 @@ class PicController extends Controller
             \Illuminate\Support\Facades\DB::beginTransaction();
             if(!($isFilled->pic)){
                 $this->commit($id);
-                $this->fillWhoApprove($id, "pic");
+                $this->fillWhoTake($id);
                 DB::commit();
                 return redirect('/task')->with('sukses', 'Selamat Mengerjakan');
             }else{
@@ -105,7 +107,8 @@ class PicController extends Controller
         \Illuminate\Support\Facades\DB::table('form_submissions')->where([
             'id'=>$id,
         ])->update([
-            'status'=>DB::raw('status + 1')
+            'status'=>DB::raw('status + 1'),
+            'complete_at'=> Carbon::now()->toDateTimeString()
         ]);
         return redirect('/task')->with('sukses','Task Complete');
     }
