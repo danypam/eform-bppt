@@ -28,6 +28,13 @@
     <!-- ICONS -->
     <link rel="apple-touch-icon" sizes="76x76" href="{{asset('assets/img/apple-icon.png')}}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{asset('assets/img/favicon.png')}}">
+
+    <script>
+        window.Laravel = {!! json_encode([
+            'csrfToken'=>csrf_token(),
+        ]) !!};
+    </script>
+
     @stack('styles')
 </head>
 
@@ -69,7 +76,8 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 <script src="{{asset('js/progress-bar.js')}}"></script>
-{{--<script src="{{asset('js/appp.js')}}"></script>--}}
+<script src="{{asset('js/app.js')}}"></script>
+{{--<script src="{{asset('js/bootstrap.js')}}"></script>--}}
 
 @yield('footer')
 <script>
