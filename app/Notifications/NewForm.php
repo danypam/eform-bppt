@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -11,7 +12,7 @@ class NewForm extends Notification
 {
     use Queueable;
 
-    protected $submission;
+    public $submission;
 
     public function __construct($submission)
     {
@@ -27,12 +28,14 @@ class NewForm extends Notification
     {
         return [
             'submission'=>$this->submission,
+            'user'=>auth()->user()
         ];
     }
     public function toBroadcast($notifiable)
     {
-        return [
+        return new BroadcastMessage([
             'submission'=>$this->submission,
-        ];
+            'user'=>auth()->user()
+        ]);
     }
 }
