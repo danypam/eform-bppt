@@ -10,13 +10,14 @@
                             <div class="col-md-10">
                                 <div class="card rounded-0">
                                     <div class="card-header">
-                                        <h1 class="card-title">{{ $pageTitle }}</h1>
+                                        <h1 class="card-title">{{ $pageTitle}}</h1>
                                     </div>
 
                                     <form action="{{ route('formbuilder::form.submit', $form->identifier) }}" method="POST" id="submitForm" enctype="multipart/form-data">
                                         @csrf
 
-                                        <div class="card-body" style="font-weight: normal">
+
+                                        <div class="card-body">
                                             <div id="fb-render"></div>
                                         </div>
 
