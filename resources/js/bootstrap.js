@@ -10,7 +10,7 @@ try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
 
-    require('bootstrap');
+    require('resources/assets/js/bootstrap');
 } catch (e) {}
 
 /**
@@ -47,7 +47,7 @@ window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: "9afc946858d37a499399",
-    cluster: "ap1",
+    key: process.env.MIX_PUSHER_APP_KEY,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     encrypted: true
 });
