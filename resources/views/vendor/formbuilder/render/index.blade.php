@@ -16,7 +16,7 @@
                                     <form action="{{ route('formbuilder::form.submit', $form->identifier) }}" method="POST" id="submitForm" enctype="multipart/form-data">
                                         @csrf
 
-                                        <div class="card-body">
+                                        <div class="card-body" style="font-weight: normal">
                                             <div id="fb-render"></div>
                                         </div>
 
@@ -34,6 +34,12 @@
             </div>
         </div>
     </div>
+    <style>
+        .form-control:focus {
+            /*border-color: #ff80ff;*/
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 1) inset, 0px 0px 8px rgba(255, 100, 255, 0.5);
+        }
+    </style>
 @endsection
 
 @push(config('formbuilder.layout_js_stack', 'scripts'))
