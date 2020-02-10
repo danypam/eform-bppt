@@ -134,7 +134,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <strong>complete at: </strong>
-                                            <span class="float-right">{{ isset($submission->complete_at)? isset($submission->complete_at): ''}}</span>
+                                            <span class="float-right">{{ isset($submission->complete_at)? ($submission->complete_at): ''}}</span>
                                         </li>
                                     </ul>
                                 </div>
