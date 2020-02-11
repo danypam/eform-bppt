@@ -8,6 +8,12 @@ require('./bootstrap');
 window.Vue = require('vue');
 window._ = require('lodash');
 window,$ = window.jQuery = require('jquery');
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+Vue.use(VueAxios, axios)
+
+Vue.config.productionTip = false
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

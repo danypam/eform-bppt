@@ -27,12 +27,13 @@
                   not_id : unread.id,
                   submission_id : unread.data.submission.id,
               };
-
-              alert(data.submission_id);
+                axios.post("/markAsRead",data).then(response => {
+                  window.location.href="/read/" +data.submission_id;
+              })
             },
-        },
 
-        mounted() {
+
+        },mounted() {
             console.log('component mounted')
             Echo.private('App.User.' + this.userid)
                 .notification((notification)=> {
