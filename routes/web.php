@@ -126,5 +126,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/task/{id}/cancel','PicController@cancel');
     Route::get('/task/{id}/complete','PicController@complete');
 
-    Route::post('/notification/submission/notification','RenderFormController@notification');
+//    Route::post('/notification/submission/notification','RenderFormController@notification');
+    Route::post('/markAsRead','RenderFormController@markAsRead');
+    Route::get('/read/{id?}','RenderFormController@read');
 });

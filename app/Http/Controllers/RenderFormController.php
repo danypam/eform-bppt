@@ -109,8 +109,15 @@ class RenderFormController extends Controller
         }
 
     }
-    public function notification(){
-        return auth()->user()->unreadNotifications;
+//    public function notification(){
+//        return auth()->user()->unreadNotifications;
+//    }
+    public function markAsRead(Request $r){
+        auth()->user()->unreadNotifications->find($r->not_id)->markAsRead();
+    }
+    public function read($id){
+        $inboxs = \App\Submission::find($id);
+        return view('/inbox.read',compact('inboxs'));
     }
 
     /**
