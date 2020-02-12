@@ -258,12 +258,34 @@ class Submission extends Model implements LogsActivityInterface
     {
 
         $forms=Form::all();
+        $tahun=date('Y');
+        $bulan=date('m');
         //$date=$forms->created_at->get();
         //$tahun=Carbon::createFromFormat('Y-M-D HH:mm:ss', $date)->year;
         //$created_at=self::createFromFormat('Y-M-D HH:mm:ss', 'created_at')->year;
-        $tahun=Carbon::createFromFormat('Y-M-D HH:mm:ss', 'created_at')->year;
+        //$tahun=Carbon::createFromFormat('Y-M-D HH:mm:ss', 'created_at')->year;
 
 
+        $category = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEPT','OCT','NOV','DES'];
+
+        $i=-1;
+        foreach($forms as $fm) {
+            $i++;
+            $series[$i]['name'] = $fm->name;
+            for($j=1;$j<13;$j++){
+                $series[$i]['data'][]= self::where('form_id','=',$fm->id)->whereMonth('created_at','=',$j+1)->whereYear('created_at','=',$tahun)->get()->count();
+            }
+
+        }
+            //dd($series);
+            //dd($category);
+        return [ 'series' => $series,'category' => $category];
+    }
+
+    public static function count_form3()
+    {
+
+        $forms=Form::all();
         $category = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEPT','OCT','NOV','DES'];
 
         $i=1;
@@ -272,13 +294,12 @@ class Submission extends Model implements LogsActivityInterface
 
             $series[]['name'] = $fm->name;
             $series[]['data'][]= self::where('form_id','=',$fm->id)->
-                where($fm->created_at,'=',$tahun)->get()->count();
+            where($fm->created_at,'=',$tahun)->get()->count();
 
 
         }
-            //dd($series);
-            //dd($category);
+        //dd($series);
+        //dd($category);
         return [ 'series' => $series,'category' => $category];
     }
-
 }

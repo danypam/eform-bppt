@@ -133,7 +133,7 @@
     // CHART 1 //
     Highcharts.chart('chartSurat', {
         chart: {
-            type: 'spline'
+            type: 'column'
         },
         title: {
             text: 'Submissions'
@@ -188,7 +188,7 @@
 
     Highcharts.chart('chartForm', {
         chart: {
-            type: 'spline'
+            type: 'column'
         },
         title: {
             text: 'Submissions'
