@@ -66,7 +66,7 @@
 <script charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 <script  src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 {{--<script  src="https://code.highcharts.com/highcharts.js"></script>--}}
-<script src="/js/highcharts.js"></script>
+<script src="{{asset('js/highcharts.js')}}"></script>
 {{--<script src="../../code/highcharts-3d.js"></script>
 <script src="../../code/modules/exporting.js"></script>
 <script src="../../code/modules/export-data.js"></script>--}}

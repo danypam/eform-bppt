@@ -79,9 +79,30 @@
                                 <h3 class="panel-title">Chart</h3>
                                 <div id="chartSurat"></div>
                             </div>
+                        </div>
+                        <div class="panel panel-scrolling">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Chart</h3>
                                 <div id="chartForm"></div>
+                            </div>
+                        </div>
+                        <div class="panel panel-scrolling">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Dropdown
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Chart</h3>
+                                <div id="chartForm3"></div>
                             </div>
                         </div>
                     </div>
@@ -136,57 +157,105 @@
             type: 'column'
         },
         title: {
-            text: 'Submissions'
+            text: 'Submission Status'
         },
-
         xAxis: {
             categories: {!! json_encode($chart1['category']) !!},
-            title: {
-                text: null
-            }
+            crosshair: true
         },
         yAxis: {
-            min: 1,
+            min: 0,
             title: {
-                text: 'Jumlah',
-                align: 'medium'
-            },
-            labels: {
-                overflow: 'high'
+                text: 'Total(pcs)'
             }
         },
         tooltip: {
-            valueSuffix: ' pieces'
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name} </td>' +
+                '<td style="padding:0"><b> : {point.y:1f} pcs</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
         },
         plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
-                }
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
             }
         },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'top',
-            x: -80,
-            y: 80,
-            floating: true,
-            borderWidth: 1,
-            backgroundColor:
-                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-            shadow: true
-        },
-        credits: {
-            enabled: false
-        },
-        series:{!! json_encode($chart1['series']) !!},
+        series: {!! json_encode($chart1['series']) !!}
     });
 
-
-//CHART 2//
-
+    //CHART 2//
     Highcharts.chart('chartForm', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Submission By Month'
+        },
+        xAxis: {
+            categories: {!! json_encode($chart2['category']) !!},
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Total(pcs)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name} </td>' +
+                '<td style="padding:0"><b> : {point.y:1f} pcs</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: {!! json_encode($chart2['series']) !!}
+    });
+
+    //CHART 3//
+    Highcharts.chart('chartForm3', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Submission By Year'
+        },
+        xAxis: {
+            categories: {!! json_encode($chart3['category']) !!},
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Total(pcs)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name} </td>' +
+                '<td style="padding:0"><b> : {point.y:1f} pcs</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: {!! json_encode($chart3['series']) !!}
+    });
+    /*Highcharts.chart('chartForm3', {
         chart: {
             type: 'column'
         },
@@ -195,13 +264,13 @@
         },
 
         xAxis: {
-            categories: {!! json_encode($chart2['category']) !!},
+            categories: {!! json_encode($chart3['category']) !!},
             title: {
                 text: null
             }
         },
         yAxis: {
-            min: 1,
+            min: 0,
             title: {
                 text: 'Jumlah',
                 align: 'medium'
@@ -211,7 +280,7 @@
             }
         },
         tooltip: {
-            valueSuffix: ' pieces'
+            valueSuffix: 'pcs'
         },
         plotOptions: {
             bar: {
@@ -235,8 +304,8 @@
         credits: {
             enabled: false
         },
-        series:{!! json_encode($chart2['series']) !!},
-    });
+        series:{!! json_encode($chart3['series']) !!},
+    });*/
 
 </script>
 
