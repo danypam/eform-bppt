@@ -9,8 +9,10 @@
                 <!-- OVERVIEW -->
                 <div class="panel panel-headline">
                     <div class="panel-heading">
+
                         <h3 class="panel-title">Report Status</h3>
                         <p class="panel-subtitle">All Time</p>
+
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -83,14 +85,27 @@
                 <!-- END OVERVIEW -->
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="panel panel-scrolling">
+                        <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Chart</h3>
-                                <div id="chartSurat"></div>
+                                <h3 style="margin-bottom:10px" class="panel-title">CHART</h3>
+                                <ul class="nav nav-tabs">
+                                    <li class="active" id="tab-status"><a href="">By Status</a></li>
+                                    <li id="tab-month"><a href="">By Month</a></li>
+                                    <li id="tab-year"><a href="">By Year</a></li>
+                                </ul>
                             </div>
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Chart</h3>
-                                <div id="chartForm"></div>
+                            <div class="panel-body">
+                                <div id="status" class="active">
+                                    <div id="chart-status"></div>
+                                </div>
+
+                                <div id="month" class="hidden">
+                                    <div id="chart-month"></div>
+                                </div>
+
+                                <div id="year" class="hidden">
+                                    <div id="chart-year"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -138,116 +153,146 @@
 @section('footer')
 
 <script>
-
     // CHART 1 //
-    Highcharts.chart('chartSurat', {
+    Highcharts.chart('chart-status', {
         chart: {
-            type: 'spline'
+            type: 'column'
         },
         title: {
-            text: 'Submissions'
+            text: 'Submission Status'
         },
-
         xAxis: {
             categories: {!! json_encode($chart1['category']) !!},
-            title: {
-                text: null
-            }
+            crosshair: true
         },
         yAxis: {
-            min: 1,
+            min: 0,
             title: {
-                text: 'Jumlah',
-                align: 'medium'
-            },
-            labels: {
-                overflow: 'high'
+                text: 'Total(pcs)'
             }
         },
         tooltip: {
 
-            valueSuffix: ' pieces'
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name} </td>' +
+                '<td style="padding:0"><b> : {point.y:1f} pcs</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true,
+
         },
         plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
-                }
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
             }
         },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'top',
-            x: -80,
-            y: 80,
-            floating: true,
-            borderWidth: 1,
-            backgroundColor:
-                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-            shadow: true
-        },
-        credits: {
-            enabled: false
-        },
-        series:{!! json_encode($chart1['series']) !!},
+        series: {!! json_encode($chart1['series']) !!}
     });
 
-
-//CHART 2//
-
-    Highcharts.chart('chartForm', {
+    //CHART 2//
+    Highcharts.chart('chart-month', {
         chart: {
-            type: 'spline'
+            type: 'column'
         },
         title: {
-            text: 'Submissions'
+            text: 'Submission By Month'
         },
-
         xAxis: {
             categories: {!! json_encode($chart2['category']) !!},
-            title: {
-                text: null
-            }
+            crosshair: true
         },
         yAxis: {
-            min: 1,
+            min: 0,
             title: {
-                text: 'Jumlah',
-                align: 'medium'
-            },
-            labels: {
-                overflow: 'high'
+                text: 'Total(pcs)'
             }
         },
         tooltip: {
-            valueSuffix: ' pieces'
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name} </td>' +
+                '<td style="padding:0"><b> : {point.y:1f} pcs</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
         },
         plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
-                }
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
             }
         },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'top',
-            x: -80,
-            y: 80,
-            floating: true,
-            borderWidth: 1,
-            backgroundColor:
-                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-            shadow: true
-        },
-        credits: {
-            enabled: false
-        },
-        series:{!! json_encode($chart2['series']) !!},
+        series: {!! json_encode($chart2['series']) !!}
     });
 
+    //CHART 3//
+    Highcharts.chart('chart-year', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Submission By Year'
+        },
+        xAxis: {
+            categories: {!! json_encode($chart3['category']) !!},
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Total(pcs)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name} </td>' +
+                '<td style="padding:0"><b> : {point.y:1f} pcs</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: {!! json_encode($chart3['series']) !!}
+    });
+
+
+    $(document).ready(function () {
+
+        $( "#tab-status" ).on('click', function() {
+            $( "#month" ).addClass( "hidden" );
+            $( "#year" ).addClass( "hidden");
+            $( "#status" ).removeClass( "hidden");
+
+            $( "#tab-status" ).addClass( "active");
+            $( "#tab-month" ).removeClass( "active");
+            $( "#tab-year" ).removeClass( "active");
+
+        });
+        $( "#tab-month" ).on('click', function() {
+            $( "#month" ).removeClass( "hidden" );
+            $( "#status" ).addClass( "hidden" );
+            $( "#year" ).addClass( "hidden" );
+
+            $( "#tab-month" ).addClass( "active");
+            $( "#tabstatus" ).removeClass( "active");
+            $( "#tab-year").removeClass( "active");
+        });
+        $( "#tab-year" ).on('click', function() {
+            $( "#year" ).removeClass( "hidden" );
+            $( "#status" ).addClass( "hidden" );
+            $( "#month" ).addClass( "hidden" );
+
+            $( "#tab-year" ).addClass( "active");
+            $( "#tab-status" ).removeClass( "active");
+            $( "#tab-month" ).removeClass( "active");
+        });
+    });
 </script>
+
 
 @endsection
