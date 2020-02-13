@@ -9,14 +9,16 @@
                 <!-- OVERVIEW -->
                 <div class="panel panel-headline">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Submissions Total</h3>
-                        <p class="panel-subtitle"></p>
+
+                        <h3 class="panel-title">Report Status</h3>
+                        <p class="panel-subtitle">All Time</p>
+
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="metric">
-                                    <span class="icon"><i class="fa fa-download"></i></span>
+                                    <span class="icon"><i class="fa fa-folder-open-o"></i></span>
                                     <p>
                                         <span class="number">{{$status['all']}}</span><br>
                                         <span class="title label label-default">Submissions</span>
@@ -25,16 +27,16 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="metric">
-                                    <span class="icon"><i class="fa fa-shopping-bag"></i></span>
+                                    <span class="icon"><i class="fa fa-user-plus"></i></span>
                                     <p>
                                         <span class="number">{{$status['new']}}</span><br>
-                                        <span class="title label label-warning">New</span>
+                                        <span class="title label label-primary">New</span>
                                     </p>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="metric">
-                                    <span class="icon"><i class="fa fa-bar-chart"></i></span>
+                                    <span class="icon"><i class="lnr lnr-warning"></i></span>
                                     <p>
                                         <span class="number">{{$status['pending']}}</span><br>
                                         <span class="title label label-warning">Pending</span>
@@ -43,7 +45,16 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="metric">
-                                    <span class="icon"><i class="fa fa-eye"></i></span>
+                                    <span class="icon"><i class="fa fa-id-badge"></i></span>
+                                    <p>
+                                        <span class="number">{{$status['waitForPic']}}</span><br>
+                                        <span class="title label label-info">Wait For PIC</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="metric">
+                                    <span class="icon"><i class="fa fa-id-badge"></i></span>
                                     <p>
                                         <span class="number">{{$status['onGoing']}}</span><br>
                                         <span class="title label label-info">On Going</span>
@@ -52,7 +63,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="metric">
-                                    <span class="icon"><i class="fa fa-bar-chart"></i></span>
+                                    <span class="icon"><i class="lnr lnr-checkmark-circle"></i></span>
                                     <p>
                                         <span class="number">{{$status['completed']}}</span><br>
                                         <span class="title label label-success">Completed</span>
@@ -61,7 +72,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="metric">
-                                    <span class="icon"><i class="fa fa-bar-chart"></i></span>
+                                    <span class="icon"><i class="lnr lnr-cross-circle"></i></span>
                                     <p>
                                         <span class="number">{{$status['rejected']}}</span><br>
                                         <span class="title label label-danger">Rejected</span>
@@ -161,12 +172,14 @@
             }
         },
         tooltip: {
+
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
             pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name} </td>' +
                 '<td style="padding:0"><b> : {point.y:1f} pcs</b></td></tr>',
             footerFormat: '</table>',
             shared: true,
-            useHTML: true
+            useHTML: true,
+
         },
         plotOptions: {
             column: {

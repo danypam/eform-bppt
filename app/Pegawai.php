@@ -21,6 +21,14 @@ class Pegawai extends Model implements LogsActivityInterface
         return asset('images/'.$this->foto);
     }
 
+    public function unit_kerja()
+    {
+        return $this->belongsTo(UnitKerja::class,'unit_id','id');
+    }
+
+    public function unit_jabatan(){
+        return $this->belongsTo(UnitJabatan::class,'unit_jabatan_id','id_unit_jabatan');
+    }
     public function getActivityDescriptionForEvent($eventName)
     {
         if ($eventName == 'created')

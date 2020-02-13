@@ -22,7 +22,7 @@
                                     <thead>
                                     <tr>
                                         <th>Department ID</th>
-                                        <th>Name of Department</th>
+                                        <th>Department</th>
                                         <th>Address</th>
                                         <th>Abbreviation of Department</th>
                                         <th>Position</th>
@@ -66,7 +66,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">TAMBAH DATA UNIT KERJA</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Data</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -76,37 +76,41 @@
                         {{csrf_field()}}
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Kode Unit</label>
-                            <input name="kode_unit" type="text" class="form-control" id="exampleFormControlInput1" value="{{old('kode_unit')}}"placeholder="kode unit"required>
+                            <input name="kode_unit" type="text" class="form-control" id="exampleFormControlInput1" value="{{old('kode_unit')}}"placeholder="Kode Unit"pattern="[0-9]{2,}"required>
+                            <small id="kodeunit" class="form-text text-muted">Numeric Characters Only. At Least 2 Characters </small>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Nama Unit Kerja</label>
-                            <input name="nama_unit" type="text" class="form-control" id="exampleFormControlInput1" placeholder="nama unit kerja"required>
+                            <label for="exampleFormControlInput1">Nama Jabatan</label>
+                            <input name="nama_unit" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Jabatan"pattern="[A-Za-z\.,\s]{2,}"required>
+                            <small id="namaunit" class="form-text text-muted">Letters Only. At Least 3 Characters</small>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Alamat</label>
-                            <select name="alamat_id" class="form-control" id="exampleFormControlSelect1"required>
+                            <label for="exampleFormControlSelect1">Address</label>
+                            <select name="alamat_id" class="form-control selectpicker"  data-live-search="true" id="exampleFormControlSelect1"required>
                                 <option selected disabled value="">-select-</option>
                                 @foreach($data_alamat as $al)
                                     <option value="{{$al->id}}">{{$al->alamat}}</option>
                                 @endforeach
                             </select>
+                            <small id="unit" class="form-text text-muted">Please, Choose One! </small>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Singkatan Unit Kerja</label>
-                            <input name="singkatan_unit" type="text" class="form-control" id="exampleFormControlInput1" placeholder="singkatan unit kerja"required>
+                            <input name="singkatan_unit" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Singkatan Unit Kerja"required>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Akun Kepala</label>
-                            <input name="akun_kepala" type="text" class="form-control" id="exampleFormControlInput1" placeholder="akun kepala"required>
+                            <input name="akun_kepala" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Akun Kepala"required>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Jabatan</label>
-                            <select name="jabatan_id" class="form-control" id="exampleFormControlSelect1"required>
+                            <select name="jabatan_id" class="form-control selectpicker"  data-live-search="true" id="exampleFormControlSelect1"required>
                                 <option selected disabled value="">-select-</option>
                                 @foreach($data_jabatan as $jab)
                                     <option value="{{$jab->id}}">{{$jab->nama_jabatan}}</option>
                                 @endforeach
                             </select>
+                            <small id="unit" class="form-text text-muted">Please, Choose One! </small>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

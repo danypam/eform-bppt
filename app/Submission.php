@@ -252,7 +252,6 @@ class Submission extends Model implements LogsActivityInterface
 
     public static function count_form2()
     {
-
         $forms = Form::all();
         $tahun = date('Y');
         $bulan = date('m');
@@ -299,7 +298,7 @@ class Submission extends Model implements LogsActivityInterface
                 }
             }
 
-            //dd($series);
+            //dd($series);      
             //dd($category);
             return ['series' => $series, 'category' => $category];
         }

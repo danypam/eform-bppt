@@ -10,74 +10,171 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                           <h3 class="panel-title">TASKS</h3>
+                               <h3 style="margin-bottom: 10px" class="panel-title">TASKS</h3>
+                                <ul class="nav nav-tabs">
+                                    <li  class="active" id="tab-waiting-list"><a href="#">Waiting List</a></li>
+                                    <li id="tab-my-task"><a href="#">My Task</a></li>
+                                    <li id="tab-complete"><a href="#">Complete</a></li>
+                                </ul>
                             </div>
                             <div class="panel-body">
-                                <table class="table table-hover" id="datatable">
-                                    <thead>
-                                    <tr>
-                                        <th>Employee ID Number</th>
-                                        <th>Name</th>
-                                        <th>Form Type</th>
-                                        <th>Status</th>
-                                        <th>Created At</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($tasks as $task)
+{{--                                waiting list--}}
+                                <div id="waiting-list" class="">
+                                    <table class="table table-hover datatable">
+                                        <thead>
                                         <tr>
-                                            <td>{{$task->nip}}</td>
-                                            <td>{{$task->nama_lengkap}}</td>
-                                            <td>{{$task->name}}</td>
-                                            @if($task->status == -1)
-                                                <td><span class="label label-danger">REJECTED</span></td>
-                                            @endif
-                                            @if($task->status == 0)
-                                                <td><span class="label label-primary">NEW</span></td>
-                                            @endif
-                                            @if($task->status == 1)
-                                                <td><span class="label label-warning">PENDING</span></td>
-                                            @endif
-                                            @if($task->status == 2)
-                                                <td><span class="label label-primary">ON GOING</span></td>
-                                            @endif
-                                            @if($task->status == 3)
-                                                <td>C<span class="label label-success">COMPLETE</span></td>
-                                            @endif
-                                            <td>{{$task->created_at}}</td>
-                                            <td>
-                                                <a href="/forms/{{$task->form_id}}/submissions/{{$task->submission_id}}" class="btn btn-warning btn-sm">View</a>
-                                                @can('task-take')
-                                                @if($task->status == -1)
-                                                    <a href="/submissions/{{$task->submission_id}}/approve" class="btn btn-primary btn-sm hidden">Take</a>
-                                                @else
-                                                    <a href="/submissions/{{$task->submission_id}}/approve" class="btn btn-primary btn-sm">Take</a>
-                                                @endif
-                                                 @endcan
-
-                                            </td>
+                                            <th>Employee ID Number</th>
+                                            <th>Name</th>
+                                            <th>Form Type</th>
+                                            <th>Status</th>
+                                            <th>Created At</th>
+                                            <th>Action</th>
                                         </tr>
-                                    @endforeach
+                                        </thead>
+                                        <tbody>
+                                        @foreach($tasks as $task)
+                                            <tr>
+                                                <td>{{$task->nip}}</td>
+                                                <td>{{$task->nama_lengkap}}</td>
+                                                <td>{{$task->name}}</td>
+                                                @if($task->status == -1)
+                                                    <td><span class="label label-danger">REJECTED</span></td>
+                                                @endif
+                                                @if($task->status == 0)
+                                                    <td><span class="label label-primary">NEW</span></td>
+                                                @endif
+                                                @if($task->status == 1)
+                                                    <td><span class="label label-warning">PENDING</span></td>
+                                                @endif
+                                                @if($task->status == 2 || $task->status == 3)
+                                                    <td><span class="label label-primary">ON GOING</span></td>
+                                                @endif
+                                                @if($task->status == 4)
+                                                    <td>C<span class="label label-success">COMPLETE</span></td>
+                                                @endif
+                                                <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($task->created_at)}}</td>
+                                                <td>
+                                                    <a href="/forms/{{$task->form_id}}/submissions/{{$task->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                    @can('task-take')
+                                                    @if($task->status == -1)
+                                                        <a href="/submissions/{{$task->submission_id}}/approve" class="btn btn-primary btn-sm hidden">Take</a>
+                                                    @else
+                                                        <a href="/task/{{$task->submission_id}}/take" class="btn btn-primary btn-sm">Take</a>
+                                                    @endif
+                                                     @endcan
 
-                                    {{--                                            <td><span class="label label-success">{{$peg->status}}</span></td>--}}
-                                    {{--                                            --}}{{--                                            @if($peg->status == '1')--}}
-                                    {{--                                            --}}{{--                                            {--}}
-                                    {{--                                            --}}{{--                                                <td>Aktif</td>--}}
-                                    {{--                                            --}}{{--                                            }@else{--}}
-                                    {{--                                            --}}{{--                                                <td>Tidak Akif</td>--}}
-                                    {{--                                            --}}{{--                                            }--}}
-                                    {{--                                            <td>--}}
-                                    {{--                                                @can('pegawai-edit')--}}
-                                    {{--                                                    <a href="/pegawai/{{$peg->id}}/edit" class="btn btn-warning btn-sm">Ubah</a>--}}
-                                    {{--                                                @endcan--}}
-                                    {{--                                                @can('pegawai-delete')--}}
-                                    {{--                                                    <a href="#" class="btn btn-danger btn-sm delete" pegawai-id="{{$peg->id}}">Hapus</a>--}}
-                                    {{--                                                @endcan--}}
-                                    {{--                                            </td>--}}
-                                    {{--                                        </tr>--}}
-                                    </tbody>
-                                </table>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+{{--                                my task--}}
+                                <div id="my-task" class="hidden">
+                                    <table class="table table-hover datatable">
+                                        <thead>
+                                        <tr>
+                                            <th>Employee ID Number</th>
+                                            <th>Name</th>
+                                            <th>Form Type</th>
+                                            <th>Status</th>
+                                            <th>Created At</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($mytasks as $mytask)
+                                            <tr>
+                                                <td>{{$mytask->nip}}</td>
+                                                <td>{{$mytask->nama_lengkap}}</td>
+                                                <td>{{$mytask->name}}</td>
+                                                @if($mytask->status == -1)
+                                                    <td><span class="label label-danger">REJECTED</span></td>
+                                                @endif
+                                                @if($mytask->status == 0)
+                                                    <td><span class="label label-primary">NEW</span></td>
+                                                @endif
+                                                @if($mytask->status == 1)
+                                                    <td><span class="label label-warning">PENDING</span></td>
+                                                @endif
+                                                @if($mytask->status == 2 || $mytask->status == 3)
+                                                    <td><span class="label label-primary">ON GOING</span></td>
+                                                @endif
+                                                @if($mytask->status == 4)
+                                                    <td><span class="label label-success">COMPLETE</span></td>
+                                                @endif
+                                                <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($mytask->created_at)}}</td>
+                                                <td>
+                                                    <a href="/forms/{{$mytask->form_id}}/submissions/{{$mytask->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                    @can('task-take')
+                                                        @if($mytask->status == -1)
+                                                            <a href="/task/{{$mytask->submission_id}}/cancel" class="btn btn-danger btn-sm hidden">Cancel</a>
+                                                            <a href="/task/{{$mytask->submission_id}}/complete" class="btn btn-danger btn-sm hidden">Cancel</a>
+                                                        @else
+                                                            <a href="/task/{{$mytask->submission_id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
+                                                            <a href="/task/{{$mytask->submission_id}}/complete" class="btn btn-success btn-sm">Complete</a>
+
+                                                        @endif
+                                                    @endcan
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+{{--                                    complete--}}
+                                    <div id="complete" class="hidden">
+                                        <table class="table table-hover datatable">
+                                            <thead>
+                                            <tr>
+                                                <th>Employee ID Number</th>
+                                                <th>Name</th>
+                                                <th>Form Type</th>
+                                                <th>Status</th>
+                                                <th>Created At</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($completes as $complete)
+                                                <tr>
+                                                    <td>{{$complete->nip}}</td>
+                                                    <td>{{$complete->nama_lengkap}}</td>
+                                                    <td>{{$complete->name}}</td>
+                                                    @if($complete->status == -1)
+                                                        <td><span class="label label-danger">REJECTED</span></td>
+                                                    @endif
+                                                    @if($complete->status == 0)
+                                                        <td><span class="label label-primary">NEW</span></td>
+                                                    @endif
+                                                    @if($complete->status == 1)
+                                                        <td><span class="label label-warning">PENDING</span></td>
+                                                    @endif
+                                                    @if($complete->status == 2 || $complete->status == 3)
+                                                        <td><span class="label label-primary">ON GOING</span></td>
+                                                    @endif
+                                                    @if($complete->status == 4)
+                                                        <td><span class="label label-success">COMPLETE</span></td>
+                                                    @endif
+                                                    <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($complete->created_at)}}</td>
+                                                    <td>
+                                                        <a href="/forms/{{$complete->form_id}}/submissions/{{$complete->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                        @can('task-take')
+                                                            @if($complete->status == -1)
+                                                                <a href="/task/{{$complete->submission_id}}/cancel" class="btn btn-danger btn-sm hidden">Cancel</a>
+                                                            @else
+                                                                    <a href="/task/{{$complete->submission_id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
+                                                            @endif
+                                                        @endcan
+
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                             </div>
                         </div>
                     </div>
@@ -85,129 +182,44 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
-    {{--    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
-    {{--        <div class="modal-dialog" role="document">--}}
-    {{--            <div class="modal-content">--}}
-    {{--                <div class="modal-header">--}}
-    {{--                    <h5 class="modal-title" id="exampleModalLabel">TAMBAH DATA JABATAN</h5>--}}
-    {{--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-    {{--                        <span aria-hidden="true">&times;</span>--}}
-    {{--                    </button>--}}
-    {{--                </div>--}}
-    {{--                <div class="modal-body">--}}
-    {{--                    <form action="/pegawai/create" method="POST">--}}
-    {{--                        {{csrf_field()}}--}}
-    {{--                        <div class="form-group">--}}
-    {{--                            <label for="exampleFormControlInput1">NIP 1</label>--}}
-    {{--                            <input name="nip" type="text" class="form-control" id="exampleFormControlInput1" placeholder="NIP 1">--}}
-    {{--                        </div>--}}
-    {{--                        <div class="form-group">--}}
-    {{--                            <label for="exampleFormControlInput1">NIP 2</label>--}}
-    {{--                            <input name="nip18" type="text" class="form-control" id="exampleFormControlInput1" placeholder="NIP 2">--}}
-    {{--                        </div>--}}
-    {{--                        <div class="form-group">--}}
-    {{--                            <label for="exampleFormControlInput1">Nama Lengkap</label>--}}
-    {{--                            <input name="nama_lengkap" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Lengkap">--}}
-    {{--                        </div>--}}
-    {{--                        <div class="form-group">--}}
-    {{--                            <label for="exampleFormControlInput1">No Telp</label>--}}
-    {{--                            <input name="no_hp" type="text" class="form-control" id="exampleFormControlInput1" placeholder="No Telp">--}}
-    {{--                        </div>--}}
-    {{--                        <div class="form-group">--}}
-    {{--                            <label for="exampleFormControlInput1">Email</label>--}}
-    {{--                            <input name="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email">--}}
-    {{--                        </div>--}}
-    {{--                        <div class="form-group">--}}
-    {{--                            <label for="exampleFormControlSelect1">Unit Kerja</label>--}}
-    {{--                            <select name="unit_id" class="form-control" id="exampleFormControlSelect1">--}}
-    {{--                                <option value="">-pilih-</option>--}}
-    {{--                                @foreach($data_unit as $unit)--}}
-    {{--                                    <option value="{{$unit->id}}">{{$unit->nama_unit}}</option>--}}
-    {{--                                @endforeach--}}
-    {{--                            </select>--}}
-    {{--                        </div>--}}
-    {{--                        <div class="form-group">--}}
-    {{--                            <label for="exampleFormControlSelect1">Jabatan</label>--}}
-    {{--                            <select name="jabatan_id" class="form-control" id="exampleFormControlSelect1">--}}
-    {{--                                <option value="">-pilih-</option>--}}
-    {{--                                @foreach($data_jabatan as $jab)--}}
-    {{--                                    <option value="{{$jab->id}}">{{$jab->nama_jabatan}}</option>--}}
-    {{--                                @endforeach--}}
-    {{--                            </select>--}}
-    {{--                        </div>--}}
-    {{--                        <div class="form-group">--}}
-    {{--                            <label for="exampleFormControlSelect1">Unit Jabatan</label>--}}
-    {{--                            <select name="unit_jabatan_id" class="form-control" id="exampleFormControlSelect1">--}}
-    {{--                                <option value="">-pilih-</option>--}}
-    {{--                                @foreach($data_unitjab as $unjab)--}}
-    {{--                                    <option value="{{$unjab->id_unit_jabatan}}">{{$unjab->unit}}</option>--}}
-    {{--                                @endforeach--}}
-    {{--                            </select>--}}
-    {{--                        </div>--}}
-    {{--                        <div class="form-group">--}}
-    {{--                            <label for="exampleFormControlSelect1">Nama Atasan</label>--}}
-    {{--                            <select name="nip_atas" class="form-control" id="exampleFormControlSelect1">--}}
-    {{--                                <option value="">-pilih-</option>--}}
-    {{--                                @foreach($pegawai as $p)--}}
-    {{--                                    <option value="{{$p->id}}">{{$p->nama_lengkap}}</option>--}}
-    {{--                                @endforeach--}}
-    {{--                            </select>--}}
-    {{--                        </div>--}}
-    {{--                        <div class="form-group">--}}
-    {{--                            <label for="exampleFormControlSelect1">Role</label>--}}
-    {{--                            <select name="role" class="form-control" id="exampleFormControlSelect1">--}}
-    {{--                                <option value="">-pilih-</option>--}}
-    {{--                                @foreach($data_role as $rol)--}}
-    {{--                                    <option value="{{$rol->name}}">{{$rol->name}}</option>--}}
-    {{--                                @endforeach--}}
-    {{--                            </select>--}}
-    {{--                        </div>--}}
-
-    {{--                </div>--}}
-    {{--                <div class="modal-footer">--}}
-    {{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
-    {{--                    <button type="submit" class="btn btn-primary">Simpan</button>--}}
-    {{--                    </form>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
 @stop
 @section('footer')
     <script>
         $(document).ready(function () {
-            $('#datatable').DataTable({
-                scrollY:     300,
-                scroller:    true
-            });
+            {{--    togle tab--}}
+            $('.datatable').DataTable();
 
-            $('.delete').click(function () {
-                var peg_id = $(this).attr('pegawai-id');
-                swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            swal("Poof! Your data has been deleted!", {
-                                icon: "success",
-                            });
-                            window.location = "/pegawai/"+peg_id+"/delete";
-                        } else {
-                            swal("Your data is safe!");
-                        }
-                    });
-            });
+            $( "#tab-my-task" ).on('click', function() {
+                $( "#waiting-list" ).addClass( "hidden" );
+                $( "#complete" ).addClass( "hidden");
+                $( "#my-task" ).removeClass( "hidden");
 
-        })
+
+                $( "#tab-my-task" ).addClass( "active");
+                $( "#tab-waiting-list" ).removeClass( "active");
+                $( "#tab-complete" ).removeClass( "active");
+
+            });
+            $( "#tab-waiting-list" ).on('click', function() {
+                $( "#waiting-list" ).removeClass( "hidden" );
+                $( "#my-task" ).addClass( "hidden" );
+                $( "#complete" ).addClass( "hidden" );
+
+                $( "#tab-waiting-list" ).addClass( "active");
+                $( "#tab-my-task" ).removeClass( "active");
+                $( "#tab-complete").removeClass( "active");
+            });
+            $( "#tab-complete" ).on('click', function() {
+                $( "#complete" ).removeClass( "hidden" );
+                $( "#my-task" ).addClass( "hidden" );
+                $( "#waiting-list" ).addClass( "hidden" );
+
+                $( "#tab-complete" ).addClass( "active");
+                $( "#tab-my-task" ).removeClass( "active");
+                $( "#tab-waiting-list" ).removeClass( "active");
+            });
+        });
     </script>
-
-
 @stop
 
 

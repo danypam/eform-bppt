@@ -1,4 +1,4 @@
-@extends('formbuilder::layout')
+@extends('layouts.master')
 
 @section('content')
     <div class="main">
@@ -16,26 +16,54 @@
                                         <a href="{{ route('formbuilder::forms.submissions.index', $submission->form->id) }}" class="btn btn-primary float-md-right btn-sm" title="Back To Submissions">
                                             <i class="fa fa-arrow-left"></i>
                                         </a>
-                                        <form action="{{ route('formbuilder::forms.submissions.destroy', [$submission->form, $submission]) }}" method="POST" id="deleteSubmissionForm_{{ $submission->id }}" class="d-inline-block">
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <button type="submit" class="btn btn-danger btn-sm rounded-0 confirm-form" data-form="deleteSubmissionForm_{{ $submission->id }}" data-message="Delete submission" title="Delete this submission?">
-                                                <i class="fa fa-trash-o"></i>
-                                            </button>
-                                        </form>
                                     </div>
                                 </div>
-                                <ul class="list-group list-group-flush">
-                                    @foreach($form_headers as $header)
-                                        <li class="list-group-item">
-                                            <strong>{{ $header['label'] ?? title_case($header['name']) }}: </strong>
-                                            <span class="float-right">
-                                                    {{ $submission->renderEntryContent($header['name'], $header['type']) }}
-                                                </span>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                                <div>
+                                <table class="table"  style="table-layout: fixed;font-family: sans-serif">
+
+                                        <tbody style="border: none">
+                                        <tr>
+                                            <td style="border: none;word-wrap: break-word; width: 50%"><strong>Nama Lengkap</strong></td>
+                                            <td>:</td>
+                                            <td style="border: none;word-wrap: break-word; width: 50%">{{$identitas->nama_lengkap}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: none;word-wrap: break-word; width: 50%"><strong>Email</strong></td>
+                                            <td>:</td>
+                                            <td style="border: none;word-wrap: break-word; width: 50%">{{$identitas->email}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: none;word-wrap: break-word; width: 50%"><strong>NIP</strong></td>
+                                            <td>:</td>
+                                            <td style="border: none;word-wrap: break-word; width: 50%">{{$identitas->nip}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: none;word-wrap: break-word; width: 50%"><strong>Unit Kerja</strong></td>
+                                            <td>:</td>
+                                            <td style="border: none;word-wrap: break-word; width: 50%">{{$identitas->unit_kerja->nama_unit}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: none;word-wrap: break-word; width: 50%"><strong>Unit Jabatan</strong></td>
+                                            <td>:</td>
+                                            <td style="border: none;word-wrap: break-word; width: 50%">{{$identitas->unit_jabatan->unit}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: none;word-wrap: break-word; width: 50%"><strong>No HP</strong></td>
+                                            <td>:</td>
+                                            <td style="border: none;word-wrap: break-word; width: 50%">{{$identitas->no_hp}}</td>
+                                        </tr>
+{{--                                        --}}
+                                        @foreach($form_headers as $header)
+                                        <tr>
+                                            <td style="border: none;word-wrap: break-word; width: 50%"><strong>{{ $header['label'] ?? title_case($header['name']) }}: </strong></td>
+                                            <td>:</td>
+                                            <td  style="border: none;word-wrap: break-word; width: 50%" class="float-right"><span>{{ $submission->renderEntryContent($header['name'], $header['type']) }}</span></td>
+                                        </tr>
+                                        @endforeach
+                                        </tbody>
+
+                                </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -62,6 +90,26 @@
                                 <li class="list-group-item">
                                     <strong>Submitted On: </strong>
                                     <span class="float-right">{{ $submission->created_at->toDayDateTimeString() }}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Diketahui By: </strong>
+                                    <span class="float-right">{{ isset(\App\Http\Controllers\FormController::getNamePic($submission->mengetahui)->nama_lengkap)? \App\Http\Controllers\FormController::getNamePic($submission->mengetahui)->nama_lengkap:'' }}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Diketahui at: </strong>
+                                    <span class="float-right">{{ isset($submission->mengetahui_at)? $submission->mengetahui_at: '' }}</span>
+                                </li>
+                                <li class="list-group-item"> {{--\App\Http\Controllers\FormController::getNamePic($pic)->nama_lengkap--}}
+                                    <strong>Disetujui By: </strong>
+                                    <span class="float-right">{{ isset(\App\Http\Controllers\FormController::getNamePic($submission->menyetujui)->nama_lengkap) ? \App\Http\Controllers\FormController::getNamePic($submission->menyetujui)->nama_lengkap: ''}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Disetujui at: </strong>
+                                    <span class="float-right">{{ isset($submission->menyetujui_at)? $submission->menyetujui_at: ''}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>complete at: </strong>
+                                    <span class="float-right">{{ isset($submission->complete_at)? $submission->complete_at: ''}}</span>
                                 </li>
                             </ul>
                         </div>

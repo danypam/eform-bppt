@@ -3,13 +3,17 @@
         <nav>
             <ul class="nav">
                 <li><a href="/dashboard" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
-
-                <li><a href="/inbox" class=""><i class="lnr lnr-user"></i> <span>Inbox</span></a></li>
+                @if (auth()->user()->can('inbox-list-all') ||
+                    auth()->user()->can('inbox-list-mengetahui-menyetujui') ||
+                    auth()->user()->can('inbox-list-mengetahui') ||
+                    auth()->user()->can('inbox-list-menyetujui'))
+                <li><a href="/inbox" class=""><i class="lnr lnr-envelope"></i> <span>Inbox</span></a></li>
+                @endif
                 @if (auth()->user()->can('submission-list'))
-                <li><a href="{{ route('formbuilder::my-submissions.index') }}" class=""><i class="lnr lnr-user"></i> <span>My Submissions</span></a></li>
+                <li><a href="{{ route('formbuilder::my-submissions.index') }}" class=""><i class="lnr lnr-inbox"></i> <span>My Submissions</span></a></li>
                 @endif
                 @if (auth()->user()->can('task-list') || auth()->user()->can('task-approve'))
-                <li><a href="/task" class=""><i class="lnr lnr-user"></i> <span>Tasks</span></a></li>
+                <li><a href="/task" class=""><i class="lnr lnr-briefcase"></i> <span>Tasks</span></a></li>
                 @endif
                 @can('crud-management')
                 <li>
@@ -40,10 +44,10 @@
                 @endif
 
                 @if (auth()->user()->can('form-list') || auth()->user()->can('form-delete') || auth()->user()->can('form-create')|| auth()->user()->can('form-edit'))
-                <li><a href="/forms" class=""><i class="lnr lnr-user"></i> <span>Form Builder</span></a></li>
+                <li><a href="/forms" class=""><i class="lnr lnr-plus-circle"></i> <span>Form Builder</span></a></li>
                 @endif
                 @if(auth()->user()->can('form-input'))
-                <li><a href="/formulir" class=""><i class="lnr lnr-user"></i> <span>Forms</span></a></li>
+                <li><a href="/formulir" class=""><i class="lnr lnr-file-add"></i> <span>Forms</span></a></li>
                 @endif
 
                 <li>

@@ -138,6 +138,9 @@ class FormController extends Controller
     {
         $user = auth()->user();
 
+        //get pegawai
+        $pegawai = Pegawai::all();
+
         $form = Form::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
 
         $pageTitle = 'Edit Form';
@@ -147,7 +150,7 @@ class FormController extends Controller
         // get the roles to use to populate the make the 'Access' section of the form builder work
         $form_roles = Helper::getConfiguredRoles();
 
-        return view('formbuilder::forms.edit', compact('form', 'pageTitle', 'saveURL', 'form_roles'));
+        return view('formbuilder::forms.edit', compact('form', 'pageTitle', 'saveURL', 'form_roles', 'pegawai'));
     }
 
     /**

@@ -28,7 +28,7 @@ class AuthController extends Controller
                 return redirect('/login')->with('error','Your Account is not Active! Please Contact (021) 757 91262');
             }
         }
-        return redirect('/login');
+        return redirect('/login')->with('error', 'Your Email or Password is Invalid');;
     }
 
     public function logout()

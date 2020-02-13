@@ -31,7 +31,7 @@
                                             <td>{{$inbox->nama_lengkap}}</td>
                                             <td>{{$inbox->name}}</td>
                                             @if($inbox->status == -1)
-                                            <td><span class="label label-danger">REJECTED</span></td>
+                                                <td><span class="label label-danger">REJECTED</span></td>
                                             @endif
                                             @if($inbox->status == 0)
                                                 <td><span class="label label-primary">NEW</span></td>
@@ -40,7 +40,7 @@
                                                 <td><span class="label label-warning">PENDING</span></td>
                                             @endif
                                             @if($inbox->status == 2 || $inbox->status == 3)
-                                            <td><span class="label label-primary">ON GOING</span></td>
+                                                <td><span class="label label-primary">ON GOING</span></td>
                                             @endif
                                             @if($inbox->status == 4)
                                                 <td><span class="label label-success">COMPLETE</span></td>
@@ -48,35 +48,18 @@
                                             <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($inbox->created_at)}}</td>
                                             <td>
                                                 <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
-                                            @can('inbox-management')
-                                                @if($inbox->status == -1)
-                                                    <a href="/submissions/{{$inbox->submission_id}}/approve" class="btn btn-primary btn-sm hidden">Approve</a>
-                                                    <a href="/submissions/{{$inbox->submission_id}}/reject" class="btn btn-danger btn-sm hidden">Reject</a>
+                                                @can('inbox-management')
+                                                    @if($inbox->status == -1)
+                                                        <a href="/submissions/{{$inbox->submission_id}}/approve" class="btn btn-primary btn-sm hidden">Approve</a>
+                                                        <a href="/submissions/{{$inbox->submission_id}}/reject" class="btn btn-danger btn-sm hidden">Reject</a>
                                                     @else
-                                                    <a href="/submissions/{{$inbox->submission_id}}/approve" class="btn btn-primary btn-sm">Approve</a>
-                                                    <a href="/submissions/{{$inbox->submission_id}}/reject" class="btn btn-danger btn-sm">Reject</a>
-                                                @endif
-                                            @endcan
+                                                        <a href="/submissions/{{$inbox->submission_id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                        <a href="/submissions/{{$inbox->submission_id}}/reject" class="btn btn-danger btn-sm">Reject</a>
+                                                    @endif
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach
-
-{{--                                            <td><span class="label label-success">{{$peg->status}}</span></td>--}}
-{{--                                            --}}{{--                                            @if($peg->status == '1')--}}
-{{--                                            --}}{{--                                            {--}}
-{{--                                            --}}{{--                                                <td>Aktif</td>--}}
-{{--                                            --}}{{--                                            }@else{--}}
-{{--                                            --}}{{--                                                <td>Tidak Akif</td>--}}
-{{--                                            --}}{{--                                            }--}}
-{{--                                            <td>--}}
-{{--                                                @can('pegawai-edit')--}}
-{{--                                                    <a href="/pegawai/{{$peg->id}}/edit" class="btn btn-warning btn-sm">Ubah</a>--}}
-{{--                                                @endcan--}}
-{{--                                                @can('pegawai-delete')--}}
-{{--                                                    <a href="#" class="btn btn-danger btn-sm delete" pegawai-id="{{$peg->id}}">Hapus</a>--}}
-{{--                                                @endcan--}}
-{{--                                            </td>--}}
-{{--                                        </tr>--}}
                                     </tbody>
                                 </table>
                             </div>
@@ -121,6 +104,7 @@
     </script>
 
 @stop
+
 
 
 
