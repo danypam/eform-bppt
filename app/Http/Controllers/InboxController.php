@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\DB;
 use PhpParser\Node\Scalar\String_;
 use Carbon\Carbon;
+use function foo\func;
 
 class InboxController extends Controller
 {
@@ -29,6 +30,7 @@ class InboxController extends Controller
     }
     public function index()
     {
+        //create inbox table by join pegawai, unit_jabatan, and forms table
         function inbox_table(){
             return DB::table('form_submissions')
                 ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
@@ -37,6 +39,12 @@ class InboxController extends Controller
                 ->select('nama_lengkap','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
                 ->orderBy('created_at', 'desc');
         }
+        //get data pegawai
+        function pegawai(){
+            return DB::table('pegawai')
+                ->where('user_id',auth()->user()->id)
+                ->first();
+        }
         //admin
         if(auth()->user()->can('inbox-list-all')){
             $inboxs = inbox_table()->get();
@@ -44,38 +52,49 @@ class InboxController extends Controller
         }
         //atasan langsung
         else if (auth()->user()->can('inbox-list-mengetahui')){
-            $inboxs = inbox_table()
-                ->where('form_submissions.status', '=', '0')
-                ->where(function ($q){
-                    $peg = DB::table('pegawai')
-                        ->where('user_id',auth()->user()->id)
-                        ->first();
-                    $q->where('uj.kode_unitatas1', '=', $peg->unit_jabatan_id)
-                        ->orwhere('uj.kode_unitatas2', '=', $peg->unit_jabatan_id);
-                })
-                ->get();
-            return view('/inbox/index',['inboxs'=>$inboxs]);
+
+            function inboxs(){
+                return inbox_table()
+                    ->where(function ($q){
+                        $q->where('uj.kode_unitatas1', '=', pegawai()->unit_jabatan_id)
+                            ->orwhere('uj.kode_unitatas2', '=', pegawai()->unit_jabatan_id);
+                    });
+            }
+            //primary inbox (inbox yang belum di approve)
+            $primary_inboxs = inboxs()->where('form_submissions.status', '=', config('constants.status.new'))->get();
+            //approved inbox (inbox yang telah di approve)
+            $approved_inboxs = inboxs()->where('mengetahui','=', pegawai()->id)->get();
+            //rejected inbox (inbox yang telah di reject)
+            $rejected_inboxs = inboxs()->where('rejected','=',pegawai()->id)->get();
+            return view('/inbox/index',compact('primary_inboxs', 'approved_inboxs','rejected_inboxs'));
         }
         //kepala
         else if(auth()->user()->can('inbox-list-menyetujui')){
-            $inboxs = inbox_table()
-                ->where('form_submissions.status', '=', '1')
-                ->get();
-            return view('/inbox/index',['inboxs'=>$inboxs]);
+            function inboxs(){
+                return inbox_table();
+            }
+            //primary inbox (inbox yang belum di approve)
+            $primary_inboxs = inboxs()->where('form_submissions.status', '=', config('constants.status.pending'))->get();
+            //approved inbox (inbox yang telah di approve)
+            $approved_inboxs = inboxs()->where('menyetujui','=', pegawai()->id)->get();
+            //rejected inbox (inbox yang telah di reject)
+            $rejected_inboxs = inboxs()->where('rejected','=',pegawai()->id)->get();
+            return view('/inbox/index',compact('primary_inboxs','approved_inboxs','rejected_inboxs'));
         }
-        //atasan langsung sekaligus kepala
+        //atasan langsung sekaligus     kepala
         else if(auth()->user()->can('inbox-list-menyetujui') && auth()->user()->can('inbox-list-mengetahui')){
-            $inboxs = inbox_table()
-                ->where(function($q) {
-                    $peg = DB::table('pegawai')
-                        ->where('user_id',auth()->user()->id)
-                        ->first();
-                    $q->where('form_submissions.status', '=', '0')
-                        ->where('uj.kode_unitatas1', '=', $peg->unit_jabatan_id)
-                        ->orwhere('uj.kode_unitatas2', '=', $peg->unit_jabatan_id);
-                })
-                ->orWhere('form_submissions.status', '=', '1')
-                ->get();
+            function inboxs($status1, $status2, $operator1, $operator2){
+
+                return inbox_table()
+                    ->where(function($q) use ($status1, $operator1) {
+                        $q->where('form_submissions.status', $operator1, $status1)
+                            ->where('uj.kode_unitatas1', '=', pegawai()->unit_jabatan_id)
+                            ->orwhere('uj.kode_unitatas2', '=', pegawai()->unit_jabatan_id);
+                    })
+                    ->orWhere('form_submissions.status', $operator2, $status2);
+            }
+
+
             return view('/inbox/index',['inboxs'=>$inboxs]);
         }
     }
@@ -182,11 +201,17 @@ class InboxController extends Controller
 
     public function reject($id)
     {
+        $id_pegawai = DB::table('pegawai')
+            ->select('id')
+            ->where('user_id','=',Auth()->user()->id)
+            ->first();
 
         DB::table('form_submissions')->where([
             'id'=>$id,
         ])->update([
             'status'=>-1,
+            'rejected'=> $id_pegawai->id,
+            'rejected_at'=> Carbon::now()->toDateTimeString()
         ]);
 
         return redirect('/inbox')->with('sukses','Formulir Berhasil Ditolak');

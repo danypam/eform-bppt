@@ -94,6 +94,7 @@ class RenderFormController extends Controller
                 'status' => 0,
                 'content' => $input,
             ]);
+
             DB::commit();
            /* return redirect()
                     ->route('formbuilder::form.feedback', $identifier)
