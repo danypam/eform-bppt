@@ -76,12 +76,12 @@
 <script src="{{asset('js/progress-bar.js')}}"></script>
 <script src="{{asset('js/app.js')}}"></script>
 
-
-{{--<script  src="https://code.highcharts.com/highcharts.js"></script>--}}
 <script src="{{asset('js/highcharts.js')}}"></script>
-{{--<script src="../../code/highcharts-3d.js"></script>
-<script src="../../code/modules/exporting.js"></script>
-<script src="../../code/modules/export-data.js"></script>--}}
+<script src="{{asset('js/highcharts-3d.js')}}"></script>
+<script src="{{asset('js/exporting.js')}}"></script>
+<script src="{{asset('js/export-data.js')}}"></script>
+<script src="{{asset('js/accesibility.js')}}"></script>
+
 @yield('footer')
 <script>
     @if(Session::has('warning'))

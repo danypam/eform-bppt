@@ -194,11 +194,9 @@
                 $( "#complete" ).addClass( "hidden");
                 $( "#my-task" ).removeClass( "hidden");
 
-
                 $( "#tab-my-task" ).addClass( "active");
                 $( "#tab-waiting-list" ).removeClass( "active");
                 $( "#tab-complete" ).removeClass( "active");
-
             });
             $( "#tab-waiting-list" ).on('click', function() {
                 $( "#waiting-list" ).removeClass( "hidden" );

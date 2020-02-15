@@ -109,12 +109,12 @@
                                             <span class="float-right">{{ $submission->user->name ?? 'Guest' }}</span>
                                         </li>
                                         <li class="list-group-item">
-                                            <strong>Last Updated On: </strong>
-                                            <span class="float-right">{{ $submission->updated_at->toDayDateTimeString() }}</span>
-                                        </li>
-                                        <li class="list-group-item">
                                             <strong>Submitted On: </strong>
                                             <span class="float-right">{{ $submission->created_at->toDayDateTimeString() }}</span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Last Updated On: </strong>
+                                            <span class="float-right">{{ $submission->updated_at->toDayDateTimeString() }}</span>
                                         </li>
                                         <li class="list-group-item">
                                             <strong>Diketahui By: </strong>
@@ -133,7 +133,7 @@
                                             <span class="float-right">{{ isset($submission->menyetujui_at)? $submission->menyetujui_at: ''}}</span>
                                         </li>
                                         <li class="list-group-item">
-                                            <strong>complete at: </strong>
+                                            <strong>Completed at: </strong>
                                             <span class="float-right">{{ isset($submission->complete_at)? ($submission->complete_at): ''}}</span>
                                         </li>
                                     </ul>
