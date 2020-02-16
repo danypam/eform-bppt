@@ -8,6 +8,7 @@ Last Updated: 12/29/2018
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Pegawai;
+use Illuminate\Support\Carbon;
 use jazmy\FormBuilder\Helper;
 use jazmy\FormBuilder\Models\Form;
 use jazmy\FormBuilder\Models\Submission;
@@ -78,6 +79,17 @@ class SubmissionController extends Controller
         $pageTitle = "View Submission";
 
         return view('formbuilder::submissions.show', compact('pageTitle', 'submission', 'form_headers','identitas'));
+    }
+
+    public static function duration($start, $end){
+        $t1 = Carbon::parse($start);
+        $t2 = Carbon::parse($end);
+        $diff = $t1->diff($t2);
+        if($diff->d == 0){
+            return ($diff->h . ' Jam ' . $diff->i . ' Menit');
+        }else{
+            return ($diff->d . ' Hari ' . $diff->h . ' Jam ' . $diff->i . ' Menit');
+        }
     }
 
     /**

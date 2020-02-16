@@ -28,8 +28,7 @@ class InboxController extends Controller
         $this->middleware('permission:inbox-list-mengetahui|inbox-list-menyetujui|inbox-list-all', ['only' => ['index','show']]);
         $this->middleware('permission:inbox-approve-all|inbox-approve-mengetahui|inbox-approve-menyetujui', ['only' => ['edit','update']]);
     }
-    public function index()
-    {
+    public function index(){
         //create inbox table by join pegawai, unit_jabatan, and forms table
         function inbox_table(){
             return DB::table('form_submissions')
@@ -47,18 +46,21 @@ class InboxController extends Controller
         }
         //admin
         if(auth()->user()->can('inbox-list-all')){
-            $inboxs = inbox_table()->get();
-            return view('/inbox/index',['inboxs'=>$inboxs]);
+            $primary_inboxs = inbox_table()->get();
+            $approved_inboxs = inbox_table()
+                ->where('mengetahui','=', pegawai()->id)
+                ->orWhere('menyetujui','=', pegawai()->id)->get();
+            $rejected_inboxs = inbox_table()->where('rejected','=', pegawai()->id)->get();
+            return view('/inbox/index',compact('primary_inboxs','approved_inboxs','rejected_inboxs'));
         }
         //atasan langsung
         else if (auth()->user()->can('inbox-list-mengetahui')){
 
             function inboxs(){
-                return inbox_table()
-                    ->where(function ($q){
+                return inbox_table()->where(function ($q){
                         $q->where('uj.kode_unitatas1', '=', pegawai()->unit_jabatan_id)
                             ->orwhere('uj.kode_unitatas2', '=', pegawai()->unit_jabatan_id);
-                    });
+                });
             }
             //primary inbox (inbox yang belum di approve)
             $primary_inboxs = inboxs()->where('form_submissions.status', '=', config('constants.status.new'))->get();
@@ -83,8 +85,7 @@ class InboxController extends Controller
         }
         //atasan langsung sekaligus     kepala
         else if(auth()->user()->can('inbox-list-menyetujui') && auth()->user()->can('inbox-list-mengetahui')){
-            function inboxs($status1, $status2, $operator1, $operator2){
-
+            function inboxs($operator1, $status1, $operator2, $status2){
                 return inbox_table()
                     ->where(function($q) use ($status1, $operator1) {
                         $q->where('form_submissions.status', $operator1, $status1)
@@ -93,9 +94,28 @@ class InboxController extends Controller
                     })
                     ->orWhere('form_submissions.status', $operator2, $status2);
             }
+            /* inboxs($status1, $status2, $operator1, $operator2)
+             * function dibuat untuk menyeseuaikan dengan kasus yang berbeda
+             * param:
+             * $status1()
+             * $status2()
+             * operator1()
+             * operator2()
+             * */
 
+            $primary_inboxs = inboxs("=", config('constants.status.pending'), "=", config('constants.status.waitForPic'))->get();
 
-            return view('/inbox/index',['inboxs'=>$inboxs]);
+            $approved_inboxs = inboxs("LIKE", "%", "LIKE", "%")
+                ->where('menyetujui','=', pegawai()->id)
+                ->orWhere('mengetahui','=', pegawai()->id)
+                ->get();
+
+            $rejected_inboxs = inboxs("=", config('constants.status.rejected'), "=", config('constants.status.rejected'))
+                ->where('menyetujui','=', pegawai()->id)
+                ->orWhere('mengetahui','=', pegawai()->id)
+                ->get();
+
+            return view('/inbox/index',compact($primary_inboxs, $approved_inboxs), $rejected_inboxs);
         }
     }
 

@@ -7,7 +7,7 @@ return [
         'waitForPic' => 2,
         'onGoing' => 3,
         'completed' => 4,
-        'rejected' => 5,
+        'rejected' => -1,
         // etc
     ]
 ];
