@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-
+    @can('dashboard-all')
     <div class="main">
         <!-- MAIN CONTENT -->
         <div class="main-content">
@@ -147,7 +147,7 @@
                                         <li>
                                             <img src="{{auth()->user()->pegawai->getFoto()}}" alt="Avatar" class="img-circle pull-left avatar">
                                             <p><a href="#">{{$d->name}}</a>
-                                                <br><span>{{$d->text}} </span>
+                                                <br><span>{{$d->subject}} </span>
                                                 <span class="timestamp">{{\Carbon\Carbon::parse($d->created_at)->diffForHumans()}}</span></p>
                                         </li>
                                     @endforeach
@@ -166,7 +166,7 @@
         </div>
     </div>
     <!-- END MAIN CONTENT -->
-
+    @endcan
 @endsection
 
 @section('footer')

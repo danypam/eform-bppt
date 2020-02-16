@@ -10,7 +10,7 @@
         <div id="navbar-menu">
             <ul class="nav navbar-nav navbar-right">
 
-                <notification :userid="{{auth()->id()}}" :unreads="{{auth()->user()->unreadNotifications}}"></notification>
+                <notification v-bind:submissions="submissions"></notification>
 {{--                @if(Auth::check())--}}
 {{--                <li class="dropdown">--}}
 {{--                    <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">--}}

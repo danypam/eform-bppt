@@ -233,6 +233,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Activity' => Spatie\Activitylog\ActivitylogFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'LogActivity' => App\Helpers\LogActivity::class,
 
     ],
 

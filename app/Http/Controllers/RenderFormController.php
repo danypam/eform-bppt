@@ -7,6 +7,7 @@ Last Updated: 12/29/2018
 ----------------------*/
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Mail\email_atasan;
 use App\Pegawai;
@@ -18,7 +19,7 @@ use Spatie\Permission\Models\Role;
 use Throwable;
 use App\User;
 use App\Notifications\NewForm;
-use jazmy\FormBuilder\Models\Submission;
+use App\Submission;
 
 class RenderFormController extends Controller
 {
@@ -54,6 +55,28 @@ class RenderFormController extends Controller
      * @param string $identifier
      * @return Response
      */
+    public function getAtasan(){
+        $unit_jabatan_user = DB::table('pegawai')
+            ->select('unit_jabatan_id')
+            ->where('user_id',auth()->user()->id)
+            ->first();
+        $id_unitatas = DB::table('unit_jabatan')
+            ->join('pegawai','pegawai.unit_jabatan_id','=','unit_jabatan.id_unit_jabatan')
+            ->select('kode_unitatas1','kode_unitatas2')
+            ->where('id_unit_jabatan','=',$unit_jabatan_user->unit_jabatan_id)
+            ->first();
+        $id1 = DB::table('pegawai')
+            ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas1)
+            ->select('user_id')
+            ->first();
+        $id2 = DB::table('pegawai')
+            ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas2)
+            ->select('user_id')
+            ->first();
+
+        return $id[] = [$id1,$id2];
+    }
+
     public function submit(Request $request, $identifier)
     {
        $form = Form::where('identifier', $identifier)->firstOrFail();
@@ -62,17 +85,8 @@ class RenderFormController extends Controller
                     'body' => 'You have one form to approved. Please check this link '
                 ];
 
-                \Mail::to('fajar654@gmail.com')->send(new email_atasan($details));
+                \Mail::to('littleodysoo@gmail.com')->send(new email_atasan($details));
         DB::beginTransaction();
-
-        $users = User::whereHas('roles',function($q){
-            $q->where('name','atasan');
-        })->get();
-        if (\Notification::send($users, new NewForm(Submission::latest('id')->first())))
-        {
-            return back();
-        }
-
 
         try {
             $input = $request->except('_token');
@@ -94,6 +108,14 @@ class RenderFormController extends Controller
                 'status' => 0,
                 'content' => $input,
             ]);
+            $users = User::whereHas('roles',function($q){
+                $q->where('name','atasan');
+            })->get();
+            if (\Notification::send($users, new NewForm(Submission::latest('id')->first())))
+            {
+                return back();
+            }
+            LogActivity::addToLog('Submitted Form '.$form->name);
             DB::commit();
            /* return redirect()
                     ->route('formbuilder::form.feedback', $identifier)
@@ -108,16 +130,6 @@ class RenderFormController extends Controller
 
         }
 
-    }
-//    public function notification(){
-//        return auth()->user()->unreadNotifications;
-//    }
-    public function markAsRead(Request $r){
-        auth()->user()->unreadNotifications->find($r->not_id)->markAsRead();
-    }
-    public function read($id){
-        $inboxs = \App\Submission::find($id);
-        return view('/inbox.read',compact('inboxs'));
     }
 
     /**

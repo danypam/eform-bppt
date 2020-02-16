@@ -1712,39 +1712,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['unreads', 'userid'],
-  data: function data() {
-    return {
-      unreadNotifications: this.unreads
-    };
-  },
+  props: ['submissions'],
   methods: {
-    MarkAsRead: function MarkAsRead(unread) {
+    MarkAsRead: function MarkAsRead(submission) {
       var data = {
-        not_id: unread.id,
-        submission_id: unread.data.submission.id
+        id: submission.id
       };
-      axios.post("/markAsRead", data).then(function (response) {
-        window.location.href = "/read/" + data.submission_id;
+      axios.post('/notification/read', data).then(function (response) {
+        window.location.href = "/submission/" + submission.data.submission.id;
       });
     }
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    console.log('component mounted');
-    Echo["private"]('App.User.' + this.userid).notification(function (notification) {
-      console.log(notification);
-      var newUnreadNotifications = {
-        data: {
-          submission: notification.submission,
-          user: notification.user
-        }
-      };
-
-      _this.unreadNotifications.push(newUnreadNotifications);
-    });
   }
 });
 
@@ -47033,46 +47012,50 @@ var render = function() {
             staticClass: "badge bg-danger",
             attrs: { id: "count-notification" }
           },
-          [_vm._v(_vm._s(_vm.unreadNotifications.length))]
+          [_vm._v(_vm._s(_vm.submissions.length))]
         )
       ]
     ),
     _vm._v(" "),
-    _c("ul", { staticClass: "dropdown-menu notifications" }, [
-      _c(
-        "li",
-        _vm._l(_vm.unreadNotifications, function(unread) {
-          return _c(
-            "a",
-            {
-              staticClass: "notification-item",
-              attrs: { href: "#" },
-              on: {
-                click: function($event) {
-                  return _vm.MarkAsRead(unread)
+    _c(
+      "ul",
+      { staticClass: "dropdown-menu notifications" },
+      [
+        _vm._l(_vm.submissions, function(submission) {
+          return _c("li", [
+            _c(
+              "a",
+              {
+                staticClass: "notification-item",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    return _vm.MarkAsRead(submission)
+                  }
                 }
-              }
-            },
-            [
-              _c("span", { staticClass: "dot bg-success" }, [
-                _vm._v(
-                  _vm._s(unread.data.submission.form_id) +
-                    " submited by " +
-                    _vm._s(unread.data.submission.user_id)
-                )
-              ])
-            ]
-          )
+              },
+              [
+                _c("span", { staticClass: "dot bg-success" }, [
+                  _vm._v(
+                    "\n            New Form " +
+                      _vm._s(submission.data.submission.form_id) +
+                      " submited by "
+                  ),
+                  _c("small", [_vm._v(_vm._s(submission.data.user.name))])
+                ])
+              ]
+            )
+          ])
         }),
-        0
-      ),
-      _vm._v(" "),
-      _c("li", [
-        _vm.unreadNotifications.length == 0
-          ? _c("p", { staticClass: "more" }, [_vm._v("No Notification")])
-          : _vm._e()
-      ])
-    ])
+        _vm._v(" "),
+        _c("li", [
+          _vm.submissions.length == 0
+            ? _c("p", { staticClass: "more" }, [_vm._v("No Notification")])
+            : _vm._e()
+        ])
+      ],
+      2
+    )
   ])
 }
 var staticRenderFns = []
@@ -59277,29 +59260,42 @@ Vue.config.productionTip = false;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-Vue.component('notification', __webpack_require__(/*! ./components/FormNotification.vue */ "./resources/js/components/FormNotification.vue")["default"]);
-var app = new Vue({
-  el: '#app'
-}); // const app = new Vue({
+Vue.component('notification', __webpack_require__(/*! ./components/FormNotification.vue */ "./resources/js/components/FormNotification.vue")["default"]); // const app = new Vue({
 //     el: '#app',
-//     data: {
-//         submissions: '',
-//     },
-//     created(){
-//         if (window.Laravel.userId){
-//             axios.post('/notification/submission/notification').then(response => {
-//                 this.submissions = response.data;
-//                 console.log(response.data)
-//             });
-//             Echo.private('App.User.'+window.Laravel.userId).notification((response)=>{
-//                 data = {"data":response};
-//                 this.submissions.push(data);
-//                 console.log(response);
-//             });
-//         }
-//     }
 // });
 
+var app = new Vue({
+  el: '#app',
+  data: {
+    submissions: ''
+  },
+  created: function created() {
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/notification/get').then(function (response) {
+      _this.submissions = response.data;
+    });
+    var userId = $('meta[name="userId"]').attr('content');
+    Echo["private"]('App.User.' + userId).notification(function (notification) {
+      _this.submissions.push(notification);
+
+      console.log(notification);
+    });
+  } // created(){
+  //     if (window.Laravel.userId){
+  //         axios.post('/notification/submission/notification').then(response => {
+  //             this.submissions = response.data;
+  //             console.log(response.data)
+  //         });
+  //         Echo.private('App.User.'+window.Laravel.userId).notification((response)=>{
+  //             data = {"data":response};
+  //             this.submissions.push(data);
+  //             console.log(response);
+  //         });
+  //     }
+  // }
+
+});
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

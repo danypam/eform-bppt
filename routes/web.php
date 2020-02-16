@@ -52,7 +52,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard','DashboardController@index');
-Route::get('/login','AuthController@login');
+Route::get('/login','AuthController@login')->name('login');
 Route::post('/postlogin','AuthController@postlogin');
 Route::get('/logout','AuthController@logout');
 
@@ -113,7 +113,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('/inbox', 'InboxController');
     Route::get('/submissions/{id}/approve','InboxController@approve');
-    Route::get('/submissions/{id}/reject','InboxController@reject');
+//    Route::post('/submissions/{id}/reject','InboxController@reject');
 
     Route::get('/dashboard','DashboardController@index');
 //    Route::get('/{id}/profile','PegawaiController@profile');
@@ -126,7 +126,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/task/{id}/cancel','PicController@cancel');
     Route::get('/task/{id}/complete','PicController@complete');
 
-//    Route::post('/notification/submission/notification','RenderFormController@notification');
-    Route::post('/markAsRead','RenderFormController@markAsRead');
-    Route::get('/read/{id?}','RenderFormController@read');
+
 });
+    Route::post('/notification/get','NotifikasiController@get');
+    Route::post('/notification/read','NotifikasiController@read');
+    Route::get('/submission/{id?}','NotifikasiController@show');
+

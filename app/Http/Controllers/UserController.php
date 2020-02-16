@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Helpers\LogActivity;
 use App\Jabatan;
 use App\UnitJabatan;
 use App\UnitKerja;
@@ -20,9 +21,9 @@ class UserController extends Controller
 {
     public function profile($id)
     {
-        $data = DB::table('activity_log')->limit(7)
-            ->LeftJoin('users','users.id','=','activity_log.user_id')
-            ->select('activity_log.*','users.name')
+        $data = DB::table('log_activity')->limit(7)
+            ->LeftJoin('users','users.id','=','log_activity.user_id')
+            ->select('log_activity.*','users.name')
             ->orderBy('created_at','DESC')
             ->where('user_id',auth()->user()->id)
             ->get();
@@ -70,6 +71,7 @@ class UserController extends Controller
         $request->request->add(['nama_lengkap'=>$user->name]);
         $request->request->add(['role'=>$user->getRoleNames()]);
         Pegawai::create($request->all());
+        LogActivity::addToLog('User Was Created');
 
         return redirect()->route('users.index')
                         ->with('success','User created successfully');
@@ -116,7 +118,7 @@ class UserController extends Controller
 
         $user->assignRole($request->input('roles'));
 
-
+        LogActivity::addToLog('User Was Updated');
         return redirect()->route('users.index')
                         ->with('success','User updated successfully');
     }
@@ -135,6 +137,7 @@ class UserController extends Controller
         ])->update([
             'status' => false,
         ]);
+        LogActivity::addToLog('User Was Non Active');
         return redirect('/users')->with('sukses','Data berhasil dinonaktifkan');
 
     }
@@ -146,6 +149,7 @@ class UserController extends Controller
         ])->update([
             'status' => true,
         ]);
+        LogActivity::addToLog('User Was Active');
         return redirect('/users')->with('sukses','Data berhasil diaktifkan');
 
     }

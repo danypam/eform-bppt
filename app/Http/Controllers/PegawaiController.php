@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use App\Jabatan;
 use App\Pegawai;
 use App\UnitJabatan;
@@ -55,6 +56,7 @@ class PegawaiController extends Controller
         $request->request->add(['user_id' => $user->id]);
         $request->request->add(['status' =>'AKTIF']);
         $pegawai = Pegawai::create($request->all());
+        LogActivity::addToLog('Pegawai Was Created');
         return redirect('/pegawai')->with('sukses','Data berhasil ditambah');
     }
 
@@ -86,6 +88,7 @@ class PegawaiController extends Controller
             $pegawai->foto = $request->file('foto')->getClientOriginalName();
             $pegawai->save();
         }
+        LogActivity::addToLog('Pegawai Was Updated');
         return redirect('/pegawai')->with('sukses','Data berhasil diubah');
     }
     public function delete($id)
@@ -95,6 +98,7 @@ class PegawaiController extends Controller
         $user = User::find($pegawai->user_id);
         $user->update(['status'=>false]);
 
+        LogActivity::addToLog('Pegawai Was Deleted');
         return redirect('/pegawai   ')->with('sukses','Data Berhasil Dinonaktifkan');
     }
 }

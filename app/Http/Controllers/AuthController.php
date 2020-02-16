@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use Auth;
 use App\User;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ class AuthController extends Controller
         $this->validate($request, User::$login_validation_rules);
         if (Auth::attempt($request->only('email','password','status'))){
             if(auth()->user()->status == true) {
+//                LogActivity::addToLog('User Was Login');
                 if ($request->password == '123456') {
                     return redirect('/dashboard')->with('warning', 'PLEASE CHANGE YOUR PASSWORD!!!!');
                 }else{
@@ -33,7 +35,9 @@ class AuthController extends Controller
 
     public function logout()
     {
+//        LogActivity::addToLog('User Was Logout');
         Auth::logout();
+
         return redirect('/login');
     }
 

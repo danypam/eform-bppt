@@ -12,22 +12,19 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
-use Spatie\Activitylog\LogsActivityInterface;
-use Spatie\Activitylog\LogsActivity;
 use  Carbon\Carbon;
 /*use Carbon\Carbon;*/
 
-class Submission extends Model implements LogsActivityInterface
+class Submission extends Model
 {
-    use LogsActivity;
-    /**
-     * The table name
-     *
-     * @var string
-     */
-    protected $table = 'form_submissions';
-    //protected $dateFormat='yy-MM-dd HH:mm:ss';
-    // protected $dates = ['YY-MM-DD HH:mm:ss','created_at'];
+	/**
+	 * The table name
+	 *
+	 * @var string
+	 */
+	protected $table = 'form_submissions';
+	//protected $dateFormat='yy-MM-dd HH:mm:ss';
+   // protected $dates = ['YY-MM-DD HH:mm:ss','created_at'];
 
 
     /**
@@ -194,23 +191,6 @@ class Submission extends Model implements LogsActivityInterface
         return new HtmlString($str);
     }
 
-    public function getActivityDescriptionForEvent($eventName)
-    {
-        if ($eventName == 'created') {
-            return 'Formulir was Input';
-        }
-
-        if ($eventName == 'updated') {
-            return 'Formulir was updated';
-        }
-
-        if ($eventName == 'deleted') {
-            return 'Formulir was deleted';
-        }
-
-        return '';
-    }
-
     public static function count_submission()
     {
         $all = Self::get()->count();
@@ -298,7 +278,7 @@ class Submission extends Model implements LogsActivityInterface
                 }
             }
 
-            //dd($series);      
+            //dd($series);
             //dd($category);
             return ['series' => $series, 'category' => $category];
         }

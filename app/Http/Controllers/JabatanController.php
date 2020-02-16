@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use App\Jabatan;
 use Illuminate\Http\Request;
 
@@ -37,6 +38,7 @@ class JabatanController extends Controller
     {
       //  $this->validate($request, Jabatan::$create_validation_rules);
         Jabatan::create($request->all());
+        LogActivity::addToLog('Jabatan Was Created');
         return redirect('/jabatan')->with('sukses','Data Berhasil Ditambah');
     }
 
@@ -50,6 +52,7 @@ class JabatanController extends Controller
         //$this->validate($request, Jabatan::$edit_validation_rules);
         $jabatan = Jabatan::find($id);
         $jabatan->update($request->all());
+        LogActivity::addToLog('Jabatan Was Updated');
         return redirect('/jabatan')->with('sukses','Data berhasil diupdate');
     }
 
@@ -57,6 +60,7 @@ class JabatanController extends Controller
     {
         $jabatan = Jabatan::find($id);
         $jabatan->delete();
+        LogActivity::addToLog('Jabatan Was Deleted');
         return redirect('/jabatan')->with('sukses','Data berhasil dihapus');
     }
 }

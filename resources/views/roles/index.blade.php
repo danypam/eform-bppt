@@ -61,7 +61,9 @@
 @section('footer')
     <script>
         $(document).ready(function () {
-            $('#datatable').DataTable();
+            $('#datatable').DataTable({
+                scroller:    true,
+            });
 
             $('.delete').click(function () {
                 var user_id = $(this).attr('user-id');
