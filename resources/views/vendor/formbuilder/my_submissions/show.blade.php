@@ -161,7 +161,7 @@
             }
             ProgressBar.singleStepAnimation = 1500;
             ProgressBar.init(
-                [ 'NEW',
+                [ 'NEW' ,
                     'PENDING',
                     'ON GOING',
                     'COMPLETED',

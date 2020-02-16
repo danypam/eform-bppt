@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use Illuminate\Http\Request;
 use Psy\Exception\ErrorException;
 use Spatie\Permission\Models\Permission;
@@ -27,6 +28,7 @@ class PermissionController extends Controller
     {
         Permission::create($request->all());
 
+        LogActivity::addToLog('Permission Was Created');
         return redirect('/permission')->with('sukses','Permission '.$request->name.' Berhasil Ditambah');
     }
 
@@ -39,6 +41,7 @@ class PermissionController extends Controller
     {
         $permis = Permission::find($id);
         $permis->update($request->all());
+        LogActivity::addToLog('Permission Was Updated');
         return redirect('/permission')->with('sukses','Permission '.$request->name.' berhasil diupdate');
     }
 
@@ -46,6 +49,7 @@ class PermissionController extends Controller
     {
         $permis = Permission::find($id);
         $permis->delete();
+        LogActivity::addToLog('Permission Was Deleted');
         return redirect('/permission')->with('sukses','Permission '.$permis->name.' berhasil dihapus');
     }
 

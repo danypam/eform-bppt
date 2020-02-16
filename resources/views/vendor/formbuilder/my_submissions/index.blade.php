@@ -24,6 +24,7 @@
                                                     <th class="">Form Type</th>
                                                     <th class="twenty-five">Status</th>
                                                     <th class="twenty-five">Created At</th>
+                                                    <th class="twenty-five">Keterangan</th>
                                                     <th class="fifteen">Actions</th>
                                                 </tr>
                                                 </thead>
@@ -48,6 +49,7 @@
                                                             <td><span class="label label-success">COMPLETE</span></td>
                                                                 @endif
                                                                 <td>{{ \App\Http\Controllers\TimeController::time_elapsed_string($submission->created_at->toDayDateTimeString()) }}</td>
+                                                        <td>{{$submission->keterangan}}</td>
 
 
                                                         <td>

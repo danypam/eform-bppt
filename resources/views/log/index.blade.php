@@ -22,8 +22,11 @@
                                         <th>No</th>
                                         <th>User</th>
                                         <th>Description</th>
+                                        <th>URL</th>
+                                        <th>Method</th>
                                         <th>IP Address</th>
-                                        <th>Updated At</th>
+                                        <th>Agent</th>
+                                        <th>Dikelola</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -32,8 +35,11 @@
                                         <tr>
                                             <td>{{++$i}}</td>
                                             <td>{{$a->name}}</td>
-                                            <td>{{$a->text}}</td>
-                                            <td>{{$a->ip_address}}</td>
+                                            <td>{{$a->subject}}</td>
+                                            <td>{{$a->url}}</td>
+                                            <td><span class="label label-primary">{{$a->method}}</span></td>
+                                            <td>{{$a->ip}}</td>
+                                            <td>{{$a->agent}}</td>
                                             <td><span class="label label-default ">{{\Carbon\Carbon::parse($a->created_at)->diffForHumans()}}</span></td>
                                             <td>
                                                 @can('log-delete')

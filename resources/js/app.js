@@ -27,28 +27,38 @@ Vue.config.productionTip = false
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('notification', require('./components/FormNotification.vue').default);
-const app = new Vue({
-    el: '#app',
-});
 // const app = new Vue({
 //     el: '#app',
-//     data: {
-//         submissions: '',
-//     },
-//     created(){
-//         if (window.Laravel.userId){
-//             axios.post('/notification/submission/notification').then(response => {
-//                 this.submissions = response.data;
-//                 console.log(response.data)
-//             });
-//             Echo.private('App.User.'+window.Laravel.userId).notification((response)=>{
-//                 data = {"data":response};
-//                 this.submissions.push(data);
-//                 console.log(response);
-//             });
-//         }
-//     }
 // });
+const app = new Vue({
+    el: '#app',
+    data: {
+        submissions: '',
+    },
+    created(){
+        axios.post('/notification/get').then(response => {
+            this.submissions = response.data;
+        });
+        var userId = $('meta[name="userId"]').attr('content');
+        Echo.private('App.User.' + userId).notification((notification) => {
+            this.submissions.push(notification);
+            console.log(notification);
+        });
+    }
+    // created(){
+    //     if (window.Laravel.userId){
+    //         axios.post('/notification/submission/notification').then(response => {
+    //             this.submissions = response.data;
+    //             console.log(response.data)
+    //         });
+    //         Echo.private('App.User.'+window.Laravel.userId).notification((response)=>{
+    //             data = {"data":response};
+    //             this.submissions.push(data);
+    //             console.log(response);
+    //         });
+    //     }
+    // }
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

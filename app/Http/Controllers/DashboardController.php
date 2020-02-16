@@ -14,9 +14,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $data = DB::table('activity_log')->limit(10)
-            ->LeftJoin('users','users.id','=','activity_log.user_id')
-            ->select('activity_log.*','users.name')
+        $data = DB::table('log_Activity')->limit(5)
+            ->LeftJoin('users','users.id','=','log_activity.user_id')
+            ->select('log_activity.*','users.name')
             ->orderBy('created_at','DESC')
             ->get();
 

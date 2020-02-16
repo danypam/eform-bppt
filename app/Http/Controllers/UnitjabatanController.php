@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use App\UnitJabatan;
 use Illuminate\Http\Request;
 use DB;
@@ -35,6 +36,7 @@ class UnitjabatanController extends Controller
         UnitJabatan::create($request->all());
 
 
+        LogActivity::addToLog('Unit Jabatan Was Created');
         return redirect('/unitjab')->with('sukses','Data Berhasil Ditambah');
     }
     public function edit($id)
@@ -48,12 +50,14 @@ class UnitjabatanController extends Controller
     {
         $data_unitjab = UnitJabatan::find($id);
         $data_unitjab->update($request->all());
+        LogActivity::addToLog('Unit Jabatan Was Updated');
         return redirect('/unitjab')->with('sukses','Data berhasil diupdate');
     }
     public function delete($id){
 
         $data_unitjab = UnitJabatan::find($id);
         $data_unitjab->delete();
+        LogActivity::addToLog('Unit Jabatan Was Deleted');
         return redirect('/unitjab')->with('sukses','Data berhasil dihapus');
     }
 }

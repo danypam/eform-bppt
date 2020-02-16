@@ -62,7 +62,7 @@ li.section:before {
 }
 @keyframes changeBackground1 {
     from {background: gray}
-    to {background: yellow}
+    to {background: mediumseagreen}
 }
 
 li.section.visited:before {
@@ -72,9 +72,8 @@ li.section.visited:before {
 }
 
 li.section.visited.current:before {
-    content: 'X';
     box-shadow: 0 0 0 2px orangered;
     animation: changeBackground1 .5s linear;
     animation-fill-mode: forwards;
-    color: gray;
+    color: white;
 }

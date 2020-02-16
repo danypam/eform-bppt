@@ -6,12 +6,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
-use Spatie\Activitylog\LogsActivityInterface;
-use Spatie\Activitylog\LogsActivity;
 
-class User extends Authenticatable implements LogsActivityInterface
+
+class User extends Authenticatable
 {
-    use LogsActivity;
     use Notifiable;
     use HasRoles;
 
@@ -26,26 +24,6 @@ class User extends Authenticatable implements LogsActivityInterface
     protected $fillable = [
         'name', 'email', 'password','status',
     ];
-
-    public function getActivityDescriptionForEvent($eventName)
-    {
-        if ($eventName == 'created')
-        {
-            return 'User "' . $this->name . '" was created';
-        }
-
-//        if ($eventName == 'updated')
-//        {
-//            return 'User "' . $this->name . '" was updated';
-//        }
-
-        if ($eventName == 'deleted')
-        {
-            return 'User "' . $this->name . '" was deleted';
-        }
-
-        return '';
-    }
 
     /**
      * The attributes that should be hidden for arrays.

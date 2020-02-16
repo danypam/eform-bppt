@@ -12,14 +12,11 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
-use Spatie\Activitylog\LogsActivityInterface;
-use Spatie\Activitylog\LogsActivity;
 use  Carbon\Carbon;
 /*use Carbon\Carbon;*/
 
-class Submission extends Model implements LogsActivityInterface
+class Submission extends Model
 {
-    use LogsActivity;
 	/**
 	 * The table name
 	 *
@@ -192,26 +189,6 @@ class Submission extends Model implements LogsActivityInterface
         }
 
         return new HtmlString($str);
-    }
-
-    public function getActivityDescriptionForEvent($eventName)
-    {
-        if ($eventName == 'created')
-        {
-            return 'Formulir was Input';
-        }
-
-        if ($eventName == 'updated')
-        {
-            return 'Formulir was updated';
-        }
-
-        if ($eventName == 'deleted')
-        {
-            return 'Formulir was deleted';
-        }
-
-        return '';
     }
 
     public static function count_submission()
