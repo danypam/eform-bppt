@@ -126,9 +126,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/task/{id}/cancel','PicController@cancel');
     Route::get('/task/{id}/complete','PicController@complete');
 
-
 });
     Route::post('/notification/get','NotifikasiController@get');
     Route::post('/notification/read','NotifikasiController@read');
     Route::get('/submission/{id?}','NotifikasiController@show');
+
+
 

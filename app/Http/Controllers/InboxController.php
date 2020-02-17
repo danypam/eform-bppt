@@ -81,6 +81,20 @@ class InboxController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        function inbox_table($id){
+            return DB::table('form_submissions')
+                ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
+                ->join('forms as f','form_submissions.form_id','=','f.id')
+                ->join('unit_jabatan as uj', 'uj.id_unit_jabatan', '=', 'p.unit_jabatan_id')
+                ->select('nama_lengkap','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->where('form_submissions.id', $id);
+        }
+        $inboxs = inbox_table($id)->get();
+        return view('/inbox/index',['inboxs'=>$inboxs]);
+    }
+
     public function approve($id)
     {
         $isFilled = DB::table('form_submissions')

@@ -24,13 +24,13 @@
                             <li><a href="/jabatan" class=""><i class="fa fa-black-tie"></i><span>Jabatan</span></a></li>
                             @endif
                             @if (auth()->user()->can('unit-list') || auth()->user()->can('unit-delete') || auth()->user()->can('unit-create')|| auth()->user()->can('unit-edit'))
-                            <li><a href="/unit" class=""><i class="fa fa-steam"></i><span>Unit Kerja</span></a></li>
+                            <li><a href="/unit" class=""><i class="fa fa-wpforms"></i><span>Unit Kerja</span></a></li>
                             @endif
                             @if (auth()->user()->can('unitjab-list') || auth()->user()->can('unitjab-delete') || auth()->user()->can('unitjab-create')|| auth()->user()->can('unitjab-edit'))
-                            <li><a href="/unitjab" class=""><i class="fa fa-usb"></i><span>Unit Jabatan</span></a></li>
+                            <li><a href="/unitjab" class=""><i class="fa fa-shirtsinbulk"></i><span>Unit Jabatan</span></a></li>
                             @endif
                             @if (auth()->user()->can('alamat-list') || auth()->user()->can('alamat-delete') || auth()->user()->can('alamat-create')|| auth()->user()->can('alamat-edit'))
-                            <li><a href="/alamat" class=""><i class="lnr lnr-map-marker"></i><span>Location</span></a></li>
+                            <li><a href="/alamat" class=""><i class="fa fa-map"></i><span>Location</span></a></li>
                             @endif
                             @if (auth()->user()->can('layanan-list') || auth()->user()->can('layanan-delete') || auth()->user()->can('layanan-create')|| auth()->user()->can('layanan-edit'))
                             <li><a href="/layanan" class=""><i class="fa fa-stack-overflow"></i><span>Layanan</span></a></li>
@@ -55,11 +55,11 @@
                     <div id="subPages1" class="collapse ">
                         <ul class="nav">
                             <li><a href="/{{auth()->user()->id}}/profile" class=""><i class="fa fa-user-circle-o"></i><span>My Profile</span></a></li>
-                            <li><a href="/auth/ubahpass" class=""><i class="fa fa-lock"></i><span>Change Password</span></a></li>
+                            <li><a href="/auth/ubahpass" class=""><i class="fa fa-expeditedssl"></i><span>Change Password</span></a></li>
                             @role('Admin')
                             <li><a href="/log" class=""><i class="fa fa-group"></i><span>Log Activity</span></a></li>
                             <li><a href="/roles" class=""><i class="fa fa-drivers-license-o"></i><span>Roles</span></a></li>
-                            <li><a href="/permission" class=""><i class="fa fa-unlock-alt"></i><span>Permissions</span></a></li>
+                            <li><a href="/permission" class=""><i class="fa fa-key"></i><span>Permissions</span></a></li>
                             <li><a href="/users" class=""><i class="fa fa-address-book-o"></i><span>Account Access</span></a></li>
                             @endrole
                         </ul>
