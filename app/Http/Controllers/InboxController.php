@@ -53,36 +53,6 @@ class InboxController extends Controller
             $rejected_inboxs = inbox_table()->where('rejected','=', pegawai()->id)->get();
             return view('/inbox/index',compact('primary_inboxs','approved_inboxs','rejected_inboxs'));
         }
-        //atasan langsung
-        else if (auth()->user()->can('inbox-list-mengetahui')){
-
-            function inboxs(){
-                return inbox_table()->where(function ($q){
-                        $q->where('uj.kode_unitatas1', '=', pegawai()->unit_jabatan_id)
-                            ->orwhere('uj.kode_unitatas2', '=', pegawai()->unit_jabatan_id);
-                });
-            }
-            //primary inbox (inbox yang belum di approve)
-            $primary_inboxs = inboxs()->where('form_submissions.status', '=', config('constants.status.new'))->get();
-            //approved inbox (inbox yang telah di approve)
-            $approved_inboxs = inboxs()->where('mengetahui','=', pegawai()->id)->get();
-            //rejected inbox (inbox yang telah di reject)
-            $rejected_inboxs = inboxs()->where('rejected','=',pegawai()->id)->get();
-            return view('/inbox/index',compact('primary_inboxs', 'approved_inboxs','rejected_inboxs'));
-        }
-        //kepala
-        else if(auth()->user()->can('inbox-list-menyetujui')){
-            function inboxs(){
-                return inbox_table();
-            }
-            //primary inbox (inbox yang belum di approve)
-            $primary_inboxs = inboxs()->where('form_submissions.status', '=', config('constants.status.pending'))->get();
-            //approved inbox (inbox yang telah di approve)
-            $approved_inboxs = inboxs()->where('menyetujui','=', pegawai()->id)->get();
-            //rejected inbox (inbox yang telah di reject)
-            $rejected_inboxs = inboxs()->where('rejected','=',pegawai()->id)->get();
-            return view('/inbox/index',compact('primary_inboxs','approved_inboxs','rejected_inboxs'));
-        }
         //atasan langsung sekaligus     kepala
         else if(auth()->user()->can('inbox-list-menyetujui') && auth()->user()->can('inbox-list-mengetahui')){
             function inboxs($operator1, $status1, $operator2, $status2){
@@ -117,6 +87,40 @@ class InboxController extends Controller
 
             return view('/inbox/index',compact($primary_inboxs, $approved_inboxs), $rejected_inboxs);
         }
+        //atasan langsung
+        else if (auth()->user()->can('inbox-list-mengetahui')){
+
+            function inboxs(){
+                return inbox_table()->where(function ($q){
+                        $q->where('uj.kode_unitatas1', '=', pegawai()->unit_jabatan_id)
+                            ->orwhere('uj.kode_unitatas2', '=', pegawai()->unit_jabatan_id);
+                });
+            }
+            //primary inbox (inbox yang belum di approve)
+            $primary_inboxs = inboxs()->where('form_submissions.status', '=', config('constants.status.new'))->get();
+            //approved inbox (inbox yang telah di approve)
+            $approved_inboxs = inboxs()->where('mengetahui','=', pegawai()->id)->get();
+            //rejected inbox (inbox yang telah di reject)
+            $rejected_inboxs = inboxs()->where('rejected','=',pegawai()->id)->get();
+            return view('/inbox/index',compact('primary_inboxs', 'approved_inboxs','rejected_inboxs'));
+        }
+        //kepala
+        else if(auth()->user()->can('inbox-list-menyetujui')){
+            function inboxs(){
+                return inbox_table();
+            }
+            //primary inbox (inbox yang belum di approve)
+            $primary_inboxs = inboxs()->where('form_submissions.status', '=', config('constants.status.pending'))->get();
+            //approved inbox (inbox yang telah di approve)
+            $approved_inboxs = inboxs()->where('menyetujui','=', pegawai()->id)->get();
+            //rejected inbox (inbox yang telah di reject)
+            $rejected_inboxs = inboxs()->where('rejected','=',pegawai()->id)->get();
+            return view('/inbox/index',compact('primary_inboxs','approved_inboxs','rejected_inboxs'));
+        }
+    }
+
+    public function getStatusName($status){
+
     }
 
     public function approve($id)

@@ -8,13 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    @yield('head')
+
 {{--    <!-- VENDOR CSS -->--}}
     <link rel="stylesheet" href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="{{asset('assets/vendor/font-awesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendor/linearicons/style.css')}}">
     <!-- MAIN CSS -->
+    @stack('styles')
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
     <link  rel="stylesheet" href="{{asset('css/main.css')}}" />
     <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
@@ -28,7 +29,7 @@
     <!-- ICONS -->
     <link rel="apple-touch-icon" sizes="76x76" href="{{asset('assets/img/apple-icon.png')}}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{asset('assets/img/favicon.png')}}">
-    @stack('styles')
+    @yield('head')
 </head>
 
 <body>

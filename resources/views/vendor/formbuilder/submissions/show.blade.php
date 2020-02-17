@@ -23,12 +23,17 @@
                                 <table class="table table-borderless table-responsive">
                                     <tbody>
                                         <tr>
-                                            <td><h6><strong>Nama Lengkap</strong></h6></td>
-                                            <td><h6>{{$submission->user->name}}</h6></td>
+                                            <td><img src="{{ $identitas->foto? asset("/images/$identitas->foto") : asset("/images/user.png") }}"></td>
+                                            <td>
+                                                <h5>{{$submission->user->name}}</h5>
+                                                <h5>{{$submission->user->email}}</h5>
+                                            </td>
                                         </tr>
+                                    </tbody>
+                                    <tbody>
                                         <tr>
-                                            <td><h6><strong>Email</strong></h6></td>
-                                            <td><h6>{{$submission->user->email}}</h6></td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
                                         </tr>
                                         <tr>
                                             <td><h6><strong>NIP</strong></h6></td>
@@ -47,8 +52,13 @@
                                             <td><h6><strong>No Hp</strong></h6></td>
                                             <td><h6>{{$identitas->no_hp}}</h6></td>
                                         </tr>
+                                        <tr>
+                                            <td><h6><strong>Status</strong></h6></td>
+                                            <td><h1 class="label label-default">{{config("constants.statusReverse.$submission->status")}}</h1></td>
+                                        </tr>
                                     </tbody>
                                 </table>
+
 
                             </div>
                             <div class="col-md-6">
@@ -66,7 +76,9 @@
                                             </li>
                                             <li>
                                                 <time datetime="{{ $submission->mengetahui_at }}">{{ $submission->mengetahui_at }}</time>
-                                                <span><strong>Diketahui Oleh</strong>{{ \App\Http\Controllers\FormController::getNamePic($submission->mengetahui)->nama_lengkap }}</span>
+                                                <span>
+                                                    <strong>Diketahui Oleh</strong>{{ \App\Http\Controllers\FormController::getNamePic($submission->mengetahui)->nama_lengkap }}
+                                                </span>
                                             </li>
                                         @endif
                                         @if($submission->menyetujui)
@@ -103,7 +115,7 @@
                                         @if($submission->rejected)
                                             <li>
                                                 <time datetime="{{ $submission->rejected_at }}">{{ $submission->rejected_at }}</time>
-                                                <span "><strong>Form Ditolak Oleh</strong> {{ \App\Http\Controllers\FormController::getNamePic($submission->rejected)->nama_lengkap }}</span>
+                                                <span><strong>Form Ditolak Oleh</strong> {{ \App\Http\Controllers\FormController::getNamePic($submission->rejected)->nama_lengkap }}</span>
                                             </li>
                                         @endif
                                 </ul>
@@ -119,27 +131,52 @@
                             </div>
                             <div class="panel-body">
                                 <div class="btn-toolbar float-right" role="toolbar">
-                                    <div class="btn-group" role="group" aria-label="First group">
-                                        <a href="{{ route('formbuilder::forms.submissions.index', $submission->form->id) }}" class="btn btn-primary float-md-right btn-sm" title="Back To Submissions">
-                                            <i class="fa fa-arrow-left"></i>
-                                        </a>
-                                    </div>
                                 </div>
-                                <div>
-                                <table class="table"  style="table-layout: fixed;font-family: sans-serif">
+                                <div class="form-container">
+                                    <table class="table"  style="table-layout: fixed;font-family: sans-serif">
 
-                                        <tbody style="border: none">
-                                        @foreach($form_headers as $header)
-                                        <tr>
-                                            <td style="border: none;word-wrap: break-word; width: 50%"><strong>{{ $header['label'] ?? title_case($header['name']) }}: </strong></td>
-                                            <td>:</td>
-                                            <td  style="border: none;word-wrap: break-word; width: 50%" class="float-right"><span>{{ $submission->renderEntryContent($header['name'], $header['type']) }}</span></td>
-                                        </tr>
-                                        @endforeach
-                                        </tbody>
+                                            <tbody style="border: none">
+                                            @foreach($form_headers as $header)
+                                            <tr>
+                                                <td style="border: none;word-wrap: break-word; width: 50%"><strong>{{ $header['label'] ?? title_case($header['name']) }} </strong></td>
+                                                <td>:</td>
+                                                <td  style="border: none;word-wrap: break-word; width: 50%" class="float-right"><span>{{ $submission->renderEntryContent($header['name'], $header['type']) }}</span></td>
+                                            </tr>
+                                            @endforeach
+                                            </tbody>
 
-                                </table>
+                                    </table>
                                 </div>
+
+                                <div class="margin-top-30">
+                                        @if(!($submission->status == config("constants.status.rejected")))
+                                            @if(auth()->user()->can('inbox-approve-mengetahui') && $submission->status == config("constants.status.new"))
+                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
+
+                                            @elseif(auth()->user()->can('inbox-approve-mengetahui') && auth()->user()->can('inbox-approve-menyetujui'))
+                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
+
+                                            @elseif(auth()->user()->can('inbox-approve-menyetujui') && $submission->status == config("constants.status.pending"))
+                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
+
+                                            @elseif(auth()->user()->can('task-take'))
+                                                @if($submission->status == config("constants.status.waitForPic"))
+                                                    <a href="/task/{{$submission->id}}/take" class="btn btn-primary btn-sm">Take</a>
+
+                                                @elseif($submission->status == config("constants.status.onGoing"))
+                                                    <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
+                                                    <a href="/task/{{$submission->id}}/complete" class="btn btn-success btn-sm">Complete</a>
+
+                                                @elseif($submission->status == config("constants.status.completed"))
+                                                    <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
+                                                @endif
+                                            @endif
+                                        @endif
+                                </div>
+
                             </div>
                         </div>
                     </div>

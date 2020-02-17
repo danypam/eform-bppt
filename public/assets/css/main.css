@@ -1768,8 +1768,9 @@ ul.activity-timeline > li:last-child:after {
 /*Form Control edit*/
 .form-control{}
 .form-control:focus {
-    border-color: #007BFF;
-    box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0), 0 0 0px rgba(0, 0, 0, 0);
+    border: 1px solid;
+    border-color: #A1CBEF;
+    box-shadow: 0 0 0 2pt #CCE3F6;
 }
 
 /*border*/
@@ -1794,13 +1795,13 @@ ul.activity-timeline > li:last-child:after {
 /*progress bar*/
 .events li {
     display: flex;
-
 }
 
 .events time {
     position: relative;
     color: #ccc;
-    padding: 0 1.5em;  }
+    padding: 0 1.5em;
+}
 
 .events time::after {
     content: "";
@@ -1818,7 +1819,7 @@ ul.activity-timeline > li:last-child:after {
 
 
 .events span {
-    padding: 0 1.5em 0.5em 1.5em;
+    padding: 0 1.5em 1.5em 1.5em;
     position: relative;
 }
 .events .seling::after{
@@ -1843,7 +1844,15 @@ ul.activity-timeline > li:last-child:after {
     font-weight: bolder;
 }
 
-.events {  padding-left: 0px;width: 100%; }
+.events { margin: 1em; width: 100%; }
 .events,
 .events *::before,
-.events *::after { font-size: 12px;}
+.events *::after { font-size: 12px;box-sizing: border-box; }
+
+
+/*form container*/
+.form-container{
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid rgba(0, 0, 0, .1);
+}
