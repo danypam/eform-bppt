@@ -100,8 +100,7 @@ class RenderFormController extends Controller
                 'user_id' => $user_id,
                 'status' => 0,
                 'content' => $input,
-
-            ]);
+            ])->id;
             $users = User::whereHas('roles',function($q){
                 $q->where('name','atasan');
             })->get();
@@ -110,8 +109,6 @@ class RenderFormController extends Controller
                 return back();
             }
             LogActivity::addToLog('Submitted Form'.$form->name);
-
-            ])->id;
 
             $submission = Submission::where(['user_id' => $user_id, 'id' => $submission_id])->with('form')->firstOrFail();
 

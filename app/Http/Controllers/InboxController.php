@@ -88,7 +88,7 @@ class InboxController extends Controller
                 ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
                 ->join('forms as f','form_submissions.form_id','=','f.id')
                 ->join('unit_jabatan as uj', 'uj.id_unit_jabatan', '=', 'p.unit_jabatan_id')
-                ->select('nama_lengkap','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->select('nama_lengkap','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan')
                 ->where('form_submissions.id', $id);
         }
         $inboxs = inbox_table($id)->get();
