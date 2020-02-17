@@ -149,22 +149,22 @@
             var status = {!! $submission->status!!};
             var wizard = '';
             if (status === 0){
-                wizard = 'NEW';
+                wizard = 'NEW <br><br> {!! $submission->created_at !!}';
             }else if(status === 1 || status === 2){
-                wizard = 'PENDING';
+                wizard = 'PENDING <br><br> {!! $submission->mengetahui_at !!}';
             }else if(status === 3){
-                wizard = 'ON GOING';
+                wizard = 'ON GOING <br><br> {!! $submission->menyetujui_at !!}';
             }else if(status === 4){
-                wizard = 'COMPLETED';
+                wizard = 'COMPLETED <br><br> {!! $submission->complete_at !!}';
             }else{
                 wizard = 'REJECT';
             }
             ProgressBar.singleStepAnimation = 1500;
             ProgressBar.init(
-                [ 'NEW' ,
-                    'PENDING',
-                    'ON GOING',
-                    'COMPLETED',
+                [ 'NEW <br><br> {!! $submission->created_at !!}' ,
+                    'PENDING <br><br> {!! $submission->mengetahui_at !!}',
+                    'ON GOING <br><br> {!! $submission->menyetujui_at !!}',
+                    'COMPLETED <br><br> {!! $submission->complete_at !!}',
                     'REJECT'
                 ],
                 wizard,
