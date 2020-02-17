@@ -119,10 +119,6 @@ class InboxController extends Controller
         }
     }
 
-    public function getStatusName($status){
-
-    }
-
     public function approve($id)
     {
         $isFilled = DB::table('form_submissions')
