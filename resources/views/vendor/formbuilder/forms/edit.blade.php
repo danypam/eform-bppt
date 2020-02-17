@@ -1,5 +1,8 @@
 @extends('formbuilder::layout')
-
+@section('head')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
+    
+@endsection
 @section('content')
     <div class="main">
         <div class="main-content">
@@ -30,9 +33,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="name" class="col-form-label">Form Name</label>
-
                                                     <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') ?? $form->name }}" required autofocus placeholder="Enter Form Name">
-
                                                     @if ($errors->has('name'))
                                                         <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $errors->first('name') }}</strong>
@@ -132,7 +133,10 @@
 
 
 @endsection
-
+@section('footer')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
+    <script src="{{asset("js/dynamic-form.js")}}"></script>
+@endsection
 @push(config('formbuilder.layout_js_stack', 'scripts'))
 <script>
 

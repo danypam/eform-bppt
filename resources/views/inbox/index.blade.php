@@ -11,58 +11,152 @@
                         <div class="panel">
                             <div class="panel-heading">
                                 <h3 class="panel-title">INBOX</h3>
+                                <ul class="nav nav-tabs">
+                                    <li  class="active" id="tab-primary"><a href="#primary">Primary</a></li>
+                                    <li id="tab-approved"><a href="#">Approved</a></li>
+                                    <li id="tab-rejected"><a href="#">Rejected</a></li>
+                                </ul>
                             </div>
                             <div class="panel-body">
-                                <table class="table table-hover" id="datatable">
-                                    <thead>
-                                    <tr>
-                                        <th>Email</th>
-                                        <th>Name</th>
-                                        <th>Form Type</th>
-                                        <th>Status</th>
-                                        <th>Created At</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($inboxs as $inbox)
+                            {{--  primary  --}}
+                                <div id="primary">
+                                    <table class="table table-hover datatable">
+                                        <thead>
                                         <tr>
-                                            <td>{{$inbox->email}}</td>
-                                            <td>{{$inbox->nama_lengkap}}</td>
-                                            <td>{{$inbox->name}}</td>
-                                            @if($inbox->status == -1)
-                                            <td><span class="label label-danger">REJECTED</span></td>
-                                            @endif
-                                            @if($inbox->status == 0)
-                                                <td><span class="label label-primary">NEW</span></td>
-                                            @endif
-                                            @if($inbox->status == 1)
-                                                <td><span class="label label-warning">PENDING</span></td>
-                                            @endif
-                                            @if($inbox->status == 2 || $inbox->status == 3)
-                                            <td><span class="label label-primary">ON GOING</span></td>
-                                            @endif
-                                            @if($inbox->status == 4)
-                                                <td><span class="label label-success">COMPLETE</span></td>
-                                            @endif
-                                            <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($inbox->created_at)}}</td>
-                                            <td>
-                                                <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
-                                            @can('inbox-management')
-                                                @if($inbox->status == -1)
-                                                    <a href="/submissions/{{$inbox->submission_id}}/approve" class="btn btn-primary btn-sm hidden">Approve</a>
-                                                    <a href="/submissions/{{$inbox->submission_id}}/reject" data-toggle="modal" data-target="#exampleModal" class="btn btn-danger btn-sm hidden">Reject</a>
-                                                    @else
-                                                    <a href="/submissions/{{$inbox->submission_id}}/approve" class="btn btn-primary btn-sm">Approve</a>
-                                                    <a href="#"  data-toggle="modal" data-target="#edit" class="btn btn-danger btn-sm" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" >Reject</a>
-                                                @endif
-                                            @endcan
-                                            </td>
+                                            <th>Email</th>
+                                            <th>Name</th>
+                                            <th>Form Type</th>
+                                            <th>Status</th>
+                                            <th>Created At</th>
+                                            <th>Action</th>
                                         </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($primary_inboxs as $inbox)
+                                            <tr>
+                                                <td>{{$inbox->email}}</td>
+                                                <td>{{$inbox->nama_lengkap}}</td>
+                                                <td>{{$inbox->name}}</td>
+                                                @if($inbox->status == -1)
+                                                <td><span class="label label-danger">REJECTED</span></td>
+                                                @endif
+                                                @if($inbox->status == 0)
+                                                    <td><span class="label label-primary">NEW</span></td>
+                                                @endif
+                                                @if($inbox->status == 1)
+                                                    <td><span class="label label-warning">PENDING</span></td>
+                                                @endif
+                                                @if($inbox->status == 2 || $inbox->status == 3)
+                                                <td><span class="label label-primary">ON GOING</span></td>
+                                                @endif
+                                                @if($inbox->status == 4)
+                                                    <td><span class="label label-success">COMPLETE</span></td>
+                                                @endif
+                                                <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($inbox->created_at)}}</td>
+                                                <td>
+                                                    <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                @can('inbox-management')
+                                                    @if($inbox->status == -1)
+                                                        <a href="/submissions/{{$inbox->submission_id}}/approve" class="btn btn-primary btn-sm hidden">Approve</a>
+                                                        <a href="/submissions/{{$inbox->submission_id}}/reject" class="btn btn-danger btn-sm hidden">Reject</a>
+                                                        @else
+                                                        <a href="/submissions/{{$inbox->submission_id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                        <a href="/submissions/{{$inbox->submission_id}}/reject" class="btn btn-danger btn-sm">Reject</a>
+                                                    @endif
+                                                @endcan
+                                                </td>
+                                            </tr>
                                         @endforeach
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
 
+                                {{-- approved --}}
+                                <div id="approved" class="hidden">
+                                    <table class="table table-hover datatable" >
+                                        <thead>
+                                        <tr>
+                                            <th>Email</th>
+                                            <th>Name</th>
+                                            <th>Form Type</th>
+                                            <th>Status</th>
+                                            <th>Created At</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($approved_inboxs as $inbox)
+                                            <tr>
+                                                <td>{{$inbox->email}}</td>
+                                                <td>{{$inbox->nama_lengkap}}</td>
+                                                <td>{{$inbox->name}}</td>
+                                                @if($inbox->status == -1)
+                                                    <td><span class="label label-danger">REJECTED</span></td>
+                                                @endif
+                                                @if($inbox->status == 0)
+                                                    <td><span class="label label-primary">NEW</span></td>
+                                                @endif
+                                                @if($inbox->status == 1)
+                                                    <td><span class="label label-warning">PENDING</span></td>
+                                                @endif
+                                                @if($inbox->status == 2 || $inbox->status == 3)
+                                                    <td><span class="label label-primary">ON GOING</span></td>
+                                                @endif
+                                                @if($inbox->status == 4)
+                                                    <td><span class="label label-success">COMPLETE</span></td>
+                                                @endif
+                                                <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($inbox->created_at)}}</td>
+                                                <td>
+                                                    <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                </td>
+                                            </tr>
+                                             @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{-- Rejected  --}}
+                                <div id="rejected" class="hidden">
+                                    <table class="table table-hover datatable" >
+                                        <thead>
+                                        <tr>
+                                            <th>Email</th>
+                                            <th>Name</th>
+                                            <th>Form Type</th>
+                                            <th>Status</th>
+                                            <th>Created At</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($rejected_inboxs as $inbox)
+                                            <tr>
+                                                <td>{{$inbox->email}}</td>
+                                                <td>{{$inbox->nama_lengkap}}</td>
+                                                <td>{{$inbox->name}}</td>
+                                                @if($inbox->status == -1)
+                                                    <td><span class="label label-danger">REJECTED</span></td>
+                                                @endif
+                                                @if($inbox->status == 0)
+                                                    <td><span class="label label-primary">NEW</span></td>
+                                                @endif
+                                                @if($inbox->status == 1)
+                                                    <td><span class="label label-warning">PENDING</span></td>
+                                                @endif
+                                                @if($inbox->status == 2 || $inbox->status == 3)
+                                                    <td><span class="label label-primary">ON GOING</span></td>
+                                                @endif
+                                                @if($inbox->status == 4)
+                                                    <td><span class="label label-success">COMPLETE</span></td>
+                                                @endif
+                                                <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($inbox->created_at)}}</td>
+                                                <td>
+                                                    <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -99,13 +193,42 @@
         </div>
     </div>
 
-
-
-
 @stop
 @section('footer')
     <script>
+        /*tab*/
         $(document).ready(function () {
+            {{--    togle tab--}}
+            $('.datatable').DataTable();
+            $( '#tab-approved' ).on('click', function() {
+                $( "#primary" ).addClass( "hidden" );
+                $( "#rejected" ).addClass( "hidden");
+                $( "#approved" ).removeClass( "hidden");
+
+
+                $( "#tab-approved" ).addClass( "active");
+                $( "#tab-primary" ).removeClass( "active");
+                $( "#tab-rejected" ).removeClass( "active");
+
+            });
+            $( "#tab-primary" ).on('click', function() {
+                $( "#primary" ).removeClass( "hidden" );
+                $( "#approved" ).addClass( "hidden" );
+                $( "#rejected" ).addClass( "hidden" );
+
+                $( "#tab-primary" ).addClass( "active");
+                $( "#tab-approved" ).removeClass( "active");
+                $( "#tab-rejected").removeClass( "active");
+            });
+            $( "#tab-rejected" ).on('click', function() {
+                $( "#rejected" ).removeClass( "hidden" );
+                $( "#approved" ).addClass( "hidden" );
+                $( "#primary" ).addClass( "hidden" );
+
+                $( "#tab-rejected" ).addClass( "active");
+                $( "#tab-approved" ).removeClass( "active");
+                $( "#tab-primary" ).removeClass( "active");
+            });
             $('#datatable').DataTable({
             });
         });

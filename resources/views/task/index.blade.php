@@ -12,9 +12,9 @@
                             <div class="panel-heading">
                                <h3 style="margin-bottom: 10px" class="panel-title">TASKS</h3>
                                 <ul class="nav nav-tabs">
-                                    <li  class="active" id="tab-waiting-list"><a href="#">Waiting List</a></li>
-                                    <li id="tab-my-task"><a href="#">My Task</a></li>
-                                    <li id="tab-complete"><a href="#">Complete</a></li>
+                                    <li  class="active" id="tab-waiting-list"><a href="#waiting-list">Waiting List</a></li>
+                                    <li id="tab-my-task"><a href="#my-task">My Task</a></li>
+                                    <li id="tab-complete"><a href="#complete">Complete</a></li>
                                 </ul>
                             </div>
                             <div class="panel-body">
@@ -188,8 +188,7 @@
         $(document).ready(function () {
             {{--    togle tab--}}
             $('.datatable').DataTable();
-
-            $( "#tab-my-task" ).on('click', function() {
+            $( '#tab-my-task' ).on('click', function() {
                 $( "#waiting-list" ).addClass( "hidden" );
                 $( "#complete" ).addClass( "hidden");
                 $( "#my-task" ).removeClass( "hidden");

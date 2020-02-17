@@ -1,5 +1,8 @@
 @extends('formbuilder::layout')
 
+@section('head')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
+@endsection
 @section('content')
     <div class="main">
         <div class="main-content">
@@ -111,7 +114,12 @@
             </div>
         </div>
 @endsection
+@section('footer')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
+    <script src="{{asset("js/dynamic-form.js")}}"></script>
 
+
+@endsection
 @push(config('formbuilder.layout_js_stack', 'scripts'))
 <script type="text/javascript">
     window.FormBuilder = window.FormBuilder || {}

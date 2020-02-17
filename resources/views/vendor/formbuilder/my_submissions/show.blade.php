@@ -133,7 +133,12 @@
                                             <span class="float-right">{{ isset($submission->menyetujui_at)? $submission->menyetujui_at: ''}}</span>
                                         </li>
                                         <li class="list-group-item">
-                                            <strong>Completed at: </strong>
+
+                                            <strong>PIC By: </strong>
+                                            <span class="float-right">{{ isset($submission->pic)? $submission->pic: ''}}</span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>complete at: </strong>
                                             <span class="float-right">{{ isset($submission->complete_at)? ($submission->complete_at): ''}}</span>
                                         </li>
                                     </ul>
@@ -146,7 +151,10 @@
 @section('footer')
     <script>
         $(document).ready(function () {
-            var status = {!! $submission->status!!};
+            var array = [ 'NEW', 'PENDING', 'ON GOING', 'COMPLETED'];
+            var status = {!! $submission->status !!};
+            var mengetahui = {!! $submission->mengetahui !!} + '';
+            var menyetujui = {!! $submission->menyetujui !!} + '';
             var wizard = '';
             if (status === 0){
                 wizard = 'NEW <br><br> {!! $submission->created_at !!}';
@@ -157,7 +165,12 @@
             }else if(status === 4){
                 wizard = 'COMPLETED <br><br> {!! $submission->complete_at !!}';
             }else{
-                wizard = 'REJECT';
+                if(mengetahui === 0){
+                    array = [ 'REJECTED',  'PENDING', 'ON GOING', 'COMPLETED'];
+                }else if(menyetujui === 0){
+                    array = [ 'NEW', 'REJECTED', 'ON GOING', 'COMPLETED'];
+                }
+                wizard = 'REJECTED';
             }
             ProgressBar.singleStepAnimation = 1500;
             ProgressBar.init(
