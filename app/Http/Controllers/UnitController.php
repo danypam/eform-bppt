@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Alamat;
+use App\Helpers\LogActivity;
 use App\Jabatan;
 use App\UnitKerja;
 use Illuminate\Http\Request;
@@ -35,6 +36,7 @@ class UnitController extends Controller
     public function create(Request $request)
     {
         UnitKerja::create($request->all());
+        LogActivity::addToLog('Unit Was Created');
 
         return redirect('/unit')->with('sukses','Data Berhasil Ditambah');
     }
@@ -50,6 +52,7 @@ class UnitController extends Controller
     {
         $unit = UnitKerja::find($id);
         $unit->update($request->all());
+        LogActivity::addToLog('Unit Was Updated');
         return redirect('/unit')->with('sukses','Data berhasil diupdate');
     }
 
@@ -57,6 +60,7 @@ class UnitController extends Controller
 
         $unit = UnitKerja::find($id);
         $unit->delete();
+        LogActivity::addToLog('Unit Was Deleted');
         return redirect('/unit')->with('sukses','Data berhasil dihapus');
     }
 }

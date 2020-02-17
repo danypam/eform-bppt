@@ -7,6 +7,7 @@ Last Updated: 12/29/2018
 ----------------------*/
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use App\Pegawai;
 use App\Http\Controllers\Controller;
 use jazmy\FormBuilder\Events\Form\FormCreated;
@@ -93,6 +94,7 @@ class FormController extends Controller
             event(new FormCreated($created));
 
             DB::commit();
+            LogActivity::addToLog('Form '.$created->name.' Was Created');
 
             return response()
                     ->json([
@@ -170,6 +172,7 @@ class FormController extends Controller
         if ($form->update($input)) {
             // dispatch the event
             event(new FormUpdated($form));
+            LogActivity::addToLog('Form '.$form->name.' Was Updated');
 
             return response()
                     ->json([
@@ -196,6 +199,7 @@ class FormController extends Controller
 
         // dispatch the event
         event(new FormDeleted($form));
+        LogActivity::addToLog('Form '.$form->name.' Was Deleted');
 
         return back()->with('success', "'{$form->name}' deleted.");
     }

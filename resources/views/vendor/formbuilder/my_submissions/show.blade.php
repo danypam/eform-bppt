@@ -109,12 +109,12 @@
                                             <span class="float-right">{{ $submission->user->name ?? 'Guest' }}</span>
                                         </li>
                                         <li class="list-group-item">
-                                            <strong>Last Updated On: </strong>
-                                            <span class="float-right">{{ $submission->updated_at->toDayDateTimeString() }}</span>
-                                        </li>
-                                        <li class="list-group-item">
                                             <strong>Submitted On: </strong>
                                             <span class="float-right">{{ $submission->created_at->toDayDateTimeString() }}</span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Last Updated On: </strong>
+                                            <span class="float-right">{{ $submission->updated_at->toDayDateTimeString() }}</span>
                                         </li>
                                         <li class="list-group-item">
                                             <strong>Diketahui By: </strong>
@@ -133,6 +133,7 @@
                                             <span class="float-right">{{ isset($submission->menyetujui_at)? $submission->menyetujui_at: ''}}</span>
                                         </li>
                                         <li class="list-group-item">
+
                                             <strong>PIC By: </strong>
                                             <span class="float-right">{{ isset($submission->pic)? $submission->pic: ''}}</span>
                                         </li>
@@ -156,13 +157,13 @@
             var menyetujui = {!! $submission->menyetujui !!} + '';
             var wizard = '';
             if (status === 0){
-                wizard = 'NEW';
+                wizard = 'NEW <br><br> {!! $submission->created_at !!}';
             }else if(status === 1 || status === 2){
-                wizard = 'PENDING';
+                wizard = 'PENDING <br><br> {!! $submission->mengetahui_at !!}';
             }else if(status === 3){
-                wizard = 'ON GOING';
+                wizard = 'ON GOING <br><br> {!! $submission->menyetujui_at !!}';
             }else if(status === 4){
-                wizard = 'COMPLETED';
+                wizard = 'COMPLETED <br><br> {!! $submission->complete_at !!}';
             }else{
                 if(mengetahui === 0){
                     array = [ 'REJECTED',  'PENDING', 'ON GOING', 'COMPLETED'];
@@ -173,7 +174,12 @@
             }
             ProgressBar.singleStepAnimation = 1500;
             ProgressBar.init(
-                array,
+                [ 'NEW <br><br> {!! $submission->created_at !!}' ,
+                    'PENDING <br><br> {!! $submission->mengetahui_at !!}',
+                    'ON GOING <br><br> {!! $submission->menyetujui_at !!}',
+                    'COMPLETED <br><br> {!! $submission->complete_at !!}',
+                    'REJECT'
+                ],
                 wizard,
                 'progress-bar-wrapper' // created this optional parameter for container name (otherwise default container created)
             );

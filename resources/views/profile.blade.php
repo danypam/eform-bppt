@@ -21,15 +21,17 @@
                                 </div>
                                 <div class="profile-stat">
                                     <div class="row">
+{{--                                        @foreach(totalsurat() as $c)--}}
                                         <div class="col-md-4 stat-item">
-                                            45 <span>Projects</span>
+                                           {{totalsurat()}} <span>Form Submitted</span>
                                         </div>
                                         <div class="col-md-4 stat-item">
-                                            15 <span>Awards</span>
+                                            {{formFinish()}} <span>Form Complete</span>
                                         </div>
                                         <div class="col-md-4 stat-item">
-                                            2174 <span>Points</span>
+                                            {{formReject()}} <span>Form Reject</span>
                                         </div>
+{{--                                        @endforeach    --}}
                                     </div>
                                 </div>
                             </div>
@@ -87,12 +89,11 @@
 {{--                                                <i class="fa fa-check activity-icon"></i>--}}
 {{--                                                <i class="fa fa-cloud-upload activity-icon"></i>--}}
                                                 <i class="fa fa-comment activity-icon"></i>
-                                                <p>{{$d->text}}<span class="timestamp">{{\Carbon\Carbon::parse($d->created_at)->diffForHumans()}}</span></p>
+                                                <p>{{$d->subject}}<span class="timestamp">{{\Carbon\Carbon::parse($d->created_at)->diffForHumans()}}</span></p>
                                             </li>
                                             @endforeach
                                     </ul>
-                                    <div class="margin-top-30 text-center"><a href="#" class="btn btn-default">See all activity</a></div>
-                                </div>
+                                    </div>
                             </div>
                             <!-- END TABBED CONTENT -->
                         </div>

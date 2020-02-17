@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use App\Mail\email_kepala;
 use App\Notifications\NewForm;
 use App\Pegawai;
@@ -35,7 +36,7 @@ class InboxController extends Controller
                 ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
                 ->join('forms as f','form_submissions.form_id','=','f.id')
                 ->join('unit_jabatan as uj', 'uj.id_unit_jabatan', '=', 'p.unit_jabatan_id')
-                ->select('nama_lengkap','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->select('nama_lengkap','keterangan','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
                 ->orderBy('created_at', 'desc');
         }
         //get data pegawai
@@ -119,6 +120,20 @@ class InboxController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        function inbox_table($id){
+            return DB::table('form_submissions')
+                ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
+                ->join('forms as f','form_submissions.form_id','=','f.id')
+                ->join('unit_jabatan as uj', 'uj.id_unit_jabatan', '=', 'p.unit_jabatan_id')
+                ->select('nama_lengkap','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->where('form_submissions.id', $id);
+        }
+        $inboxs = inbox_table($id)->get();
+        return view('/inbox/index',['inboxs'=>$inboxs]);
+    }
+
     public function approve($id)
     {
         $isFilled = DB::table('form_submissions')
@@ -188,10 +203,11 @@ class InboxController extends Controller
                     $users = User::whereHas('roles',function($q){
                         $q->where('name','pic');
                     })->get();
-                    if (\Notification::send($users, new NewForm(Submission::latest('id')->first())))
+                    if (\Notification::send($users, new NewForm(Submission::find($id)->first())))
                     {
                         return back();
                     }
+                    LogActivity::addToLog('Form '.$id.' Was Approved');
                     return redirect('/inbox')->with('sukses', 'Formulir Berhasil DiSetujui');
                 }else{
                     DB::rollback();
@@ -206,10 +222,11 @@ class InboxController extends Controller
                     $users = User::whereHas('roles',function($q){
                         $q->where('name','kepala');
                     })->get();
-                    if (\Notification::send($users, new NewForm(Submission::latest('id')->first())))
+                    if (\Notification::send($users, new NewForm(Submission::find($id)->first())))
                     {
                         return back();
                     }
+                    LogActivity::addToLog('Form '.$id.' Was Approved');
                     return redirect('/inbox')->with('sukses', 'Form Berhasil DiSetujui');
                 } else {
                     DB::rollback();
@@ -219,7 +236,7 @@ class InboxController extends Controller
 
     }
 
-    public function reject($id)
+    public function update(Request $request)
     {
         $id_pegawai = DB::table('pegawai')
             ->select('id')
@@ -227,13 +244,20 @@ class InboxController extends Controller
             ->first();
 
         DB::table('form_submissions')->where([
-            'id'=>$id,
+            'id'=>$id_pegawai->id,
         ])->update([
             'status'=>-1,
+            'keterangan'=>$request->keterangan,
             'rejected'=> $id_pegawai->id,
             'rejected_at'=> Carbon::now()->toDateTimeString()
-        ]);
 
+/*        $sub = Submission::findOrFail($request->submission_id);
+        $sub->update([
+           'status'=>-1,
+           'keterangan'=>$request->keterangan,
+*/
+        ]);
+        LogActivity::addToLog('Form '.$request->submission_id.' Was Rejected');
         return redirect('/inbox')->with('sukses','Formulir Berhasil Ditolak');
     }
 }
