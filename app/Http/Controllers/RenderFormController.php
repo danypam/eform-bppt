@@ -20,6 +20,7 @@ use Throwable;
 use App\User;
 use App\Notifications\NewForm;
 use App\Submission;
+use function foo\func;
 
 class RenderFormController extends Controller
 {
@@ -55,27 +56,7 @@ class RenderFormController extends Controller
      * @param string $identifier
      * @return Response
      */
-    public function getAtasan(){
-        $unit_jabatan_user = DB::table('pegawai')
-            ->select('unit_jabatan_id')
-            ->where('user_id',auth()->user()->id)
-            ->first();
-        $id_unitatas = DB::table('unit_jabatan')
-            ->join('pegawai','pegawai.unit_jabatan_id','=','unit_jabatan.id_unit_jabatan')
-            ->select('kode_unitatas1','kode_unitatas2')
-            ->where('id_unit_jabatan','=',$unit_jabatan_user->unit_jabatan_id)
-            ->first();
-        $id1 = DB::table('pegawai')
-            ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas1)
-            ->select('user_id')
-            ->first();
-        $id2 = DB::table('pegawai')
-            ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas2)
-            ->select('user_id')
-            ->first();
 
-        return $id[] = [$id1,$id2];
-    }
 
     public function submit(Request $request, $identifier)
     {
@@ -86,6 +67,7 @@ class RenderFormController extends Controller
                 ];
 
                 \Mail::to('littleodysoo@gmail.com')->send(new email_atasan($details));
+
         DB::beginTransaction();
 
         try {
@@ -108,12 +90,18 @@ class RenderFormController extends Controller
                 'status' => 0,
                 'content' => $input,
             ]);
-            $users = User::whereHas('roles',function($q){
-                $q->where('name','atasan');
-            })->get();
-            if (\Notification::send($users, new NewForm(Submission::latest('id')->first())))
+
+            $userid = $this->getAtasan();
+//            $users = User::whereHas('roles',function($q){
+//                $q->where('name','atasan');
+//            })->get();
+            if (isset($userid[0]))
             {
-                return back();
+                \Notification::send($userid[0], new NewForm(Submission::latest('id')->first()));
+            }
+            if (isset($userid[1]))
+            {
+                \Notification::send($userid[1], new NewForm(Submission::latest('id')->first()));
             }
             LogActivity::addToLog('Submitted Form '.$form->name);
             DB::commit();
@@ -130,6 +118,29 @@ class RenderFormController extends Controller
 
         }
 
+    }
+    private function getAtasan(){
+        $unit_jabatan_user = DB::table('pegawai')
+            ->select('unit_jabatan_id')
+            ->where('user_id',auth()->user()->id)
+            ->first();
+        $id_unitatas = DB::table('unit_jabatan')
+            ->join('pegawai','pegawai.unit_jabatan_id','=','unit_jabatan.id_unit_jabatan')
+            ->select('kode_unitatas1','kode_unitatas2')
+            ->where('id_unit_jabatan','=',$unit_jabatan_user->unit_jabatan_id)
+            ->first();
+        $id1 = DB::table('pegawai')
+            ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas1)
+            ->select('user_id','email')
+            ->first();
+        $id2 = DB::table('pegawai')
+            ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas2)
+            ->select('user_id','email')
+            ->first();
+        $u1 = User::find($id1->user_id);
+        $u2 = User::find($id2->user_id);
+
+        return $userid[]=[$u1,$u2];
     }
 
     /**

@@ -81,7 +81,7 @@
 <script src="{{asset('js/highcharts-3d.js')}}"></script>
 <script src="{{asset('js/exporting.js')}}"></script>
 <script src="{{asset('js/export-data.js')}}"></script>
-<script src="{{asset('js/accesibility.js')}}"></script>
+<script src="{{asset('js/accessibility.js')}}"></script>
 
 @yield('footer')
 <script>
