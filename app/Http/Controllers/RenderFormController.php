@@ -77,9 +77,7 @@ class RenderFormController extends Controller
                 // store the file and set it's path to the value of the key holding it
                 if ($file->isValid()) {
                     $input[$key] = $file->store('fb_uploads', 'public');
-
                 }
-
             }
 
             $user_id = auth()->user()->id ?? null;

@@ -127,4 +127,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/task/{id}/complete','PicController@complete');
 
     Route::post('/notification/submission/notification','RenderFormController@notification');
+
 });
+
+
