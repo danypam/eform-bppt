@@ -87,9 +87,9 @@
                             <div class="panel-heading">
                                 <h3 style="margin-bottom:10px" class="panel-title">CHART</h3>
                                 <ul class="nav nav-tabs">
-                                    <li class="active" id="tab-status"><a href="#">By Status</a></li>
-                                    <li id="tab-month"><a href="#">By Month</a></li>
-                                    <li id="tab-year"><a href="#">By Year</a></li>
+                                    <li class="active" id="tab-status"><a href="#chart">By Status</a></li>
+                                    <li id="tab-month"><a href="#chart">By Month</a></li>
+                                    <li id="tab-year"><a href="#chart">By Year</a></li>
                                 </ul>
                             </div>
                             <div class="panel-body">

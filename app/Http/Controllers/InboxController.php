@@ -244,7 +244,7 @@ class InboxController extends Controller
             ->first();
 
         DB::table('form_submissions')->where([
-            'id'=>$id_pegawai->id,
+            'id'=>$request->submission_id,
         ])->update([
             'status'=>-1,
             'keterangan'=>$request->keterangan,

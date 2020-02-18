@@ -44,6 +44,13 @@ jQuery(function() {
                 type: 'starRating'
             },
             icon: '🌟'
+        },
+        {
+            label: 'Time Picker',
+            attrs: {
+                type: 'datetimepicker'
+            },
+            icon: '🌟'
         },{
             label: 'Two Column Text Field',
             attrs: {
@@ -62,6 +69,21 @@ jQuery(function() {
                     }
 
                 };
+            },
+            datetimepicker: function(fieldData) {
+                return {
+                    field: '            <div class="form-group">\n' +
+                        '                <div class=\'input-group date\' id=\'datetimepicker1\'>\n' +
+                        '                    <input type=\'text\' class="form-control" />\n' +
+                        '                    <span class="input-group-addon">\n' +
+                        '                        <span class="glyphicon glyphicon-calendar"></span>\n' +
+                        '                    </span>\n' +
+                        '                </div>\n' +
+                        '            </div>',
+                    onRender: function() {
+                        $(document.getElementById(fieldData.name)).datetimepicker();
+                    }
+                }
             },
             Text2ColumnDynamic: function (fieldData) {
                 var random_class    = Math.floor(Math.random()*90000) + 1000000000;
@@ -238,7 +260,13 @@ jQuery(function() {
 
 
     formBuilder = fbEditor.formBuilder(fbOptions);
+    $('.get-data').on('click', function () {
+        formBuilder.actions.showData();
+    });
 
+    $('.get-json').on('click', function () {
+        formBuilder.actions.render();
+    });
 
     var fbClearBtn = $('.fb-clear-btn')
     var fbShowDataBtn = $('.fb-showdata-btn')

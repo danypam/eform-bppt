@@ -81,8 +81,7 @@ class RenderFormController extends Controller
                 'user_id' => $user_id,
                 'status' => 0,
                 'content' => $input,
-
-            ]);
+            ])->id;
 
 
             $userid = $this->getAtasan();
