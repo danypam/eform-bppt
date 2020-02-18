@@ -10,22 +10,16 @@
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
     <link rel="stylesheet" href="{{asset('css/main.css')}}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 </head>
 <body>
-<h1>Hello, {{ $detail['name'] }}</h1>
-<p class="h5">You have one form to approved. Please check this link <a href="{{ $detail['url'] }}">http://inboxbyid</a></p>
-<p>Thank you</p>
+<h1>Hello, {{ $detail['name'] }}. You have one form to approved.</h1>
 
 <div class="row">
     <div class="col-md-8">
@@ -92,11 +86,10 @@
     </div>
 
     <div class="col-md-4">
-        <div class="card rounded-0">
-            <div class="card-header">
+{{--        <div class="card rounded-0">--}}
+{{--            <div class="card-header">--}}
                 <h5 class="card-title">Details</h5>
             </div>
-
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                     <strong>Form: </strong>
@@ -107,41 +100,38 @@
                     <span class="float-right">{{ $detail['submission']->user->name ?? 'Guest' }}</span>
                 </li>
                 <li class="list-group-item">
-                    <strong>Last Updated On: </strong>
+                    <strong>Submitted On: </strong>
                     <span class="float-right">{{ $detail['submission']->updated_at->toDayDateTimeString() }}</span>
                 </li>
                 <li class="list-group-item">
-                    <strong>Submitted On: </strong>
+                    <strong>Last Updated On: </strong>
                     <span class="float-right">{{ $detail['submission']->created_at->toDayDateTimeString() }}</span>
                 </li>
                 <li class="list-group-item">
-                    <strong>Diketahui By: </strong>
+                    <strong>Known by: </strong>
                     <span class="float-right">{{ isset(\App\Http\Controllers\FormController::getNamePic($detail['submission']->mengetahui)->nama_lengkap)? \App\Http\Controllers\FormController::getNamePic($detail['submission']->mengetahui)->nama_lengkap:'' }}</span>
                 </li>
                 <li class="list-group-item">
-                    <strong>Diketahui at: </strong>
+                    <strong>Known at: </strong>
                     <span class="float-right">{{ isset($detail['submission']->mengetahui_at)? $detail['submission']->mengetahui_at: '' }}</span>
                 </li>
                 <li class="list-group-item"> {{--\App\Http\Controllers\FormController::getNamePic($pic)->nama_lengkap--}}
-                    <strong>Disetujui By: </strong>
+                    <strong>Approved by: </strong>
                     <span class="float-right">{{ isset(\App\Http\Controllers\FormController::getNamePic($detail['submission']->menyetujui)->nama_lengkap) ? \App\Http\Controllers\FormController::getNamePic($detail['submission']->menyetujui)->nama_lengkap: ''}}</span>
                 </li>
                 <li class="list-group-item">
-                    <strong>Disetujui at: </strong>
+                    <strong>Approved at: </strong>
                     <span class="float-right">{{ isset($detail['submission']->menyetujui_at)? $detail['submission']->menyetujui_at: ''}}</span>
                 </li>
                 <li class="list-group-item">
-                    <strong>complete at: </strong>
+                    <strong>Completed at: </strong>
                     <span class="float-right">{{ isset($detail['submission']->complete_at)? $detail['submission']->complete_at: ''}}</span>
                 </li>
             </ul>
         </div>
-    </div>
-</div>
-<script src="{{asset('assets/vendor/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-<script  src="{{asset('assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
-<script  src="{{asset('assets/scripts/klorofil-common.js')}}"></script>
-
+{{--    </div>--}}
+{{--</div>--}}
+<p> Please check this link <a href="{{ $detail['url'] }}">http://inboxbyid</a> for approval</p>
+<p>Thank you</p>
 </body>
 </html>

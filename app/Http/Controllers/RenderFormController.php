@@ -83,7 +83,6 @@ class RenderFormController extends Controller
                 'content' => $input,
             ])->id;
 
-
             $userid = $this->getAtasan();
 //            $users = User::whereHas('roles',function($q){
 //                $q->where('name','atasan');
