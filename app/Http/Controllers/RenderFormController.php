@@ -60,6 +60,7 @@ class RenderFormController extends Controller
 
     public function submit(Request $request, $identifier)
     {
+        //dd($request);
        $form = Form::where('identifier', $identifier)->firstOrFail();
 
         DB::beginTransaction();
@@ -82,11 +83,12 @@ class RenderFormController extends Controller
                 'status' => 0,
                 'content' => $input,
             ])->id;
-            
+
             $userid = $this->getAtasan();
 //            $users = User::whereHas('roles',function($q){
 //                $q->where('name','atasan');
 //            })->get();
+
             if (isset($userid[0]))
             {
                 \Notification::send($userid[0], new NewForm(Submission::latest('id')->first()));
@@ -108,7 +110,7 @@ class RenderFormController extends Controller
                 'pageTitle' => "View Submission"
             ];
             $email = $this->getEmail();
-           // dd($email);
+            //dd($email);
             if(isset($email[0])){
                 \Mail::to($email[0])->send(new email_atasan($details));
 
@@ -123,7 +125,6 @@ class RenderFormController extends Controller
             return redirect('/my-submissions')->with('sukses', 'Formulir Berhasil diajukan');
         } catch (Throwable $e) {
             info($e);
-
             DB::rollback();
 
             return back()->withInput()->with('error', Helper::wtf());
@@ -149,10 +150,14 @@ class RenderFormController extends Controller
             ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas2)
             ->select('user_id','email')
             ->first();
-        $u1 = User::find($id1->user_id);
-        $u2 = User::find($id2->user_id);
 
-        return $userid[]=[$u1,$u2];
+        if(isset($id1)){
+            $userid[] = User::find($id1->user_id);
+        }
+        if (isset($id2)){
+            $userid[] = User::find($id2->user_id);
+        }
+        return $userid;
     }
 
     private function getEmail(){
