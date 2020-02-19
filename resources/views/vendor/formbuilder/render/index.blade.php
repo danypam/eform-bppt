@@ -1,5 +1,7 @@
 @extends('formbuilder::layout')
-
+@section('head')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
+@endsection
 @section('content')
     <div class="main">
         <div class="main-content">
@@ -35,17 +37,17 @@
             </div>
         </div>
     </div>
-    <style>
-        .form-control:focus {
-            /*border-color: #ff80ff;*/
-            box-shadow: 0px 1px 1px rgba(0, 0, 0, 1) inset, 0px 0px 8px rgba(255, 100, 255, 0.5);
-        }
-    </style>
-@endsection
 
+@endsection
+@section('footer')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"/>
+@endsection
 @push(config('formbuilder.layout_js_stack', 'scripts'))
-<script type="text/javascript">
+
+<script>
     window._form_builder_content = {!! json_encode($form->form_builder_json) !!}
+    console.log(window._form_builder_content);
 </script>
 <script src="{{ asset('vendor/formbuilder/js/render-form.js') }}{{ jazmy\FormBuilder\Helper::bustCache() }}" defer></script>
+
 @endpush

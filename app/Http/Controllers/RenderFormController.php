@@ -83,7 +83,6 @@ class RenderFormController extends Controller
                 'content' => $input,
             ])->id;
             
-            
             $userid = $this->getAtasan();
 //            $users = User::whereHas('roles',function($q){
 //                $q->where('name','atasan');
@@ -117,8 +116,6 @@ class RenderFormController extends Controller
             if(isset($email[1])){
                 \Mail::to($email[1])->send(new email_atasan($details));
             }
-
-
             DB::commit();
            /* return redirect()
                     ->route('formbuilder::form.feedback', $identifier)

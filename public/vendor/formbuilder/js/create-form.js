@@ -13,6 +13,7 @@ jQuery(function() {
 
     var update = true;
 
+    //disable field for update
     function field(fld) {
         var name = $('.fld-name', fld);
         if(update && (name.val() !== "")){
@@ -20,9 +21,10 @@ jQuery(function() {
         }
     }
 
-    // create the form editor
+
     var fbEditor = $(document.getElementById('fb-editor'))
-    var formBuilder
+    var formBuilder;
+
     var fbOptions = {
         dataType: 'json',
         formData: window._form_builder_content ? window._form_builder_content : '',
@@ -36,6 +38,81 @@ jQuery(function() {
             'date',
             'file',
         ],
+        fields: [{
+            label: 'Star Rating',
+            attrs: {
+                type: 'starRating'
+            },
+            icon: '🌟'
+        },{
+            label: 'Two Column Text Field',
+            attrs: {
+                type: 'Text2ColumnDynamic'
+            },
+            icon: '◻◻'
+        }],
+        templates: {
+            starRating: function(fieldData) {
+                return {
+                    field: '<span id="' + fieldData.name + '" >',
+                    onRender: function() {
+                        $(document.getElementById(fieldData.name)).rateYo({
+                            rating: 3
+                        });
+                    }
+
+                };
+            },
+            Text2ColumnDynamic: function (fieldData) {
+                var random_class    = Math.floor(Math.random()*90000) + 1000000000;
+                return {
+                    field:
+                        '<table class="table table-hover input_fields_wrap-' + random_class + '">' +
+                        '   <thead>' +
+                        '       <tr class="text-center">' +
+                        '           <th>column1</th>' +
+                        '           <th>column2</th>' +
+                        '           <th> </th>' +
+                        '       </tr>' +
+                        '   </thead>' +
+                        '   <tbody class="table-body">' +
+                        '    <tr>' +
+                        '       <td><input class="form-control" type="text" name="mytext[]" ></td>' +
+                        '       <td><input class="form-control" type="text" name="mytext[]" ></></td>' +
+                        '       <td></td>' +
+                        '   </tr>' +
+                        '   </tbody>' +
+                        '</table>' +
+                        '<div><button class="btn btn-success add_field_button-'+ random_class +'">╋</button></div>',
+                    onRender: function () {
+                        var max_fields      = 6; //maximum input boxes allowed
+                        var wrapper   		= $(".input_fields_wrap-" + random_class); //Fields wrapper
+                        var add_button      = $(".add_field_button-" + random_class); //Add button ID
+
+
+                        var x = 1; //initlal text box count
+                        $(add_button).click(function(e){ //on add input button click
+                            e.preventDefault();
+                            if(x < max_fields){ //max input box allowed
+                                x++; //text box increment
+                                $(wrapper).append('<tr>' +
+                                    '<td><input class="form-control"  type="text" name="mytext[]" required/></td>' +
+                                    '<td><input class="form-control " type="text" name="mytext[]" required/></td>' +
+                                    '<td><a href="#" class="remove_field btn btn-danger">－</a></td>' +
+                                    '</tr>'); //add input box
+                            }else{
+                                add_button.prop("disabled", true);
+                            }
+                        });
+
+                        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                            add_button.prop("disabled", false);
+                            e.preventDefault(); $(this).parent('td').parent('tr').remove(); x--;
+                        })
+                    }
+                };
+            }
+        },
         disableFields: [
             'button',
             'autocomplete'// buttons are not needed since we are the one handling the submission
@@ -44,19 +121,30 @@ jQuery(function() {
             'access',
         ],
         typeUserDisabledAttrs: {
-            'file': [
+            /*'file': [
                 'multiple',
                 'subtype',
-            ],
+            ],*//*
             'checkbox-group': [
                 'other',
-            ],
+            ],*/
         },
         typeUserAttrs: {
             text: {
                 name: {
                     label: 'field',
                     required: 'true'
+
+                },
+            },
+            Text2ColumnDynamic: {
+                column1: {
+                    label: 'column 1',
+                    value: ''
+                },
+                column2: {
+                    label: 'column 2',
+                    value: ''
                 }
             },
             textarea: {
@@ -107,6 +195,12 @@ jQuery(function() {
                     required: 'true'
                 }
             },
+            'Text2ColumnDynamic':{
+                name: {
+                    label: 'field',
+                    required: 'true'
+                }
+            },
         },
         typeUserEvents: {
             text:{onadd: function (fld) {field(fld)}},
@@ -142,7 +236,9 @@ jQuery(function() {
         },
     }
 
-    formBuilder = fbEditor.formBuilder(fbOptions)
+
+    formBuilder = fbEditor.formBuilder(fbOptions);
+
 
     var fbClearBtn = $('.fb-clear-btn')
     var fbShowDataBtn = $('.fb-showdata-btn')
@@ -251,7 +347,6 @@ jQuery(function() {
         })
 
     })
-
     // show the clear and save buttons
     $('#fb-editor-footer').slideDown()
 })
