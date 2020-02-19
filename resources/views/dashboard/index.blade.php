@@ -112,7 +112,7 @@
                         <div class="panel panel-scrolling">
                             <div class="panel-heading">
                                 <h3 class="panel-title"></h3>
-                                <table class="table table-hover table-responsive-lg" >
+                                <table class="table table-hover table-striped" >
                                     <thead>
                                     <tr>
                                         <th scope="col" width="50%" class="text-center">Unit Kerja</th>
