@@ -2,7 +2,9 @@
 <html>
 <head>
     <title>E-form Service Desk</title>
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport1" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendor/font-awesome/css/font-awesome.min.css')}}">
@@ -20,24 +22,20 @@
 </head>
 <body>
 <h1>Hello, {{ $detail['name'] }}. You have one form to approved.</h1>
-
+<div class="main">
+    <div class="main-content">
+        <div class="container-fluid">
 <div class="row">
     <div class="col-md-8">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">Viewing Submission #{{ $detail['submission']->id }} for form '{{ $detail['submission']->form->name }}'</h3>
+                <h2 class="panel-title">Viewing Submission #{{ $detail['submission']->id }} for form '{{ $detail['submission']->form->name }}'</h2>
             </div>
             <div class="panel-body">
-                <div class="btn-toolbar float-right" role="toolbar">
-                    <div class="btn-group" role="group" aria-label="First group">
-                        <a href="{{ route('formbuilder::forms.submissions.index', $detail['submission']->form->id) }}" class="btn btn-primary float-md-right btn-sm" title="Back To Submissions">
-                            <i class="fa fa-arrow-left"></i>
-                        </a>
-                    </div>
-                </div>
+                <h3 class="card-title">Data Form</h3>
+
                 <div>
                     <table class="table"  style="table-layout: fixed;font-family: sans-serif">
-
                         <tbody style="border: none">
                         <tr>
                             <td style="border: none;word-wrap: break-word; width: 50%"><strong>Nama Lengkap</strong></td>
@@ -72,13 +70,11 @@
                         {{--                                        --}}
                         @foreach($detail['form_headers'] as $header)
                             <tr>
-                                <td style="border: none;word-wrap: break-word; width: 50%"><strong>{{ $header['label'] ?? title_case($header['name']) }}: </strong></td>
+                                <td style="border: none;word-wrap: break-word; width: 50%"><strong>{{ $header['label'] ?? title_case($header['name']) }} </strong></td>
                                 <td>:</td>
                                 <td  style="border: none;word-wrap: break-word; width: 50%" class="float-right"><span>{{ $detail['submission']->renderEntryContent($header['name'], $header['type']) }}</span></td>
                             </tr>
                         @endforeach
-                        </tbody>
-
                     </table>
                 </div>
             </div>
@@ -86,9 +82,9 @@
     </div>
 
     <div class="col-md-4">
-{{--        <div class="card rounded-0">--}}
-{{--            <div class="card-header">--}}
-                <h5 class="card-title">Details</h5>
+        <div class="card rounded-0">
+            <div class="card-header">
+                <h3 class="card-title">Details</h3>
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
@@ -129,9 +125,15 @@
                 </li>
             </ul>
         </div>
-{{--    </div>--}}
-{{--</div>--}}
+    </div>
+    </div>
+</div>
+</div>
 <p> Please check this link <a href="{{ $detail['url'] }}">http://inboxbyid</a> for approval</p>
 <p>Thank you</p>
+    <script src="{{asset('assets/vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script  src="{{asset('assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
+    <script  src="{{asset('assets/scripts/klorofil-common.js')}}"></script>
 </body>
 </html>
