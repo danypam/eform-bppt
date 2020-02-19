@@ -51,7 +51,7 @@ class SubmissionController extends Controller
         $pageTitle = "Submitted Entries for '{$form->name}'";
 
         return view(
-            'formbuilder::submissiofns.index',
+            'formbuilder::submissions.index',
             compact('form', 'submissions', 'pageTitle', 'form_headers')
         );
     }
