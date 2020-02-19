@@ -47,7 +47,7 @@
                     <li><a href="/forms" class="{{(request()->is('forms*'))?'active': ''}}"><i class="lnr lnr-plus-circle"></i> <span>Form Builder</span></a></li>
                 @endif
                 @if(auth()->user()->can('form-input'))
-                    <li><a href="/formulir" class="{{(request()->is('formulir*'))?'active': ''}}"><i class="lnr lnr-file-add"></i> <span>Forms</span></a></li>
+                    <li><a href="/formulir" class="{{(request()->is('form*'))?'active': ''}}"><i class="lnr lnr-file-add"></i> <span>Forms</span></a></li>
                 @endif
 
                 <li>
