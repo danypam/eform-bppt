@@ -32,15 +32,14 @@
     <!-- ICONS -->
     <link rel="apple-touch-icon" sizes="76x76" href="{{asset('assets/img/apple-icon.png')}}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{asset('assets/img/favicon.png')}}">
-    @yield('head')
+
 
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken'=>csrf_token(),
     ]) !!};
     </script>
-
-
+    @yield('head')
     @stack('styles')
 </head>
 

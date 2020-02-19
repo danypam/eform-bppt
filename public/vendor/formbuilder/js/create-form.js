@@ -11,15 +11,20 @@ jQuery(function() {
         }
     });
 
-    var update = true;
+    $('.alert').on('click', function () {
+        //console.log($('.fb-editor > select').attr('multiple') == "false");
+        if($('select').attr('multiple') == "false"){
+            $('this > select').removeAttr('multiple');
+        }
+    });
 
     //disable field for update
-    function field(fld) {
+/*    function field(fld) {
         var name = $('.fld-name', fld);
         if(update && (name.val() !== "")){
             name.prop('disabled', true);
         }
-    }
+    }*/
 
 
     var fbEditor = $(document.getElementById('fb-editor'))
@@ -44,6 +49,13 @@ jQuery(function() {
                 type: 'starRating'
             },
             icon: '🌟'
+        },
+        {
+            label: 'Time Picker',
+            attrs: {
+                type: 'datetimepicker'
+            },
+            icon: '🌟'
         },{
             label: 'Two Column Text Field',
             attrs: {
@@ -62,6 +74,21 @@ jQuery(function() {
                     }
 
                 };
+            },
+            datetimepicker: function(fieldData) {
+                return {
+                    field: '            <div class="form-group">\n' +
+                        '                <div class=\'input-group date\' id=\'datetimepicker1\'>\n' +
+                        '                    <input type=\'text\' class="form-control" />\n' +
+                        '                    <span class="input-group-addon">\n' +
+                        '                        <span class="glyphicon glyphicon-calendar"></span>\n' +
+                        '                    </span>\n' +
+                        '                </div>\n' +
+                        '            </div>',
+                    onRender: function() {
+                        $(document.getElementById(fieldData.name)).datetimepicker();
+                    }
+                }
             },
             Text2ColumnDynamic: function (fieldData) {
                 var random_class    = Math.floor(Math.random()*90000) + 1000000000;
@@ -121,6 +148,8 @@ jQuery(function() {
             'access',
         ],
         typeUserDisabledAttrs: {
+            'checkbox-group': [
+                'multiple']
             /*'file': [
                 'multiple',
                 'subtype',
@@ -129,12 +158,11 @@ jQuery(function() {
                 'other',
             ],*/
         },
-        typeUserAttrs: {
+        typeUserAttrs: {/*
             text: {
                 name: {
                     label: 'field',
                     required: 'true'
-
                 },
             },
             Text2ColumnDynamic: {
@@ -153,12 +181,7 @@ jQuery(function() {
                     required: 'true'
                 }
             },
-            select: {
-                name: {
-                    label: 'field',
-                    required: 'true'
-                }
-            },
+            */  /*
             'checkbox-group': {
                 name: {
                     label: 'field',
@@ -200,10 +223,10 @@ jQuery(function() {
                     label: 'field',
                     required: 'true'
                 }
-            },
+            },*/
         },
         typeUserEvents: {
-            text:{onadd: function (fld) {field(fld)}},
+      /*      text:{onadd: function (fld) {field(fld)}},
             textarea:{onadd: function (fld) {field(fld)}},
             select:{onadd: function (fld) {field(fld)}},
             'checkbox-group':{onadd: function (fld) {field(fld)}},
@@ -211,7 +234,7 @@ jQuery(function() {
             date:{onadd: function (fld) {field(fld)}},
             file:{onadd: function (fld) {field(fld)}},
             hidden:{onadd: function (fld) {field(fld)}},
-            'radio-group':{onadd: function (fld) {field(fld)}}
+            'radio-group':{onadd: function (fld) {field(fld)}}*/
         },
         showActionButtons: false, // show the actions buttons at the bottom
         disabledActionButtons: ['data'], // get rid of the 'getData' button
@@ -239,6 +262,17 @@ jQuery(function() {
 
     formBuilder = fbEditor.formBuilder(fbOptions);
 
+    $('.fb-preview').on('click', function () {
+        var fbRenderOptions = {
+            container: false,
+            dataType: 'json',
+            formData: formBuilder.actions.getData('json', true) ? formBuilder.actions.getData('json', true) : '',
+            render: true
+        };
+
+        $('.modal-body').formRender(fbRenderOptions)
+        //formBuilder.actions.showData();
+    });
 
     var fbClearBtn = $('.fb-clear-btn')
     var fbShowDataBtn = $('.fb-showdata-btn')
