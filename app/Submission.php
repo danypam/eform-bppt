@@ -9,6 +9,9 @@ namespace App;
 
 use App\Form;
 use App\User;
+use App\UnitKerja;
+use App\Pegawai;
+use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
@@ -205,18 +208,15 @@ class Submission extends Model
 
     public static function count_form()
     {
-
         $forms = Form::all();
-        $form_submissions = self::all();
         $category = [];
 
-        $series[0]['name'] = 'new';
-        $series[1]['name'] = 'pending';
-        $series[2]['name'] = 'waitForPic';
-        $series[3]['name'] = 'onGoing';
-        $series[4]['name'] = 'completed';
-        $series[5]['name'] = 'rejected';
-
+        $series[0]['name'] = 'New';
+        $series[1]['name'] = 'Pending';
+        $series[2]['name'] = 'Wait For Pic';
+        $series[3]['name'] = 'On Going';
+        $series[4]['name'] = 'Completed';
+        $series[5]['name'] = 'Rejected';
 
         foreach ($forms as $fm) {
             $category[] = $fm->name;
@@ -234,13 +234,6 @@ class Submission extends Model
     {
         $forms = Form::all();
         $tahun = date('Y');
-        $bulan = date('m');
-        //$date=$forms->created_at->get();
-        //$tahun=Carbon::createFromFormat('Y-M-D HH:mm:ss', $date)->year;
-        //$created_at=self::createFromFormat('Y-M-D HH:mm:ss', 'created_at')->year;
-        //$tahun=Carbon::createFromFormat('Y-M-D HH:mm:ss', 'created_at')->year;
-
-
         $category = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEPT', 'OCT', 'NOV', 'DES'];
 
         $i = -1;
@@ -250,7 +243,6 @@ class Submission extends Model
             for ($j = 1; $j < 13; $j++) {
                 $series[$i]['data'][] = self::where('form_id', '=', $fm->id)->whereMonth('created_at', '=', $j + 1)->whereYear('created_at', '=', $tahun)->get()->count();
             }
-
         }
         //dd($series);
         //dd($category);
@@ -259,28 +251,24 @@ class Submission extends Model
 
     public static function count_form3()
     {
-
         $forms = Form::all();
         $tahun_akhir = date('Y', strtotime('+1years'));
         $tahun_awal = date('Y', strtotime('-5years'));
         $category = [];
 
         $i = -1;
+        foreach ($forms as $fm) {
+            $i++;
+            $series[$i]['name'] = $fm->name;
 
-
-            foreach ($forms as $fm) {
-                $i++;
-                $series[$i]['name'] = $fm->name;
-
-                for ($j = $tahun_awal; $j < $tahun_akhir; $j++) {
-                    $category[] = $j;
-                    $series[$i]['data'][] = self::where('form_id', '=', $fm->id)->whereYear('created_at', '=', $j)->get()->count();
-                }
+            for ($j = $tahun_awal; $j < $tahun_akhir; $j++) {
+                $category[] = $j;
+                $series[$i]['data'][] = self::where('form_id', '=', $fm->id)->whereYear('created_at', '=', $j)->get()->count();
             }
-
-            //dd($series);
-            //dd($category);
-            return ['series' => $series, 'category' => $category];
         }
+        //dd($series);
+        //dd($category);
+        return ['series' => $series, 'category' => $category];
+    }
 
 }
