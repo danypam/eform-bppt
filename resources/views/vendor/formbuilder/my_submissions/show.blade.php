@@ -1,153 +1,162 @@
 @extends('layouts.master')
-{{--@extends('formbuilder::layout')--}}
-
 @section('content')
     <div class="main">
         <div class="main-content">
             <div class="container-fluid">
                 <div class="panel">
-                    <div class="panel-body">
-                        <div class="row justify-content-center">
-                                <div class="col-md-12">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">WIZARD STEP STATUS</h3>
-
-                                        </div>
-                                </div>
-                            </div>
+                    <div class="panel-heading">
+                        <h3>Progres</h3>
+                        <h5 class="right">No. Form: {{ $submission->id  }}</h5>
+                    </div>
+                    <div class="panel-body ">
                         <div class="progress-bar-wrapper"></div>
                     </div>
                 </div>
-                <div class="col-md-8">
                 <div class="panel">
+                    <div class="panel-heading">
+                        <h3>Detail</h3>
+                        <h5 class="right">No. Form: {{ $submission->id  }}</h5>
+                    </div>
                     <div class="panel-body">
-                        <div class="row justify-content-center">
+                        <div class="row">
+                            <div class="col-md-6 mycontent-left">
+                                <table class="table table-borderless table-responsive">
+                                    <tbody>
+                                    <tr>
+                                        <td><img src="{{ $identitas->foto? asset("/images/$identitas->foto") : asset("/images/user.png") }}"></td>
+                                        <td>
+                                            <h5>{{$submission->user->name}}</h5>
+                                            <h5>{{$submission->user->email}}</h5>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <tbody>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td><h6><strong>NIP</strong></h6></td>
+                                        <td><h6>{{$identitas->nip}}</h6></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h6><strong>Unit Kerja</strong></h6></td>
+                                        <td><h6>{{$identitas->unit_kerja->nama_unit}}</h6></td>
+                                    </tr>
+                                    <tr>
 
-                                <div class="card rounded-0">
-                                    <div class="card-header">
-                                        <h5 class="card-title">
-                                            Viewing my submission for form
-                                            <strong>{{ $submission->form->name }}</strong>
+                                        <td><h6><strong>Unit Jabatan</strong></h6></td>
+                                        <td><h6>{{$identitas->unit_jabatan->unit}}</h6></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h6><strong>No Hp</strong></h6></td>
+                                        <td><h6>{{$identitas->no_hp}}</h6></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h6><strong>Status</strong></h6></td>
+                                        <td><h1 class="label label-default">{{config("constants.statusReverse.$submission->status")}}</h1></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
 
-                                            <div class="btn-toolbar float-md-right" role="toolbar">
-                                                <div class="btn-group" role="group" aria-label="First group">
-                                                    <br>
-                                                    <a href="{{ route('formbuilder::my-submissions.index') }}" class="btn btn-primary btn-sm" title="Back To My Submissions">
-                                                        <i class="fa fa-arrow-left"></i>
-                                                    </a>
-                                                    @if($submission->form->allowsEdit())
-                                                        <a href="{{ route('formbuilder::my-submissions.edit', $submission) }}" class="btn btn-primary btn-sm" title="Edit this submission">
-                                                            <i class="fa fa-pencil"></i>
-                                                        </a>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </h5>
-                                    </div>
-                                    <table class="table"  style="table-layout: fixed; font-family: sans-serif">
 
-                                            <tbody style="border: none">
-                                                <tr>
-                                                    <td style="border: none;word-wrap: break-word; width: 50%"><strong>Nama Lengkap</strong></td>
-                                                    <td>:</td>
-                                                    <td style="border: none;word-wrap: break-word; width: 50%">{{$identitas->nama_lengkap}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="border: none;word-wrap: break-word; width: 50%"><strong>Email</strong></td>
-                                                    <td>:</td>
-                                                    <td style="border: none;word-wrap: break-word; width: 50%">{{$identitas->email}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="border: none;word-wrap: break-word; width: 50%"><strong>NIP</strong></td>
-                                                    <td>:</td>
-                                                    <td style="border: none;word-wrap: break-word; width: 50%">{{$identitas->nip}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="border: none;word-wrap: break-word; width: 50%"><strong>Unit Kerja</strong></td>
-                                                    <td>:</td>
-                                                    <td style="border: none;word-wrap: break-word; width: 50%">{{$identitas->unit_kerja->nama_unit}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="border: none;word-wrap: break-word; width: 50%"><strong>Unit Jabatan</strong></td>
-                                                    <td>:</td>
-                                                    <td style="border: none;word-wrap: break-word; width: 50%">{{$identitas->unit_jabatan->unit}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="border: none;word-wrap: break-word; width: 50%"><strong>No HP</strong></td>
-                                                    <td>:</td>
-                                                    <td style="border: none;word-wrap: break-word; width: 50%">{{$identitas->no_hp}}</td>
-                                                </tr>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="events">
+                                    @if($submission->created_at)
+                                        <li>
+                                            <time datetime="{{ $submission->created_at }}">{{ $submission->created_at }}</time>
+                                            <span><strong>Form Dibuat</strong> </span>
+                                        </li>
+                                    @endif
+                                    @if($submission->mengetahui)
+                                        <li>
+                                            <time class="seling">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;</time>
+                                            <span><h6>{{  \App\Http\Controllers\SubmissionController::duration($submission->created_at, $submission->mengetahui_at)}}</h6></span>
+                                        </li>
+                                        <li>
+                                            <time datetime="{{ $submission->mengetahui_at }}">{{ $submission->mengetahui_at }}</time>
+                                            <span>
+                                                    <strong>Diketahui Oleh</strong>{{ \App\Http\Controllers\FormController::getNamePic($submission->mengetahui)->nama_lengkap }}
+                                                </span>
+                                        </li>
+                                    @endif
+                                    @if($submission->menyetujui)
+                                        <li>
+                                            <time class="seling">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;</time>
+                                            <span><h6>{{  \App\Http\Controllers\SubmissionController::duration($submission->mengetahui_at, $submission->menyetujui_at)}}</h6></span>
+                                        </li>
+                                        <li>
+                                            <time datetime="{{ $submission->menyetujui_at }}">{{ $submission->menyetujui_at }}</time>
+                                            <span><strong>Disetujui Oleh</strong>{{ \App\Http\Controllers\FormController::getNamePic($submission->menyetujui)->nama_lengkap }}</span>
+                                        </li>
+                                    @endif
+                                    @if($submission->pic)
+                                        <li>
+                                            <time class="seling">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;</time>
+                                            <span><h6>{{  \App\Http\Controllers\SubmissionController::duration($submission->menyetujui_at, $submission->pic_at)}}</h6></span>
+                                        </li>
+                                        <li>
+                                            <time datetime="{{ $submission->pic_at }}">{{ $submission->pic_at }}</time>
+                                            <span><strong>Dikerjakan Oleh</strong> {{ \App\Http\Controllers\FormController::getNamePic($submission->pic)->nama_lengkap }}</span>
+                                        </li>
 
-                                            @foreach($form_headers as $header)
+                                    @endif
+                                    @if($submission->complete_at)
+                                        <li>
+                                            <time class="seling">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;</time>
+                                            <span><h6>{{  \App\Http\Controllers\SubmissionController::duration($submission->pic_at, $submission->complete_at)}}</h6></span>
+                                        </li>
+                                        <li>
+                                            <time datetime="{{ $submission->complete_at }}">{{ $submission->complete_at }}</time>
+                                            <span ><strong>Complete</strong> </span>
+                                        </li>
+                                    @endif
+                                    @if($submission->rejected)
+                                        <li>
+                                            <time datetime="{{ $submission->rejected_at }}">{{ $submission->rejected_at }}</time>
+                                            <span><strong>Form Ditolak Oleh</strong> {{ \App\Http\Controllers\FormController::getNamePic($submission->rejected)->nama_lengkap }}</span>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Viewing Submission #{{ $submission->id }} for form '{{ $submission->form->name }}'</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="btn-toolbar float-right" role="toolbar">
+                                </div>
+                                <div class="form-container">
+                                    <table class="table"  style="table-layout: fixed;font-family: sans-serif">
+
+                                        <tbody style="border: none">
+                                        @foreach($form_headers as $header)
                                             <tr>
-                                                    <td style="border: none;word-wrap: break-word; width: 50%"><strong>{{ $header['label'] ?? title_case($header['name']) }}: </strong></td>
-                                                    <td>:</td>
-                                                    <td  style="border: none;word-wrap: break-word; width: 50%" class="float-right"><span>{{ $submission->renderEntryContent($header['name'], $header['type']) }}</span></td>
+                                                <td style="border: none;word-wrap: break-word; width: 50%"><strong>{{ $header['label'] ?? title_case($header['name']) }} </strong></td>
+                                                <td>:</td>
+                                                <td  style="border: none;word-wrap: break-word; width: 50%" class="float-right"><span>{{ $submission->renderEntryContent($header['name'], $header['type']) }}</span></td>
                                             </tr>
-                                            @endforeach
-                                            </tbody>
+                                        @endforeach
+                                        </tbody>
+
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                            <div class="col-md-4">
-                                <div class="card rounded-0">
-                                    <div class="card-header">
-                                        <h5 class="card-title">Details</h5>
-                                    </div>
-
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            <strong>Form: </strong>
-                                            <span class="float-right">{{ $submission->form->name }}</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <strong>Submitted By: </strong>
-                                            <span class="float-right">{{ $submission->user->name ?? 'Guest' }}</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <strong>Submitted On: </strong>
-                                            <span class="float-right">{{ $submission->created_at->toDayDateTimeString() }}</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <strong>Last Updated On: </strong>
-                                            <span class="float-right">{{ $submission->updated_at->toDayDateTimeString() }}</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <strong>Diketahui By: </strong>
-                                            <span class="float-right">{{ isset(\App\Http\Controllers\FormController::getNamePic($submission->mengetahui)->nama_lengkap)? \App\Http\Controllers\FormController::getNamePic($submission->mengetahui)->nama_lengkap:'' }}</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <strong>Diketahui at: </strong>
-                                            <span class="float-right">{{ isset($submission->mengetahui_at)? $submission->mengetahui_at: '' }}</span>
-                                        </li>
-                                        <li class="list-group-item"> {{--\App\Http\Controllers\FormController::getNamePic($pic)->nama_lengkap--}}
-                                            <strong>Disetujui By: </strong>
-                                            <span class="float-right">{{ isset(\App\Http\Controllers\FormController::getNamePic($submission->menyetujui)->nama_lengkap) ? \App\Http\Controllers\FormController::getNamePic($submission->menyetujui)->nama_lengkap: ''}}</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <strong>Disetujui at: </strong>
-                                            <span class="float-right">{{ isset($submission->menyetujui_at)? $submission->menyetujui_at: ''}}</span>
-                                        </li>
-                                        <li class="list-group-item">
-
-                                            <strong>PIC By: </strong>
-                                            <span class="float-right">{{ isset($submission->pic)? $submission->pic: ''}}</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <strong>complete at: </strong>
-                                            <span class="float-right">{{ isset($submission->complete_at)? ($submission->complete_at): ''}}</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
             </div>
         </div>
     </div>
+
 @endsection
+
 @section('footer')
     <script>
         $(document).ready(function () {
@@ -157,13 +166,13 @@
             var menyetujui = {!! $submission->menyetujui !!} + '';
             var wizard = '';
             if (status === 0){
-                wizard = 'NEW <br><br> {!! $submission->created_at !!}';
+                wizard = 'NEW';
             }else if(status === 1 || status === 2){
-                wizard = 'PENDING <br><br> {!! $submission->mengetahui_at !!}';
+                wizard = 'PENDING';
             }else if(status === 3){
-                wizard = 'ON GOING <br><br> {!! $submission->menyetujui_at !!}';
+                wizard = 'ON GOING';
             }else if(status === 4){
-                wizard = 'COMPLETED <br><br> {!! $submission->complete_at !!}';
+                wizard = 'COMPLETED';
             }else{
                 if(mengetahui === 0){
                     array = [ 'REJECTED',  'PENDING', 'ON GOING', 'COMPLETED'];
@@ -174,12 +183,7 @@
             }
             ProgressBar.singleStepAnimation = 1500;
             ProgressBar.init(
-                [ 'NEW <br><br> {!! $submission->created_at !!}' ,
-                    'PENDING <br><br> {!! $submission->mengetahui_at !!}',
-                    'ON GOING <br><br> {!! $submission->menyetujui_at !!}',
-                    'COMPLETED <br><br> {!! $submission->complete_at !!}',
-                    'REJECT'
-                ],
+                array,
                 wizard,
                 'progress-bar-wrapper' // created this optional parameter for container name (otherwise default container created)
             );

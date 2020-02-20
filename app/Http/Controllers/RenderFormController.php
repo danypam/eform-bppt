@@ -76,10 +76,23 @@ class RenderFormController extends Controller
                 }
             }
 
+            //cek is_deputi, is_unit, is_kabppt
+            $status = DB::table('unit_jabatan')
+                ->join('pegawai as p', 'p.unit_jabatan_id', '=', 'id_unit_jabatan')
+                ->where('p.user_id','=',auth()->user()->id)
+                ->where(function ($q){
+                    $q->where('is_deputi','>','0')
+                        ->orWhere('is_unit','>','0')
+                        ->orWhere('is_kabppt','>','0');
+                });
+
+
+            $status = $status?  config('çonstants.status.pending') : config('çonstants.status.new');
+
             $user_id = auth()->user()->id ?? null;
             $submission_id = $form->submissions()->create([
                 'user_id' => $user_id,
-                'status' => 0,
+                'status' => $status,
                 'content' => $input,
             ])->id;
 
