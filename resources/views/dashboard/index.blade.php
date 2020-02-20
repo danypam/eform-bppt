@@ -112,16 +112,23 @@
                         <div class="panel panel-scrolling">
                             <div class="panel-heading">
                                 <h3 class="panel-title"></h3>
-                                <table class="table table-borderless" >
+                                <table class="table table-hover table-striped" >
                                     <thead>
                                     <tr>
-                                        <th scope="col" width="50%"></th>
-                                        <th scope="col" width="50%"></th>
+                                        <th scope="col" width="50%" class="text-center">Unit Kerja</th>
+                                        <th scope="col" width="30%" class="text-center">Total Submission</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
 
+                                    <tbody>
+                                    @foreach($data_unit as $unit)
+                                        <tr>
+                                            <td>{{$unit->nama_unit}}</td>
+                                            <td class="text-center">{{$unit->total}}</td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
+
                                 </table>
 
                             </div>
@@ -130,7 +137,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-md-5">
                         <div class="panel panel-scrolling">
                             <div class="panel-heading">
