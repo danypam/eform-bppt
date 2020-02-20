@@ -49,9 +49,7 @@
                                                             <td><span class="label label-success">COMPLETE</span></td>
                                                                 @endif
                                                                 <td>{{ \App\Http\Controllers\TimeController::time_elapsed_string($submission->created_at->toDayDateTimeString()) }}</td>
-                                                        <td>{{$submission->keterangan}}</td>
-
-
+                                                        <td><a href="#" class="label label-default view" data-ket="{{$submission->keterangan}}">LIHAT KETERANGAN</a></td>
                                                         <td>
                                                             <a href="{{ route('formbuilder::my-submissions.show', [$submission->id]) }}" class="btn btn-primary btn-sm" title="View submission">
                                                                 <i class="fa fa-eye"></i> View
@@ -109,6 +107,9 @@
                 autoWidth: false,
                 scroller:    true,
             });
-        })
+            $('.view').click(function () {
+                swal("Keterangan", $(this).attr('data-ket'));
+            });
+        });
     </script>
 @stop

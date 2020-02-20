@@ -60,7 +60,7 @@
                                                         <a href="/submissions/{{$inbox->submission_id}}/approve" class="btn btn-primary btn-sm hidden">Approve</a>
                                                         <a href="/submissions/{{$inbox->submission_id}}/reject" class="btn btn-danger btn-sm hidden">Reject</a>
                                                         @else
-                                                        <a href="/submissions/{{$inbox->submission_id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                        <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-primary btn-sm">Approve</a>
                                                         <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
                                                     @endif
                                                 @endcan
@@ -181,11 +181,37 @@
                             <input type="hidden" name="submission_id" id="id" value="" >
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Keterangan</label>
-                            <textarea name="keterangan" type="text" class="form-control" id="ket" placeholder="Alasan di ditolak"></textarea>
+                            <textarea name="keterangan" type="text" class="form-control" placeholder="Alasan di ditolak"></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-danger">Reject</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="approve" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Keterangan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/submissions/approve" method="post">
+                        {{csrf_field()}}
+                        <input type="hidden" name="submission_id" id="id" value="" >
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Keterangan</label>
+                            <textarea name="keterangan" type="text" class="form-control" placeholder="Silakan Isi Keterangan Jika Diperlukan"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Approve</button>
                         </div>
                     </form>
                 </div>
@@ -241,6 +267,16 @@
 
            modal.find('.modal-body #id').val(id);
            modal.find('.modal-body #ket').val(keterangan);
+        });
+        $('#approve').on('show.bs.modal',function (event) {
+
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var keterangan = button.data('ket')
+            var modal = $(this)
+
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #ket').val(keterangan);
         });
     </script>
 

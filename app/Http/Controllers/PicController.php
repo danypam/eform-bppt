@@ -42,7 +42,7 @@ class PicController extends Controller
             ->join('forms as f','form_submissions.form_id', '=', 'f.id')
             ->whereRaw("JSON_SEARCH(f.pic, 'one', $pic->id) is not null")
             ->where('form_submissions.status', '=', $status)
-            ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+            ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan')
             ->get();
     }
 
@@ -102,12 +102,13 @@ class PicController extends Controller
         return redirect('/task')->with('sukses','Task Berhasil Dibatalkan');
     }
 
-    public function complete($id)
+    public function complete(Request $request)
     {
         \Illuminate\Support\Facades\DB::table('form_submissions')->where([
-            'id'=>$id,
+            'id'=>$request->submission_id,
         ])->update([
             'status'=>DB::raw('status + 1'),
+            'keterangan'=>$request->keterangan,
             'complete_at'=> Carbon::now()->toDateTimeString()
         ]);
         return redirect('/task')->with('sukses','Task Complete');

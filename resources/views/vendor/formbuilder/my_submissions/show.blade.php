@@ -158,7 +158,7 @@
             var wizard = '';
             if (status === 0){
                 wizard = 'NEW <br><br> {!! $submission->created_at !!}';
-            }else if(status === 1 || status === 2){
+            }    else if(status === 1 || status === 2){
                 wizard = 'PENDING <br><br> {!! $submission->mengetahui_at !!}';
             }else if(status === 3){
                 wizard = 'ON GOING <br><br> {!! $submission->menyetujui_at !!}';

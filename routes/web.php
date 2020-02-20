@@ -112,7 +112,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('/formulir', 'FormulirController');
 
     Route::resource('/inbox', 'InboxController');
-    Route::get('/submissions/{id}/approve','InboxController@approve');
+    Route::post('/submissions/approve','InboxController@approve');
 //    Route::post('/submissions/{id}/reject','InboxController@reject');
 
     Route::get('/dashboard','DashboardController@index');
@@ -124,7 +124,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('/task', 'PicController');
     Route::get('/task/{id}/take','PicController@take');
     Route::get('/task/{id}/cancel','PicController@cancel');
-    Route::get('/task/{id}/complete','PicController@complete');
+    Route::post('/task/complete','PicController@complete');
 
 });
     Route::post('/notification/get','NotifikasiController@get');
