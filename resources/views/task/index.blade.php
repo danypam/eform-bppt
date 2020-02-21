@@ -122,7 +122,7 @@
                                                             <a href="/task/{{$mytask->submission_id}}/complete" class="btn btn-danger btn-sm hidden">Cancel</a>
                                                         @else
                                                             <a href="/task/{{$mytask->submission_id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
-                                                            <a href="/task/{{$mytask->submission_id}}/complete" class="btn btn-success btn-sm">Complete</a>
+                                                            <a href="#" data-toggle="modal" data-target="#comp" data-id="{{$mytask->submission_id}}" data-ket="{{$mytask->keterangan}}" class="btn btn-success btn-sm">Complete</a>
 
                                                         @endif
                                                     @endcan
@@ -197,6 +197,34 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="comp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Keterangan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/task/complete" method="post">
+                        {{csrf_field()}}
+                        <input type="hidden" name="submission_id" id="id" value="" >
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Keterangan</label>
+                            <textarea name="keterangan" type="text" class="form-control" placeholder="Silakan Isi Keterangan Jika Diperlukan"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Complete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @stop
 @section('footer')
     <script>
@@ -229,6 +257,16 @@
                 $( "#tab-complete" ).addClass( "active");
                 $( "#tab-my-task" ).removeClass( "active");
                 $( "#tab-waiting-list" ).removeClass( "active");
+            });
+            $('#comp').on('show.bs.modal',function (event) {
+
+                var button = $(event.relatedTarget)
+                var id = button.data('id')
+                var keterangan = button.data('ket')
+                var modal = $(this)
+
+                modal.find('.modal-body #id').val(id);
+                modal.find('.modal-body #ket').val(keterangan);
             });
         });
     </script>

@@ -166,9 +166,9 @@
             var menyetujui = {!! $submission->menyetujui !!} + '';
             var wizard = '';
             if (status === 0){
-                wizard = 'NEW';
-            }else if(status === 1 || status === 2){
-                wizard = 'PENDING';
+                wizard = 'NEW <br><br> {!! $submission->created_at !!}';
+            }    else if(status === 1 || status === 2){
+                wizard = 'PENDING <br><br> {!! $submission->mengetahui_at !!}';
             }else if(status === 3){
                 wizard = 'ON GOING';
             }else if(status === 4){
