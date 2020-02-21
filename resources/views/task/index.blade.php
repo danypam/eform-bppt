@@ -23,6 +23,7 @@
                                     <table class="table table-hover datatable">
                                         <thead>
                                         <tr>
+                                            <th>Form ID</th>
                                             <th>Employee ID Number</th>
                                             <th>Name</th>
                                             <th>Form Type</th>
@@ -34,6 +35,7 @@
                                         <tbody>
                                         @foreach($tasks as $task)
                                             <tr>
+                                                <td>{{$task->submission_id}}</td>
                                                 <td>{{$task->nip}}</td>
                                                 <td>{{$task->nama_lengkap}}</td>
                                                 <td>{{$task->name}}</td>
@@ -46,7 +48,10 @@
                                                 @if($task->status == 1)
                                                     <td><span class="label label-warning">PENDING</span></td>
                                                 @endif
-                                                @if($task->status == 2 || $task->status == 3)
+                                                @if($task->status == 2)
+                                                    <td><span class="label label-primary">WAIT FOR PIC</span></td>
+                                                @endif
+                                                @if($task->status == 3)
                                                     <td><span class="label label-primary">ON GOING</span></td>
                                                 @endif
                                                 @if($task->status == 4)
@@ -54,7 +59,7 @@
                                                 @endif
                                                 <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($task->created_at)}}</td>
                                                 <td>
-                                                    <a href="/forms/{{$task->form_id}}/submissions/{{$task->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                    <a href="/task/{{$task->form_id}}/submissions/{{$task->submission_id}}" class="btn btn-warning btn-sm">View</a>
                                                     @can('task-take')
                                                     @if($task->status == -1)
                                                         <a href="/submissions/{{$task->submission_id}}/approve" class="btn btn-primary btn-sm hidden">Take</a>
@@ -74,6 +79,7 @@
                                     <table class="table table-hover datatable">
                                         <thead>
                                         <tr>
+                                            <th>Form ID</th>
                                             <th>Employee ID Number</th>
                                             <th>Name</th>
                                             <th>Form Type</th>
@@ -85,6 +91,7 @@
                                         <tbody>
                                         @foreach($mytasks as $mytask)
                                             <tr>
+                                                <td>{{$mytask->submission_id}}</td>
                                                 <td>{{$mytask->nip}}</td>
                                                 <td>{{$mytask->nama_lengkap}}</td>
                                                 <td>{{$mytask->name}}</td>
@@ -97,7 +104,10 @@
                                                 @if($mytask->status == 1)
                                                     <td><span class="label label-warning">PENDING</span></td>
                                                 @endif
-                                                @if($mytask->status == 2 || $mytask->status == 3)
+                                                @if($mytask->status == 2)
+                                                    <td><span class="label label-primary">WAIT FOR PIC</span></td>
+                                                @endif
+                                                @if($mytask->status == 3)
                                                     <td><span class="label label-primary">ON GOING</span></td>
                                                 @endif
                                                 @if($mytask->status == 4)
@@ -105,7 +115,7 @@
                                                 @endif
                                                 <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($mytask->created_at)}}</td>
                                                 <td>
-                                                    <a href="/forms/{{$mytask->form_id}}/submissions/{{$mytask->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                    <a href="/task/{{$mytask->form_id}}/submissions/{{$mytask->submission_id}}" class="btn btn-warning btn-sm">View</a>
                                                     @can('task-take')
                                                         @if($mytask->status == -1)
                                                             <a href="/task/{{$mytask->submission_id}}/cancel" class="btn btn-danger btn-sm hidden">Cancel</a>
@@ -128,6 +138,7 @@
                                         <table class="table table-hover datatable">
                                             <thead>
                                             <tr>
+                                                <th>Form ID</th>
                                                 <th>Employee ID Number</th>
                                                 <th>Name</th>
                                                 <th>Form Type</th>
@@ -139,6 +150,7 @@
                                             <tbody>
                                             @foreach($completes as $complete)
                                                 <tr>
+                                                    <td>{{$complete->submission_id}}</td>
                                                     <td>{{$complete->nip}}</td>
                                                     <td>{{$complete->nama_lengkap}}</td>
                                                     <td>{{$complete->name}}</td>
@@ -151,7 +163,10 @@
                                                     @if($complete->status == 1)
                                                         <td><span class="label label-warning">PENDING</span></td>
                                                     @endif
-                                                    @if($complete->status == 2 || $complete->status == 3)
+                                                    @if($complete->status == 2)
+                                                        <td><span class="label label-primary">WAIT FOR PIC</span></td>
+                                                    @endif
+                                                    @if($complete->status == 3)
                                                         <td><span class="label label-primary">ON GOING</span></td>
                                                     @endif
                                                     @if($complete->status == 4)
@@ -159,7 +174,7 @@
                                                     @endif
                                                     <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($complete->created_at)}}</td>
                                                     <td>
-                                                        <a href="/forms/{{$complete->form_id}}/submissions/{{$complete->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                        <a href="/task/{{$complete->form_id}}/submissions/{{$complete->submission_id}}" class="btn btn-warning btn-sm">View</a>
                                                         @can('task-take')
                                                             @if($complete->status == -1)
                                                                 <a href="/task/{{$complete->submission_id}}/cancel" class="btn btn-danger btn-sm hidden">Cancel</a>
