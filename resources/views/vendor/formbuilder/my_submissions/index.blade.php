@@ -34,20 +34,65 @@
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $submission->form->name }}</td>
                                                         @if($submission->status == -1)
-                                                            <td><span class="label label-danger">REJECTED</span></td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <a type="button" class="label label-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        Rejected
+                                                                    </a>
+                                                                    <div class="dropdown-menu" style="padding: 2px">
+                                                                        <h6  class="dropdown-item">Permohonan anda telah ditolak </h6>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                         @endif
                                                         @if($submission->status == 0)
-                                                            <td><span class="label label-primary">NEW</span></td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <a type="button" class="label label-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        New
+                                                                    </a>
+                                                                    <div class="dropdown-menu" style="padding: 2px">
+                                                                        <h6  class="dropdown-item">Menunggu persetujuan atasan</h6>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                         @endif
                                                         @if($submission->status == 1)
-                                                            <td><span class="label label-warning">PENDING</span></td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <a type="button" class="label label-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        Pending
+                                                                    </a>
+                                                                    <div class="dropdown-menu" style="padding: 2px">
+                                                                        <h6  class="dropdown-item">Menunggu persetujuan Kepala BII</h6>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                         @endif
                                                         @if($submission->status == 2 || $submission->status == 3)
-                                                            <td><span class="label label-primary">ON GOING</span></td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <a type="button" class="label label-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        ON GOING
+                                                                    </a>
+                                                                    <div class="dropdown-menu" style="padding: 2px">
+                                                                        <h6  class="dropdown-item">Permohonan Sedang Diproses</h6>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                         @endif
                                                         @if($submission->status == 4)
-                                                            <td><span class="label label-success">COMPLETE</span></td>
-                                                                @endif
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <a type="button" class="label label-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        Completed
+                                                                    </a>
+                                                                    <div class="dropdown-menu" style="padding: 2px">
+                                                                        <h6  class="dropdown-item">Permohonan Telah Diproses</h6>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        @endif
                                                                 <td>{{ \App\Http\Controllers\TimeController::time_elapsed_string($submission->created_at->toDayDateTimeString()) }}</td>
                                                         <td>{{$submission->keterangan}}</td>
 

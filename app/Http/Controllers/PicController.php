@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Pegawai;
 use App\Submission;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
+use function foo\func;
 
 class PicController extends Controller
 {
@@ -25,7 +27,7 @@ class PicController extends Controller
     {
         //
         $tasks = $this->form_submissions(2);    //approved by kepala
-        $mytasks = $this->form_submissions(3);  //take by pic
+        $mytasks = $this->form_submissions(3);  //take   by pic
         $completes = $this->form_submissions(4);    //complete by pic
 
         return view('/task/index',['tasks'=>$tasks, 'mytasks'=>$mytasks, 'completes'=>$completes]);
@@ -37,13 +39,33 @@ class PicController extends Controller
             ->where('user_id', '=', auth()->user()->id)
             ->first();
 
-        return DB::table('form_submissions')
-            ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
-            ->join('forms as f','form_submissions.form_id', '=', 'f.id')
-            ->whereRaw("JSON_SEARCH(f.pic, 'one', $pic->id) is not null")
-            ->where('form_submissions.status', '=', $status)
-            ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
-            ->get();
+        if($status == config('constants.status.waitForPic')){
+                return DB::table('form_submissions')
+                ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
+                ->join('forms as f','form_submissions.form_id', '=', 'f.id')
+                ->whereRaw("JSON_SEARCH(f.pic, 'one', $pic->id) is not null")
+                ->where('form_submissions.status', '=', $status)
+                ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->get();
+        }elseif ($status == config('constants.status.onGoing')){
+            return DB::table('form_submissions')
+                ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
+                ->join('forms as f','form_submissions.form_id', '=', 'f.id')
+                ->where('form_submissions.pic','=',$pic->id)
+                ->where('form_submissions.status', '=', $status)
+                ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->get();
+        }else{
+            return DB::table('form_submissions')
+                ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
+                ->join('forms as f','form_submissions.form_id', '=', 'f.id')
+                ->where('form_submissions.pic','=',$pic->id)
+                ->whereRaw('form_submissions.complete_at IS NOT NULL')
+                ->where('form_submissions.status', '=', $status)
+                ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->get();
+        }
+
     }
 
     public function commit($id){
@@ -136,12 +158,29 @@ class PicController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $form_id
+     * @param  int  $submission_id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($form_id, $submission_id)
     {
         //
+
+
+
+        $submission = Submission::with('user', 'form')
+            ->where([
+                'form_id' => $form_id,
+                'id' => $submission_id,
+            ])
+            ->firstOrFail();
+        $form_headers = $submission->form->getEntriesHeader();
+
+        $identitas = Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id',$submission->user_id)->first();
+
+        $pageTitle = "View Submission";
+
+        return view('/task/show', compact('pageTitle', 'submission', 'form_headers','identitas'));
     }
 
     /**
