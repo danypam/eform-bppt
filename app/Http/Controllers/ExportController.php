@@ -48,7 +48,7 @@ class ExportController extends Controller
             ->where(['fs.id' =>  $id])
             ->get()
         ;
-        $pdf=PDF::loadview('vendor/formbuilder/my_submissions/submission_pdf', compact('submission', 'pageTitle', 'form_headers','submission_data'))->setPaper('a4','potrait');
+        $pdf=PDF::loadview('layouts.submission_pdf', compact('submission', 'pageTitle', 'form_headers','submission_data'))->setPaper('a4','potrait');
         /*return $pdf -> download('Data Pegawai');*/
         return $pdf->stream();
     }

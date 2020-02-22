@@ -10,7 +10,7 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INBOX</h3>
+                                <h3 class="panel-title">INBOX</h3><br>
                                 <ul class="nav nav-tabs">
                                     <li  class="active" id="tab-primary"><a href="#primary">Primary</a></li>
                                     <li id="tab-approved"><a href="#">Approved</a></li>

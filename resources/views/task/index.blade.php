@@ -113,7 +113,6 @@
                                                         @else
                                                             <a href="/task/{{$mytask->submission_id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
                                                             <a href="/task/{{$mytask->submission_id}}/complete" class="btn btn-success btn-sm">Complete</a>
-
                                                         @endif
                                                     @endcan
 
@@ -165,6 +164,7 @@
                                                                 <a href="/task/{{$complete->submission_id}}/cancel" class="btn btn-danger btn-sm hidden">Cancel</a>
                                                             @else
                                                                     <a href="/task/{{$complete->submission_id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
+
                                                             @endif
                                                         @endcan
 

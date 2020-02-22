@@ -131,7 +131,7 @@ class InboxController extends Controller
                 ->where('form_submissions.id', $id);
         }
         $inboxs = inbox_table($id)->get();
-        return view('/inbox/index',['inboxs'=>$inboxs]);
+        return view('/inbox/read',['inboxs'=>$inboxs]);
     }
 
     public function approve($id)
