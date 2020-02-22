@@ -40,6 +40,12 @@
 
 @endsection
 @section('footer')
+    <script>
+        $( '.card-title' ).on('click',function() {
+            alert('wadidaw')
+            $('.rendered-form').addClass('form-horizontal');
+        });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"/>
 @endsection
 @push(config('formbuilder.layout_js_stack', 'scripts'))

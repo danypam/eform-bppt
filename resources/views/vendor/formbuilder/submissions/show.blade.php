@@ -149,7 +149,7 @@
                                 </div>
 
                                 <div class="margin-top-30">
-                                        @if(!($submission->status == config("constants.status.rejected")))
+                                 {{--       @if(!($submission->status == config("constants.status.rejected")))
                                             @if(auth()->user()->can('inbox-approve-mengetahui') && $submission->status == config("constants.status.new"))
                                                 <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
                                                 <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
@@ -162,7 +162,7 @@
                                                 <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
                                                 <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
 
-                                            @elseif(auth()->user()->can('task-take'))
+                                     --}}{{--       @elseif(auth()->user()->can('task-take'))
                                                 @if($submission->status == config("constants.status.waitForPic"))
                                                     <a href="/task/{{$submission->id}}/take" class="btn btn-primary btn-sm">Take</a>
 
@@ -175,9 +175,25 @@
 
                                                 @elseif($submission->status == config("constants.status.completed"))
                                                     <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
-                                                @endif
+                                                @endif --}}{{--
+                                            @endif
+                                        @endif--}}
+                                    @can('inbox-management')
+                                        @if(!($submission->status == config("constants.status.rejected") || ($submission->status > config("constants.status.pending"))))
+                                            @if(auth()->user()->can('inbox-approve-mengetahui') && $submission->status == config("constants.status.new"))
+                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
+
+                                            @elseif(auth()->user()->can('inbox-approve-mengetahui') && auth()->user()->can('inbox-approve-menyetujui'))
+                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
+
+                                            @elseif(auth()->user()->can('inbox-approve-menyetujui') && $inbox->status == config("constants.status.pending"))
+                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
                                             @endif
                                         @endif
+                                    @endcan
                                 </div>
 
                             </div>

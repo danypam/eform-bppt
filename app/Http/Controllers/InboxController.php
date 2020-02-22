@@ -36,7 +36,7 @@ class InboxController extends Controller
                 ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
                 ->join('forms as f','form_submissions.form_id','=','f.id')
                 ->join('unit_jabatan as uj', 'uj.id_unit_jabatan', '=', 'p.unit_jabatan_id')
-                ->select('nama_lengkap','keterangan','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->select('nama_lengkap','keterangan','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at', 'form_submissions.keterangan')
                 ->orderBy('created_at', 'desc');
         }
         //get data pegawai
@@ -134,19 +134,21 @@ class InboxController extends Controller
         return view('/inbox/read',['inboxs'=>$inboxs]);
     }
 
-    public function approve($id)
+    public function approve(Request $request)
     {
         $isFilled = DB::table('form_submissions')
             ->select('mengetahui', 'menyetujui', 'pic', 'status')
-            ->where('id', '=', $id)
+            ->where('id', '=', $request->submission_id)
         ->first();
 
-        function commit($id){
+        function commit($id, $ket){
         //Search ID Pegawai
+
             return DB::table('form_submissions')->where([
                 'id' => $id
             ])->update([
-                'status' => DB::raw('status + 1')
+                'status' => DB::raw('status + 1'),
+                'keterangan'=>$ket
             ]);
         }
 
@@ -181,12 +183,12 @@ class InboxController extends Controller
                 DB::beginTransaction();
                 try{
                     if(!isset($isFilled->mengetahui)){
-                        commit($id);
-                        fillWhoApprove($id, "mengetahui", "mengetahui_at");
+                        commit($request->submission_id, $request->keterangan);
+                        fillWhoApprove($request->submission_id, "mengetahui", "mengetahui_at");
                     }
                     if(!isset($isFilled->menyetujui)){
-                       commit($id);
-                        fillWhoApprove($id, "menyetujui", "menyetujui_at");
+                       commit($request->submission_id);
+                        fillWhoApprove($request->submission_id, "menyetujui", "menyetujui_at");
                     }
                     DB::commit();
                     return redirect('/inbox')->with('sukses', 'Formulir Berhasil DiSetujui');
@@ -197,17 +199,17 @@ class InboxController extends Controller
             } else if(auth()->user()->can('inbox-approve-menyetujui')){
                 DB::beginTransaction();
                 if(!($isFilled->menyetujui)){
-                     commit($id);
-                     fillWhoApprove($id, "menyetujui", "menyetujui_at");
+                     commit($request->submission_id, $request->keterangan);
+                     fillWhoApprove($request->submission_id, "menyetujui", "menyetujui_at");
                      DB::commit();
                     $users = User::whereHas('roles',function($q){
                         $q->where('name','pic');
                     })->get();
-                    if (\Notification::send($users, new NewForm(Submission::find($id)->first())))
+                    if (\Notification::send($users, new NewForm(Submission::find($request->submission_id)->first())))
                     {
                         return back();
                     }
-                    LogActivity::addToLog('Form '.$id.' Was Approved');
+                    LogActivity::addToLog('Form '.$request->submission_id.' Was Approved');
                     return redirect('/inbox')->with('sukses', 'Formulir Berhasil DiSetujui');
                 }else{
                     DB::rollback();
@@ -216,17 +218,17 @@ class InboxController extends Controller
             }else if(auth()->user()->can('inbox-approve-mengetahui')) {
                 DB::beginTransaction();
                 if ((!$isFilled->mengetahui)) {
-                    commit($id);
-                    fillWhoApprove($id, "mengetahui", "mengetahui_at");
+                    commit($request->submission_id, $request->keterangan);
+                    fillWhoApprove($request->submission_id, "mengetahui", "mengetahui_at");
                     DB::commit();
                     $users = User::whereHas('roles',function($q){
                         $q->where('name','kepala');
                     })->get();
-                    if (\Notification::send($users, new NewForm(Submission::find($id)->first())))
+                    if (\Notification::send($users, new NewForm(Submission::find($request->submission_id)->first())))
                     {
                         return back();
                     }
-                    LogActivity::addToLog('Form '.$id.' Was Approved');
+                    LogActivity::addToLog('Form '.$request->submission_id.' Was Approved');
                     return redirect('/inbox')->with('sukses', 'Form Berhasil DiSetujui');
                 } else {
                     DB::rollback();

@@ -44,7 +44,7 @@
                                                         NIP
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <b><span  class="dropdown-item " >NIP 1 : {{$peg->nip}}</span><br>
+                                                        <span  class="dropdown-item " >NIP 1 : {{$peg->nip}}</span><br>
                                                             <span class="dropdown-item" >NIP 2 : {{$peg->nip18}}</span>
                                                     </div>
                                                 </div>
