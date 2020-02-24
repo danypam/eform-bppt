@@ -123,7 +123,6 @@
                                                         @else
                                                             <a href="/task/{{$mytask->submission_id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
                                                             <a href="#" data-toggle="modal" data-target="#comp" data-id="{{$mytask->submission_id}}" data-ket="{{$mytask->keterangan}}" class="btn btn-success btn-sm">Complete</a>
-
                                                         @endif
                                                     @endcan
 
@@ -180,6 +179,7 @@
                                                                 <a href="/task/{{$complete->submission_id}}/cancel" class="btn btn-danger btn-sm hidden">Cancel</a>
                                                             @else
                                                                     <a href="/task/{{$complete->submission_id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
+
                                                             @endif
                                                         @endcan
 

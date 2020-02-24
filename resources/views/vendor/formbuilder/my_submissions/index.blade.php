@@ -11,9 +11,9 @@
                                 <div class="card rounded-0">
                                     <div class="card-header">
                                         <h1 class="card-title">
-                                            {{ $pageTitle }} ({{ $submissions->count() }})
+                                            {{ $pageTitle }} <span class="badge">{{ $submissions->count() }}</span>
                                         </h1>
-                                    </div>
+                                    </div><br>
 
                                     @if($submissions->count())
                                         <div class="table-responsive">

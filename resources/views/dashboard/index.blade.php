@@ -8,6 +8,9 @@
             <div class="container-fluid">
                 <!-- OVERVIEW -->
                 <div class="panel panel-headline">
+
+
+
                     <div class="panel-heading">
                         <h3 class="panel-title">Submissions Status</h3>
                         <p class="panel-subtitle">All Time</p>
@@ -111,8 +114,15 @@
                     <div class="col-md-7">
                         <div class="panel panel-scrolling">
                             <div class="panel-heading">
-                                <h3 class="panel-title"></h3>
-                                <table class="table table-hover table-striped" >
+                                <h3 class="panel-title">Submission by Unit Kerja</h3><br>
+                                <ul class="list-group">
+                                    @foreach($data_unit as $unit)
+                                    <li class="list-group-item list-hover">
+                                        <span class="badge">{{$unit->total}}</span>
+                                        {{$unit->nama_unit}}
+                                    </li>
+                                    @endforeach
+                                </ul>                                {{--<table class="table table-hover table-striped" >
                                     <thead>
                                     <tr>
                                         <th scope="col" width="50%" class="text-center">Unit Kerja</th>
@@ -121,15 +131,15 @@
                                     </thead>
 
                                     <tbody>
-                                    @foreach($data_unit as $unit)
+
                                         <tr>
-                                            <td>{{$unit->nama_unit}}</td>
-                                            <td class="text-center">{{$unit->total}}</td>
+                                            <td></td>
+                                            <td class="text-center"></td>
                                         </tr>
-                                    @endforeach
+
                                     </tbody>
 
-                                </table>
+                                </table>--}}
 
                             </div>
                             <div class="panel-body">
