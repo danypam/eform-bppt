@@ -1,5 +1,8 @@
 @extends('formbuilder::layout')
 
+@section('head')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
+@endsection
 @section('content')
     <div class="main">
         <div class="main-content">
@@ -29,10 +32,6 @@
                                                                     <strong>{{ $errors->first('name') }}</strong>
                                                                 </span>
                                                     @endif
-
-
-
-
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -81,7 +80,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="pic" class="col-form-label" style="display: block">PIC</label>
-                                                    <select id="pic" class="selectpicker" multiple data-live-search="true"  data-width="100%" required>
+                                                    <select id="pic" class="form-control selectpicker" multiple data-live-search="true"  data-width="100%" required>
                                                         @foreach($pegawai as $peg)
                                                             <option value="{{$peg->id}}">{{$peg->nama_lengkap." (".$peg->nip.")"}}</option>
                                                         @endforeach
@@ -95,27 +94,56 @@
                                                 <div class="alert alert-info" role="alert">
                                                     <i class="fa fa-info-circle"></i>
                                                     Click on or drag and drop components onto the main panel to build your form content.
+                                                    <i class="fa fa-info-circle"></i>
+                                                    You can add multiple column in row by adding "row-(number row) column-md-(width number)"
                                                 </div>
                                                 <div id="fb-editor" class="fb-editor"></div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
-                                <button type="button" class="btn btn-primary fb-clear-btn">
-                                    <i class="fa fa-remove"></i> Clear Form
-                                </button>
-                                <button type="button" class="btn btn-primary fb-save-btn">
-                                    <i class="fa fa-save"></i> Submit &amp; Save Form
-                                </button>
+                                           <div class="margin-top-30">
+                                                <button type="button" class="btn btn-danger fb-clear-btn fb-clear-btn">
+                                                    <i class="fa fa-remove"></i> Clear Form
+                                                </button>
+                                                <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-warning fb-preview ">
+                                                    <i class="fa fa-eye"></i> Preview
+                                                </button>
+                                                <button type="button" class="btn btn-primary fb-save-btn">
+                                                    <i class="fa fa-save"></i> Submit &amp; Save Form
+                                                </button>
+                                           </div>
+                                        </div>
+                                    </form>
+                                </div>>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Preview</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
-
+@section('footer')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
+    <script src="{{asset("js/dynamic-form.js")}}"></script>
+@endsection
 @push(config('formbuilder.layout_js_stack', 'scripts'))
 <script type="text/javascript">
     window.FormBuilder = window.FormBuilder || {}

@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Helpers\LogActivity;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
@@ -47,6 +48,7 @@ class RoleController extends Controller
         $role->syncPermissions($request->input('permission'));
 
 
+        LogActivity::addToLog('Role Was Created');
         return redirect()->route('roles.index')
                         ->with('success','Role created successfully');
     }
@@ -92,6 +94,7 @@ class RoleController extends Controller
         $role->syncPermissions($request->input('permission'));
 
 
+        LogActivity::addToLog('Role Was Updated');
         return redirect()->route('roles.index')
                         ->with('success','Role updated successfully');
     }
@@ -99,6 +102,7 @@ class RoleController extends Controller
     public function destroy($id)
     {
         DB::table("roles")->where('id',$id)->delete();
+        LogActivity::addToLog('Role Was Deleted');
         return redirect()->route('roles.index')
                         ->with('success','Role deleted successfully');
     }

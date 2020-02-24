@@ -69,20 +69,20 @@
                         {{csrf_field()}}
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Nama Jabatan</label>
-                            <input name="nama_jabatan" type="text" class="form-control" id="exampleFormControlInput1" pattern="^[A-Z\s]{0,}$" placeholder="nama jabatan"value="{{old('nama_jabatan')}}"required>
-                            <small id="emailHelp" class="form-text text-muted"> Nama Jabatan Harus Caps Lock </small>
+                            <input name="nama_jabatan" type="text" class="form-control" id="exampleFormControlInput1" pattern="^[A-Z\s]{0,}$" placeholder="Nama Jabatan"value="{{old('nama_jabatan')}}"required>
+                            <small id="emailHelp" class="form-text text-muted"> Allow Uppercase Only </small>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Eselon</label>
-                            <input name="eselon" type="text" class="form-control" id="exampleFormControlInput1"pattern="^[A-Z]+\.[a-z]{0,5}$" placeholder="eselon"required>
-                            <small id="eselon" class="form-text text-muted"> Format : huruf.huruf Misal: II.a </small>
+                            <label for="exampleFormControlInput1">Echelon</label>
+                            <input name="eselon" type="text" class="form-control" id="exampleFormControlInput1"pattern="^[A-Z]+\.[a-z]{0,5}$" placeholder="Echelon"required>
+                            <small id="eselon" class="form-text text-muted"> Format: alphabet.alphabet Ex: II.a </small>
 
                         </div>
                 </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
                 </div>

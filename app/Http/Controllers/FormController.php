@@ -7,6 +7,7 @@ Last Updated: 12/29/2018
 ----------------------*/
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use App\Pegawai;
 use App\Http\Controllers\Controller;
 use jazmy\FormBuilder\Events\Form\FormCreated;
@@ -93,6 +94,7 @@ class FormController extends Controller
             event(new FormCreated($created));
 
             DB::commit();
+            LogActivity::addToLog('Form '.$created->name.' Was Created');
 
             return response()
                     ->json([
@@ -138,6 +140,9 @@ class FormController extends Controller
     {
         $user = auth()->user();
 
+        //get pegawai
+        $pegawai = Pegawai::all();
+
         $form = Form::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
 
         $pageTitle = 'Edit Form';
@@ -147,7 +152,7 @@ class FormController extends Controller
         // get the roles to use to populate the make the 'Access' section of the form builder work
         $form_roles = Helper::getConfiguredRoles();
 
-        return view('formbuilder::forms.edit', compact('form', 'pageTitle', 'saveURL', 'form_roles'));
+        return view('formbuilder::forms.edit', compact('form', 'pageTitle', 'saveURL', 'form_roles', 'pegawai'));
     }
 
     /**
@@ -167,6 +172,7 @@ class FormController extends Controller
         if ($form->update($input)) {
             // dispatch the event
             event(new FormUpdated($form));
+            LogActivity::addToLog('Form '.$form->name.' Was Updated');
 
             return response()
                     ->json([
@@ -193,6 +199,7 @@ class FormController extends Controller
 
         // dispatch the event
         event(new FormDeleted($form));
+        LogActivity::addToLog('Form '.$form->name.' Was Deleted');
 
         return back()->with('success', "'{$form->name}' deleted.");
     }

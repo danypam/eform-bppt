@@ -1,5 +1,8 @@
 @extends('formbuilder::layout')
+@section('head')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
 
+@endsection
 @section('content')
     <div class="main">
         <div class="main-content">
@@ -30,9 +33,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="name" class="col-form-label">Form Name</label>
-
                                                     <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') ?? $form->name }}" required autofocus placeholder="Enter Form Name">
-
                                                     @if ($errors->has('name'))
                                                         <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $errors->first('name') }}</strong>
@@ -82,6 +83,22 @@
                                                     @endif
                                                 </div>
                                             </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="letter-code" class="col-form-label">Letter Code</label>
+                                                    <input id="letter-code" value="{{$form->letter_code}}" type="text" class="form-control" required placeholder="Enter Letter Code" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="pic" class="col-form-label" style="display: block">PIC</label>
+                                                    <select id="pic" class="selectpicker" multiple data-live-search="true"  data-width="100%" required>
+                                                        @foreach($pegawai as $peg)
+                                                            <option value="{{$peg->id}}">{{$peg->nama_lengkap." (".$peg->nip.")"}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="row">
@@ -89,6 +106,19 @@
                                                 <div class="alert alert-info" role="alert">
                                                     <i class="fa fa-info-circle"></i>
                                                     Click on or Drag and drop components onto the main panel to build your form content.
+                                                    <br>
+                                                </div>
+                                                <div class="alert alert-info" role="alert">
+                                                    <h5><i class="fa fa-info-circle"></i>
+                                                    Tips
+                                                        <br>
+                                                    <br>You can add multiple field in a row by adding "row-(number row) column-md-(width number) on class field"
+                                                    <br>Example: "row-1 col-md-6"
+                                                    <br>col-md-6 = 50% width
+                                                    <br>col-md-4 = 33% width
+                                                    <br>col-md-2 = 25% width
+                                                    <br>Change will be update in preview
+                                                    </h5>
                                                 </div>
 
                                                 <div id="fb-editor" class="fb-editor"></div>
@@ -96,10 +126,12 @@
                                         </div>
                                     </div>
                                 </form>
-
                                 <div class="card-footer" id="fb-editor-footer" style="display: none;">
                                     <button type="button" class="btn btn-primary fb-clear-btn">
                                         <i class="fa fa-remove"></i> Clear Form
+                                    </button>
+                                    <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-warning fb-preview ">
+                                        <i class="fa fa-eye"></i> Preview
                                     </button>
                                     <button type="button" class="btn btn-primary fb-save-btn">
                                         <i class="fa fa-save"></i> Submit &amp; Save Form
@@ -112,10 +144,46 @@
             </div>
         </div>
     </div>
-    </div>
-@endsection
 
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Preview</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+@endsection
+@section('footer')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
+    <script src="{{asset("js/dynamic-form.js")}}"></script>
+@endsection
 @push(config('formbuilder.layout_js_stack', 'scripts'))
+<script>
+
+    $(document).ready(function (){
+        var data = {!! $form->pic /*json_decode($form->pic, true)*/ !!};
+        console.log(data.toString());
+
+        $.each(data.toString().split(","), function(i,e){
+            $("#pic option[value='" + e + "']").prop("selected", true);
+        });
+    });
+</script>
+
 <script type="text/javascript">
     window.FormBuilder = window.FormBuilder || {}
     window.FormBuilder.form_roles = @json($form_roles);

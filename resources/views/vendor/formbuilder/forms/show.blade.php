@@ -9,8 +9,8 @@
                         <div class="col-md-8">
                             <div class="card rounded-0">
                                 <div class="card-header">
-                                    <h5 class="card-title">
-                                        Form Preview for '{{ $form->name }}'
+                                    <h3 class="card-title">
+                                        Form Preview for '{{ $form->name }}'</h3>
 
                                         <div class="btn-toolbar float-md-right" role="toolbar">
                                             <div class="btn-group" role="group">

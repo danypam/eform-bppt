@@ -3,13 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\LogsActivityInterface;
-use Spatie\Activitylog\LogsActivity;
 
-class Pegawai extends Model implements LogsActivityInterface
+class Pegawai extends Model
 {
-    use LogsActivity;
-
     protected $table = 'pegawai';
     protected $fillable = ['nip','nip18','nama_lengkap','no_hp','email','foto','unit_id','unit_jabatan_id','jabatan_id','user_id','nip_atas','status','role','created_at','updated_at'];
 
@@ -21,23 +17,13 @@ class Pegawai extends Model implements LogsActivityInterface
         return asset('images/'.$this->foto);
     }
 
-    public function getActivityDescriptionForEvent($eventName)
+    public function unit_kerja()
     {
-        if ($eventName == 'created')
-        {
-            return 'Pegawai "' . $this->nama_lengkap . '" was created';
-        }
-
-        if ($eventName == 'updated')
-        {
-            return 'Pegawai "' . $this->nama_lengkap . '" was updated';
-        }
-
-        if ($eventName == 'deleted')
-        {
-            return 'Pegawai "' . $this->nama_lengkap . '" was deleted';
-        }
-
-        return '';
+        return $this->belongsTo(UnitKerja::class,'unit_id','id');
     }
+
+    public function unit_jabatan(){
+        return $this->belongsTo(UnitJabatan::class,'unit_jabatan_id','id_unit_jabatan');
+    }
+
 }

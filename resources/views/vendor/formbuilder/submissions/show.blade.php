@@ -1,5 +1,4 @@
-@extends('formbuilder::layout')
-
+@extends('layouts.master')
 @section('content')
     <div class="main">
         <div class="main-content">
@@ -26,8 +25,8 @@
                                         <tr>
                                             <td><img src="{{ $identitas->foto? asset("/images/$identitas->foto") : asset("/images/user.png") }}"></td>
                                             <td>
-                                                <h5>{{$submission->user->name}}</h5>
-                                                <h5>{{$submission->user->email}}</h5>
+                                                <h5> {{$submission->user->name}}</h5>
+                                                <h5> {{$submission->user->email}}</h5>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -38,20 +37,20 @@
                                         </tr>
                                         <tr>
                                             <td><h6><strong>NIP</strong></h6></td>
-                                            <td><h6>{{$identitas->nip}}</h6></td>
+                                            <td><h6>: {{$identitas->nip}}</h6></td>
                                         </tr>
                                         <tr>
                                             <td><h6><strong>Unit Kerja</strong></h6></td>
-                                            <td><h6>{{$identitas->unit_kerja->nama_unit}}</h6></td>
+                                            <td><h6>: {{$identitas->unit_kerja->nama_unit}}</h6></td>
                                         </tr>
                                         <tr>
 
                                             <td><h6><strong>Unit Jabatan</strong></h6></td>
-                                            <td><h6>{{$identitas->unit_jabatan->unit}}</h6></td>
+                                            <td><h6>: {{$identitas->unit_jabatan->unit}}</h6></td>
                                         </tr>
                                         <tr>
                                             <td><h6><strong>No Hp</strong></h6></td>
-                                            <td><h6>{{$identitas->no_hp}}</h6></td>
+                                            <td><h6>: {{$identitas->no_hp}}</h6></td>
                                         </tr>
                                         <tr>
                                             <td><h6><strong>Status</strong></h6></td>
@@ -125,65 +124,79 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Viewing Submission #{{ $submission->id }} for form '{{ $submission->form->name }}'</h3>
                             </div>
                             <div class="panel-body">
                                 <div class="btn-toolbar float-right" role="toolbar">
-                                    <div class="btn-group" role="group" aria-label="First group">
-                                        <a href="{{ route('formbuilder::forms.submissions.index', $submission->form->id) }}" class="btn btn-primary float-md-right btn-sm" title="Back To Submissions">
-                                            <i class="fa fa-arrow-left"></i>
-                                        </a>
-                                        <form action="{{ route('formbuilder::forms.submissions.destroy', [$submission->form, $submission]) }}" method="POST" id="deleteSubmissionForm_{{ $submission->id }}" class="d-inline-block">
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <button type="submit" class="btn btn-danger btn-sm rounded-0 confirm-form" data-form="deleteSubmissionForm_{{ $submission->id }}" data-message="Delete submission" title="Delete this submission?">
-                                                <i class="fa fa-trash-o"></i>
-                                            </button>
-                                        </form>
-                                    </div>
                                 </div>
-                                <ul class="list-group list-group-flush">
-                                    @foreach($form_headers as $header)
-                                        <li class="list-group-item">
-                                            <strong>{{ $header['label'] ?? title_case($header['name']) }}: </strong>
-                                            <span class="float-right">
-                                                    {{ $submission->renderEntryContent($header['name'], $header['type']) }}
-                                                </span>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                                <div class="form-container">
+                                    <table class="table"  style="table-layout: fixed;font-family: sans-serif">
 
-                    <div class="col-md-4">
-                        <div class="card rounded-0">
-                            <div class="card-header">
-                                <h5 class="card-title">Details</h5>
-                            </div>
+                                            <tbody style="border: none">
+                                            @foreach($form_headers as $header)
+                                            <tr>
+                                                <td style="border: none;word-wrap: break-word; width: 50%"><strong>{{ $header['label'] ?? title_case($header['name']) }} </strong></td>
+                                                <td>:</td>
+                                                <td  style="border: none;word-wrap: break-word; width: 50%" class="float-right"><span>{{ $submission->renderEntryContent($header['name'], $header['type']) }}</span></td>
+                                            </tr>
+                                            @endforeach
+                                            </tbody>
 
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <strong>Form: </strong>
-                                    <span class="float-right">{{ $submission->form->name }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Submitted By: </strong>
-                                    <span class="float-right">{{ $submission->user->name ?? 'Guest' }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Last Updated On: </strong>
-                                    <span class="float-right">{{ $submission->updated_at->toDayDateTimeString() }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Submitted On: </strong>
-                                    <span class="float-right">{{ $submission->created_at->toDayDateTimeString() }}</span>
-                                </li>
-                            </ul>
+                                    </table>
+                                </div>
+
+                                <div class="margin-top-30">
+                                 {{--       @if(!($submission->status == config("constants.status.rejected")))
+                                            @if(auth()->user()->can('inbox-approve-mengetahui') && $submission->status == config("constants.status.new"))
+                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
+
+                                            @elseif(auth()->user()->can('inbox-approve-mengetahui') && auth()->user()->can('inbox-approve-menyetujui'))
+                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
+
+                                            @elseif(auth()->user()->can('inbox-approve-menyetujui') && $submission->status == config("constants.status.pending"))
+                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
+
+                                     --}}{{--       @elseif(auth()->user()->can('task-take'))
+                                                @if($submission->status == config("constants.status.waitForPic"))
+                                                    <a href="/task/{{$submission->id}}/take" class="btn btn-primary btn-sm">Take</a>
+
+                                                @elseif($submission->status == config("constants.status.onGoing"))
+                                                    <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
+                                                    <a href="/task/{{$submission->id}}/complete" class="btn btn-success btn-sm">Complete</a>
+                                                    <a href="/{{$submission->id}}/submission_pdf" class="btn btn-warning btn-sm" title="Export PDF">
+                                                        <i class="fa fa-eye"></i> Export PDF
+                                                    </a>
+
+                                                @elseif($submission->status == config("constants.status.completed"))
+                                                    <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
+                                                @endif --}}{{--
+                                            @endif
+                                        @endif--}}
+                                    @can('inbox-management')
+                                        @if(!($submission->status == config("constants.status.rejected") || ($submission->status > config("constants.status.pending"))))
+                                            @if(auth()->user()->can('inbox-approve-mengetahui') && $submission->status == config("constants.status.new"))
+                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
+
+                                            @elseif(auth()->user()->can('inbox-approve-mengetahui') && auth()->user()->can('inbox-approve-menyetujui'))
+                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
+
+                                            @elseif(auth()->user()->can('inbox-approve-menyetujui') && $inbox->status == config("constants.status.pending"))
+                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
+                                            @endif
+                                        @endif
+                                    @endcan
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -192,3 +205,38 @@
     </div>
 
 @endsection
+
+@section('footer')
+    <script>
+        $(document).ready(function () {
+            var array = [ 'NEW <br><br> {!! $submission->created_at !!}', 'PENDING <br><br> {!! $submission->mengetahui_at !!}', 'ON GOING <br><br> {!! $submission->menyetujui_at !!}', 'COMPLETED <br><br> {!! $submission->complete_at !!}'];
+            var status = {!! $submission->status !!};
+            var mengetahui = {!! $submission->mengetahui !!} + '';
+            var menyetujui = {!! $submission->menyetujui !!} + '';
+            var wizard = '';
+            if (status === 0){
+                wizard = 'NEW <br><br> {!! $submission->created_at !!}';
+            }else if(status === 1 || status === 2){
+                wizard = 'PENDING <br><br> {!! $submission->mengetahui_at !!}';
+            }else if(status === 3){
+                wizard = 'ON GOING <br><br> {!! $submission->menyetujui_at !!}';
+            }else if(status === 4){
+                wizard = 'COMPLETED <br><br> {!! $submission->complete_at !!}';
+            }else{
+                if(mengetahui === 0){
+                    array = [ 'REJECTED',  'PENDING', 'ON GOING', 'COMPLETED'];
+                }else if(menyetujui === 0){
+                    array = [ 'NEW', 'REJECTED', 'ON GOING', 'COMPLETED'];
+                }
+                wizard = 'REJECTED';
+            }
+            ProgressBar.singleStepAnimation = 1500;
+            ProgressBar.init(
+                array,
+                wizard,
+                'progress-bar-wrapper' // created this optional parameter for container name (otherwise default container created)
+            );
+        });
+
+    </script>
+@stop

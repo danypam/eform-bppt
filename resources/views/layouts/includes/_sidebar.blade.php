@@ -10,27 +10,27 @@
                 <li ><a href="/inbox" class="{{(request()->is('inbox*'))?'active': ''}}"><i class="lnr lnr-envelope"></i> <span>Inbox</span></a></li>
                 @endif
                 @if (auth()->user()->can('submission-list'))
-                <li><a href="{{ route('formbuilder::my-submissions.index') }}" class=""><i class="lnr lnr-user"></i> <span>My Submissions</span></a></li>
+                <li><a href="{{ route('formbuilder::my-submissions.index') }}" class="{{(request()->is('my-submission*'))?'active': ''}}"><i class="lnr lnr-inbox"></i> <span>My Submissions</span></a></li>
                 @endif
                 @if (auth()->user()->can('task-list') || auth()->user()->can('task-approve'))
-                <li><a href="/task" class=""><i class="lnr lnr-user"></i> <span>Tasks</span></a></li>
+                <li><a href="{{url('task')}}" class="{{Request::is('task*')?'active':''}}"><i class="lnr lnr-briefcase"></i> <span>Tasks</span></a></li>
                 @endif
                 @can('crud-management')
                 <li>
-                    <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>CRUD</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-                    <div id="subPages" class="collapse ">
+                    <a href="#subPages" data-toggle="collapse" class="collapse"><i class="lnr lnr-file-empty"></i> <span>CRUD</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <div id="subPages" class="collapse">
                         <ul class="nav">
                             @if (auth()->user()->can('jabatan-list') || auth()->user()->can('jabatan-delete') || auth()->user()->can('jabatan-create')|| auth()->user()->can('jabatan-edit'))
-                            <li><a href="/jabatan" class=""><i class="fa fa-black-tie"></i><span>Jabatan</span></a></li>
+                            <li><a href="/jabatan"  class="{{(request()->is('jabatan*'))?'active': ''}}"><i class="fa fa-black-tie"></i><span>Jabatan</span></a></li>
                             @endif
                             @if (auth()->user()->can('unit-list') || auth()->user()->can('unit-delete') || auth()->user()->can('unit-create')|| auth()->user()->can('unit-edit'))
-                            <li><a href="/unit" class=""><i class="fa fa-steam"></i><span>Unit Kerja</span></a></li>
+                            <li><a href="/unit" class="{{(request()->is('unit*'))?'active': ''}}"><i class="fa fa-wpforms"></i><span>Unit Kerja</span></a></li>
                             @endif
                             @if (auth()->user()->can('unitjab-list') || auth()->user()->can('unitjab-delete') || auth()->user()->can('unitjab-create')|| auth()->user()->can('unitjab-edit'))
-                            <li><a href="/unitjab" class=""><i class="fa fa-usb"></i><span>Unit Jabatan</span></a></li>
+                            <li><a href="/unitjab"  class="{{(request()->is('unitjab*'))?'active': ''}}"><i class="fa fa-shirtsinbulk"></i><span>Unit Jabatan</span></a></li>
                             @endif
                             @if (auth()->user()->can('alamat-list') || auth()->user()->can('alamat-delete') || auth()->user()->can('alamat-create')|| auth()->user()->can('alamat-edit'))
-                            <li><a href="/alamat" class=""><i class="lnr lnr-map-marker"></i><span>Location</span></a></li>
+                            <li><a href="/alamat"  class="{{(request()->is('alamat*'))?'active': ''}}"><i class="fa fa-map"></i><span>Location</span></a></li>
                             @endif
                             @if (auth()->user()->can('layanan-list') || auth()->user()->can('layanan-delete') || auth()->user()->can('layanan-create')|| auth()->user()->can('layanan-edit'))
                             <li><a href="/layanan" class=""><i class="fa fa-stack-overflow"></i><span>Layanan</span></a></li>
@@ -40,27 +40,27 @@
                 </li>
                 @endcan
                 @if (auth()->user()->can('pegawai-list') || auth()->user()->can('pegawai-delete') || auth()->user()->can('pegawai-create')|| auth()->user()->can('pegawai-edit'))
-                <li><a href="/pegawai" class=""><i class="lnr lnr-users"></i> <span>Employees</span></a></li>
+                    <li><a href="/pegawai" class="{{(request()->is('pegawai*'))?'active': ''}}"><i class="lnr lnr-users"></i> <span>Employees</span></a></li>
                 @endif
 
                 @if (auth()->user()->can('form-list') || auth()->user()->can('form-delete') || auth()->user()->can('form-create')|| auth()->user()->can('form-edit'))
-                <li><a href="/forms" class=""><i class="lnr lnr-user"></i> <span>Form Builder</span></a></li>
+                    <li><a href="/forms" class="{{(request()->is('forms*'))?'active': ''}}"><i class="lnr lnr-plus-circle"></i> <span>Form Builder</span></a></li>
                 @endif
                 @if(auth()->user()->can('form-input'))
-                <li><a href="/formulir" class=""><i class="lnr lnr-user"></i> <span>Forms</span></a></li>
+                    <li><a href="/formulir" class="{{(request()->is('form*'))?'active': ''}}"><i class="lnr lnr-file-add"></i> <span>Forms</span></a></li>
                 @endif
 
                 <li>
-                    <a href="#subPages1" data-toggle="collapse" class="collapsed"><i class="lnr lnr-cog"></i> <span>Settings</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <a href="#subPages1" data-toggle="collapse" class="collapsed "><i class="lnr lnr-cog"></i> <span>Settings</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                     <div id="subPages1" class="collapse ">
                         <ul class="nav">
-                            <li><a href="/{{auth()->user()->id}}/profile" class=""><i class="fa fa-user-circle-o"></i><span>My Profile</span></a></li>
-                            <li><a href="/auth/ubahpass" class=""><i class="fa fa-lock"></i><span>Change Password</span></a></li>
+                            <li><a href="/{{auth()->user()->id}}/profile" class="{{Request::is(auth()->user()->id.'/profile')?'active':''}}"><i class="fa fa-user-circle-o"></i><span>My Profile</span></a></li>
+                            <li><a href="/auth/ubahpass" class="{{Request::is('auth/ubahpass*')?'active':''}}"><i class="fa fa-expeditedssl"></i><span>Change Password</span></a></li>
                             @role('Admin')
-                            <li><a href="/log" class=""><i class="fa fa-group"></i><span>Log Activity</span></a></li>
-                            <li><a href="/roles" class=""><i class="fa fa-drivers-license-o"></i><span>Roles</span></a></li>
-                            <li><a href="/permission" class=""><i class="fa fa-unlock-alt"></i><span>Permissions</span></a></li>
-                            <li><a href="/users" class=""><i class="fa fa-address-book-o"></i><span>Account Access</span></a></li>
+                            <li><a href="/log" class="{{(request()->is('log*'))?'active': ''}}"><i class="fa fa-group"></i><span>Log Activity</span></a></li>
+                            <li><a href="/roles" class="{{(request()->is('roles*'))?'active': ''}}"><i class="fa fa-drivers-license-o"></i><span>Roles</span></a></li>
+                            <li><a href="/permission"  class="{{(request()->is('permission*'))?'active': ''}}"><i class="fa fa-key"></i><span>Permissions</span></a></li>
+                            <li><a href="/users" class="{{(request()->is('users*'))?'active': ''}}"><i class="fa fa-address-book-o"></i><span>Account Access</span></a></li>
                             @endrole
                         </ul>
                     </div>

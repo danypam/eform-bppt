@@ -44,7 +44,7 @@
                                                         NIP
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <b><span  class="dropdown-item " >NIP 1 : {{$peg->nip}}</span><br>
+                                                        <span  class="dropdown-item " >NIP 1 : {{$peg->nip}}</span><br>
                                                             <span class="dropdown-item" >NIP 2 : {{$peg->nip18}}</span>
                                                     </div>
                                                 </div>
@@ -120,14 +120,14 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Name</label>
+                            <label for="exampleFormControlInput1">Full Name</label>
                             <input name="nama_lengkap" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Lengkap"value="{{old('nama_lengkap')}}"pattern="[A-Za-z\.,\s]{2,}"required>
                             <small id="fullname" class="form-text text-muted">Letters Only</small>
 
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Phone Number</label>
-                            <input name="no_hp" type="tel" class="form-control" id="exampleFormControlInput1" placeholder="No Telp"pattern="\d{6,13}$" value="{{old('no_hp')}}"required>
+                            <input name="no_hp" type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Nomor HP"pattern="\d{6,13}$" value="{{old('no_hp')}}"required>
                             <small id="hp" class="form-text text-muted">6-13 Numeric Characters Only </small>
 
                         </div>

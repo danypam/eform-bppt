@@ -10,75 +10,207 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INBOX</h3>
+                                <h3 class="panel-title">INBOX</h3><br>
+                                <ul class="nav nav-tabs">
+                                    <li  class="active" id="tab-primary"><a href="#inbox">Primary</a></li>
+                                    <li id="tab-approved"><a href="#inbox">Approved</a></li>
+                                    <li id="tab-rejected"><a href="#inbox">Rejected</a></li>
+                                </ul>
                             </div>
                             <div class="panel-body">
-                                <table class="table table-hover" id="datatable">
-                                    <thead>
-                                    <tr>
-                                        <th>Email</th>
-                                        <th>Name</th>
-                                        <th>Form Type</th>
-                                        <th>Status</th>
-                                        <th>Created At</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($inboxs as $inbox)
+                            {{--  primary  --}}
+                                <div id="primary">
+                                    <table class="table table-hover datatable">
+                                        <thead>
                                         <tr>
-                                            <td>{{$inbox->email}}</td>
-                                            <td>{{$inbox->nama_lengkap}}</td>
-                                            <td>{{$inbox->name}}</td>
-                                            @if($inbox->status == -1)
-                                            <td><span class="label label-danger">REJECTED</span></td>
-                                            @endif
-                                            @if($inbox->status == 0)
-                                                <td><span class="label label-primary">NEW</span></td>
-                                            @endif
-                                            @if($inbox->status == 1)
-                                                <td><span class="label label-warning">PENDING</span></td>
-                                            @endif
-                                            @if($inbox->status == 2)
-                                            <td><span class="label label-primary">ON GOING</span></td>
-                                            @endif
-                                            @if($inbox->status == 3)
-                                                <td>C<span class="label label-success">COMPLETE</span></td>
-                                            @endif
-                                            <td>{{$inbox->created_at}}</td>
-                                            <td>
-                                                <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
-
-                                                @if($inbox->status == -1)
-                                                    <a href="/submissions/{{$inbox->submission_id}}/approve" class="btn btn-primary btn-sm hidden">Approve</a>
-                                                    <a href="/submissions/{{$inbox->submission_id}}/reject" class="btn btn-danger btn-sm hidden">Reject</a>
-                                                    @else
-                                                    <a href="/submissions/{{$inbox->submission_id}}/approve" class="btn btn-primary btn-sm">Approve</a>
-                                                    <a href="/submissions/{{$inbox->submission_id}}/reject" class="btn btn-danger btn-sm">Reject</a>
-                                                @endif
-
-                                            </td>
+                                            <th>Email</th>
+                                            <th>Name</th>
+                                            <th>Form Type</th>
+                                            <th>Status</th>
+                                            <th>Notes</th>
+                                            <th>Created At</th>
+                                            <th>Action</th>
                                         </tr>
-                                    @endforeach
+                                        </thead>
+                                        <tbody>
+                                        @foreach($primary_inboxs as $inbox)
+                                            <tr>
+                                                <td>{{$inbox->email}}</td>
+                                                <td>{{$inbox->nama_lengkap}}</td>
+                                                <td>{{$inbox->name}}</td>
+                                                @if($inbox->status == -1)
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <a type="button" class="label label-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                Rejected
+                                                            </a>
+                                                            <div class="dropdown-menu" style="padding: 2px">
+                                                                <h6  class="dropdown-item">Permohonan anda telah ditolak </h6>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                @endif
+                                                @if($inbox->status == 0)
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <a type="button" class="label label-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                New
+                                                            </a>
+                                                            <div class="dropdown-menu" style="padding: 2px">
+                                                                <h6  class="dropdown-item">Menunggu persetujuan atasan</h6>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                @endif
+                                                @if($inbox->status == 1)
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <a type="button" class="label label-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                Pending
+                                                            </a>
+                                                            <div class="dropdown-menu" style="padding: 2px">
+                                                                <h6  class="dropdown-item">Menunggu persetujuan Kepala BII</h6>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                @endif
+                                                @if($inbox->status == 2 || $inbox->status == 3)
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <a type="button" class="label label-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                ON GOING
+                                                            </a>
+                                                            <div class="dropdown-menu" style="padding: 2px">
+                                                                <h6  class="dropdown-item">Permohonan Sedang Diproses</h6>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                @endif
+                                                @if($inbox->status == 4)
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <a type="button" class="label label-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                Completed
+                                                            </a>
+                                                            <div class="dropdown-menu" style="padding: 2px">
+                                                                <h6  class="dropdown-item">Permohonan Telah Diproses</h6>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                @endif
+                                                <td>{{$inbox->keterangan}}</td>
+                                                <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($inbox->created_at)}}</td>
+                                                <td>
+                                                    <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                @can('inbox-management')
 
-{{--                                            <td><span class="label label-success">{{$peg->status}}</span></td>--}}
-{{--                                            --}}{{--                                            @if($peg->status == '1')--}}
-{{--                                            --}}{{--                                            {--}}
-{{--                                            --}}{{--                                                <td>Aktif</td>--}}
-{{--                                            --}}{{--                                            }@else{--}}
-{{--                                            --}}{{--                                                <td>Tidak Akif</td>--}}
-{{--                                            --}}{{--                                            }--}}
-{{--                                            <td>--}}
-{{--                                                @can('pegawai-edit')--}}
-{{--                                                    <a href="/pegawai/{{$peg->id}}/edit" class="btn btn-warning btn-sm">Ubah</a>--}}
-{{--                                                @endcan--}}
-{{--                                                @can('pegawai-delete')--}}
-{{--                                                    <a href="#" class="btn btn-danger btn-sm delete" pegawai-id="{{$peg->id}}">Hapus</a>--}}
-{{--                                                @endcan--}}
-{{--                                            </td>--}}
-{{--                                        </tr>--}}
-                                    </tbody>
-                                </table>
+                                                        @if(!($inbox->status == config("constants.status.rejected") || ($inbox->status > config("constants.status.pending"))))
+                                                            @if(auth()->user()->can('inbox-approve-mengetahui') && $inbox->status == config("constants.status.new"))
+                                                                <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-primary btn-sm">Approve</a>
+                                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
+
+                                                            @elseif(auth()->user()->can('inbox-approve-mengetahui') && auth()->user()->can('inbox-approve-menyetujui'))
+                                                                <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-primary btn-sm">Approve</a>
+                                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
+                                                            @elseif(auth()->user()->can('inbox-approve-menyetujui') && $inbox->status == config("constants.status.pending"))
+                                                                <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-primary btn-sm">Approve</a>
+                                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
+                                                            @endif
+                                                        @endif
+                                                @endcan
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                {{-- approved --}}
+                                <div id="approved" class="hidden">
+                                    <table class="table table-hover datatable" >
+                                        <thead>
+                                        <tr>
+                                            <th>Email</th>
+                                            <th>Name</th>
+                                            <th>Form Type</th>
+                                            <th>Status</th>
+                                            <th>Created At</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($approved_inboxs as $inbox)
+                                            <tr>
+                                                <td>{{$inbox->email}}</td>
+                                                <td>{{$inbox->nama_lengkap}}</td>
+                                                <td>{{$inbox->name}}</td>
+                                                @if($inbox->status == -1)
+                                                    <td><span class="label label-danger">REJECTED</span></td>
+                                                @endif
+                                                @if($inbox->status == 0)
+                                                    <td><span class="label label-primary">NEW</span></td>
+                                                @endif
+                                                @if($inbox->status == 1)
+                                                    <td><span class="label label-warning">PENDING</span></td>
+                                                @endif
+                                                @if($inbox->status == 2 || $inbox->status == 3)
+                                                    <td><span class="label label-primary">ON GOING</span></td>
+                                                @endif
+                                                @if($inbox->status == 4)
+                                                    <td><span class="label label-success">COMPLETE</span></td>
+                                                @endif
+                                                <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($inbox->created_at)}}</td>
+                                                <td>
+                                                    <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                </td>
+                                            </tr>
+                                             @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{-- Rejected  --}}
+                                <div id="rejected" class="hidden">
+                                    <table class="table table-hover datatable" >
+                                        <thead>
+                                        <tr>
+                                            <th>Email</th>
+                                            <th>Name</th>
+                                            <th>Form Type</th>
+                                            <th>Status</th>
+                                            <th>Created At</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($rejected_inboxs as $inbox)
+                                            <tr>
+                                                <td>{{$inbox->email}}</td>
+                                                <td>{{$inbox->nama_lengkap}}</td>
+                                                <td>{{$inbox->name}}</td>
+                                                @if($inbox->status == -1)
+                                                    <td><span class="label label-danger">REJECTED</span></td>
+                                                @endif
+                                                @if($inbox->status == 0)
+                                                    <td><span class="label label-primary">NEW</span></td>
+                                                @endif
+                                                @if($inbox->status == 1)
+                                                    <td><span class="label label-warning">PENDING</span></td>
+                                                @endif
+                                                @if($inbox->status == 2 || $inbox->status == 3)
+                                                    <td><span class="label label-primary">ON GOING</span></td>
+                                                @endif
+                                                @if($inbox->status == 4)
+                                                    <td><span class="label label-success">COMPLETE</span></td>
+                                                @endif
+                                                <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($inbox->created_at)}}</td>
+                                                <td>
+                                                    <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -87,125 +219,119 @@
         </div>
     </div>
 
-    <!-- Modal -->
-{{--    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
-{{--        <div class="modal-dialog" role="document">--}}
-{{--            <div class="modal-content">--}}
-{{--                <div class="modal-header">--}}
-{{--                    <h5 class="modal-title" id="exampleModalLabel">TAMBAH DATA JABATAN</h5>--}}
-{{--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-{{--                        <span aria-hidden="true">&times;</span>--}}
-{{--                    </button>--}}
-{{--                </div>--}}
-{{--                <div class="modal-body">--}}
-{{--                    <form action="/pegawai/create" method="POST">--}}
-{{--                        {{csrf_field()}}--}}
-{{--                        <div class="form-group">--}}
-{{--                            <label for="exampleFormControlInput1">NIP 1</label>--}}
-{{--                            <input name="nip" type="text" class="form-control" id="exampleFormControlInput1" placeholder="NIP 1">--}}
-{{--                        </div>--}}
-{{--                        <div class="form-group">--}}
-{{--                            <label for="exampleFormControlInput1">NIP 2</label>--}}
-{{--                            <input name="nip18" type="text" class="form-control" id="exampleFormControlInput1" placeholder="NIP 2">--}}
-{{--                        </div>--}}
-{{--                        <div class="form-group">--}}
-{{--                            <label for="exampleFormControlInput1">Nama Lengkap</label>--}}
-{{--                            <input name="nama_lengkap" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nama Lengkap">--}}
-{{--                        </div>--}}
-{{--                        <div class="form-group">--}}
-{{--                            <label for="exampleFormControlInput1">No Telp</label>--}}
-{{--                            <input name="no_hp" type="text" class="form-control" id="exampleFormControlInput1" placeholder="No Telp">--}}
-{{--                        </div>--}}
-{{--                        <div class="form-group">--}}
-{{--                            <label for="exampleFormControlInput1">Email</label>--}}
-{{--                            <input name="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email">--}}
-{{--                        </div>--}}
-{{--                        <div class="form-group">--}}
-{{--                            <label for="exampleFormControlSelect1">Unit Kerja</label>--}}
-{{--                            <select name="unit_id" class="form-control" id="exampleFormControlSelect1">--}}
-{{--                                <option value="">-pilih-</option>--}}
-{{--                                @foreach($data_unit as $unit)--}}
-{{--                                    <option value="{{$unit->id}}">{{$unit->nama_unit}}</option>--}}
-{{--                                @endforeach--}}
-{{--                            </select>--}}
-{{--                        </div>--}}
-{{--                        <div class="form-group">--}}
-{{--                            <label for="exampleFormControlSelect1">Jabatan</label>--}}
-{{--                            <select name="jabatan_id" class="form-control" id="exampleFormControlSelect1">--}}
-{{--                                <option value="">-pilih-</option>--}}
-{{--                                @foreach($data_jabatan as $jab)--}}
-{{--                                    <option value="{{$jab->id}}">{{$jab->nama_jabatan}}</option>--}}
-{{--                                @endforeach--}}
-{{--                            </select>--}}
-{{--                        </div>--}}
-{{--                        <div class="form-group">--}}
-{{--                            <label for="exampleFormControlSelect1">Unit Jabatan</label>--}}
-{{--                            <select name="unit_jabatan_id" class="form-control" id="exampleFormControlSelect1">--}}
-{{--                                <option value="">-pilih-</option>--}}
-{{--                                @foreach($data_unitjab as $unjab)--}}
-{{--                                    <option value="{{$unjab->id_unit_jabatan}}">{{$unjab->unit}}</option>--}}
-{{--                                @endforeach--}}
-{{--                            </select>--}}
-{{--                        </div>--}}
-{{--                        <div class="form-group">--}}
-{{--                            <label for="exampleFormControlSelect1">Nama Atasan</label>--}}
-{{--                            <select name="nip_atas" class="form-control" id="exampleFormControlSelect1">--}}
-{{--                                <option value="">-pilih-</option>--}}
-{{--                                @foreach($pegawai as $p)--}}
-{{--                                    <option value="{{$p->id}}">{{$p->nama_lengkap}}</option>--}}
-{{--                                @endforeach--}}
-{{--                            </select>--}}
-{{--                        </div>--}}
-{{--                        <div class="form-group">--}}
-{{--                            <label for="exampleFormControlSelect1">Role</label>--}}
-{{--                            <select name="role" class="form-control" id="exampleFormControlSelect1">--}}
-{{--                                <option value="">-pilih-</option>--}}
-{{--                                @foreach($data_role as $rol)--}}
-{{--                                    <option value="{{$rol->name}}">{{$rol->name}}</option>--}}
-{{--                                @endforeach--}}
-{{--                            </select>--}}
-{{--                        </div>--}}
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Keterangan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{route('inbox.update','test')}}" method="post">
+                        {{method_field('patch')}}
+                        {{csrf_field()}}
+                            <input type="hidden" name="submission_id" id="id" value="" >
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Keterangan</label>
+                            <textarea name="keterangan" type="text" class="form-control" placeholder="Alasan di ditolak"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Reject</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="approve" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Keterangan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/submissions/approve" method="post">
+                        {{csrf_field()}}
+                        <input type="hidden" name="submission_id" id="id" value="" >
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Keterangan</label>
+                            <textarea name="keterangan" type="text" class="form-control" placeholder="Silakan Isi Keterangan Jika Diperlukan"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Approve</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-{{--                </div>--}}
-{{--                <div class="modal-footer">--}}
-{{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
-{{--                    <button type="submit" class="btn btn-primary">Simpan</button>--}}
-{{--                    </form>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
 @stop
 @section('footer')
     <script>
+        /*tab*/
         $(document).ready(function () {
+            {{--    togle tab--}}
+            $('.datatable').DataTable();
+            $( '#tab-approved' ).on('click', function() {
+                $( "#primary" ).addClass( "hidden" );
+                $( "#rejected" ).addClass( "hidden");
+                $( "#approved" ).removeClass( "hidden");
+
+
+                $( "#tab-approved" ).addClass( "active");
+                $( "#tab-primary" ).removeClass( "active");
+                $( "#tab-rejected" ).removeClass( "active");
+
+            });
+            $( "#tab-primary" ).on('click', function() {
+                $( "#primary" ).removeClass( "hidden" );
+                $( "#approved" ).addClass( "hidden" );
+                $( "#rejected" ).addClass( "hidden" );
+
+                $( "#tab-primary" ).addClass( "active");
+                $( "#tab-approved" ).removeClass( "active");
+                $( "#tab-rejected").removeClass( "active");
+            });
+            $( "#tab-rejected" ).on('click', function() {
+                $( "#rejected" ).removeClass( "hidden" );
+                $( "#approved" ).addClass( "hidden" );
+                $( "#primary" ).addClass( "hidden" );
+
+                $( "#tab-rejected" ).addClass( "active");
+                $( "#tab-approved" ).removeClass( "active");
+                $( "#tab-primary" ).removeClass( "active");
+            });
             $('#datatable').DataTable({
-                scrollY:     300,
-                scroller:    true
             });
+        });
+        $('#edit').on('show.bs.modal',function (event) {
 
-            $('.delete').click(function () {
-                var peg_id = $(this).attr('pegawai-id');
-                swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            swal("Poof! Your data has been deleted!", {
-                                icon: "success",
-                            });
-                            window.location = "/pegawai/"+peg_id+"/delete";
-                        } else {
-                            swal("Your data is safe!");
-                        }
-                    });
-            });
+           var button = $(event.relatedTarget)
+           var id = button.data('id')
+           var keterangan = button.data('ket')
+           var modal = $(this)
 
-        })
+           modal.find('.modal-body #id').val(id);
+           modal.find('.modal-body #ket').val(keterangan);
+        });
+        $('#approve').on('show.bs.modal',function (event) {
+
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var keterangan = button.data('ket')
+            var modal = $(this)
+
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #ket').val(keterangan);
+        });
     </script>
 
 @stop

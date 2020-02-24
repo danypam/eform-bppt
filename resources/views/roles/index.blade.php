@@ -13,7 +13,7 @@
                                 <h3 class="panel-title">ROLES</h3>
                                 <div class="right">
                                     @can('role-create')
-                                        <a class="btn btn-primary" href="{{ route('roles.create') }}"> Create New Role</a>
+                                        <a class="btn btn-info btn-lg" href="{{ route('roles.create') }}"> Create New Role</a>
                                     @endcan
                                 </div>
                             </div>
@@ -34,7 +34,7 @@
                                             <td>{{ $role->name }}</td>
                                             <td>{{$role->created_at}}</td>
                                             <td>
-                                                <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a>
+                                                <a class="btn btn-secondary" href="{{ route('roles.show',$role->id) }}">Show</a>
                                                 @can('role-edit')
                                                     <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Access</a>
                                                 @endcan
@@ -61,7 +61,9 @@
 @section('footer')
     <script>
         $(document).ready(function () {
-            $('#datatable').DataTable();
+            $('#datatable').DataTable({
+                scroller:    true,
+            });
 
             $('.delete').click(function () {
                 var user_id = $(this).attr('user-id');

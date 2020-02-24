@@ -52,7 +52,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard','DashboardController@index');
-Route::get('/login','AuthController@login');
+Route::get('/login','AuthController@login')->name('login');
 Route::post('/postlogin','AuthController@postlogin');
 Route::get('/logout','AuthController@logout');
 
@@ -112,8 +112,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('/formulir', 'FormulirController');
 
     Route::resource('/inbox', 'InboxController');
-    Route::get('/submissions/{id}/approve','InboxController@approve');
-    Route::get('/submissions/{id}/reject','InboxController@reject');
+    Route::post('/submissions/approve','InboxController@approve');
+//    Route::post('/submissions/{id}/reject','InboxController@reject');
 
     Route::get('/dashboard','DashboardController@index');
 //    Route::get('/{id}/profile','PegawaiController@profile');
@@ -122,6 +122,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/{id}/submission_pdf','ExportController@submission_pdf');
 
     Route::resource('/task', 'PicController');
+    Route::get('/task/{form_id}/submissions/{submission_id}','PicController@show');
+    Route::get('/task/{id}/take','PicController@take');
+    Route::get('/task/{id}/cancel','PicController@cancel');
+    Route::post('/task/complete','PicController@complete');
 
-    Route::post('/notification/submission/notification','RenderFormController@notification');
 });
+    Route::post('/notification/get','NotifikasiController@get');
+    Route::post('/notification/read','NotifikasiController@read');
+    Route::get('/submission/{id?}','NotifikasiController@show');
+
+
+

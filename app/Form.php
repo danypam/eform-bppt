@@ -11,12 +11,9 @@ use App\User;
 use App\Submission;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Spatie\Activitylog\LogsActivityInterface;
-use Spatie\Activitylog\LogsActivity;
 
-class Form extends Model implements LogsActivityInterface
+class Form extends Model
 {
-    use LogsActivity;
 
     const FORM_PUBLIC = "PUBLIC";
     const FORM_PRIVATE = "PRIVATE";
@@ -144,6 +141,11 @@ class Form extends Model implements LogsActivityInterface
                     ->paginate(100);
     }
 
+    public static function chart()
+    {
+
+    }
+
     /**
      * Get an array containing the name of the fields in the form and their label
      *
@@ -162,25 +164,5 @@ class Form extends Model implements LogsActivityInterface
                             'type' => $entry['type'] ?? null,
                         ];
                     });
-    }
-
-    public function getActivityDescriptionForEvent($eventName)
-    {
-        if ($eventName == 'created')
-        {
-            return 'Form was created';
-        }
-
-        if ($eventName == 'updated')
-        {
-            return 'Form  was updated';
-        }
-
-        if ($eventName == 'deleted')
-        {
-            return 'Form  was deleted';
-        }
-
-        return '';
     }
 }

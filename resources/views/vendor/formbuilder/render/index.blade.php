@@ -1,5 +1,7 @@
 @extends('formbuilder::layout')
-
+@section('head')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
+@endsection
 @section('content')
     <div class="main">
         <div class="main-content">
@@ -10,11 +12,12 @@
                             <div class="col-md-10">
                                 <div class="card rounded-0">
                                     <div class="card-header">
-                                        <h1 class="card-title">{{ $pageTitle }}</h1>
+                                        <h1 class="card-title">{{ $pageTitle}}</h1>
                                     </div>
 
                                     <form action="{{ route('formbuilder::form.submit', $form->identifier) }}" method="POST" id="submitForm" enctype="multipart/form-data">
                                         @csrf
+
 
                                         <div class="card-body">
                                             <div id="fb-render"></div>
@@ -34,11 +37,23 @@
             </div>
         </div>
     </div>
-@endsection
 
+@endsection
+@section('footer')
+    <script>
+        $( '.card-title' ).on('click',function() {
+            alert('wadidaw')
+            $('.rendered-form').addClass('form-horizontal');
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"/>
+@endsection
 @push(config('formbuilder.layout_js_stack', 'scripts'))
-<script type="text/javascript">
+
+<script>
     window._form_builder_content = {!! json_encode($form->form_builder_json) !!}
+    console.log(window._form_builder_content);
 </script>
 <script src="{{ asset('vendor/formbuilder/js/render-form.js') }}{{ jazmy\FormBuilder\Helper::bustCache() }}" defer></script>
+
 @endpush
