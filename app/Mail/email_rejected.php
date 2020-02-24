@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class email_kepala extends Mailable
+class email_rejected extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -29,7 +29,7 @@ class email_kepala extends Mailable
     public function build()
     {
         $detail=$this->details;
-        return $this->subject('You Have One Form to Approved')
-            ->view('email.sendmailkepala', compact('detail'));
+        return $this->subject('Sorry, your form is rejected')
+            ->view('email.sendmailrejected', compact('detail'));
     }
 }

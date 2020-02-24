@@ -56,23 +56,7 @@ class RenderFormController extends Controller
     public function submit(Request $request, $identifier)
     {
         $form = Form::where('identifier', $identifier)->firstOrFail();
-        $details = [
-            'title' => 'Annisa Daffa',
-            'body' => 'Please check this link'
-        ];
-
-        \Mail::to('littleodysoo@gmail.com')->send(new email_atasan($details));
         DB::beginTransaction();
-
-        $users = User::whereHas('roles',function($q){
-            $q->where('name','atasan');
-        })->get();
-        if (\Notification::send($users, new NewForm(Submission::latest('id')->first())))
-        {
-            return back();
-        }
-
-
         try {
             $input = $request->except('_token');
 
@@ -92,12 +76,51 @@ class RenderFormController extends Controller
                 'user_id' => $user_id,
                 'status' => 0,
                 'content' => $input,
-            ]);
+            ])->id;
+
+            $userid = $this->getAtasan();
+//            $users = User::whereHas('roles',function($q){
+//                $q->where('name','atasan');
+//            })->get();
+
+            if (isset($userid[0]))
+            {
+                try {
+                    \Notification::send($userid[0], new NewForm(Submission::latest('id')->first()));
+                }catch (Throwable $e){
+                }
+            }
+            if (isset($userid[1]))
+            {
+                try {
+                    \Notification::send($userid[1], new NewForm(Submission::latest('id')->first()));
+                }catch (Throwable $e){
+                }
+            }
+            LogActivity::addToLog('Submitted Form'.$form->name);
+
+            $submission = Submission::where(['user_id' => $user_id, 'id' => $submission_id])->with('form')->firstOrFail();
+
+            $details = [
+                'name' => auth()->user()->name,
+                'url'    => url('/inbox/'.$submission_id),
+                'submission' => $submission,
+                'identitas' => Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id', '=', auth()->user()->id)->firstOrFail(),
+                'form_headers' => $submission->form->getEntriesHeader(),
+                'pageTitle' => "View Submission"
+            ];
+            $email = $this->getEmail();
+            //dd($email);
+            if(isset($email[0])){
+                \Mail::to($email[0])->send(new email_atasan($details));
+            }
+            if(isset($email[1])){
+                \Mail::to($email[1])->send(new email_atasan($details));
+            }
             DB::commit();
-            return redirect()
-                    ->route('formbuilder::form.feedback', $identifier)
-                    ->with('success', 'Form successfully submitted. Please wait');
+            return redirect('/my-submissions')->with('sukses', 'Formulir berhasil diajukan. Mohon ditunggu');
         } catch (Throwable $e) {
+            dd($e);
             info($e);
 
             DB::rollback();
@@ -106,8 +129,58 @@ class RenderFormController extends Controller
         }
 
     }
-    public function notification(){
-        return auth()->user()->unreadNotifications;
+
+    private function getAtasan(){
+        $unit_jabatan_user = DB::table('pegawai')
+            ->select('unit_jabatan_id')
+            ->where('user_id',auth()->user()->id)
+            ->first();
+        $id_unitatas = DB::table('unit_jabatan')
+            ->join('pegawai','pegawai.unit_jabatan_id','=','unit_jabatan.id_unit_jabatan')
+            ->select('kode_unitatas1','kode_unitatas2')
+            ->where('id_unit_jabatan','=',$unit_jabatan_user->unit_jabatan_id)
+            ->first();
+        $id1 = DB::table('pegawai')
+            ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas1)
+            ->select('user_id','email')
+            ->first();
+        $id2 = DB::table('pegawai')
+            ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas2)
+            ->select('user_id','email')
+            ->first();
+
+        if(isset($id1)){
+            $userid[] = User::find($id1->user_id);
+        }
+        if (isset($id2)){
+            $userid[] = User::find($id2->user_id);
+        }
+//        $userid =$userid? $userid:0;
+        return $userid;
+    }
+
+    private function getEmail(){
+        $unit_jabatan_user=DB::table('pegawai')
+            ->select('unit_jabatan_id')
+            ->where('user_id',auth()->user()->id)
+            ->first();
+        $id_unitatas = DB::table('unit_jabatan')
+            ->join('pegawai as p', 'p.unit_jabatan_id', '=', 'id_unit_jabatan')
+            ->select('kode_unitatas1', 'kode_unitatas2')
+            ->where('id_unit_jabatan', '=', $unit_jabatan_user->unit_jabatan_id )
+            ->first();
+
+        $email1=DB::table('pegawai')
+            ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas1)
+            ->select('email')
+            ->first();
+
+        $email2=DB::table('pegawai')
+            ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas2)
+            ->select('email')
+            ->first();
+
+        return $email[] = [$email1,$email2];
     }
 
     /**

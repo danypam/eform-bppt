@@ -29,7 +29,7 @@ class email_atasan extends Mailable
     public function build()
     {
         $detail=$this->details;
-        return $this->subject('Mail from Admin BPPT')
+        return $this->subject('You Have One Form to Approved')
             ->view('email.sendmail', compact('detail'));
     }
 }
