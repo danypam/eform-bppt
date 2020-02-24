@@ -156,8 +156,11 @@
                                                    <a href="/task/{{$submission->id}}/take" class="btn btn-primary btn-sm">Take</a>
 
                                                @elseif($submission->status == config("constants.status.onGoing"))
-                                                   <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
-                                                   <a href="/task/{{$submission->id}}/complete" class="btn btn-success btn-sm">Complete</a>
+                                                    <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
+                                                    <a href="/task/{{$submission->id}}/complete" class="btn btn-success btn-sm">Complete</a>
+                                                    <a href="/{{$submission->id}}/submission_pdf" class="btn btn-warning btn-sm" title="Export PDF">
+                                                        <i class="fa fa-eye"></i> Export PDF
+                                                    </a>
 
                                                @elseif($submission->status == config("constants.status.completed"))
                                                    <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>

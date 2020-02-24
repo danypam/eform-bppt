@@ -173,7 +173,7 @@ class RenderFormController extends Controller
             ->select('user_id','email')
             ->first();
 
-        $userid = 0;
+
         if(isset($id1)){
             $userid[] = User::find($id1->user_id);
         }
@@ -181,6 +181,8 @@ class RenderFormController extends Controller
             $userid[] = User::find($id2->user_id);
         }
         $userid = $userid ? $userid : 0;
+
+        //dd($userid);
 
 
         return $userid;
