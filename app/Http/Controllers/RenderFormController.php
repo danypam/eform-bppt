@@ -86,10 +86,12 @@ class RenderFormController extends Controller
                     $q->where('is_deputi','>',config('constants.status.new'))
                         ->orWhere('is_unit','>',config('constants.status.new'))
                         ->orWhere('is_kabppt','>',config('constants.status.new'));
-                })->get();
+                })->first();
+
+
 
             $status = $status?  config('constants.status.pending') : config('constants.status.new');
-
+            dd($status);
             $user_id = auth()->user()->id ?? null;
             $submission_id = $form->submissions()->create([
                 'user_id' => $user_id,
@@ -173,14 +175,14 @@ class RenderFormController extends Controller
             ->select('user_id','email')
             ->first();
 
-        $userid = 0;
+ //       $userid[] = 0;
         if(isset($id1)){
             $userid[] = User::find($id1->user_id);
         }
         if (isset($id2)){
             $userid[] = User::find($id2->user_id);
         }
-        $userid = $userid ? $userid : 0;
+   //     $userid = $userid ? $userid : 0;
 
 
         return $userid;
