@@ -13,15 +13,20 @@ jQuery(function() {
             icon: '🌟'
         }],
         templates: {
-            starRating: function(fieldData) {
-                return {
-                    field: '<span id="' + fieldData.name + '">',
-                    onRender: function() {
-                        $(document.getElementById(fieldData.name)).rateYo({
-                            rating: 3.6
-                        });
+            templates:{
+                datetimepicker: function(fieldData) {
+                    return {
+                        field: ' <input type="text" id="' + fieldData.name + '" class="form-control" value="' + fieldData.value + '"/>',
+                        onRender: function() {
+                            $(document.getElementById(fieldData.name)).daterangepicker({
+                                timePicker: true,
+                                locale: {
+                                    format: 'DD/MM/YYYY hh:mm A'
+                                }
+                            });
+                        }
                     }
-                };
+                },
             }
         },
 	}

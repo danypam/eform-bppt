@@ -21,7 +21,6 @@
     @stack('styles')
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
     <link  rel="stylesheet" href="{{asset('css/main.css')}}" />
-    <link rel="stylesheet" href="{{asset('css/demo.css')}}">
 
     <!-- GOOGLE FONTS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -69,7 +68,7 @@
 <!-- Javascript -->
 <script src="{{asset('assets/vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-<script  src="{{asset('assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
+<script  src="{{asset('assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js')}}" defer></script>
 <script  src="{{asset('assets/scripts/klorofil-common.js')}}"></script>
 <script  src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js" defer></script>
