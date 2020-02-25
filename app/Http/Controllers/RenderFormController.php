@@ -15,6 +15,7 @@ use jazmy\FormBuilder\Helper;
 use jazmy\FormBuilder\Models\Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Null_;
 use Spatie\Permission\Models\Role;
 use Throwable;
 use App\User;
@@ -91,11 +92,16 @@ class RenderFormController extends Controller
 
             if (isset($userid[0]))
             {
-                \Notification::send($userid[0], new NewForm(Submission::latest('id')->first()));
+                try {
+                    \Notification::send($userid[0], new NewForm(Submission::latest('id')->first()));
+                }catch (Throwable $e){}
+
             }
             if (isset($userid[1]))
             {
-                \Notification::send($userid[1], new NewForm(Submission::latest('id')->first()));
+                try {
+                    \Notification::send($userid[1], new NewForm(Submission::latest('id')->first()));
+                }catch (Throwable $e){}
             }
             LogActivity::addToLog('Submitted Form'.$form->name);
 
@@ -125,6 +131,7 @@ class RenderFormController extends Controller
             return redirect('/my-submissions')->with('sukses', 'Formulir Berhasil diajukan');
         } catch (Throwable $e) {
             info($e);
+//            dd($e);
             DB::rollback();
 
             return back()->withInput()->with('error', Helper::wtf());
@@ -150,16 +157,18 @@ class RenderFormController extends Controller
             ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas2)
             ->select('user_id','email')
             ->first();
-
+    
         if(isset($id1)){
             $userid[] = User::find($id1->user_id);
         }
         if (isset($id2)){
             $userid[] = User::find($id2->user_id);
         }
+        $userid = $userid ? $userid : 0;
 
-        //dd($userid);
+//        dd($userid);
         return $userid;
+
     }
 
     private function getEmail(){

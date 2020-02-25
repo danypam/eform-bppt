@@ -206,8 +206,12 @@
                         {{csrf_field()}}
                         <input type="hidden" name="submission_id" id="id" value="" >
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Keterangan</label>
-                            <textarea name="keterangan" type="text" class="form-control" placeholder="Silakan Isi Keterangan Jika Diperlukan"></textarea>
+                            <label for="exampleFormControlInput1">Keterangan Sebelumnya</label>
+                            <textarea name="keterangan1" type="text" class="form-control" id="ket" readonly placeholder="Tidak ada keterangan"></textarea>
+                        </div>
+                            <div class="form-group">
+                            <label for="exampleFormControlInput1">Tambah Keterangan</label>
+                            <textarea name="keterangan2" type="text" class="form-control" placeholder="Silakan Isi Keterangan Jika Diperlukan"></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

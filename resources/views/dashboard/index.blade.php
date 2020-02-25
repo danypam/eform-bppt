@@ -1,6 +1,29 @@
 @extends('layouts.master')
 
 @section('content')
+    <div class="main">
+        <div class="main-content">
+            <div class="container-fluid">
+                <!-- OVERVIEW -->
+                <div class="panel panel-headline">
+                    <div class="panel-heading">
+                        <div class="padding-top-30">
+                        <h1 class="panel-title text-center">SELAMAT DATANG DI PUSAT BANTUAN SISTEM INFORMASI</h1>
+                        <h1 class="panel-title text-center"><b>E-FORM SERVICE DESK</b></h1>
+                        <h1 class="panel-title text-center">PUSAT MANAJEMEN INFORMASI</h1>
+                        <h4 class="panel-title text-center">Bidang Infrastruktur Informasi</h4>
+                            @role('member')
+                            <a href="/formulir"><p style="text-align: center"><b>>> Saya ingin mengajukan surat <<</b></p></a>
+                            @endrole
+                            @role('atasan')
+                            <a href="/inbox"><p style="text-align: center"><b>>> Lihat daftar pengajuan surat <<</b></p></a>
+                            @endrole
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     @can('dashboard-all')
     <div class="main">
         <!-- MAIN CONTENT -->

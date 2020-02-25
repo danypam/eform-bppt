@@ -23,8 +23,8 @@
                                                     <th class="five">NO</th>
                                                     <th class="">Form Type</th>
                                                     <th class="twenty-five">Status</th>
-                                                    <th class="twenty-five">Created At</th>
                                                     <th class="twenty-five">Keterangan</th>
+                                                    <th class="twenty-five">Created At</th>
                                                     <th class="fifteen">Actions</th>
                                                 </tr>
                                                 </thead>
@@ -35,21 +35,41 @@
                                                         <td>{{ $submission->form->name }}</td>
                                                         @if($submission->status == -1)
                                                             <td><span class="label label-danger">REJECTED</span></td>
+                                                            @foreach($pegawai as $p)
+                                                                @if($p->id == $submission->rejected)
+                                                                    <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$submission->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                                @endif
+                                                            @endforeach
                                                         @endif
                                                         @if($submission->status == 0)
                                                             <td><span class="label label-primary">NEW</span></td>
+                                                            <td><a href="#" class="label label-default view" data-ket="{{$submission->keterangan}}">LIHAT KETERANGAN</a></td>
                                                         @endif
                                                         @if($submission->status == 1)
                                                             <td><span class="label label-warning">PENDING</span></td>
+                                                            @foreach($pegawai as $p)
+                                                                @if($p->id == $submission->mengetahui)
+                                                            <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$submission->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                                @endif
+                                                            @endforeach
                                                         @endif
                                                         @if($submission->status == 2 || $submission->status == 3)
                                                             <td><span class="label label-primary">ON GOING</span></td>
+                                                            @foreach($pegawai as $p)
+                                                                @if($p->id == $submission->menyetujui)
+                                                                    <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$submission->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                                @endif
+                                                            @endforeach
                                                         @endif
                                                         @if($submission->status == 4)
                                                             <td><span class="label label-success">COMPLETE</span></td>
+                                                            @foreach($pegawai as $p)
+                                                                @if($p->id == $submission->pic)
+                                                                    <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$submission->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                                @endif
+                                                            @endforeach
                                                                 @endif
                                                                 <td>{{ \App\Http\Controllers\TimeController::time_elapsed_string($submission->created_at->toDayDateTimeString()) }}</td>
-                                                        <td><a href="#" class="label label-default view" data-ket="{{$submission->keterangan}}">LIHAT KETERANGAN</a></td>
                                                         <td>
                                                             <a href="{{ route('formbuilder::my-submissions.show', [$submission->id]) }}" class="btn btn-primary btn-sm" title="View submission">
                                                                 <i class="fa fa-eye"></i> View
@@ -107,8 +127,26 @@
                 autoWidth: false,
                 scroller:    true,
             });
+            // let input = document.createElement("input");
+            // input.value = 'test';
+            // input.type = 'text';
+            // input.className = 'swal-content__input';
+            // swal('Please type:', {
+            //     content: input,
+            //     buttons: ['Cancel', 'Update']
+            // })
+            //     .then(() => {
+            //         //
+            //     });
             $('.view').click(function () {
-                swal("Keterangan", $(this).attr('data-ket'));
+                var span = document.createElement("span");
+                span.innerHTML  ="<b>Ditambahkan Terakhir Oleh :<b><br>" +$(this).attr('data-status');
+                swal({
+                    title: "KETERANGAN",
+                    content: span,
+                    html: true,
+                    text: $(this).attr('data-ket')
+            });
             });
         });
     </script>

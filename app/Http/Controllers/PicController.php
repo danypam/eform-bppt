@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Pegawai;
 use App\Submission;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -27,8 +28,9 @@ class PicController extends Controller
         $tasks = $this->form_submissions(2);    //approved by kepala
         $mytasks = $this->form_submissions(3);  //take by pic
         $completes = $this->form_submissions(4);    //complete by pic
+        $pegawai = Pegawai::all();
 
-        return view('/task/index',['tasks'=>$tasks, 'mytasks'=>$mytasks, 'completes'=>$completes]);
+        return view('/task/index',['tasks'=>$tasks, 'mytasks'=>$mytasks, 'completes'=>$completes, 'pegawai'=>$pegawai]);
     }
 
     public function form_submissions($status){
@@ -42,7 +44,7 @@ class PicController extends Controller
             ->join('forms as f','form_submissions.form_id', '=', 'f.id')
             ->whereRaw("JSON_SEARCH(f.pic, 'one', $pic->id) is not null")
             ->where('form_submissions.status', '=', $status)
-            ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan')
+            ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan','form_submissions.mengetahui','form_submissions.menyetujui','form_submissions.pic')
             ->get();
     }
 
@@ -113,67 +115,34 @@ class PicController extends Controller
         ]);
         return redirect('/task')->with('sukses','Task Complete');
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         //
