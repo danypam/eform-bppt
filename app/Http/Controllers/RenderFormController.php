@@ -15,6 +15,8 @@ use jazmy\FormBuilder\Helper;
 use jazmy\FormBuilder\Models\Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
+use phpDocumentor\Reflection\Types\Null_;
 use mysql_xdevapi\Exception;
 use Spatie\Permission\Models\Role;
 use Throwable;
@@ -130,10 +132,10 @@ class RenderFormController extends Controller
 
             }
             if (isset($userid[1]))
-            {   try {
-                \Notification::send($userid[1], new NewForm(Submission::latest('id')->first()));
-            }catch (Throwable $e){}
-
+            {
+                try {
+                    \Notification::send($userid[1], new NewForm(Submission::latest('id')->first()));
+                }catch (Throwable $e){}
             }
             LogActivity::addToLog('Submitted Form'.$form->name);
 
@@ -166,7 +168,7 @@ class RenderFormController extends Controller
             return redirect('/my-submissions')->with('sukses', 'Formulir Berhasil diajukan');
         } catch (Throwable $e) {
             info($e);
-            dd($e);
+//            dd($e);
             DB::rollback();
 
             return back()->withInput()->with('error', Helper::wtf())->with('error','');
@@ -193,7 +195,6 @@ class RenderFormController extends Controller
             ->select('user_id','email')
             ->first();
 
-
         if(isset($id1)){
             $userid[] = User::find($id1->user_id);
         }
@@ -204,8 +205,8 @@ class RenderFormController extends Controller
 
         //dd($userid);
 
-
         return $userid;
+
     }
 
     private function getEmail(){
