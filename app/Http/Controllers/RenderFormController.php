@@ -86,9 +86,9 @@ class RenderFormController extends Controller
                     $q->where('is_deputi','>',config('constants.status.new'))
                         ->orWhere('is_unit','>',config('constants.status.new'))
                         ->orWhere('is_kabppt','>',config('constants.status.new'));
-                })->get();
+                })->first();
 
-            $status = $status?  config('constants.status.pending') : config('constants.status.new');
+            $status = isset($status)?  config('constants.status.pending') : config('constants.status.new');
 
             $user_id = auth()->user()->id ?? null;
             $submission_id = $form->submissions()->create([
@@ -146,7 +146,7 @@ class RenderFormController extends Controller
             return redirect('/my-submissions')->with('sukses', 'Formulir Berhasil diajukan');
         } catch (Throwable $e) {
             info($e);
-            dd($e);
+            //dd($e);
             DB::rollback();
 
             return back()->withInput()->with('error', Helper::wtf())->with('error','');
