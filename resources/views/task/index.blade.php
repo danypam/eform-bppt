@@ -62,6 +62,11 @@
                                                 @endif
                                                 @if($task->status == 2)
                                                     <td><span class="label label-primary">WAIT FOR PIC</span></td>
+                                                    @foreach($pegawai as $p)
+                                                        @if($p->id == $task->menyetujui)
+                                                            <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$task->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                        @endif
+                                                    @endforeach
                                                 @endif
                                                 @if($task->status == 3)
                                                     <td><span class="label label-primary">ON GOING</span></td>
@@ -140,6 +145,7 @@
                                                 @endif
                                                 @if($mytask->status == 2)
                                                     <td><span class="label label-primary">WAIT FOR PIC</span></td>
+                                                    <td><a href="#" class="label label-default view" data-ket="{{$mytask->keterangan}}">LIHAT KETERANGAN</a></td>
                                                 @endif
                                                 @if($mytask->status == 3)
                                                     <td><span class="label label-primary">ON GOING</span></td>
@@ -186,6 +192,7 @@
                                                 <th>Name</th>
                                                 <th>Form Type</th>
                                                 <th>Status</th>
+                                                <th>Keterangan</th>
                                                 <th>Created At</th>
                                                 <th>Action</th>
                                             </tr>
@@ -199,21 +206,47 @@
                                                     <td>{{$complete->name}}</td>
                                                     @if($complete->status == -1)
                                                         <td><span class="label label-danger">REJECTED</span></td>
+                                                        @foreach($pegawai as $p)
+                                                            @if($p->id == $complete->rejected)
+                                                                <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$complete->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                            @endif
+                                                        @endforeach
                                                     @endif
                                                     @if($complete->status == 0)
                                                         <td><span class="label label-primary">NEW</span></td>
+                                                        <td><a href="#" class="label label-default view" data-ket="{{$complete->keterangan}}">LIHAT KETERANGAN</a></td>
                                                     @endif
                                                     @if($complete->status == 1)
                                                         <td><span class="label label-warning">PENDING</span></td>
+                                                        @foreach($pegawai as $p)
+                                                            @if($p->id == $complete->mengetahui)
+                                                                <td><a href="#" class="label label-default view" data-s$completetatus="{{$p->nama_lengkap}}" data-ket="{{$complete->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                            @endif
+                                                        @endforeach
                                                     @endif
                                                     @if($complete->status == 2)
                                                         <td><span class="label label-primary">WAIT FOR PIC</span></td>
+                                                        @foreach($pegawai as $p)
+                                                            @if($p->id == $complete->menyetujui)
+                                                                <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$complete->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                            @endif
+                                                        @endforeach
                                                     @endif
                                                     @if($complete->status == 3)
                                                         <td><span class="label label-primary">ON GOING</span></td>
+                                                        @foreach($pegawai as $p)
+                                                            @if($p->id == $complete->menyetujui)
+                                                                <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$complete->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                            @endif
+                                                        @endforeach
                                                     @endif
                                                     @if($complete->status == 4)
                                                         <td><span class="label label-success">COMPLETE</span></td>
+                                                        @foreach($pegawai as $p)
+                                                            @if($p->id == $complete->pic)
+                                                                <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$complete->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                            @endif
+                                                        @endforeach
                                                     @endif
                                                     <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($complete->created_at)}}</td>
                                                     <td>

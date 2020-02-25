@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
+    @can('dashboard-home')
     <div class="main">
         <div class="main-content">
             <div class="container-fluid">
@@ -24,6 +25,7 @@
             </div>
         </div>
     </div>
+    @endcan
     @can('dashboard-all')
     <div class="main">
         <!-- MAIN CONTENT -->

@@ -2,11 +2,12 @@
     <div class="sidebar-scroll">
         <nav>
             <ul class="nav">
+                <li ><a href="{{url('dashboard')}}" class="{{(request()->is('dashboard'))?'active': ''}}"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
                 @if (auth()->user()->can('inbox-list-all') ||
                     auth()->user()->can('inbox-list-mengetahui-menyetujui') ||
                     auth()->user()->can('inbox-list-mengetahui') ||
                     auth()->user()->can('inbox-list-menyetujui'))
-                    <li ><a href="{{url('dashboard')}}" class="{{(request()->is('dashboard'))?'active': ''}}"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+
                     <li ><a href="/inbox" class="{{(request()->is('inbox'))?'active': ''}}"><i class="lnr lnr-envelope"></i> <span>Inbox</span></a></li>
                 @endif
                 @if (auth()->user()->can('submission-list'))

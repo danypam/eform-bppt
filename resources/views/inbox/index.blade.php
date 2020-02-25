@@ -27,7 +27,6 @@
                                             <th>Name</th>
                                             <th>Form Type</th>
                                             <th>Status</th>
-                                            <th>Notes</th>
                                             <th>Created At</th>
                                             <th>Action</th>
                                         </tr>
@@ -98,7 +97,6 @@
                                                         </div>
                                                     </td>
                                                 @endif
-                                                <td>{{$inbox->keterangan}}</td>
                                                 <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($inbox->created_at)}}</td>
                                                 <td>
                                                     <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
