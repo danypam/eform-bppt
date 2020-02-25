@@ -21,6 +21,7 @@
             word-wrap: break-word;
         }
 
+
     </style>
     <br>
 
@@ -74,6 +75,21 @@
                 <td >: {{ $submission->renderEntryContent($header['name'], $header['type']) }}</td>
             </tr>
         @endforeach
+        </tbody>
+    </table>
+    <table class="table table-borderless" style="outline-style: solid; outline-width: 2px">
+        <thead>
+            <tr >
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Notes : </strong></td>
+            </tr>
+            <tr>
+                <td><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$submission->keterangan}}</i></td>
+            </tr>
         </tbody>
     </table>
 
