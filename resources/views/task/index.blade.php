@@ -23,9 +23,8 @@
                                     <table class="table table-hover datatable">
                                         <thead>
                                         <tr>
-                                            <th>Form ID</th>
-                                            <th>Employee ID Number</th>
-                                            <th>Name</th>
+                                            <th>No</th>
+                                            <th>Email</th>
                                             <th>Form Type</th>
                                             <th>Status</th>
                                             <th>Keterangan</th>
@@ -36,9 +35,8 @@
                                         <tbody>
                                         @foreach($tasks as $task)
                                             <tr>
-                                                <td>{{$task->submission_id}}</td>
-                                                <td>{{$task->nip}}</td>
-                                                <td>{{$task->nama_lengkap}}</td>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$task->email}}</td>
                                                 <td>{{$task->name}}</td>
                                                 @if($task->status == -1)
                                                     <td><span class="label label-danger">REJECTED</span></td>
@@ -106,9 +104,8 @@
                                     <table class="table table-hover datatable">
                                         <thead>
                                         <tr>
-                                            <th>Form ID</th>
-                                            <th>Employee ID Number</th>
-                                            <th>Name</th>
+                                            <th>No</th>
+                                            <th>Email</th>
                                             <th>Form Type</th>
                                             <th>Status</th>
                                             <th>Keterangan</th>
@@ -119,9 +116,8 @@
                                         <tbody>
                                         @foreach($mytasks as $mytask)
                                             <tr>
-                                                <td>{{$mytask->submission_id}}</td>
-                                                <td>{{$mytask->nip}}</td>
-                                                <td>{{$mytask->nama_lengkap}}</td>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$mytask->email}}</td>
                                                 <td>{{$mytask->name}}</td>
                                                 @if($mytask->status == -1)
                                                     <td><span class="label label-danger">REJECTED</span></td>
@@ -166,13 +162,17 @@
                                                 <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($mytask->created_at)}}</td>
                                                 <td>
                                                     <a href="/task/{{$mytask->form_id}}/submissions/{{$mytask->submission_id}}" class="btn btn-warning btn-sm">View</a>
-                                                    @can('task-take')
+
+                                                @can('task-take')
                                                         @if($mytask->status == -1)
                                                             <a href="/task/{{$mytask->submission_id}}/cancel" class="btn btn-danger btn-sm hidden">Cancel</a>
                                                             <a href="/task/{{$mytask->submission_id}}/complete" class="btn btn-danger btn-sm hidden">Cancel</a>
                                                         @else
                                                             <a href="/task/{{$mytask->submission_id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
                                                             <a href="#" data-toggle="modal" data-target="#comp" data-id="{{$mytask->submission_id}}" data-ket="{{$mytask->keterangan}}" class="btn btn-success btn-sm">Complete</a>
+                                                            <a type="button" href="/task/{{$mytask->form_id}}/submissions/{{$mytask->submission_id}}/task_pdf" class="btn btn-default" aria-label="Export to PDF">
+                                                                <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                                                            </a>
                                                         @endif
                                                     @endcan
 
@@ -187,9 +187,8 @@
                                         <table class="table table-hover datatable">
                                             <thead>
                                             <tr>
-                                                <th>Form ID</th>
-                                                <th>Employee ID Number</th>
-                                                <th>Name</th>
+                                                <th>No</th>
+                                                <th>Email</th>
                                                 <th>Form Type</th>
                                                 <th>Status</th>
                                                 <th>Keterangan</th>
@@ -200,9 +199,8 @@
                                             <tbody>
                                             @foreach($completes as $complete)
                                                 <tr>
-                                                    <td>{{$complete->submission_id}}</td>
-                                                    <td>{{$complete->nip}}</td>
-                                                    <td>{{$complete->nama_lengkap}}</td>
+                                                    <td>{{$loop->iteration}}</td>
+                                                    <td>{{$mytask->email}}</td>
                                                     <td>{{$complete->name}}</td>
                                                     @if($complete->status == -1)
                                                         <td><span class="label label-danger">REJECTED</span></td>

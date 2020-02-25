@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\PegawaiExport;
+use App\Pegawai;
 use DB;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -48,8 +49,28 @@ class ExportController extends Controller
             ->where(['fs.id' =>  $id])
             ->get()
         ;
-        $pdf=PDF::loadview('layouts.submission_pdf', compact('submission', 'pageTitle', 'form_headers','submission_data'))->setPaper('a4','potrait');
+        $pdf=PDF::loadview('formbuilder::my_submissions.submission_pdf', compact('submission', 'pageTitle', 'form_headers','submission_data'))->setPaper('a4','potrait');
         /*return $pdf -> download('Data Pegawai');*/
+        return $pdf->stream();
+    }
+
+    public function task_pdf($form_id, $submission_id)
+    {
+           $submission = Submission::with('user', 'form')
+            ->where([
+                'form_id' => $form_id,
+                'id' => $submission_id,
+            ])
+            ->firstOrFail();
+
+        $form_headers = $submission->form->getEntriesHeader();
+
+        $identitas = Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id',$submission->user_id)->first();
+
+        $pageTitle = "View Submission";
+
+        $pdf=PDF::loadview('task.task_pdf' ,compact('pageTitle', 'submission', 'form_headers','identitas'))->setPaper('a4','potrait');
+
         return $pdf->stream();
     }
 }
