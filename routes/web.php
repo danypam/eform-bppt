@@ -122,6 +122,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/{id}/submission_pdf','ExportController@submission_pdf');
 
     Route::resource('/task', 'PicController');
+    Route::get('/task/{form_id}/submissions/{submission_id}','PicController@show');
     Route::get('/task/{id}/take','PicController@take');
     Route::get('/task/{id}/cancel','PicController@cancel');
     Route::post('/task/complete','PicController@complete');

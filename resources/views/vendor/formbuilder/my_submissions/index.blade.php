@@ -11,9 +11,9 @@
                                 <div class="card rounded-0">
                                     <div class="card-header">
                                         <h1 class="card-title">
-                                            {{ $pageTitle }} ({{ $submissions->count() }})
+                                            {{ $pageTitle }} <span class="badge">{{ $submissions->count() }}</span>
                                         </h1>
-                                    </div>
+                                    </div><br>
 
                                     @if($submissions->count())
                                         <div class="table-responsive">
@@ -34,7 +34,17 @@
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $submission->form->name }}</td>
                                                         @if($submission->status == -1)
-                                                            <td><span class="label label-danger">REJECTED</span></td>
+{{--                                                            <td><span class="label label-danger">REJECTED</span></td>--}}
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <a type="button" class="label label-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        Rejected
+                                                                    </a>
+                                                                    <div class="dropdown-menu" style="padding: 2px">
+                                                                        <h6  class="dropdown-item">Permohonan anda telah ditolak </h6>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                             @foreach($pegawai as $p)
                                                                 @if($p->id == $submission->rejected)
                                                                     <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$submission->keterangan}}">LIHAT KETERANGAN</a></td>
@@ -42,11 +52,31 @@
                                                             @endforeach
                                                         @endif
                                                         @if($submission->status == 0)
-                                                            <td><span class="label label-primary">NEW</span></td>
+{{--                                                            <td><span class="label label-primary">NEW</span></td>--}}
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <a type="button" class="label label-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        New
+                                                                    </a>
+                                                                    <div class="dropdown-menu" style="padding: 2px">
+                                                                        <h6  class="dropdown-item">Menunggu persetujuan atasan</h6>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                             <td><a href="#" class="label label-default view" data-ket="{{$submission->keterangan}}">LIHAT KETERANGAN</a></td>
                                                         @endif
                                                         @if($submission->status == 1)
-                                                            <td><span class="label label-warning">PENDING</span></td>
+{{--                                                            <td><span class="label label-warning">PENDING</span></td>--}}
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <a type="button" class="label label-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        Pending
+                                                                    </a>
+                                                                    <div class="dropdown-menu" style="padding: 2px">
+                                                                        <h6  class="dropdown-item">Menunggu persetujuan Kepala BII</h6>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                             @foreach($pegawai as $p)
                                                                 @if($p->id == $submission->mengetahui)
                                                             <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$submission->keterangan}}">LIHAT KETERANGAN</a></td>
@@ -54,7 +84,17 @@
                                                             @endforeach
                                                         @endif
                                                         @if($submission->status == 2 || $submission->status == 3)
-                                                            <td><span class="label label-primary">ON GOING</span></td>
+{{--                                                            <td><span class="label label-primary">ON GOING</span></td>--}}
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <a type="button" class="label label-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        ON GOING
+                                                                    </a>
+                                                                    <div class="dropdown-menu" style="padding: 2px">
+                                                                        <h6  class="dropdown-item">Permohonan Sedang Diproses</h6>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                             @foreach($pegawai as $p)
                                                                 @if($p->id == $submission->menyetujui)
                                                                     <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$submission->keterangan}}">LIHAT KETERANGAN</a></td>
@@ -62,7 +102,17 @@
                                                             @endforeach
                                                         @endif
                                                         @if($submission->status == 4)
-                                                            <td><span class="label label-success">COMPLETE</span></td>
+{{--                                                            <td><span class="label label-success">COMPLETE</span></td>--}}
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <a type="button" class="label label-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        Completed
+                                                                    </a>
+                                                                    <div class="dropdown-menu" style="padding: 2px">
+                                                                        <h6  class="dropdown-item">Permohonan Telah Diproses</h6>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                             @foreach($pegawai as $p)
                                                                 @if($p->id == $submission->pic)
                                                                     <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$submission->keterangan}}">LIHAT KETERANGAN</a></td>

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="brand">
-        <a href="index.html"><img src="{{asset('assets/img/logofix1.png')}}" alt="" class="img-responsive logo"></a>
+        <a href="{{url('dashboard')}}"><img src="{{asset('assets/img/logofix1.png')}}" alt="" class="img-responsive logo"></a>
     </div>
     <div class="container-fluid">
         <div class="navbar-btn">
@@ -33,7 +33,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{auth()->user()->pegawai->getFoto()}}" class="img-circle" alt="Avatar"> <span>{{auth()->user()->name}}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
                     <ul class="dropdown-menu">
                         <li><a href="/{{auth()->user()->id}}/profile"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
-                        <li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
+                        {{--<li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>--}}
                         <li><a href="/logout"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
                     </ul>
                 </li>

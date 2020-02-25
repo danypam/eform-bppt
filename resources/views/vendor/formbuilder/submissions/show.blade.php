@@ -25,8 +25,8 @@
                                         <tr>
                                             <td><img src="{{ $identitas->foto? asset("/images/$identitas->foto") : asset("/images/user.png") }}"></td>
                                             <td>
-                                                <h5>{{$submission->user->name}}</h5>
-                                                <h5>{{$submission->user->email}}</h5>
+                                                <h5> {{$submission->user->name}}</h5>
+                                                <h5> {{$submission->user->email}}</h5>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -37,20 +37,20 @@
                                         </tr>
                                         <tr>
                                             <td><h6><strong>NIP</strong></h6></td>
-                                            <td><h6>{{$identitas->nip}}</h6></td>
+                                            <td><h6>: {{$identitas->nip}}</h6></td>
                                         </tr>
                                         <tr>
                                             <td><h6><strong>Unit Kerja</strong></h6></td>
-                                            <td><h6>{{$identitas->unit_kerja->nama_unit}}</h6></td>
+                                            <td><h6>: {{$identitas->unit_kerja->nama_unit}}</h6></td>
                                         </tr>
                                         <tr>
 
                                             <td><h6><strong>Unit Jabatan</strong></h6></td>
-                                            <td><h6>{{$identitas->unit_jabatan->unit}}</h6></td>
+                                            <td><h6>: {{$identitas->unit_jabatan->unit}}</h6></td>
                                         </tr>
                                         <tr>
                                             <td><h6><strong>No Hp</strong></h6></td>
-                                            <td><h6>{{$identitas->no_hp}}</h6></td>
+                                            <td><h6>: {{$identitas->no_hp}}</h6></td>
                                         </tr>
                                         <tr>
                                             <td><h6><strong>Status</strong></h6></td>
@@ -149,7 +149,7 @@
                                 </div>
 
                                 <div class="margin-top-30">
-                                        @if(!($submission->status == config("constants.status.rejected")))
+                                 {{--       @if(!($submission->status == config("constants.status.rejected")))
                                             @if(auth()->user()->can('inbox-approve-mengetahui') && $submission->status == config("constants.status.new"))
                                                 <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
                                                 <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
@@ -162,19 +162,38 @@
                                                 <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
                                                 <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
 
-                                            @elseif(auth()->user()->can('task-take'))
+                                     --}}{{--       @elseif(auth()->user()->can('task-take'))
                                                 @if($submission->status == config("constants.status.waitForPic"))
                                                     <a href="/task/{{$submission->id}}/take" class="btn btn-primary btn-sm">Take</a>
 
                                                 @elseif($submission->status == config("constants.status.onGoing"))
                                                     <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
                                                     <a href="/task/{{$submission->id}}/complete" class="btn btn-success btn-sm">Complete</a>
+                                                    <a href="/{{$submission->id}}/submission_pdf" class="btn btn-warning btn-sm" title="Export PDF">
+                                                        <i class="fa fa-eye"></i> Export PDF
+                                                    </a>
 
                                                 @elseif($submission->status == config("constants.status.completed"))
                                                     <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
-                                                @endif
+                                                @endif --}}{{--
+                                            @endif
+                                        @endif--}}
+                                    @can('inbox-management')
+                                        @if(!($submission->status == config("constants.status.rejected") || ($submission->status > config("constants.status.pending"))))
+                                            @if(auth()->user()->can('inbox-approve-mengetahui') && $submission->status == config("constants.status.new"))
+                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
+
+                                            @elseif(auth()->user()->can('inbox-approve-mengetahui') && auth()->user()->can('inbox-approve-menyetujui'))
+                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
+
+                                            @elseif(auth()->user()->can('inbox-approve-menyetujui') && $inbox->status == config("constants.status.pending"))
+                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
                                             @endif
                                         @endif
+                                    @endcan
                                 </div>
 
                             </div>
@@ -190,19 +209,19 @@
 @section('footer')
     <script>
         $(document).ready(function () {
-            var array = [ 'NEW', 'PENDING', 'ON GOING', 'COMPLETED'];
+            var array = [ 'NEW <br><br> {!! $submission->created_at !!}', 'PENDING <br><br> {!! $submission->mengetahui_at !!}', 'ON GOING <br><br> {!! $submission->menyetujui_at !!}', 'COMPLETED <br><br> {!! $submission->complete_at !!}'];
             var status = {!! $submission->status !!};
             var mengetahui = {!! $submission->mengetahui !!} + '';
             var menyetujui = {!! $submission->menyetujui !!} + '';
             var wizard = '';
             if (status === 0){
-                wizard = 'NEW';
+                wizard = 'NEW <br><br> {!! $submission->created_at !!}';
             }else if(status === 1 || status === 2){
-                wizard = 'PENDING';
+                wizard = 'PENDING <br><br> {!! $submission->mengetahui_at !!}';
             }else if(status === 3){
-                wizard = 'ON GOING';
+                wizard = 'ON GOING <br><br> {!! $submission->menyetujui_at !!}';
             }else if(status === 4){
-                wizard = 'COMPLETED';
+                wizard = 'COMPLETED <br><br> {!! $submission->complete_at !!}';
             }else{
                 if(mengetahui === 0){
                     array = [ 'REJECTED',  'PENDING', 'ON GOING', 'COMPLETED'];

@@ -17,7 +17,7 @@
                                 <div class="profile-main">
                                     <img src="{{auth()->user()->pegawai->getFoto()}}" class="img-circle" alt="Avatar">
                                     <h3 class="name">{{auth()->user()->pegawai->nama_lengkap}}</h3>
-                                    <span class="online-status status-available">Available</span>
+                                    <span class="online-status status-available">{{auth()->user()->pegawai->status}}</span>
                                 </div>
                                 <div class="profile-stat">
                                     <div class="row">
@@ -39,29 +39,63 @@
                             <!-- PROFILE DETAIL -->
                             <div class="profile-detail">
                                 <div class="profile-info">
-                                    <h4 class="heading">Basic Info</h4>
-                                    <ul class="list-unstyled list-justify">
-                                        <li><b>NIP 1</b> <span>{{auth()->user()->pegawai->nip}}</span></li>
-                                        <li><b>NIP 2</b><span>{{auth()->user()->pegawai->nip18}}</span></li>
-                                        <li><b>Phone Number</b> <span>{{auth()->user()->pegawai->no_hp}}</span></li>
-                                        <li><b>Email</b> <span>{{auth()->user()->pegawai->email}}</span></li>
-                                        @foreach($data_jabatan as $j)
-                                            @if($j->id == auth()->user()->pegawai->jabatan_id)
-                                                <li><b>Jabatan</b><span>{{$j->nama_jabatan}}</span></li>
-                                            @endif
-                                        @endforeach
-                                        @foreach($data_unitjab as $uj)
-                                            @if($uj->id_unit_jabatan == auth()->user()->pegawai->unit_jabatan_id)
-                                                <li><b>Unit Jabatan</b> <span>{{$uj->unit}}</span></li>
-                                            @endif
-                                        @endforeach
-                                        @foreach($data_unit as $u)
-                                            @if($u->id == auth()->user()->pegawai->unit_id)
-                                                <li><b>Unit </b><span>{{$u->nama_unit}}</span></li>
-                                            @endif
-                                        @endforeach
-                                        <li><b>Status </b><span class="label label-success">{{auth()->user()->pegawai->status}}</span></li>
-                                    </ul>
+                                    <div class="col-md-12">
+                                        <table class="table table-borderless table-responsive">
+                                            <tbody>
+                                                <tr>
+                                                    <td><h6><strong>NIP 1</strong></h6></td>
+                                                    <td>:</td>
+                                                    <td><h6>{{auth()->user()->pegawai->nip}}</h6></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h6><strong>NIP 2</strong></h6></td>
+                                                    <td>:</td>
+                                                    <td><h6> {{auth()->user()->pegawai->nip18}}</h6></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h6><strong>Phone Number</strong></h6></td>
+                                                    <td>:</td>
+                                                    <td><h6> {{auth()->user()->pegawai->no_hp}}</h6></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h6><strong>Email</strong></h6></td>
+                                                    <td>:</td>
+                                                    <td><h6> {{auth()->user()->pegawai->email}}</h6></td>
+                                                </tr>
+                                                <tr>
+                                                    @foreach($data_jabatan as $j)
+                                                        @if($j->id == auth()->user()->pegawai->jabatan_id)
+                                                            <td><h6><strong>Jabatan</strong></h6></td>
+                                                            <td>:</td>
+                                                            <td><h6>{{$j->nama_jabatan}}</h6></td>                                                @endif
+                                                    @endforeach
+                                                </tr>
+                                                <tr>
+                                                    @foreach($data_unitjab as $uj)
+                                                        @if($uj->id_unit_jabatan == auth()->user()->pegawai->unit_jabatan_id)
+                                                            <td><h6><strong> Unit Jabatan</strong></h6></td>
+                                                            <td>:</td>
+                                                            <td><h6>{{$uj->unit}}</h6></td>
+                                                        @endif
+                                                    @endforeach
+                                                </tr>
+                                                <tr>
+                                                    @foreach($data_unit as $u)
+                                                        @if($u->id == auth()->user()->pegawai->unit_id)
+                                                            <td><h6><strong> Unit Kerja</strong></h6></td>
+                                                            <td>:</td>
+                                                            <td><h6>{{$u->nama_unit}}</h6></td>
+                                                        @endif
+                                                    @endforeach
+                                                </tr>
+                                                <tr>
+                                                    <td><h6><strong>Status</strong></h6></td>
+                                                    <td>:</td>
+                                                    <td><h6> {{auth()->user()->pegawai->status}}</h6></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                     <div class="text-center"><a href="/pegawai/{{auth()->user()->pegawai->id}}/edit" class="btn btn-primary">Edit Profile</a></div>
                                 </div>
 
