@@ -27,7 +27,6 @@
                                             <th>Name</th>
                                             <th>Form Type</th>
                                             <th>Status</th>
-                                            <th>Notes</th>
                                             <th>Created At</th>
                                             <th>Action</th>
                                         </tr>
@@ -98,7 +97,6 @@
                                                         </div>
                                                     </td>
                                                 @endif
-                                                <td>{{$inbox->keterangan}}</td>
                                                 <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($inbox->created_at)}}</td>
                                                 <td>
                                                     <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
@@ -260,8 +258,12 @@
                         {{csrf_field()}}
                         <input type="hidden" name="submission_id" id="id" value="" >
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Keterangan</label>
-                            <textarea name="keterangan" type="text" class="form-control" placeholder="Silakan Isi Keterangan Jika Diperlukan"></textarea>
+                            <label for="exampleFormControlInput1">Keterangan Sebelumnya</label>
+                            <textarea name="keterangan1" type="text" class="form-control" id="ket" readonly placeholder="Tidak ada keterangan"></textarea>
+                        </div>
+                            <div class="form-group">
+                            <label for="exampleFormControlInput1">Tambah Keterangan</label>
+                            <textarea name="keterangan2" type="text" class="form-control" placeholder="Silakan Isi Keterangan Jika Diperlukan"></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -26,7 +26,7 @@ class MySubmissionController extends Controller
     {
         $this->middleware('auth');
 
-        // only allow submission edit on forms that allow it
+        // only allow s edit on forms that allow it
         $this->middleware('submisson-editable')->only(['edit', 'update']);
     }
 
@@ -40,11 +40,11 @@ class MySubmissionController extends Controller
         $user = auth()->user();
 
         $submissions = Submission::getForUser($user);
-
+        $pegawai = Pegawai::all();
 
         $pageTitle = "My Submissions";
 
-        return view('formbuilder::my_submissions.index', compact('submissions', 'pageTitle'));
+        return view('formbuilder::my_submissions.index', compact('submissions','pegawai', 'pageTitle'));
     }
 
     /**
