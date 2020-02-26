@@ -49,6 +49,26 @@ class RenderFormController extends Controller
 
         $pageTitle = "{$form->name}";
       //  dd($this->getEmail());
+        $json_encode = json_decode($form->form_builder_json);
+        foreach ($json_encode as $data){
+           if($data->type == 'selectFromDatabase'){
+               $label = "$data->lbl";
+               $value = "$data->value";
+              // dd($label);
+               $result = DB::table($data->table)->get();
+               foreach ($result as $r){
+                   $values[] = [
+                       'label' => $r->$label,
+                       'value' => $r->$value
+                   ];
+               }
+               //$data->type = 'select';
+               $data->values = $values;
+           }
+        }
+       // dd($json_encode);
+        $form->form_builder_json = $json_encode;
+
         return view('formbuilder::render.index', compact('form', 'pageTitle'));
     }
 
@@ -88,9 +108,11 @@ class RenderFormController extends Controller
                         ->orWhere('is_kabppt','>',config('constants.status.new'));
                 })->first();
 
-            $status = isset($status)?  config('constants.status.pending') : config('constants.status.new');
+
+            $status = $status?  config('constants.status.pending') : config('constants.status.new');
 
             $user_id = auth()->user()->id ?? null;
+
             $submission_id = $form->submissions()->create([
                 'user_id' => $user_id,
                 'status' => $status,
@@ -181,7 +203,7 @@ class RenderFormController extends Controller
         if (isset($id2)){
             $userid[] = User::find($id2->user_id);
         }
-        $userid = $userid ? $userid : 0;
+   //     $userid = $userid ? $userid : 0;
 
         //dd($userid);
 

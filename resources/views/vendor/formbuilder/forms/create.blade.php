@@ -2,6 +2,10 @@
 
 @section('head')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="{{ asset('vendor/formbuilder/js/jquery-formbuilder/form-builder.min.js') }}" defer></script>
+<script src="{{ asset('vendor/formbuilder/js/jquery-formbuilder/form-render.min.js') }}" defer></script>
 @endsection
 @section('content')
     <div class="main">
@@ -74,13 +78,13 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="letter-code" class="col-form-label">Letter Code</label>
-                                                    <input id="letter-code" type="text" class="form-control" required placeholder="Enter Letter Code" required>
+                                                    <input id="letter-code" type="text" class="form-control" placeholder="Enter Letter Code" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="pic" class="col-form-label" style="display: block">PIC</label>
-                                                    <select id="pic" class="form-control selectpicker" multiple data-live-search="true"  data-width="100%" required>
+                                                    <select id="pic" class="selectpicker form-control" multiple data-live-search="true"  data-width="100%" required>
                                                         @foreach($pegawai as $peg)
                                                             <option value="{{$peg->id}}">{{$peg->nama_lengkap." (".$peg->nip.")"}}</option>
                                                         @endforeach
@@ -89,7 +93,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="row">
+                                        <div class="row margin-top-30">
                                             <div class="col-md-12">
                                                 <div class="alert alert-info" role="alert">
                                                     <i class="fa fa-info-circle"></i>
@@ -142,6 +146,7 @@
 @endsection
 @section('footer')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="{{asset("js/dynamic-form.js")}}"></script>
 @endsection
 @push(config('formbuilder.layout_js_stack', 'scripts'))
