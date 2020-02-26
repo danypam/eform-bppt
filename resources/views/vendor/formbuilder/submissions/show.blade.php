@@ -5,7 +5,7 @@
             <div class="container-fluid">
                 <div class="panel">
                     <div class="panel-heading">
-                        <h3>Progres</h3>
+                        <h3>Progress</h3>
                         <h5 class="right">No. Form: {{ $submission->id  }}</h5>
                     </div>
                     <div class="panel-body ">

@@ -7,8 +7,7 @@
                     auth()->user()->can('inbox-list-mengetahui-menyetujui') ||
                     auth()->user()->can('inbox-list-mengetahui') ||
                     auth()->user()->can('inbox-list-menyetujui'))
-
-                    <li ><a href="/inbox" class="{{(request()->is('inbox'))?'active': ''}}"><i class="lnr lnr-envelope"></i> <span>Inbox</span></a></li>
+                <li ><a href="/inbox" class="{{(request()->is('inbox*'))?'active': ''}}"><i class="lnr lnr-envelope"></i> <span>Inbox</span></a></li>
                 @endif
                 @if (auth()->user()->can('submission-list'))
                 <li><a href="{{ route('formbuilder::my-submissions.index') }}" class="{{(request()->is('my-submission*'))?'active': ''}}"><i class="lnr lnr-inbox"></i> <span>My Submissions</span></a></li>

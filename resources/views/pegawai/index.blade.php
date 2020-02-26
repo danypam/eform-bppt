@@ -149,7 +149,8 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Jabatan</label>
                             <select name="jabatan_id" class="form-control selectpicker"  data-live-search="true"id="exampleFormControlSelect1" >
-                                <option value="">-select-</option>
+
+                                <option selected value="">-select-</option>
                                 @foreach($data_jabatan as $jab)
                                     <option value="{{$jab->id}}">{{$jab->nama_jabatan}}</option>
                                 @endforeach

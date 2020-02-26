@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class email_atasan extends Mailable
+class email_kepala extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,6 +30,6 @@ class email_atasan extends Mailable
     {
         $detail=$this->details;
         return $this->subject('You Have One Form to Approved')
-            ->view('email.sendmail', compact('detail'));
+            ->view('email.sendmailkepala', compact('detail'));
     }
 }
