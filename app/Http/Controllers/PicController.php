@@ -48,7 +48,7 @@ class PicController extends Controller
                 ->join('forms as f','form_submissions.form_id', '=', 'f.id')
                 ->whereRaw("JSON_SEARCH(f.pic, 'one', $pic->id) is not null")
                 ->where('form_submissions.status', '=', $status)
-                ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at', 'form_submissions.keterangan')
                 ->get();
         }elseif ($status == config('constants.status.onGoing')){
             return DB::table('form_submissions')
@@ -56,7 +56,7 @@ class PicController extends Controller
                 ->join('forms as f','form_submissions.form_id', '=', 'f.id')
                 ->where('form_submissions.pic','=',$pic->id)
                 ->where('form_submissions.status', '=', $status)
-                ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at', 'form_submissions.keterangan')
                 ->get();
         }else{
             return DB::table('form_submissions')
@@ -65,7 +65,7 @@ class PicController extends Controller
                 ->where('form_submissions.pic','=',$pic->id)
                 ->whereRaw('form_submissions.complete_at IS NOT NULL')
                 ->where('form_submissions.status', '=', $status)
-                ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+                ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at', 'form_submissions.keterangan')
                 ->get();
         }
     }
@@ -134,6 +134,7 @@ class PicController extends Controller
             'keterangan'=>$request->keterangan,
             'complete_at'=> Carbon::now()->toDateTimeString()
         ]);
+
         $emails = $this->getemailuser($request->submission_id);
 
         $details = [

@@ -213,13 +213,13 @@ class InboxController extends Controller
                     {
                         return back();
                     }
-                    $emails = $this->getEmailPIC($id);
-                $submission = Submission::where('id', $id)->with('form')->firstOrFail();
+                    $emails = $this->getEmailPIC($request->submission_id);
+                $submission = Submission::where('id', $request->submission_id)->with('form')->firstOrFail();
 
                 foreach ($emails as $email) {
                     $details = [
                         'name' => $email->nama_lengkap,
-                        'url'    => url('/task/'.$id),
+                        'url'    => url('/task/'.$request->submission_id),
                         'submission' => $submission,
                         'identitas' => Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id', '=', $submission->user_id)->firstOrFail(),
                         'form_headers' => $submission->form->getEntriesHeader(),
@@ -228,10 +228,10 @@ class InboxController extends Controller
 
                     \Mail::to($email->email)->send(new email_pic($details));
                 }
-                $emailtouser = $this->getEmailPegawai($id);
+                $emailtouser = $this->getEmailPegawai($request->submission_id);
                 $details = [
                     'name' => $emailtouser->nama_lengkap,
-                    'url'    => url('/my-submissions/'.$id)
+                    'url'    => url('/my-submissions/'.$request->submission_id)
                 ];
                 \Mail::to($emailtouser->email)->send(new email_progress($details));
 
