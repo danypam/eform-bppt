@@ -175,6 +175,27 @@ class PicController extends Controller
 
     }
 
+    public function showForm($form_id, $submission_id)
+    {
+        //
+
+
+
+        $submission = Submission::with('user', 'form')
+            ->where([
+                'form_id' => $form_id,
+                'id' => $submission_id,
+            ])
+            ->firstOrFail();
+        $form_headers = $submission->form->getEntriesHeader();
+
+        $identitas = Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id',$submission->user_id)->first();
+
+        $pageTitle = "View Submission";
+
+        return view('/task/show', compact('pageTitle', 'submission', 'form_headers','identitas'));
+    }
+
     public function show($id)
     {
         $tasks = $this->show_form_submissions(2,$id);    //approved by kepala
