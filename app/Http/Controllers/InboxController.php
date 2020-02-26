@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\LogActivity;
+use App\Mail\email_atasan;
 use App\Mail\email_kepala;
+use App\Mail\email_pic;
+use App\Mail\email_rejected;
+use App\Mail\email_progress;
 use App\Notifications\NewForm;
 use App\Pegawai;
 use App\UnitJabatan;
@@ -210,6 +214,28 @@ class InboxController extends Controller
                     {
                         return back();
                     }
+                    $emails = $this->getEmailPIC($request->submission_id);
+                $submission = Submission::where('id', $request->submission_id)->with('form')->firstOrFail();
+
+                foreach ($emails as $email) {
+                    $details = [
+                        'name' => $email->nama_lengkap,
+                        'url'    => url('/task/'.$request->submission_id),
+                        'submission' => $submission,
+                        'identitas' => Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id', '=', $submission->user_id)->firstOrFail(),
+                        'form_headers' => $submission->form->getEntriesHeader(),
+                        'pageTitle' => "View Submission"
+                    ];
+
+                    \Mail::to($email->email)->send(new email_pic($details));
+                }
+                $emailtouser = $this->getEmailPegawai($request->submission_id);
+                $details = [
+                    'name' => $emailtouser->nama_lengkap,
+                    'url'    => url('/my-submissions/'.$request->submission_id)
+                ];
+                \Mail::to($emailtouser->email)->send(new email_progress($details));
+
                     LogActivity::addToLog('Form '.$request->submission_id.' Was Approved');
                     return redirect('/inbox')->with('sukses', 'Formulir Berhasil DiSetujui');
                 }else{
@@ -229,13 +255,27 @@ class InboxController extends Controller
                     {
                         return back();
                     }
+                    $emails = $this->getEmailKepala();
+                    $submission = Submission::where('id', $request->submission_id)->with('form')->firstOrFail();
+
+                    $details = [
+                        'name' => $emails->nama_lengkap,
+                        'url'    => url('/inbox/'.$request->submission_id),
+                        'submission' => $submission,
+                        'identitas' => Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id', '=', $submission->user_id)->firstOrFail(),
+                        'form_headers' => $submission->form->getEntriesHeader(),
+                        'pageTitle' => "View Submission"
+                    ];
+                    \Mail::to($emails->email)->send(new email_kepala($details));
+
                     LogActivity::addToLog('Form '.$request->submission_id.' Was Approved');
                     return redirect('/inbox')->with('sukses', 'Form Berhasil DiSetujui');
                 } else {
                     DB::rollback();
                     return redirect('/inbox')->with('error', 'Formulir Telah Dieksekusi oleh user lain');
                 }
-            }
+
+        }
 
     }
 
@@ -260,7 +300,60 @@ class InboxController extends Controller
            'keterangan'=>$request->keterangan,
 */
         ]);
+         $emails = $this->getEmailRejected($request->submission_id, $request->keterangan);
+        $details = [
+            'name' => $emails->nama_lengkap,
+            'keterangan' => $request->keterangan
+        ];
+        \Mail::to($emails->email)->send(new email_rejected($details));
         LogActivity::addToLog('Form '.$request->submission_id.' Was Rejected');
         return redirect('/inbox')->with('sukses','Formulir Berhasil Ditolak');
     }
+
+    private function getEmailKepala(){
+        $emailkepala=DB::table('pegawai')
+            ->where('role','=','kepala')
+            ->select('email', 'nama_lengkap')
+            ->first();
+        return $emailkepala;
+    }
+
+    private function getEmailPIC($id){
+
+        $submission=Submission::find($id);
+        $pics = json_decode($submission->form->pic);
+        $emails = array();
+        foreach ($pics as $pic) {
+            $pegawai = Pegawai::select('nama_lengkap','email')->where('id',$pic)->first();
+            array_push($emails, $pegawai);
+        }
+        return $emails;
+    }
+
+
+    private function getEmailPegawai($id){
+//        $formsub = DB::table('form_submissions')
+////            ->select('user_id')
+////            ->where('user_id','=',auth()->user()->id)
+////            ->first();
+////        $pegawai=DB::table('pegawai')
+////            ->join('form_submissions as fs', 'fs.user_id', '=', 'pegawai.user_id')
+////            ->select('email')
+////            ->where('pegawai.user_id', '=', $formsub->user_id)
+////            ->first();
+////        return $pegawai->email;
+        $submission=Submission::find($id);
+        $user_id = $submission->user_id;
+        $pegawai = Pegawai::select('nama_lengkap','email')->where('user_id',$user_id)->first();
+
+        return $pegawai;
+    }
+    private function getEmailRejected($id, $ket){
+        $submission=Submission::find($id);
+        $user_id = $submission->user_id;
+        $pegawai = Pegawai::select('nama_lengkap','email')->where('user_id',$user_id)->first();
+
+        return $pegawai;
+    }
+
 }

@@ -124,11 +124,9 @@
                                                             <a href="{{ route('formbuilder::my-submissions.show', [$submission->id]) }}" class="btn btn-primary btn-sm" title="View submission">
                                                                 <i class="fa fa-eye"></i> View
                                                             </a>
-
                                                             <a href="/{{$submission->id}}/submission_pdf" class="btn btn-warning btn-sm" title="Export PDF">
                                                                 <i class="fa fa-eye"></i> Export PDF
                                                             </a>
-
                                                             @if($submission->form->allowsEdit())
                                                                 <a href="{{ route('formbuilder::my-submissions.edit', [$submission->id]) }}" class="btn btn-primary btn-sm" title="Edit submission">
                                                                     <i class="fa fa-pencil"></i>

@@ -150,8 +150,8 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Jabatan</label>
-                            <select name="jabatan_id" class="form-control selectpicker"  data-live-search="true"id="exampleFormControlSelect1" required>
-                                <option selected disabled value="">-select-</option>
+                            <select name="jabatan_id" class="form-control selectpicker"  data-live-search="true"id="exampleFormControlSelect1" >
+                                <option selected value="">-select-</option>
                                 @foreach($data_jabatan as $jab)
                                     <option value="{{$jab->id}}">{{$jab->nama_jabatan}}</option>
                                 @endforeach

@@ -83,9 +83,7 @@ class RenderFormController extends Controller
 
     public function submit(Request $request, $identifier)
     {
-        //dd($request);
-       $form = Form::where('identifier', $identifier)->firstOrFail();
-
+        $form = Form::where('identifier', $identifier)->firstOrFail();
         DB::beginTransaction();
 
         try {
@@ -110,7 +108,9 @@ class RenderFormController extends Controller
                         ->orWhere('is_kabppt','>',config('constants.status.new'));
                 })->first();
 
+
             $status = $status?  config('constants.status.pending') : config('constants.status.new');
+
             $user_id = auth()->user()->id ?? null;
 
             $submission_id = $form->submissions()->create([
@@ -128,6 +128,7 @@ class RenderFormController extends Controller
             {
                 try {
                     \Notification::send($userid[0], new NewForm(Submission::latest('id')->first()));
+
                 }catch (Throwable $e){}
 
             }
@@ -167,8 +168,9 @@ class RenderFormController extends Controller
                     ->with('success', 'Form successfully submitted. Please wait');*/
             return redirect('/my-submissions')->with('sukses', 'Formulir Berhasil diajukan');
         } catch (Throwable $e) {
+            dd($e);
             info($e);
-//            dd($e);
+            //dd($e);
             DB::rollback();
 
             return back()->withInput()->with('error', Helper::wtf())->with('error','');
@@ -231,7 +233,6 @@ class RenderFormController extends Controller
             ->first();
 
         return $email[] = [$email1,$email2];
-
     }
 
     /**
