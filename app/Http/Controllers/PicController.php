@@ -196,15 +196,14 @@ class PicController extends Controller
         return view('/task/show', compact('pageTitle', 'submission', 'form_headers','identitas'));
     }
 
-    public function show($id)
+/*    public function show($id)
     {
         $tasks = $this->show_form_submissions(2,$id);    //approved by kepala
         $mytasks = $this->show_form_submissions(3,$id);  //take by pic
         $completes = $this->show_form_submissions(4,$id);    //complete by pic
 
         return view('/task/index',['tasks'=>$tasks, 'mytasks'=>$mytasks, 'completes'=>$completes]);
-
-    }
+    }*/
 
     public function edit($id)
     {
