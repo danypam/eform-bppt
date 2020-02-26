@@ -28,7 +28,6 @@
                                         <th>Department</th>
                                         <th>Position</th>
                                         <th>Unit Jabatan</th>
-                                        <th>Atasan</th>
                                         <th>Position</th>
                                         <th>Unit Jabatan</th>
                                         <th>Status</th>
@@ -55,7 +54,6 @@
                                             <td>{{$peg->nama_unit}}</td>
                                             <td>{{$peg->nama_jabatan}}</td>
                                             <td>{{$peg->unit}}</td>
-                                            <td>{{$peg->nama_atas}}</td>
                                             @foreach($data_jabatan as $peg1)
                                                 @if($peg1->id == $peg->idjab)
                                                     <td>{{$peg1->nama_jabatan}}</td>
@@ -150,8 +148,8 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Jabatan</label>
-                            <select name="jabatan_id" class="form-control selectpicker"  data-live-search="true"id="exampleFormControlSelect1" required>
-                                <option selected disabled value="">-select-</option>
+                            <select name="jabatan_id" class="form-control selectpicker"  data-live-search="true"id="exampleFormControlSelect1" >
+                                <option value="">-select-</option>
                                 @foreach($data_jabatan as $jab)
                                     <option value="{{$jab->id}}">{{$jab->nama_jabatan}}</option>
                                 @endforeach
@@ -168,17 +166,6 @@
                                 @endforeach
                             </select>
                             <small id="unjab" class="form-text text-muted">Please, Choose One! </small>
-
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">Nama Atasan</label>
-                            <select name="nip_atas" class="form-control selectpicker" data-live-search="true" id="exampleFormControlSelect1"required>
-                                <option selected disabled value="">-select-</option>
-                                @foreach($pegawai as $p)
-                                    <option value="{{$p->id}}">{{$p->nama_lengkap}}</option>
-                                @endforeach
-                            </select>
-                            <small id="nipatas" class="form-text text-muted">Please, Choose One! </small>
 
                         </div>
                         <div class="form-group">

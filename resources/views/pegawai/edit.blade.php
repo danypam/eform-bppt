@@ -54,8 +54,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Jabatan</label>
-                                        <select name="jabatan_id" class="form-control selectpicker"  data-live-search="true" id="exampleFormControlSelect1" required>
-                                            <option selected disabled value="">-select-</option>
+                                        <select name="jabatan_id" class="form-control selectpicker"  data-live-search="true" id="exampleFormControlSelect1" >
+                                            <option value="">-select-</option>
                                         @foreach($data_jabatan as $jab)
                                                 <option value="{{$jab->id}}" @if($jab->id == $pegawai->jabatan_id) selected @endif >{{$jab->nama_jabatan}}</option>
                                             @endforeach
@@ -67,15 +67,6 @@
                                             <option selected disabled value="">-select-</option>
                                         @foreach($data_unjab as $unjab)
                                                 <option value="{{$unjab->id_unit_jabatan}}" @if($unjab->id_unit_jabatan == $pegawai->unit_jabatan_id) selected @endif >{{$unjab->unit}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Atasan</label>
-                                        <select name="nip_atas" class="form-control selectpicker" data-live-search="true" id="exampleFormControlSelect1"required>
-                                            <option selected disabled value="">-select-</option>
-                                        @foreach($data_peg as $peg1)
-                                                <option value="{{$peg1->id}}" @if($peg1->id == $pegawai->unit_atas) selected @endif >{{$peg1->nama_lengkap}}</option>
                                             @endforeach
                                         </select>
                                     </div>

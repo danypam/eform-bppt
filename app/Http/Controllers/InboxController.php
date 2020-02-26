@@ -184,11 +184,11 @@ class InboxController extends Controller
                 DB::beginTransaction();
                 try{
                     if(!isset($isFilled->mengetahui)){
-                        commit($request->submission_id, $request->keterangan);
+                        commit($request->submission_id, $request->keterangan1, $request->keterangan2);
                         fillWhoApprove($request->submission_id, "mengetahui", "mengetahui_at");
                     }
                     if(!isset($isFilled->menyetujui)){
-                       commit($request->submission_id);
+                       commit($request->submission_id, $request->keterangan1, $request->keterangan2);
                         fillWhoApprove($request->submission_id, "menyetujui", "menyetujui_at");
                     }
                     DB::commit();
