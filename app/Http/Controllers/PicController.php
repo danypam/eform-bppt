@@ -31,8 +31,9 @@ class PicController extends Controller
         $tasks = $this->form_submissions(2);    //approved by kepala
         $mytasks = $this->form_submissions(3);  //take   by pic
         $completes = $this->form_submissions(4);    //complete by pic
+        $pegawai = Pegawai::all();
 
-        return view('/task/index',['tasks'=>$tasks, 'mytasks'=>$mytasks, 'completes'=>$completes]);
+        return view('/task/index',['tasks'=>$tasks, 'mytasks'=>$mytasks, 'completes'=>$completes, 'pegawai'=>$pegawai]);
     }
 
     public function form_submissions($status){
@@ -41,14 +42,13 @@ class PicController extends Controller
             ->where('user_id', '=', auth()->user()->id)
             ->first();
 
-
         if($status == config('constants.status.waitForPic')){
                 return DB::table('form_submissions')
                 ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
                 ->join('forms as f','form_submissions.form_id', '=', 'f.id')
                 ->whereRaw("JSON_SEARCH(f.pic, 'one', $pic->id) is not null")
                 ->where('form_submissions.status', '=', $status)
-                ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at', 'form_submissions.keterangan')
+                ->select('nama_lengkap','nip','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan','form_submissions.mengetahui','form_submissions.menyetujui','form_submissions.pic')
                 ->get();
         }elseif ($status == config('constants.status.onGoing')){
             return DB::table('form_submissions')
@@ -56,7 +56,7 @@ class PicController extends Controller
                 ->join('forms as f','form_submissions.form_id', '=', 'f.id')
                 ->where('form_submissions.pic','=',$pic->id)
                 ->where('form_submissions.status', '=', $status)
-                ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at', 'form_submissions.keterangan')
+                ->select('nama_lengkap','nip','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan','form_submissions.mengetahui','form_submissions.menyetujui','form_submissions.pic')
                 ->get();
         }else{
             return DB::table('form_submissions')
@@ -65,7 +65,7 @@ class PicController extends Controller
                 ->where('form_submissions.pic','=',$pic->id)
                 ->whereRaw('form_submissions.complete_at IS NOT NULL')
                 ->where('form_submissions.status', '=', $status)
-                ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at', 'form_submissions.keterangan')
+                ->select('nama_lengkap','nip','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan','form_submissions.mengetahui','form_submissions.menyetujui','form_submissions.pic')
                 ->get();
         }
     }
@@ -145,22 +145,13 @@ class PicController extends Controller
         \Mail::to($emails->email)->send(new email_complete($details));
         return redirect('/task')->with('sukses','Task Complete');
     }
-    /**
-     * Show the form for creating a new resource.
 
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //
@@ -194,36 +185,18 @@ class PicController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         //

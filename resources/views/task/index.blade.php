@@ -23,11 +23,11 @@
                                     <table class="table table-hover datatable">
                                         <thead>
                                         <tr>
-                                            <th>Form ID</th>
-                                            <th>Employee ID Number</th>
-                                            <th>Name</th>
+                                            <th>No</th>
+                                            <th>Email</th>
                                             <th>Form Type</th>
                                             <th>Status</th>
+                                            <th>Keterangan</th>
                                             <th>Created At</th>
                                             <th>Action</th>
                                         </tr>
@@ -35,27 +35,52 @@
                                         <tbody>
                                         @foreach($tasks as $task)
                                             <tr>
-                                                <td>{{$task->submission_id}}</td>
-                                                <td>{{$task->nip}}</td>
-                                                <td>{{$task->nama_lengkap}}</td>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$task->email}}</td>
                                                 <td>{{$task->name}}</td>
                                                 @if($task->status == -1)
                                                     <td><span class="label label-danger">REJECTED</span></td>
+                                                    @foreach($pegawai as $p)
+                                                        @if($p->id == $task->rejected)
+                                                            <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$task->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                        @endif
+                                                    @endforeach
                                                 @endif
                                                 @if($task->status == 0)
                                                     <td><span class="label label-primary">NEW</span></td>
+                                                    <td><a href="#" class="label label-default view" data-ket="{{$task->keterangan}}">LIHAT KETERANGAN</a></td>
                                                 @endif
                                                 @if($task->status == 1)
                                                     <td><span class="label label-warning">PENDING</span></td>
+                                                    @foreach($pegawai as $p)
+                                                        @if($p->id == $task->mengetahui)
+                                                            <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$task->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                        @endif
+                                                    @endforeach
                                                 @endif
                                                 @if($task->status == 2)
                                                     <td><span class="label label-primary">WAIT FOR PIC</span></td>
+                                                    @foreach($pegawai as $p)
+                                                        @if($p->id == $task->menyetujui)
+                                                            <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$task->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                        @endif
+                                                    @endforeach
                                                 @endif
                                                 @if($task->status == 3)
                                                     <td><span class="label label-primary">ON GOING</span></td>
+                                                    @foreach($pegawai as $p)
+                                                        @if($p->id == $task->menyetujui)
+                                                            <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$task->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                        @endif
+                                                    @endforeach
                                                 @endif
                                                 @if($task->status == 4)
-                                                    <td>C<span class="label label-success">COMPLETE</span></td>
+                                                    <td><span class="label label-success">COMPLETE</span></td>
+                                                    @foreach($pegawai as $p)
+                                                        @if($p->id == $task->pic)
+                                                            <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$task->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                        @endif
+                                                    @endforeach
                                                 @endif
                                                 <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($task->created_at)}}</td>
                                                 <td>
@@ -64,7 +89,7 @@
                                                     @if($task->status == -1)
                                                         <a href="/submissions/{{$task->submission_id}}/approve" class="btn btn-primary btn-sm hidden">Take</a>
                                                     @else
-                                                        <a href="/task/{{$task->submission_id}}/take" class="btn btn-primary btn-sm">Take</a>
+                                                        <a href="#" class="btn btn-primary btn-sm take" take-id="{{$task->submission_id}}">Take</a>
                                                     @endif
                                                      @endcan
 
@@ -79,11 +104,11 @@
                                     <table class="table table-hover datatable">
                                         <thead>
                                         <tr>
-                                            <th>Form ID</th>
-                                            <th>Employee ID Number</th>
-                                            <th>Name</th>
+                                            <th>No</th>
+                                            <th>Email</th>
                                             <th>Form Type</th>
                                             <th>Status</th>
+                                            <th>Keterangan</th>
                                             <th>Created At</th>
                                             <th>Action</th>
                                         </tr>
@@ -91,38 +116,63 @@
                                         <tbody>
                                         @foreach($mytasks as $mytask)
                                             <tr>
-                                                <td>{{$mytask->submission_id}}</td>
-                                                <td>{{$mytask->nip}}</td>
-                                                <td>{{$mytask->nama_lengkap}}</td>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$mytask->email}}</td>
                                                 <td>{{$mytask->name}}</td>
                                                 @if($mytask->status == -1)
                                                     <td><span class="label label-danger">REJECTED</span></td>
+                                                    @foreach($pegawai as $p)
+                                                        @if($p->id == $mytask->rejected)
+                                                            <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$mytask->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                        @endif
+                                                    @endforeach
                                                 @endif
                                                 @if($mytask->status == 0)
                                                     <td><span class="label label-primary">NEW</span></td>
+                                                    <td><a href="#" class="label label-default view" data-ket="{{$mytask->keterangan}}">LIHAT KETERANGAN</a></td>
                                                 @endif
                                                 @if($mytask->status == 1)
                                                     <td><span class="label label-warning">PENDING</span></td>
+                                                    @foreach($pegawai as $p)
+                                                        @if($p->id == $mytask->mengetahui)
+                                                            <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$mytask->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                        @endif
+                                                    @endforeach
                                                 @endif
                                                 @if($mytask->status == 2)
                                                     <td><span class="label label-primary">WAIT FOR PIC</span></td>
+                                                    <td><a href="#" class="label label-default view" data-ket="{{$mytask->keterangan}}">LIHAT KETERANGAN</a></td>
                                                 @endif
                                                 @if($mytask->status == 3)
                                                     <td><span class="label label-primary">ON GOING</span></td>
+                                                    @foreach($pegawai as $p)
+                                                    @if($p->id == $mytask->menyetujui)
+                                                        <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$mytask->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                    @endif
+                                                    @endforeach
                                                 @endif
                                                 @if($mytask->status == 4)
                                                     <td><span class="label label-success">COMPLETE</span></td>
+                                                    @foreach($pegawai as $p)
+                                                        @if($p->id == $mytask->pic)
+                                                            <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$mytask->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                        @endif
+                                                    @endforeach
                                                 @endif
                                                 <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($mytask->created_at)}}</td>
                                                 <td>
                                                     <a href="/task/{{$mytask->form_id}}/submissions/{{$mytask->submission_id}}" class="btn btn-warning btn-sm">View</a>
-                                                    @can('task-take')
+
+                                                @can('task-take')
                                                         @if($mytask->status == -1)
                                                             <a href="/task/{{$mytask->submission_id}}/cancel" class="btn btn-danger btn-sm hidden">Cancel</a>
                                                             <a href="/task/{{$mytask->submission_id}}/complete" class="btn btn-danger btn-sm hidden">Cancel</a>
                                                         @else
                                                             <a href="/task/{{$mytask->submission_id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
                                                             <a href="#" data-toggle="modal" data-target="#comp" data-id="{{$mytask->submission_id}}" data-ket="{{$mytask->keterangan}}" class="btn btn-success btn-sm">Complete</a>
+                                                            <a type="button" href="/task/{{$mytask->form_id}}/submissions/{{$mytask->submission_id}}/task_pdf" class="btn btn-default" aria-label="Export to PDF">
+                                                                <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                                                            </a>
                                                         @endif
                                                     @endcan
 
@@ -137,11 +187,11 @@
                                         <table class="table table-hover datatable">
                                             <thead>
                                             <tr>
-                                                <th>Form ID</th>
-                                                <th>Employee ID Number</th>
-                                                <th>Name</th>
+                                                <th>No</th>
+                                                <th>Email</th>
                                                 <th>Form Type</th>
                                                 <th>Status</th>
+                                                <th>Keterangan</th>
                                                 <th>Created At</th>
                                                 <th>Action</th>
                                             </tr>
@@ -149,27 +199,52 @@
                                             <tbody>
                                             @foreach($completes as $complete)
                                                 <tr>
-                                                    <td>{{$complete->submission_id}}</td>
-                                                    <td>{{$complete->nip}}</td>
-                                                    <td>{{$complete->nama_lengkap}}</td>
+                                                    <td>{{$loop->iteration}}</td>
+                                                    <td>{{$mytask->email}}</td>
                                                     <td>{{$complete->name}}</td>
                                                     @if($complete->status == -1)
                                                         <td><span class="label label-danger">REJECTED</span></td>
+                                                        @foreach($pegawai as $p)
+                                                            @if($p->id == $complete->rejected)
+                                                                <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$complete->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                            @endif
+                                                        @endforeach
                                                     @endif
                                                     @if($complete->status == 0)
                                                         <td><span class="label label-primary">NEW</span></td>
+                                                        <td><a href="#" class="label label-default view" data-ket="{{$complete->keterangan}}">LIHAT KETERANGAN</a></td>
                                                     @endif
                                                     @if($complete->status == 1)
                                                         <td><span class="label label-warning">PENDING</span></td>
+                                                        @foreach($pegawai as $p)
+                                                            @if($p->id == $complete->mengetahui)
+                                                                <td><a href="#" class="label label-default view" data-s$completetatus="{{$p->nama_lengkap}}" data-ket="{{$complete->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                            @endif
+                                                        @endforeach
                                                     @endif
                                                     @if($complete->status == 2)
                                                         <td><span class="label label-primary">WAIT FOR PIC</span></td>
+                                                        @foreach($pegawai as $p)
+                                                            @if($p->id == $complete->menyetujui)
+                                                                <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$complete->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                            @endif
+                                                        @endforeach
                                                     @endif
                                                     @if($complete->status == 3)
                                                         <td><span class="label label-primary">ON GOING</span></td>
+                                                        @foreach($pegawai as $p)
+                                                            @if($p->id == $complete->menyetujui)
+                                                                <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$complete->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                            @endif
+                                                        @endforeach
                                                     @endif
                                                     @if($complete->status == 4)
                                                         <td><span class="label label-success">COMPLETE</span></td>
+                                                        @foreach($pegawai as $p)
+                                                            @if($p->id == $complete->pic)
+                                                                <td><a href="#" class="label label-default view" data-status="{{$p->nama_lengkap}}" data-ket="{{$complete->keterangan}}">LIHAT KETERANGAN</a></td>
+                                                            @endif
+                                                        @endforeach
                                                     @endif
                                                     <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($complete->created_at)}}</td>
                                                     <td>
@@ -267,6 +342,36 @@
 
                 modal.find('.modal-body #id').val(id);
                 modal.find('.modal-body #ket').val(keterangan);
+            });
+            $('.view').click(function () {
+                var span = document.createElement("span");
+                span.innerHTML  ="<b>Ditambahkan Terakhir Oleh :<b><br>" +$(this).attr('data-status');
+                swal({
+                    title: "KETERANGAN",
+                    content: span,
+                    html: true,
+                    text: $(this).attr('data-ket')
+                });
+            });
+            $('.take').click(function () {
+                var take_id = $(this).attr('take-id');
+                swal({
+                    title: "Are you sure?",
+                    text: "Sebelum mengambil pekejaan, Pastikan anda melihat keterangan yang terlampir ",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            swal("Good Luck!", "Kamu berhasil mengambil pekerjaan!", "success", {
+                                button: "OK",
+                            });
+                            window.location = "/task/"+take_id+"/take";
+                        } else {
+                            swal("Anda Ragu dalam mengambil pekerjaan");
+                        }
+                    });
             });
         });
     </script>

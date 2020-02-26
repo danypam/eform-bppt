@@ -78,6 +78,53 @@
         @endforeach
         </tbody>
     </table>
+<br>
+    <table class="table table-borderless">
+        <thead>
+        <tr >
+            <th scope="col" width="33%" ></th>
+            <th scope="col" width="33%" ></th>
+            <th scope="col" width="33%" ></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-center">
+            <td>                                       </td>
+            <td> Mengetahui,                           </td>
+            <td> Menyetujui,                           </td>
+        </tr>
+        <tr class="text-center">
+            <td> Pemohon </td>
+            <td> Ka. Unit Kerja/Atasan Langsung     </td>
+            <td> Ka. Bidang Infrastruktur Informasi </td>
+        </tr>
+        <tr class="text-center" >
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+        <tr class="text-center" >
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+        <tr class="text-center" >
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+        <tr class="text-center" >
+            <td>__________________________</td>
+            <td>__________________________</td>
+            <td>__________________________</td>
+        </tr>
+        <tr class="text-center">
+            <td class="col">                                       </td>
+            <td class="col">                                       </td>
+            <td class="col"> Amir Dahlan, S.T.,M. Kom              </td>
+        </tr>
+        </tbody>
+    </table>
 
 
 @endsection

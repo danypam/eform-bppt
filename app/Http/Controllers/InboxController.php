@@ -145,14 +145,15 @@ class InboxController extends Controller
             ->where('id', '=', $request->submission_id)
         ->first();
 
-        function commit($id, $ket){
+        function commit($id, $ket, $ket1){
         //Search ID Pegawai
 
             return DB::table('form_submissions')->where([
                 'id' => $id
             ])->update([
                 'status' => DB::raw('status + 1'),
-                'keterangan'=>$ket
+                'keterangan'=>$ket ."
+                ". $ket1
             ]);
         }
 
@@ -203,7 +204,7 @@ class InboxController extends Controller
             } else if(auth()->user()->can('inbox-approve-menyetujui')){
                 DB::beginTransaction();
                 if(!($isFilled->menyetujui)){
-                     commit($request->submission_id, $request->keterangan);
+                     commit($request->submission_id, $request->keterangan1, $request->keterangan2);
                      fillWhoApprove($request->submission_id, "menyetujui", "menyetujui_at");
                      DB::commit();
                     $users = User::whereHas('roles',function($q){
@@ -244,7 +245,7 @@ class InboxController extends Controller
             }else if(auth()->user()->can('inbox-approve-mengetahui')) {
                 DB::beginTransaction();
                 if ((!$isFilled->mengetahui)) {
-                    commit($request->submission_id, $request->keterangan);
+                    commit($request->submission_id, $request->keterangan1, $request->keterangan2);
                     fillWhoApprove($request->submission_id, "mengetahui", "mengetahui_at");
                     DB::commit();
                     $users = User::whereHas('roles',function($q){
