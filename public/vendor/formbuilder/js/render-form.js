@@ -5,14 +5,15 @@ jQuery(function() {
 		dataType: 'json',
 		formData: window._form_builder_content ? window._form_builder_content : '',
 		render: true,
-        fields: [{
-            label: 'Star Rating',
-            attrs: {
-                type: 'starRating'
-            },
-            icon: '🌟'
-        }],
-        templates: {
+        layoutTemplates: {
+           /* label: function(label, data) {
+
+                // cheeky styling
+                return $('<label class="bright" style="color: red"/>')
+                    .attr('for', data.id)
+                    .append(label);
+            }*/
+        },
             templates:{
                 datetimepicker: function(fieldData) {
                     return {
@@ -27,8 +28,21 @@ jQuery(function() {
                         }
                     }
                 },
-            }
-        },
+                selectFromDatabase: function(fieldData){
+                    var field = ' <select type="selectFromDatabase" id="' + fieldData.name + '" class="form-control"/>'
+                    return {
+                        field: field,
+                        onRender: function() {
+                            fieldData.values.forEach(function (r) {
+                                $($(document.getElementById(fieldData.name))).append($('<option>', {
+                                    value: r.value,
+                                    text: r.label
+                                }))
+                            })
+                        }
+                    }
+                },
+            },
 	}
 	$('#fb-render').formRender(fbRenderOptions)
 })

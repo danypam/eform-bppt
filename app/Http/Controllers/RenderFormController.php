@@ -55,14 +55,14 @@ class RenderFormController extends Controller
                $label = "$data->lbl";
                $value = "$data->value";
               // dd($label);
-               $result = DB::table($data->query)->get();
+               $result = DB::table($data->table)->get();
                foreach ($result as $r){
                    $values[] = [
                        'label' => $r->$label,
                        'value' => $r->$value
                    ];
                }
-               $data->type = 'select';
+               //$data->type = 'select';
                $data->values = $values;
            }
         }

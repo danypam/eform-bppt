@@ -17,6 +17,7 @@ use jazmy\FormBuilder\Helper;
 use jazmy\FormBuilder\Models\Form;
 use jazmy\FormBuilder\Requests\SaveFormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -203,4 +204,18 @@ class FormController extends Controller
 
         return back()->with('success', "'{$form->name}' deleted.");
     }
+
+    //get table for "select from database" field
+        public function getTable(){
+        $result = DB::table('information_schema.tables')->select('table_name')->where('table_schema','=',DB::connection()->getDatabaseName())->get();
+        $result = json_encode($result, true);
+        return $result;
+    }
+
+    public function getcolumn($tableName){
+        $result = DB::getSchemaBuilder()->getColumnListing($tableName);
+        $result = json_encode($result, true);
+        return $result;
+    }
+
 }

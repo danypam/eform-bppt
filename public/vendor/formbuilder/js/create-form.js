@@ -11,20 +11,45 @@ jQuery(function() {
         }
     });
 
-    $('.alert').on('click', function () {
-        //console.log($('.fb-editor > select').attr('multiple') == "false");
-        if($('select').attr('multiple') == "false"){
-            $('this > select').removeAttr('multiple');
-        }
-    });
 
-    //disable field for update
-/*    function field(fld) {
-        var name = $('.fld-name', fld);
-        if(update && (name.val() !== "")){
-            name.prop('disabled', true);
-        }
-    }*/
+    //get database
+    function getTableName(fld) {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "/getTable",
+            success: function(result){
+                console.log(result);
+                result.forEach(function (r) {
+                    $('.fld-table', fld).append($('<option>', {
+                        value: r.TABLE_NAME,
+                        text: r.TABLE_NAME
+                    }));
+                })
+            }});
+
+        $('.fld-table', fld).on('change', function () {
+            $('.fld-value', fld).empty()
+            $('.fld-lbl', fld).empty()
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "/getColumn/" + $('.fld-table', fld).val(),
+                success: function(result){
+                    console.log(result);
+                    result.forEach(function (r) {
+                        $('.fld-value', fld).append($('<option>', {
+                            value: r,
+                            text: r
+                        }));
+                        $('.fld-lbl', fld).append($('<option>', {
+                            value: r,
+                            text: r
+                        }));
+                    })
+                }});
+        })
+    }
 
 
     var fbEditor = $(document.getElementById('fb-editor'))
@@ -56,20 +81,14 @@ jQuery(function() {
                 attrs: {
                     type: 'selectFromDatabase'
                 },
-                icon: '⏰'
+                icon: '🛢'
             },{
             label: 'Two Column Text Field',
             attrs: {
                 type: 'Text2ColumnDynamic'
             },
             icon: '◻◻'
-        },{
-                label: 'iseng',
-                attrs: {
-                    type: 'text'
-                },
-                icon: '◻◻'
-            }],
+        }],
         templates: {
             datetimepicker: function(fieldData) {
                 return {
@@ -86,8 +105,12 @@ jQuery(function() {
             },
             selectFromDatabase: function(fieldData){
                 return {
-                    field: ' <select type="select" id="' + fieldData.name + '" class="form-control"/>',
+                    field: ' <select type="selectFromDatabase" id="' + fieldData.name + '" class="form-control"/>',
+                    onRender: function () {
+                        /*$(document.getElementById(fieldData.name)).on('change',function () {
 
+                        })*/
+                    }
                 }
             },
             Text2ColumnDynamic: function (fieldData) {
@@ -163,17 +186,26 @@ jQuery(function() {
         },
         typeUserAttrs: {
             selectFromDatabase: {
-                query:{
-                    label: 'Query',
-                    value: '',
+                className:{
+                  value: 'form-builder'
+                },
+                table:{
+                    label: '<span style="color: red">Table</span>',
+                    options: {
+                        '' : 'Choose this first'
+                    },
+                    required: 'true'
                 },
                 value:{
-                    label: 'value',
-                    value: ''
+                    label: '<span style="color: red">Value</span>',
+                    options: {},
+                    required: 'true'
                 },
+
                 lbl:{
-                    label: 'label',
-                    value: ''
+                    label: '<span style="color: red">Label</span>',
+                    options: {},
+                    required: 'true'
                 }
             }
             /*
@@ -244,16 +276,67 @@ jQuery(function() {
             },*/
         },
         typeUserEvents: {
-            selectFromDatabase:{
-                onnadd:function (fld) {
+            number: {
+                onnadd: function (fld) {
+                    console.log(fld);
+                }
+            },
+            text: {
+                onadd: function(fld) {
+                    console.log(fld);
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: "/testAjax",
+                        success: function(result){
+                            console.log(result);
+                            result.forEach(function (r) {
+                                $('.fld-subtype', fld).append($('<option>', {
+                                    value: r.id,
+                                    text: r.nama_lengkap
+                                }));
+                            })
+                        }});
 
                 }
-            }
-      /*      text:{onadd: function (fld) {field(fld)}},
-            textarea:{onadd: function (fld) {field(fld)}},
+            },
+            selectFromDatabase: {
+                onadd: function (fld) {getTableName(fld)
+                    /*$.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: "/testAjax",
+                        success: function(result){
+                            console.log(result);
+                            result.forEach(function (r) {
+                                $('.fld-table', fld).append($('<option>', {
+                                    value: r.id,
+                                    text: r.nama_lengkap
+                                }));
+                            })
+                        }});*/
+                    /*$.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: "/testAjax",
+                        success: function(result){
+                            console.log(result);
+                            result.forEach(function (r) {
+                                $('.fld-table', fld).append($('<option>', {
+                                    value: r.id,
+                                    text: r.nama_lengkap
+                                }));
+                            })
+                        }});*/
+                    //var table = $('.fld-table', fld);
+
+                }
+            },
+            //text:{onadd: function (fld) {field(fld)}},
+            /*textarea:{onadd: function (fld) {field(fld)}},
             select:{onadd: function (fld) {field(fld)}},
             'checkbox-group':{onadd: function (fld) {field(fld)}},
-            number:{onadd: function (fld) {field(fld)}},
+            //number:{onadd: function (fld) {field(fld)}},
             date:{onadd: function (fld) {field(fld)}},
             file:{onadd: function (fld) {field(fld)}},
             hidden:{onadd: function (fld) {field(fld)}},
@@ -422,5 +505,21 @@ jQuery(function() {
 
         $('.modal-body').formRender(fbRenderOptions)
         //formBuilder.actions.showData();
+    });
+
+    $(".ajax").click(function(){
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "/testAjax",
+            success: function(result){
+                console.log(result);
+                result.forEach(function (r) {
+                    $('#get-ajax').append($('<option>', {
+                        value: r.id,
+                        text: r.nama_lengkap
+                    }));
+                })
+            }});
     });
 })
