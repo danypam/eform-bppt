@@ -100,6 +100,8 @@
       <path value="$PROJECT_DIR$/vendor/techlab/smartwizard" />
       <path value="$PROJECT_DIR$/vendor/symfony/http-foundation" />
       <path value="$PROJECT_DIR$/vendor/symfony/debug" />
+      <path value="$PROJECT_DIR$/vendor/apereo/phpcas" />
+      <path value="$PROJECT_DIR$/vendor/tasikmalayakab/laravel-cas" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />

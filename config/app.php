@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Kabupaten\Tasikmalaya\Cas\CasServiceProvider::class,
 
         Spatie\Activitylog\ActivitylogServiceProvider::class,
 
@@ -234,6 +235,7 @@ return [
         'Activity' => Spatie\Activitylog\ActivitylogFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'LogActivity' => App\Helpers\LogActivity::class,
+        'Cas' => Kabupaten\Tasikmalaya\Cas\Facades\Cas::class,
 
     ],
 
