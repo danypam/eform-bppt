@@ -8,7 +8,7 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">EDIT</h3>
+                                <h3 class="panel-title">Ubah</h3>
                             </div>
                             <div class="panel-body">
                                 <form action="/permission/{{$permis->id}}/update" method="POST">
@@ -17,7 +17,7 @@
                                         <label for="exampleFormControlInput1">Permission</label>
                                         <input value="{{$permis->name}}" name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="nama">
                                     </div>
-                                    <button type="submit" class="btn btn-warning">Save</button>
+                                    <button type="submit" class="btn btn-warning">Simpan</button>
                                 </form>
                             </div>
                         </div>

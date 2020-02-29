@@ -17,11 +17,11 @@
                                             <thead>
                                             <tr>
                                                 <th class="five">#</th>
-                                                <th class="fifteen">User Name</th>
+                                                <th class="fifteen">Nama Pegawai</th>
                                                 @foreach($form_headers as $header)
                                                     <th>{{ $header['label'] ?? title_case($header['name']) }}</th>
                                                 @endforeach
-                                                <th class="fifteen">Actions</th>
+                                                <th class="fifteen">Aksi</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -39,15 +39,15 @@
                                                         </td>
                                                     @endforeach
                                                     <td>
-                                                        <a href="{{ route('formbuilder::forms.submissions.show', [$form, $submission->id]) }}" class="btn btn-primary btn-sm" title="View submission">
-                                                            <i class="fa fa-eye"></i> View
+                                                        <a href="{{ route('formbuilder::forms.submissions.show', [$form, $submission->id]) }}" class="btn btn-primary btn-sm" title="Lihat Permohonan">
+                                                            <i class="fa fa-eye"></i> Lihat
                                                         </a>
 
                                                         <form action="{{ route('formbuilder::forms.submissions.destroy', [$form, $submission]) }}" method="POST" id="deleteSubmissionForm_{{ $submission->id }}" class="d-inline-block">
                                                             @csrf
                                                             @method('DELETE')
 
-                                                            <button type="submit" class="btn btn-danger btn-sm confirm-form" data-form="deleteSubmissionForm_{{ $submission->id }}" data-message="Delete this submission?" title="Delete submission">
+                                                            <button type="submit" class="btn btn-danger btn-sm confirm-form" data-form="deleteSubmissionForm_{{ $submission->id }}" data-message="Batalkan Permohonan?" title="Batalkan Permohonan">
                                                                 <i class="fa fa-trash-o"></i>
                                                             </button>
                                                         </form>
@@ -65,7 +65,7 @@
                                 @else
                                     <div class="card-body">
                                         <h4 class="text-danger text-center">
-                                            No submission to display.
+                                            Tidak ada permohonan.
                                         </h4>
                                     </div>
                                 @endif

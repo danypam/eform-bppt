@@ -10,9 +10,9 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">MANAGE USERS</h3>
+                                <h3 class="panel-title">USERS</h3>
                                 <div class="right">
-                                    <a class="btn btn-info btn-lg" href="{{ route('users.create') }}"> Add New User</a>
+                                    <a class="btn btn-info btn-lg" href="{{ route('users.create') }}"> Tambah User</a>
                                 </div>
                             </div>
                             <div class="panel-body">
@@ -23,12 +23,12 @@
                                     <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Name</th>
+                                        <th>Nama</th>
                                         <th>Email</th>
                                         <th>Role</th>
                                         <th>Status</th>
                                         <th>Updated At</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -44,18 +44,18 @@
                                                     @endforeach
                                                 @endif
                                             @if($user->status == true)
-                                                <td><span class="label label-success">Active</span></td>
+                                                <td><span class="label label-success">Aktif</span></td>
                                             @else
-                                                <td><span class="label label-danger ">Suspend</span></td>
+                                                <td><span class="label label-danger ">Tidak Aktif </span></td>
                                             @endif
                                             <td>{{$user->created_at}}</td>
                                             <td>
-                                                <a class="btn btn-secondary btn-sm" href="{{ route('users.show',$user->id) }}">Show</a>
-                                                <a class="btn btn-primary btn-sm" href="{{ route('users.edit',$user->id) }}">Edit</a>
+                                                <a class="btn btn-secondary btn-sm" href="{{ route('users.show',$user->id) }}">Lihat</a>
+                                                <a class="btn btn-primary btn-sm" href="{{ route('users.edit',$user->id) }}">Ubah</a>
                                                 @if($user->status == false)
-                                                    <a href="/users/{{$user->id}}/deletee" class="btn btn-success btn-sm ">Active</a>
+                                                    <a href="/users/{{$user->id}}/deletee" class="btn btn-success btn-sm ">Aktif</a>
                                                 @else
-                                                    <a href="/users/{{$user->id}}/delete" class="btn btn-danger btn-sm ">Non-Active</a>
+                                                    <a href="/users/{{$user->id}}/delete" class="btn btn-danger btn-sm ">Nonaktif</a>
                                                 @endif
 {{--                                                {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}--}}
 {{--                                                {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}--}}

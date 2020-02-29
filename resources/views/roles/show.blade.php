@@ -12,14 +12,14 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title">ROLES</h3>
                                 <div class="right">
-                                    <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
+                                    <a class="btn btn-primary" href="{{ route('roles.index') }}"> Kembali</a>
                                 </div>
                             </div>
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>Name:</strong>
+                                            <strong>Nama :</strong>
                                             {{ $role->name }}
                                         </div>
                                     </div>

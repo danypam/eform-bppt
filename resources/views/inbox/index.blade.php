@@ -10,7 +10,7 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INBOX</h3><br>
+                                <h3 class="panel-title">SURAT MASUK</h3><br>
                                 <ul class="nav nav-tabs">
                                     <li  class="active" id="tab-primary"><a href="#inbox">Primary</a></li>
                                     <li id="tab-approved"><a href="#inbox">Approved</a></li>
@@ -24,11 +24,11 @@
                                         <thead>
                                         <tr>
                                             <th>Email</th>
-                                            <th>Name</th>
-                                            <th>Form Type</th>
+                                            <th>Nama</th>
+                                            <th>Formulir</th>
                                             <th>Status</th>
-                                            <th>Created At</th>
-                                            <th>Action</th>
+                                            <th>Tanggal Dibuat</th>
+                                            <th>Aksi</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -133,7 +133,7 @@
                                             <th>Form Type</th>
                                             <th>Status</th>
                                             <th>Created At</th>
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -176,7 +176,7 @@
                                             <th>Form Type</th>
                                             <th>Status</th>
                                             <th>Created At</th>
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                         </thead>
                                         <tbody>

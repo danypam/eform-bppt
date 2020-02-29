@@ -13,7 +13,7 @@
                                 <h3 class="panel-title">ROLES</h3>
                                 <div class="right">
                                     @can('role-create')
-                                        <a class="btn btn-info btn-lg" href="{{ route('roles.create') }}"> Create New Role</a>
+                                        <a class="btn btn-info btn-lg" href="{{ route('roles.create') }}"> Tambah Role</a>
                                     @endcan
                                 </div>
                             </div>
@@ -21,9 +21,9 @@
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>Number</th>
-                                        <th>Name</th>
-                                        <th>Managed</th>
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Dibuat</th>
                                         <th width="280px">Action</th>
                                     </tr>
                                     </thead>
@@ -34,13 +34,13 @@
                                             <td>{{ $role->name }}</td>
                                             <td>{{$role->created_at}}</td>
                                             <td>
-                                                <a class="btn btn-secondary" href="{{ route('roles.show',$role->id) }}">Show</a>
+                                                <a class="btn btn-secondary" href="{{ route('roles.show',$role->id) }}">Lihat</a>
                                                 @can('role-edit')
-                                                    <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Access</a>
+                                                    <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Ubah</a>
                                                 @endcan
                                                 @can('role-delete')
                                                     {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                                                    {!! Form::submit('Hapus', ['class' => 'btn btn-danger']) !!}
                                                     {!! Form::close() !!}
                                                 @endcan
                                             </td>
@@ -68,20 +68,20 @@
             $('.delete').click(function () {
                 var user_id = $(this).attr('user-id');
                 swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
+                    title: "Apakah anda yakin?",
+                    text: "Jika data dihapus, data tidak bisa kembali!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
                 })
                     .then((willDelete) => {
                         if (willDelete) {
-                            swal("Poof! Your data has been deleted!", {
+                            swal("Poof! Data telah dihapus!", {
                                 icon: "success",
                             });
-                            window.location = "/admin/akun/"+user_id+"/delete";
+                            window.location = "/pegawai/"+peg_id+"/delete";
                         } else {
-                            swal("Your data is safe!");
+                            swal("Data batal dihapus!");
                         }
                     });
             });

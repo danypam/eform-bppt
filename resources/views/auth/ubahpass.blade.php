@@ -13,25 +13,25 @@
                             <div class="panel">
                                 <div class="panel-heading">
 
-                                    <h3 class="panel-title">Change Password</h3>
+                                    <h3 class="panel-title">Ubah Password</h3>
                                 </div>
                                 <div class="panel-body">
                                     <form action="/auth/ubahpass/update" method="POST">
                                         {{csrf_field()}}
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">Recent Password</label>
-                                            <input  name="password_lama" type="password" class="form-control" id="exampleFormControlInput1" placeholder="Recent Password" required>
+                                            <label for="exampleFormControlInput1">Password Sebelumnya</label>
+                                            <input  name="password_lama" type="password" class="form-control" id="exampleFormControlInput1" placeholder="Password Sebelumnya" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">New Password</label>
-                                            <input name="password_baru" type="password" class="form-control" id="exampleFormControlInput1" placeholder="New Password"required>
-                                            <small id="newpass" class="form-text text-muted">Please Enter The Different Password</small>
+                                            <label for="exampleFormControlInput1">Password Baru</label>
+                                            <input name="password_baru" type="password" class="form-control" id="exampleFormControlInput1" placeholder="Password Baru" required>
+                                            <small id="newpass" class="form-text text-muted">Gunakan Password Baru</small>
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">Confirm Password</label>
-                                            <input name="password_confirm" type="password" class="form-control" id="exampleFormControlInput1" placeholder="Confirm Password"required>
+                                            <label for="exampleFormControlInput1">Konfirmasi Password Baru</label>
+                                            <input name="password_confirm" type="password" class="form-control" id="exampleFormControlInput1" placeholder="Konfirmasi Password Baru" required>
                                         </div>
-                                        <button type="submit" class="btn btn-warning">Save</button>
+                                        <button type="submit" class="btn btn-warning">Simpan</button>
                                     </form>
                                 </div>
                             </div>

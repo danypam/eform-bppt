@@ -10,16 +10,16 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">User Data</h3>
+                                <h3 class="panel-title">Data User</h3>
                                 <div class="right">
-                                    <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
+                                    <a class="btn btn-primary" href="{{ route('users.index') }}"> Kembali</a>
                                 </div>
                             </div>
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>Name:</strong>
+                                            <strong>Nama:</strong>
                                             {{ $user->name }}
                                         </div>
                                     </div>
