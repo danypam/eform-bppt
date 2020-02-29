@@ -1,5 +1,7 @@
 @extends('formbuilder::layout')
-
+@section('head')
+    <script src="{{ asset('vendor/formbuilder/js/jquery-formbuilder/form-render.min.js') }}" defer></script>
+@endsection
 @section('content')
     <div class="">
         <div class="main">

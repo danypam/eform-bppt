@@ -41,7 +41,7 @@
                                         </tr>
                                         <tr>
                                             <td><h6><strong>Unit Kerja</strong></h6></td>
-                                            <td><h6>: {{$identitas->unit_kerja->nama_unit}}</h6></td>
+                                            <td><h6>: {{$identitas->unit_kerja->unit}}</h6></td>
                                         </tr>
                                         <tr>
 

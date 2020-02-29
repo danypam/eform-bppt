@@ -17,13 +17,17 @@ class Pegawai extends Model
         return asset('images/'.$this->foto);
     }
 
-    public function unit_kerja()
+ /*   public function unit_kerja()
     {
         return $this->belongsTo(UnitKerja::class,'unit_id','id');
-    }
+    }*/
 
     public function unit_jabatan(){
         return $this->belongsTo(UnitJabatan::class,'unit_jabatan_id','id_unit_jabatan');
+    }
+
+    public function unit_kerja(){
+        return $this->belongsTo(UnitJabatan::class,'unit_id','id_unit_jabatan');
     }
 
 }
