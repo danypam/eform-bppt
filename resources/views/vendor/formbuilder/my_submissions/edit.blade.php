@@ -9,7 +9,7 @@
                         <h5 class="card-title">
                             {{ $pageTitle }}
 
-                            <a href="{{ route('formbuilder::my-submissions.index') }}" class="btn btn-primary float-md-right btn-sm" title="Back To My Submissions">
+                            <a href="{{ route('formbuilder::my-submissions.index') }}" class="btn btn-primary float-md-right btn-sm" title="Kembali">
                                 <i class="fa fa-arrow-left"></i>
                             </a>
                         </h5>
@@ -25,7 +25,7 @@
 
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary confirm-form" data-form="submitForm" data-message="Submit update to your entry for '{{ $submission->form->name }}'?">
-                                <i class="fa fa-submit"></i> Submit Form
+                                <i class="fa fa-submit"></i> Simpan
                             </button>
                         </div>
                     </form>

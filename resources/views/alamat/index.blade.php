@@ -27,7 +27,7 @@
                                         <th>No</th>
                                         <th>Address</th>
                                         <th>Updated At</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                     </thead>
                                     <tbody>

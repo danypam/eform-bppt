@@ -20,12 +20,12 @@
                                             <table class="table" id="datatable">
                                                 <thead>
                                                 <tr>
-                                                    <th class="five">NO</th>
-                                                    <th class="">Form Type</th>
+                                                    <th class="five">No</th>
+                                                    <th class="">Formulir</th>
                                                     <th class="twenty-five">Status</th>
                                                     <th class="twenty-five">Keterangan</th>
-                                                    <th class="twenty-five">Created At</th>
-                                                    <th class="fifteen">Actions</th>
+                                                    <th class="twenty-five">Dibuat</th>
+                                                    <th class="fifteen">Aksi</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -41,7 +41,7 @@
                                                                         Rejected
                                                                     </a>
                                                                     <div class="dropdown-menu" style="padding: 2px">
-                                                                        <h6  class="dropdown-item">Permohonan anda telah ditolak </h6>
+                                                                        <h6  class="dropdown-item">Permohonan anda ditolak </h6>
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -121,14 +121,14 @@
                                                                 @endif
                                                                 <td>{{ \App\Http\Controllers\TimeController::time_elapsed_string($submission->created_at->toDayDateTimeString()) }}</td>
                                                         <td>
-                                                            <a href="{{ route('formbuilder::my-submissions.show', [$submission->id]) }}" class="btn btn-primary btn-sm" title="View submission">
+                                                            <a href="{{ route('formbuilder::my-submissions.show', [$submission->id]) }}" class="btn btn-primary btn-sm" title="Lihat Permohonan">
                                                                 <i class="fa fa-eye"></i> View
                                                             </a>
                                                             <a href="/{{$submission->id}}/submission_pdf" class="btn btn-warning btn-sm" title="Export PDF">
                                                                 <i class="fa fa-eye"></i> Export PDF
                                                             </a>
                                                             @if($submission->form->allowsEdit())
-                                                                <a href="{{ route('formbuilder::my-submissions.edit', [$submission->id]) }}" class="btn btn-primary btn-sm" title="Edit submission">
+                                                                <a href="{{ route('formbuilder::my-submissions.edit', [$submission->id]) }}" class="btn btn-primary btn-sm" title="Ubah Permohonan">
                                                                     <i class="fa fa-pencil"></i>
                                                                 </a>
                                                             @endif
@@ -155,7 +155,7 @@
                                     @else
                                         <div class="card-body">
                                             <h4 class="text-danger text-center">
-                                                No submission to display.
+                                                Anda belum pernah mengajukan permohonan
                                             </h4>
                                         </div>
                                     @endif

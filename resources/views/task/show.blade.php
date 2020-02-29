@@ -5,8 +5,8 @@
             <div class="container-fluid">
                 <div class="panel">
                     <div class="panel-heading">
-                        <h3>Progres</h3>
-                        <h5 class="right">No. Form: {{ $submission->id  }}</h5>
+                        <h3>Progress</h3>
+                        <h5 class="right">Permohonan ke- {{ $submission->id  }}</h5>
                     </div>
                     <div class="panel-body ">
                         <div class="progress-bar-wrapper"></div>
@@ -15,7 +15,7 @@
                 <div class="panel">
                     <div class="panel-heading">
                         <h3>Detail</h3>
-                        <h5 class="right">No. Form: {{ $submission->id  }}</h5>
+                        <h5 class="right">Permohonan ke- {{ $submission->id  }}</h5>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -109,7 +109,7 @@
                                         </li>
                                         <li>
                                             <time datetime="{{ $submission->complete_at }}">{{ $submission->complete_at }}</time>
-                                            <span ><strong>Complete</strong> </span>
+                                            <span ><strong>Completed</strong> </span>
                                         </li>
                                     @endif
                                     @if($submission->rejected)
@@ -127,7 +127,7 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Viewing Submission #{{ $submission->id }} for form '{{ $submission->form->name }}'</h3>
+                                <h3 class="panel-title">{{--Viewing Submission #{{ $submission->id }} --}}Formulir  : {{ $submission->form->name }}</h3>
                             </div>
                             <div class="panel-body">
                                 <div class="btn-toolbar float-right" role="toolbar">
@@ -153,17 +153,15 @@
                                        @if(!($submission->status == config("constants.status.rejected")))
                                            @if(auth()->user()->can('task-take'))
                                                @if($submission->status == config("constants.status.waitForPic"))
-                                                   <a href="/task/{{$submission->id}}/take" class="btn btn-primary btn-sm">Take</a>
+                                                   <a href="/task/{{$submission->id}}/take" class="btn btn-primary btn-sm">Kerjakan</a>
 
                                                @elseif($submission->status == config("constants.status.onGoing"))
-                                                    <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
-                                                    <a href="/task/{{$submission->id}}/complete" class="btn btn-success btn-sm">Complete</a>
-                                                    <a href="/{{$submission->id}}/submission_pdf" class="btn btn-warning btn-sm" title="Export PDF">
-                                                        <i class="fa fa-eye"></i> Export PDF
-                                                    </a>
+                                                    <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Batalkan</a>
+                                                    <a href="/task/{{$submission->id}}/complete" class="btn btn-success btn-sm">Selesai</a>
+
 
                                                @elseif($submission->status == config("constants.status.completed"))
-                                                   <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
+                                                   <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Batalkan</a>
                                                @endif
                                            @endif
                                        @endif
