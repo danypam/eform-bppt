@@ -27,7 +27,7 @@
                                             <th>Nama</th>
                                             <th>Formulir</th>
                                             <th>Status</th>
-                                            <th>Tanggal Dibuat</th>
+                                            <th>Dibuat</th>
                                             <th>Aksi</th>
                                         </tr>
                                         </thead>
@@ -41,7 +41,7 @@
                                                     <td>
                                                         <div class="btn-group">
                                                             <a type="button" class="label label-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                Rejected
+                                                                REJECTED
                                                             </a>
                                                             <div class="dropdown-menu" style="padding: 2px">
                                                                 <h6  class="dropdown-item">Permohonan anda telah ditolak </h6>
@@ -65,7 +65,7 @@
                                                     <td>
                                                         <div class="btn-group">
                                                             <a type="button" class="label label-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                Pending
+                                                                PENDING
                                                             </a>
                                                             <div class="dropdown-menu" style="padding: 2px">
                                                                 <h6  class="dropdown-item">Menunggu persetujuan Kepala BII</h6>
@@ -89,7 +89,7 @@
                                                     <td>
                                                         <div class="btn-group">
                                                             <a type="button" class="label label-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                Completed
+                                                                COMPLETED
                                                             </a>
                                                             <div class="dropdown-menu" style="padding: 2px">
                                                                 <h6  class="dropdown-item">Permohonan Telah Diproses</h6>
@@ -99,7 +99,7 @@
                                                 @endif
                                                 <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($inbox->created_at)}}</td>
                                                 <td>
-                                                    <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                    <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">Lihat</a>
                                                 @can('inbox-management')
 
                                                         @if(!($inbox->status == config("constants.status.rejected") || ($inbox->status > config("constants.status.pending"))))
@@ -130,9 +130,9 @@
                                         <tr>
                                             <th>Email</th>
                                             <th>Name</th>
-                                            <th>Form Type</th>
+                                            <th>Formulir</th>
                                             <th>Status</th>
-                                            <th>Created At</th>
+                                            <th>Dibuat</th>
                                             <th>Aksi</th>
                                         </tr>
                                         </thead>
@@ -173,9 +173,9 @@
                                         <tr>
                                             <th>Email</th>
                                             <th>Name</th>
-                                            <th>Form Type</th>
+                                            <th>Formulir</th>
                                             <th>Status</th>
-                                            <th>Created At</th>
+                                            <th>Dibuat</th>
                                             <th>Aksi</th>
                                         </tr>
                                         </thead>

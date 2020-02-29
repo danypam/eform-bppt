@@ -15,25 +15,21 @@
                 @if (auth()->user()->can('task-list') || auth()->user()->can('task-approve'))
                 <li><a href="{{url('task')}}" class="{{Request::is('task*')?'active':''}}"><i class="lnr lnr-briefcase"></i> <span>Tugas</span></a></li>
                 @endif
-                @can('crud-management')
-                <li>
-                    <a href="#subPages" data-toggle="collapse" class="collapse"><i class="lnr lnr-file-empty"></i> <span>CRUD</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-                    <div id="subPages" class="collapse">
-                        <ul class="nav">
-                            @if (auth()->user()->can('unit-list') || auth()->user()->can('unit-delete') || auth()->user()->can('unit-create')|| auth()->user()->can('unit-edit'))
-                            <li><a href="/unit" class="{{(request()->is('unit*'))?'active': ''}}"><i class="fa fa-wpforms"></i><span>Unit Kerja</span></a></li>
-                            @endif
-                            @if (auth()->user()->can('unitjab-list') || auth()->user()->can('unitjab-delete') || auth()->user()->can('unitjab-create')|| auth()->user()->can('unitjab-edit'))
-                            <li><a href="/unitjab"  class="{{(request()->is('unitjab*'))?'active': ''}}"><i class="fa fa-shirtsinbulk"></i><span>Unit Jabatan</span></a></li>
-                            @endif
-                        </ul>
-                    </div>
-                </li>
-                @endcan
                 @if (auth()->user()->can('pegawai-list') || auth()->user()->can('pegawai-delete') || auth()->user()->can('pegawai-create')|| auth()->user()->can('pegawai-edit'))
                     <li><a href="/pegawai" class="{{(request()->is('pegawai*'))?'active': ''}}"><i class="lnr lnr-users"></i> <span>Pegawai</span></a></li>
                 @endif
-
+                @can('crud-management')
+                    <li>
+                        <a href="#subPages" data-toggle="collapse" class="collapse"><i class="lnr lnr-file-empty"></i> <span>DATA</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <div id="subPages" class="collapse">
+                            <ul class="nav">
+                                @if (auth()->user()->can('unitjab-list') || auth()->user()->can('unitjab-delete') || auth()->user()->can('unitjab-create')|| auth()->user()->can('unitjab-edit'))
+                                    <li><a href="/unitjab"  class="{{(request()->is('unitjab*'))?'active': ''}}"><i class="fa fa-shirtsinbulk"></i><span>Unit Jabatan</span></a></li>
+                                @endif
+                            </ul>
+                        </div>
+                    </li>
+                @endcan
                 @if (auth()->user()->can('form-list') || auth()->user()->can('form-delete') || auth()->user()->can('form-create')|| auth()->user()->can('form-edit'))
                     <li><a href="/forms" class="{{(request()->is('forms*'))?'active': ''}}"><i class="lnr lnr-plus-circle"></i> <span>Form Builder</span></a></li>
                 @endif
