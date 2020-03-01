@@ -2,6 +2,10 @@
 
 @section('head')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="{{ asset('vendor/formbuilder/js/jquery-formbuilder/form-builder.min.js') }}" defer></script>
+<script src="{{ asset('vendor/formbuilder/js/jquery-formbuilder/form-render.min.js') }}" defer></script>
 @endsection
 @section('content')
     <div class="main">
@@ -15,7 +19,7 @@
                             </div>
                             <div class="panel-body">
                                 <a href="{{ route('formbuilder::forms.index') }}" class="btn btn-sm btn-primary float-md-right">
-                                    <i class="fa fa-arrow-left"></i> Back To My Form
+                                    <i class="fa fa-arrow-left"></i> Kembali
                                 </a>
                                 <form action="{{ route('formbuilder::forms.store') }}" method="POST" id="createFormForm">
                                     @csrf
@@ -23,9 +27,9 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="name" class="col-form-label">Form Name</label>
+                                                    <label for="name" class="col-form-label">Nama Formulir</label>
 
-                                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus placeholder="Enter Form Name">
+                                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus placeholder="Masukan Nama Formulir">
 
                                                     @if ($errors->has('name'))
                                                         <span class="invalid-feedback" role="alert">
@@ -36,10 +40,10 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="visibility" class="col-form-label">Form Visibility</label>
+                                                    <label for="visibility" class="col-form-label">Visibilitas Formulir</label>
 
                                                     <select name="visibility" id="visibility" class="form-control" required="required">
-                                                        <option value="">Select Form Visibility</option>
+                                                        <option value="">-Pilih-</option>
                                                         @foreach(jazmy\FormBuilder\Models\Form::$visibility_options as $option)
                                                             <option value="{{ $option['id'] }}">{{ $option['name'] }}</option>
                                                         @endforeach
@@ -59,8 +63,8 @@
                                                     </label>
 
                                                     <select name="allows_edit" id="allows_edit" class="form-control" required="required">
-                                                        <option value="0">NO (submissions are final)</option>
-                                                        <option value="1">YES (allow users to edit their submissions)</option>
+                                                        <option value="0">Tidak (Permohonan tidak bisa diubah.)</option>
+                                                        <option value="1">Ya (Permohonan dapat diubah.)</option>
                                                     </select>
 
                                                     @if ($errors->has('allows_edit'))
@@ -73,14 +77,14 @@
 
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="letter-code" class="col-form-label">Letter Code</label>
-                                                    <input id="letter-code" type="text" class="form-control" required placeholder="Enter Letter Code" required>
+                                                    <label for="letter-code" class="col-form-label">Kode Formulir</label>
+                                                    <input id="letter-code" type="text" class="form-control" placeholder="Masukan Kode Formulir" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="pic" class="col-form-label" style="display: block">PIC</label>
-                                                    <select id="pic" class="form-control selectpicker" multiple data-live-search="true"  data-width="100%" required>
+                                                    <select id="pic" class="selectpicker form-control" multiple data-live-search="true"  data-width="100%" required>
                                                         @foreach($pegawai as $peg)
                                                             <option value="{{$peg->id}}">{{$peg->nama_lengkap." (".$peg->nip.")"}}</option>
                                                         @endforeach
@@ -89,26 +93,40 @@
                                             </div>
                                         </div>
 
-                                        <div class="row">
+                                        <div class="row margin-top-30">
                                             <div class="col-md-12">
                                                 <div class="alert alert-info" role="alert">
-                                                    <i class="fa fa-info-circle"></i>
-                                                    Click on or drag and drop components onto the main panel to build your form content.
-                                                    <i class="fa fa-info-circle"></i>
-                                                    You can add multiple column in row by adding "row-(number row) column-md-(width number)"
+                                                    <i class="fa fa-info-circle">
+                                                   Klik pada komponen yang ada di sebelah kanan, dan tarik ke area yang disediakan</i><br>
                                                 </div>
+
+                                                <div class="alert alert-info" role="alert">
+                                                    <h5><i class="fa fa-info-circle"></i>
+                                                        Tips
+                                                        <br>
+                                                        <br> Anda bisa menambahkan kolom dengan cara menuliskan "row-(jumlah baris) column-md-(lebar kolom) pada kolom class"
+                                                        <br>
+                                                        <br>Contoh : "row-1 col-md-6"
+                                                        <br>col-md-6 = 50% width
+                                                        <br>col-md-4 = 33% width
+                                                        <br>col-md-2 = 25% width
+                                                        <br>Perubahan bisa dilihat di preview
+                                                    </h5>
+                                                </div>
+
+
                                                 <div id="fb-editor" class="fb-editor"></div>
                                             </div>
                                         </div>
                                            <div class="margin-top-30">
                                                 <button type="button" class="btn btn-danger fb-clear-btn fb-clear-btn">
-                                                    <i class="fa fa-remove"></i> Clear Form
+                                                    <i class="fa fa-remove"></i> Hapus Formulir
                                                 </button>
                                                 <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-warning fb-preview ">
                                                     <i class="fa fa-eye"></i> Preview
                                                 </button>
                                                 <button type="button" class="btn btn-primary fb-save-btn">
-                                                    <i class="fa fa-save"></i> Submit &amp; Save Form
+                                                    <i class="fa fa-save"></i> Simpan Formulir
                                                 </button>
                                            </div>
                                         </div>
@@ -134,7 +152,7 @@
                 <div class="modal-body">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                 </div>
             </div>
         </div>
@@ -142,6 +160,7 @@
 @endsection
 @section('footer')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="{{asset("js/dynamic-form.js")}}"></script>
 @endsection
 @push(config('formbuilder.layout_js_stack', 'scripts'))

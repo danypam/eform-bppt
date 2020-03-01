@@ -7,6 +7,7 @@ use Auth;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Kabupaten\Tasikmalaya\Cas\Facades\Cas;
 
 class AuthController extends Controller
 {

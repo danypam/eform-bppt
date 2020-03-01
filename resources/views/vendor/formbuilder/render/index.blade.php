@@ -1,6 +1,7 @@
 @extends('formbuilder::layout')
 @section('head')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
+    <script src="{{ asset('vendor/formbuilder/js/jquery-formbuilder/form-render.min.js') }}" defer></script>
 @endsection
 @section('content')
     <div class="main">
@@ -24,8 +25,8 @@
                                         </div>
 
                                         <div class="card-footer">
-                                            <button type="submit" class="btn btn-primary confirm-form" data-form="submitForm" data-message="Submit your entry for '{{ $form->name }}'?">
-                                                <i class="fa fa-submit"></i> Submit Form
+                                            <button type="submit" class="btn btn-primary confirm-form" data-form="submitForm" data-message="Kirim permohonan '{{ $form->name }}'?">
+                                                <i class="fa fa-submit"></i> Kirim
                                             </button>
                                         </div>
                                     </form>

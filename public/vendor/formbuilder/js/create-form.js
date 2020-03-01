@@ -11,20 +11,45 @@ jQuery(function() {
         }
     });
 
-    $('.alert').on('click', function () {
-        //console.log($('.fb-editor > select').attr('multiple') == "false");
-        if($('select').attr('multiple') == "false"){
-            $('this > select').removeAttr('multiple');
-        }
-    });
 
-    //disable field for update
-/*    function field(fld) {
-        var name = $('.fld-name', fld);
-        if(update && (name.val() !== "")){
-            name.prop('disabled', true);
-        }
-    }*/
+    //get database
+    function getTableName(fld) {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "/getTable",
+            success: function(result){
+                console.log(result);
+                result.forEach(function (r) {
+                    $('.fld-table', fld).append($('<option>', {
+                        value: r.TABLE_NAME,
+                        text: r.TABLE_NAME
+                    }));
+                })
+            }});
+
+        $('.fld-table', fld).on('change', function () {
+            $('.fld-value', fld).empty()
+            $('.fld-lbl', fld).empty()
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "/getColumn/" + $('.fld-table', fld).val(),
+                success: function(result){
+                    console.log(result);
+                    result.forEach(function (r) {
+                        $('.fld-value', fld).append($('<option>', {
+                            value: r,
+                            text: r
+                        }));
+                        $('.fld-lbl', fld).append($('<option>', {
+                            value: r,
+                            text: r
+                        }));
+                    })
+                }});
+        })
+    }
 
 
     var fbEditor = $(document.getElementById('fb-editor'))
@@ -43,20 +68,21 @@ jQuery(function() {
             'date',
             'file',
         ],
-        fields: [{
-            label: 'Star Rating',
-            attrs: {
-                type: 'starRating'
-            },
-            icon: '🌟'
-        },
+        fields: [
         {
             label: 'Time Picker',
             attrs: {
                 type: 'datetimepicker'
             },
-            icon: '🌟'
-        },{
+            icon: '⏰'
+        },
+            {
+                label: 'Select From Database',
+                attrs: {
+                    type: 'selectFromDatabase'
+                },
+                icon: '🛢'
+            },{
             label: 'Two Column Text Field',
             attrs: {
                 type: 'Text2ColumnDynamic'
@@ -64,29 +90,26 @@ jQuery(function() {
             icon: '◻◻'
         }],
         templates: {
-            starRating: function(fieldData) {
-                return {
-                    field: '<span id="' + fieldData.name + '" >',
-                    onRender: function() {
-                        $(document.getElementById(fieldData.name)).rateYo({
-                            rating: 3
-                        });
-                    }
-
-                };
-            },
             datetimepicker: function(fieldData) {
                 return {
-                    field: '            <div class="form-group">\n' +
-                        '                <div class=\'input-group date\' id=\'datetimepicker1\'>\n' +
-                        '                    <input type=\'text\' class="form-control" />\n' +
-                        '                    <span class="input-group-addon">\n' +
-                        '                        <span class="glyphicon glyphicon-calendar"></span>\n' +
-                        '                    </span>\n' +
-                        '                </div>\n' +
-                        '            </div>',
+                    field: ' <input type="text" id="' + fieldData.name + '" class="form-control"/>',
                     onRender: function() {
-                        $(document.getElementById(fieldData.name)).datetimepicker();
+                        $(document.getElementById(fieldData.name)).daterangepicker({
+                            timePicker: true,
+                            locale: {
+                                format: 'DD/MM/YYYY hh:mm A'
+                            }
+                        });
+                    }
+                }
+            },
+            selectFromDatabase: function(fieldData){
+                return {
+                    field: ' <select type="selectFromDatabase" id="' + fieldData.name + '" class="form-control"/>',
+                    onRender: function () {
+                        /*$(document.getElementById(fieldData.name)).on('change',function () {
+
+                        })*/
                     }
                 }
             },
@@ -148,6 +171,9 @@ jQuery(function() {
             'access',
         ],
         typeUserDisabledAttrs: {
+            'selectFromDatabase':[
+              'value'
+            ],
             'checkbox-group': [
                 'multiple']
             /*'file': [
@@ -158,7 +184,31 @@ jQuery(function() {
                 'other',
             ],*/
         },
-        typeUserAttrs: {/*
+        typeUserAttrs: {
+            selectFromDatabase: {
+                className:{
+                  value: 'form-builder'
+                },
+                table:{
+                    label: '<span style="color: red">Table</span>',
+                    options: {
+                        '' : 'Choose this first'
+                    },
+                    required: 'true'
+                },
+                value:{
+                    label: '<span style="color: red">Value Option</span>',
+                    options: {},
+                    required: 'true'
+                },
+
+                lbl:{
+                    label: '<span style="color: red">Label Option</span>',
+                    options: {},
+                    required: 'true'
+                }
+            }
+            /*
             text: {
                 name: {
                     label: 'field',
@@ -226,11 +276,67 @@ jQuery(function() {
             },*/
         },
         typeUserEvents: {
-      /*      text:{onadd: function (fld) {field(fld)}},
-            textarea:{onadd: function (fld) {field(fld)}},
+            number: {
+                onnadd: function (fld) {
+                    console.log(fld);
+                }
+            },
+            text: {
+                onadd: function(fld) {
+                    console.log(fld);
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: "/testAjax",
+                        success: function(result){
+                            console.log(result);
+                            result.forEach(function (r) {
+                                $('.fld-subtype', fld).append($('<option>', {
+                                    value: r.id,
+                                    text: r.nama_lengkap
+                                }));
+                            })
+                        }});
+
+                }
+            },
+            selectFromDatabase: {
+                onadd: function (fld) {getTableName(fld)
+                    /*$.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: "/testAjax",
+                        success: function(result){
+                            console.log(result);
+                            result.forEach(function (r) {
+                                $('.fld-table', fld).append($('<option>', {
+                                    value: r.id,
+                                    text: r.nama_lengkap
+                                }));
+                            })
+                        }});*/
+                    /*$.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: "/testAjax",
+                        success: function(result){
+                            console.log(result);
+                            result.forEach(function (r) {
+                                $('.fld-table', fld).append($('<option>', {
+                                    value: r.id,
+                                    text: r.nama_lengkap
+                                }));
+                            })
+                        }});*/
+                    //var table = $('.fld-table', fld);
+
+                }
+            },
+            //text:{onadd: function (fld) {field(fld)}},
+            /*textarea:{onadd: function (fld) {field(fld)}},
             select:{onadd: function (fld) {field(fld)}},
             'checkbox-group':{onadd: function (fld) {field(fld)}},
-            number:{onadd: function (fld) {field(fld)}},
+            //number:{onadd: function (fld) {field(fld)}},
             date:{onadd: function (fld) {field(fld)}},
             file:{onadd: function (fld) {field(fld)}},
             hidden:{onadd: function (fld) {field(fld)}},
@@ -261,18 +367,6 @@ jQuery(function() {
 
 
     formBuilder = fbEditor.formBuilder(fbOptions);
-
-    $('.fb-preview').on('click', function () {
-        var fbRenderOptions = {
-            container: false,
-            dataType: 'json',
-            formData: formBuilder.actions.getData('json', true) ? formBuilder.actions.getData('json', true) : '',
-            render: true
-        };
-
-        $('.modal-body').formRender(fbRenderOptions)
-        //formBuilder.actions.showData();
-    });
 
     var fbClearBtn = $('.fb-clear-btn')
     var fbShowDataBtn = $('.fb-showdata-btn')
@@ -383,4 +477,49 @@ jQuery(function() {
     })
     // show the clear and save buttons
     $('#fb-editor-footer').slideDown()
+
+
+    //Preview
+    $('.fb-preview').on('click', function () {
+        var fbRenderOptions = {
+            container: false,
+            dataType: 'json',
+            formData: formBuilder.actions.getData('json', true) ? formBuilder.actions.getData('json', true) : '',
+            render: true,
+            templates:{
+                datetimepicker: function(fieldData) {
+                    return {
+                        field: ' <input type="text" id="' + fieldData.name + '" class="form-control" value="' + fieldData.value + '"/>',
+                        onRender: function() {
+                            $(document.getElementById(fieldData.name)).daterangepicker({
+                                timePicker: true,
+                                locale: {
+                                    format: 'DD/MM/YYYY hh:mm A'
+                                }
+                            });
+                        }
+                    }
+                },
+            }
+        };
+
+        $('.modal-body').formRender(fbRenderOptions)
+        //formBuilder.actions.showData();
+    });
+
+    $(".ajax").click(function(){
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "/testAjax",
+            success: function(result){
+                console.log(result);
+                result.forEach(function (r) {
+                    $('#get-ajax').append($('<option>', {
+                        value: r.id,
+                        text: r.nama_lengkap
+                    }));
+                })
+            }});
+    });
 })

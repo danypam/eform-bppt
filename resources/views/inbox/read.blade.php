@@ -10,18 +10,18 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INBOX</h3>
+                                <h3 class="panel-title">SURAT MASUK</h3>
                             </div>
                             <div class="panel-body">
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
                                         <th>Email</th>
-                                        <th>Name</th>
-                                        <th>Form Type</th>
+                                        <th>NamA</th>
+                                        <th>Formulir</th>
                                         <th>Status</th>
-                                        <th>Created At</th>
-                                        <th>Action</th>
+                                        <th>Dibuat</th>
+                                        <th>Aksi</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -43,7 +43,7 @@
                                                 <td><span class="label label-primary">ON GOING</span></td>
                                             @endif
                                             @if($inbox->status == 4)
-                                                <td><span class="label label-success">COMPLETE</span></td>
+                                                <td><span class="label label-success">COMPLETED</span></td>
                                             @endif
                                             <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($inbox->created_at)}}</td>
                                             <td>
@@ -82,20 +82,20 @@
             $('.delete').click(function () {
                 var peg_id = $(this).attr('pegawai-id');
                 swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
+                    title: "Apakah anda yakin?",
+                    text: "Jika data dihapus, data tidak bisa kembali!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
                 })
                     .then((willDelete) => {
                         if (willDelete) {
-                            swal("Poof! Your data has been deleted!", {
+                            swal("Poof! Data telah dihapus!", {
                                 icon: "success",
                             });
                             window.location = "/pegawai/"+peg_id+"/delete";
                         } else {
-                            swal("Your data is safe!");
+                            swal("Data batal dihapus!");
                         }
                     });
             });

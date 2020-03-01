@@ -41,7 +41,7 @@ class InboxController extends Controller
                 ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
                 ->join('forms as f','form_submissions.form_id','=','f.id')
                 ->join('unit_jabatan as uj', 'uj.id_unit_jabatan', '=', 'p.unit_jabatan_id')
-                ->select('nama_lengkap','keterangan','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at', 'form_submissions.keterangan')
+                ->select('nama_lengkap','keterangan','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
                 ->orderBy('created_at', 'desc');
         }
         //get data pegawai
@@ -117,6 +117,10 @@ class InboxController extends Controller
             }
             //primary inbox (inbox yang belum di approve)
             $primary_inboxs = inboxs()->where('form_submissions.status', '=', config('constants.status.pending'))->get();
+//            foreach ($primary_inboxs as $sub){
+//                $sub->keterangan = json_decode($sub->keterangan);
+//            }
+//            dd($primary_inboxs);
             //approved inbox (inbox yang telah di approve)
             $approved_inboxs = inboxs()->where('menyetujui','=', pegawai()->id)->get();
             //rejected inbox (inbox yang telah di reject)
@@ -146,15 +150,15 @@ class InboxController extends Controller
             ->where('id', '=', $request->submission_id)
         ->first();
 
-        function commit($id, $ket, $ket1){
+        function commit($id, $ket){
         //Search ID Pegawai
+            $kete = json_encode($ket);
 
             return DB::table('form_submissions')->where([
                 'id' => $id
             ])->update([
                 'status' => DB::raw('status + 1'),
-                'keterangan'=>$ket ."
-                ". $ket1
+                'keterangan'=>$kete
             ]);
         }
 
@@ -193,7 +197,8 @@ class InboxController extends Controller
                         fillWhoApprove($request->submission_id, "mengetahui", "mengetahui_at");
                     }
                     if(!isset($isFilled->menyetujui)){
-                       commit($request->submission_id);
+
+                       commit($request->submission_id, $request->keterangan);
                         fillWhoApprove($request->submission_id, "menyetujui", "menyetujui_at");
                     }
                     DB::commit();
@@ -205,7 +210,7 @@ class InboxController extends Controller
             } else if(auth()->user()->can('inbox-approve-menyetujui')){
                 DB::beginTransaction();
                 if(!($isFilled->menyetujui)){
-                     commit($request->submission_id, $request->keterangan1, $request->keterangan2);
+                     commit($request->submission_id, $request->keterangan);
                      fillWhoApprove($request->submission_id, "menyetujui", "menyetujui_at");
                      DB::commit();
                     $users = User::whereHas('roles',function($q){
@@ -249,7 +254,7 @@ class InboxController extends Controller
             }else if(auth()->user()->can('inbox-approve-mengetahui')) {
                 DB::beginTransaction();
                 if ((!$isFilled->mengetahui)) {
-                    commit($request->submission_id, $request->keterangan1, $request->keterangan2);
+                    commit($request->submission_id, $request->keterangan);
                     fillWhoApprove($request->submission_id, "mengetahui", "mengetahui_at");
                     DB::commit();
                     $users = User::whereHas('roles',function($q){
@@ -296,6 +301,7 @@ class InboxController extends Controller
 
     public function update(Request $request)
     {
+        $kete = json_encode($request->keterangan);
         $id_pegawai = DB::table('pegawai')
             ->select('id')
             ->where('user_id','=',Auth()->user()->id)
@@ -305,7 +311,7 @@ class InboxController extends Controller
             'id'=>$request->submission_id,
         ])->update([
             'status'=>-1,
-            'keterangan'=>$request->keterangan,
+            'keterangan'=>$kete,
             'rejected'=> $id_pegawai->id,
             'rejected_at'=> Carbon::now()->toDateTimeString()
 
@@ -317,9 +323,10 @@ class InboxController extends Controller
         ]);
         //email rejected
         $emails = $this->getEmailRejected($request->submission_id, $request->keterangan);
+
         $details = [
             'name' => $emails->nama_lengkap,
-            'keterangan' => $request->keterangan
+            'keterangan' => $kete
         ];
         \Mail::to($emails->email)->send(new email_rejected($details));
 

@@ -41,9 +41,12 @@ class MySubmissionController extends Controller
 
         $submissions = Submission::getForUser($user);
         $pegawai = Pegawai::all();
+        foreach ($submissions as $sub){
+            $sub->keterangan = json_decode($sub->keterangan);
+        }
 
         $pageTitle = "My Submissions";
-
+//        dd($submissions);
         return view('formbuilder::my_submissions.index', compact('submissions','pegawai', 'pageTitle'));
     }
 
@@ -59,7 +62,7 @@ class MySubmissionController extends Controller
         $submission = Submission::where(['user_id' => $user->id, 'id' => $id])
                             ->with('form')
                             ->firstOrFail();
-        $identitas = Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id', '=', auth()->user()->id)->firstOrFail();
+        $identitas = Pegawai::with('unit_jabatan','unit_kerja')->where('user_id', '=', auth()->user()->id)->firstOrFail();
         $form_headers = $submission->form->getEntriesHeader();
 
         $pageTitle = "View Submission";

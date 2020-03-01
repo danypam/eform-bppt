@@ -44,6 +44,28 @@ Route::middleware('web')
 
 
 
+
+//Route::get('/', function() {
+//    return cas()->authenticate();
+//})->name('cas.login');
+//Route::get('/cas/callback', 'Auth\CasController@callback')->name('cas.callback');
+//Route::post('/cas/logout', [ 'middleware' => 'cas.auth', function() {
+//    cas()->logout();
+//
+//    // Anda juga dapat menambahkan @param string $url di parameter[0]
+//    cas()->logout(url('/'));
+//
+//    // Or menambahkan @param string $service di parameter[1]
+//    cas()->logout('', url('/'));
+//
+//}])->name('cas.logout');
+
+
+
+
+
+
+//AKSES LOGIN TANPA CAS
 Route::get('/', function () {
     return view('/auth/login');
 });
@@ -122,17 +144,21 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/{id}/submission_pdf','ExportController@submission_pdf');
 
     Route::resource('/task', 'PicController');
-    Route::get('/task/{form_id}/submissions/{submission_id}','PicController@show');
+    Route::get('/task/{form_id}/submissions/{submission_id}','PicController@showForm');
     Route::get('/task/{form_id}/submissions/{submission_id}/task_pdf','ExportController@task_pdf');
 
     Route::get('/task/{id}/take','PicController@take');
     Route::get('/task/{id}/cancel','PicController@cancel');
     Route::post('/task/complete','PicController@complete');
 
+    Route::get('/getTable','FormController@getTable');
+    Route::get('/getColumn/{tableName}','FormController@getColumn');
+
 });
     Route::post('/notification/get','NotifikasiController@get');
     Route::post('/notification/read','NotifikasiController@read');
     Route::get('/submission/{id?}','NotifikasiController@show');
+    Route::post('/rating/new','RatingController@setrating')->name('setrating');
 
 
 

@@ -1,7 +1,10 @@
 @extends('formbuilder::layout')
 @section('head')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="{{ asset('vendor/formbuilder/js/jquery-formbuilder/form-builder.min.js') }}" defer></script>
+    <script src="{{ asset('vendor/formbuilder/js/jquery-formbuilder/form-render.min.js') }}" defer></script>
 @endsection
 @section('content')
     <div class="main">
@@ -105,19 +108,20 @@
                                             <div class="col-md-12">
                                                 <div class="alert alert-info" role="alert">
                                                     <i class="fa fa-info-circle"></i>
-                                                    Click on or Drag and drop components onto the main panel to build your form content.
+                                                    Klik pada komponen yang ada di sebelah kanan, dan tarik ke area yang disediakan</i><br>
                                                     <br>
                                                 </div>
                                                 <div class="alert alert-info" role="alert">
                                                     <h5><i class="fa fa-info-circle"></i>
-                                                    Tips
+                                                        Tips
                                                         <br>
-                                                    <br>You can add multiple field in a row by adding "row-(number row) column-md-(width number) on class field"
-                                                    <br>Example: "row-1 col-md-6"
-                                                    <br>col-md-6 = 50% width
-                                                    <br>col-md-4 = 33% width
-                                                    <br>col-md-2 = 25% width
-                                                    <br>Change will be update in preview
+                                                        <br> Anda bisa menambahkan kolom dengan cara menuliskan "row-(jumlah baris) column-md-(lebar kolom) pada kolom class"
+                                                        <br>
+                                                        <br>Contoh : "row-1 col-md-6"
+                                                        <br>col-md-6 = 50% width
+                                                        <br>col-md-4 = 33% width
+                                                        <br>col-md-2 = 25% width
+                                                        <br>Perubahan bisa dilihat di preview
                                                     </h5>
                                                 </div>
 
@@ -128,13 +132,13 @@
                                 </form>
                                 <div class="card-footer" id="fb-editor-footer" style="display: none;">
                                     <button type="button" class="btn btn-primary fb-clear-btn">
-                                        <i class="fa fa-remove"></i> Clear Form
+                                        <i class="fa fa-remove"></i> Hapus Formulir
                                     </button>
                                     <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-warning fb-preview ">
                                         <i class="fa fa-eye"></i> Preview
                                     </button>
                                     <button type="button" class="btn btn-primary fb-save-btn">
-                                        <i class="fa fa-save"></i> Submit &amp; Save Form
+                                        <i class="fa fa-save"></i> Simpan Formulir
                                     </button>
                                 </div>
                             </div>
@@ -158,7 +162,7 @@
                 <div class="modal-body">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                 </div>
             </div>
         </div>
@@ -170,6 +174,7 @@
 @section('footer')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
     <script src="{{asset("js/dynamic-form.js")}}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 @endsection
 @push(config('formbuilder.layout_js_stack', 'scripts'))
 <script>

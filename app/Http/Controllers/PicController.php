@@ -32,6 +32,9 @@ class PicController extends Controller
         $mytasks = $this->form_submissions(3);  //take   by pic
         $completes = $this->form_submissions(4);    //complete by pic
         $pegawai = Pegawai::all();
+        foreach ($tasks as $sub){
+            $sub->keterangan = json_decode($sub->keterangan);
+        }
 
         return view('/task/index',['tasks'=>$tasks, 'mytasks'=>$mytasks, 'completes'=>$completes, 'pegawai'=>$pegawai]);
     }
@@ -127,11 +130,12 @@ class PicController extends Controller
 
     public function complete(Request $request)
     {
+        $kete = json_encode($request->keterangan);
         \Illuminate\Support\Facades\DB::table('form_submissions')->where([
             'id'=>$request->submission_id,
         ])->update([
             'status'=>DB::raw('status + 1'),
-            'keterangan'=>$request->keterangan,
+            'keterangan'=>$kete,
             'complete_at'=> Carbon::now()->toDateTimeString()
         ]);
 
@@ -202,7 +206,28 @@ class PicController extends Controller
 
     }
 
-    public function show($id)
+    public function showForm($form_id, $submission_id)
+    {
+        //
+
+
+
+        $submission = Submission::with('user', 'form')
+            ->where([
+                'form_id' => $form_id,
+                'id' => $submission_id,
+            ])
+            ->firstOrFail();
+        $form_headers = $submission->form->getEntriesHeader();
+
+        $identitas = Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id',$submission->user_id)->first();
+
+        $pageTitle = "View Submission";
+
+        return view('/task/show', compact('pageTitle', 'submission', 'form_headers','identitas'));
+    }
+
+/*    public function show($id)
     {
         $tasks = $this->show_form_submissions(2,$id);    //approved by kepala
         $mytasks = $this->show_form_submissions(3,$id);  //take by pic
@@ -211,7 +236,8 @@ class PicController extends Controller
 
         return view('/task/index',['tasks'=>$tasks, 'mytasks'=>$mytasks, 'completes'=>$completes,'pegawai'=>$pegawai]);
 
-    }
+    }*/
+
 
     public function edit($id)
     {

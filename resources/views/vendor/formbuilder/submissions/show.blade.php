@@ -6,7 +6,7 @@
                 <div class="panel">
                     <div class="panel-heading">
                         <h3>Progress</h3>
-                        <h5 class="right">No. Form: {{ $submission->id  }}</h5>
+                        <h5 class="right"> Permohonan ke- {{ $submission->id  }}</h5>
                     </div>
                     <div class="panel-body ">
                         <div class="progress-bar-wrapper"></div>
@@ -15,7 +15,7 @@
                 <div class="panel">
                     <div class="panel-heading">
                         <h3>Detail</h3>
-                        <h5 class="right">No. Form: {{ $submission->id  }}</h5>
+                        <h5 class="right">Permohonan ke- {{ $submission->id  }}</h5>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -41,7 +41,7 @@
                                         </tr>
                                         <tr>
                                             <td><h6><strong>Unit Kerja</strong></h6></td>
-                                            <td><h6>: {{$identitas->unit_kerja->nama_unit}}</h6></td>
+                                            <td><h6>: {{$identitas->unit_kerja->unit}}</h6></td>
                                         </tr>
                                         <tr>
 
@@ -49,7 +49,7 @@
                                             <td><h6>: {{$identitas->unit_jabatan->unit}}</h6></td>
                                         </tr>
                                         <tr>
-                                            <td><h6><strong>No Hp</strong></h6></td>
+                                            <td><h6><strong>No Handphone</strong></h6></td>
                                             <td><h6>: {{$identitas->no_hp}}</h6></td>
                                         </tr>
                                         <tr>
@@ -109,7 +109,7 @@
                                             </li>
                                             <li>
                                                 <time datetime="{{ $submission->complete_at }}">{{ $submission->complete_at }}</time>
-                                                <span ><strong>Complete</strong> </span>
+                                                <span ><strong>Completed</strong> </span>
                                             </li>
                                         @endif
                                         @if($submission->rejected)
@@ -127,7 +127,7 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Viewing Submission #{{ $submission->id }} for form '{{ $submission->form->name }}'</h3>
+                                <h3 class="panel-title">Permohonan ke-{{ $submission->id }} dari Formulir '{{ $submission->form->name }}'</h3>
                             </div>
                             <div class="panel-body">
                                 <div class="btn-toolbar float-right" role="toolbar">
@@ -149,35 +149,7 @@
                                 </div>
 
                                 <div class="margin-top-30">
-                                 {{--       @if(!($submission->status == config("constants.status.rejected")))
-                                            @if(auth()->user()->can('inbox-approve-mengetahui') && $submission->status == config("constants.status.new"))
-                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
-                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
 
-                                            @elseif(auth()->user()->can('inbox-approve-mengetahui') && auth()->user()->can('inbox-approve-menyetujui'))
-                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
-                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
-
-                                            @elseif(auth()->user()->can('inbox-approve-menyetujui') && $submission->status == config("constants.status.pending"))
-                                                <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
-                                                <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
-
-                                     --}}{{--       @elseif(auth()->user()->can('task-take'))
-                                                @if($submission->status == config("constants.status.waitForPic"))
-                                                    <a href="/task/{{$submission->id}}/take" class="btn btn-primary btn-sm">Take</a>
-
-                                                @elseif($submission->status == config("constants.status.onGoing"))
-                                                    <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
-                                                    <a href="/task/{{$submission->id}}/complete" class="btn btn-success btn-sm">Complete</a>
-                                                    <a href="/{{$submission->id}}/submission_pdf" class="btn btn-warning btn-sm" title="Export PDF">
-                                                        <i class="fa fa-eye"></i> Export PDF
-                                                    </a>
-
-                                                @elseif($submission->status == config("constants.status.completed"))
-                                                    <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
-                                                @endif --}}{{--
-                                            @endif
-                                        @endif--}}
                                     @can('inbox-management')
                                         @if(!($submission->status == config("constants.status.rejected") || ($submission->status > config("constants.status.pending"))))
                                             @if(auth()->user()->can('inbox-approve-mengetahui') && $submission->status == config("constants.status.new"))
