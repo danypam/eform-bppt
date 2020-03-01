@@ -65,7 +65,7 @@ class ExportController extends Controller
 
         $form_headers = $submission->form->getEntriesHeader();
 
-        $identitas = Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id',$submission->user_id)->first();
+        $identitas = Pegawai::with('unit_jabatan')->where('user_id',$submission->user_id)->first();
 
         $pageTitle = "View Submission";
 

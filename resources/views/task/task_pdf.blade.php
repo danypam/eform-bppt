@@ -50,7 +50,7 @@
             </tr>
             <tr>
                 <td >Unit Kerja</td>
-                <td >: {{ $identitas->unit_kerja->nama_unit }}</td>
+                <td >: {{ $identitas->unit_jabatan->unit }}</td>
             </tr>
             <tr>
                 <td >No HP</td>

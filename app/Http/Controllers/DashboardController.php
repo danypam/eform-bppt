@@ -14,7 +14,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $data = DB::table('log_activity')->limit(5)
+        $data = DB::table('log_activity')->limit(7)
             ->LeftJoin('users','users.id','=','log_activity.user_id')
             ->select('log_activity.*','users.name')
             ->orderBy('created_at','DESC')
@@ -25,11 +25,14 @@ class DashboardController extends Controller
         $chart2=\App\Submission::count_form2();
         $chart3=\App\Submission::count_form3();
 
-        $data_unit = DB::table('unit_kerja')
-            ->LeftJoin('pegawai as p', 'p.unit_id', '=', 'unit_kerja.id')
+        $data_unit = DB::table('unit_jabatan')
+            ->LeftJoin('pegawai as p', 'p.unit_id', '=', 'unit_jabatan.id_unit_jabatan')
             ->LeftJoin('form_submissions as fs', 'p.user_id', '=', 'fs.user_id')
-            ->select(DB::Raw('unit_kerja.nama_unit as nama_unit ,COUNT(fs.id) as total'))
-            ->groupBy('unit_kerja.nama_unit')
+            ->select(DB::Raw('unit_jabatan.unit as nama_unit ,COUNT(fs.id) as total'))
+            ->where('unit_jabatan.is_unit','=','1')
+            ->orWhere('unit_jabatan.is_deputi','=','1')
+            ->orWhere('unit_jabatan.is_kabppt','=','1')
+            ->groupBy('unit_jabatan.unit')
             ->get();
 
         //dd($data_unit);

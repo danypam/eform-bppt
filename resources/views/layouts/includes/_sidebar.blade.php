@@ -47,7 +47,7 @@
                             <li><a href="/log" class="{{(request()->is('log*'))?'active': ''}}"><i class="fa fa-group"></i><span>Aktifitas User</span></a></li>
                             <li><a href="/roles" class="{{(request()->is('roles*'))?'active': ''}}"><i class="fa fa-drivers-license-o"></i><span>Roles</span></a></li>
                             <li><a href="/permission"  class="{{(request()->is('permission*'))?'active': ''}}"><i class="fa fa-key"></i><span>Permissions</span></a></li>
-                            <li><a href="/users" class="{{(request()->is('users*'))?'active': ''}}"><i class="fa fa-address-book-o"></i><span>Akun Akses</span></a></li>
+                            <li><a href="/users" class="{{(request()->is('users*'))?'active': ''}}"><i class="fa fa-address-book-o"></i><span> Akses Akun</span></a></li>
                             @endrole
                         </ul>
                     </div>
