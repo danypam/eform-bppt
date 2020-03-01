@@ -46,6 +46,7 @@ class Submission extends Model
      */
     protected $casts = [
         'content' => 'array',
+        'keterangan'=>'array',
     ];
 
     /**

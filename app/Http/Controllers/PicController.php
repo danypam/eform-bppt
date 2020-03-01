@@ -32,6 +32,9 @@ class PicController extends Controller
         $mytasks = $this->form_submissions(3);  //take   by pic
         $completes = $this->form_submissions(4);    //complete by pic
         $pegawai = Pegawai::all();
+        foreach ($tasks as $sub){
+            $sub->keterangan = json_decode($sub->keterangan);
+        }
 
         return view('/task/index',['tasks'=>$tasks, 'mytasks'=>$mytasks, 'completes'=>$completes, 'pegawai'=>$pegawai]);
     }
@@ -127,11 +130,12 @@ class PicController extends Controller
 
     public function complete(Request $request)
     {
+        $kete = json_encode($request->keterangan);
         \Illuminate\Support\Facades\DB::table('form_submissions')->where([
             'id'=>$request->submission_id,
         ])->update([
             'status'=>DB::raw('status + 1'),
-            'keterangan'=>$request->keterangan,
+            'keterangan'=>$kete,
             'complete_at'=> Carbon::now()->toDateTimeString()
         ]);
 
