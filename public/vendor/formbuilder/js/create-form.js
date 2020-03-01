@@ -197,13 +197,13 @@ jQuery(function() {
                     required: 'true'
                 },
                 value:{
-                    label: '<span style="color: red">Value</span>',
+                    label: '<span style="color: red">Value Option</span>',
                     options: {},
                     required: 'true'
                 },
 
                 lbl:{
-                    label: '<span style="color: red">Label</span>',
+                    label: '<span style="color: red">Label Option</span>',
                     options: {},
                     required: 'true'
                 }

@@ -13,7 +13,7 @@
                                 <h3 class="panel-title">Permission</h3>
                                 <div class="right">
                                     @can('permission-create')
-                                        <a href="#" class="btn btn-info btn-lg " data-toggle="modal" data-target="#exampleModal">Add Permission</a>
+                                        <a href="#" class="btn btn-info btn-lg " data-toggle="modal" data-target="#exampleModal">Tambah Permission</a>
                                     @endcan
                                 </div>
                             </div>
@@ -26,8 +26,8 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Permission</th>
-                                        <th>Updated At</th>
-                                        <th>Action</th>
+                                        <th>Dibuat</th>
+                                        <th>Aksi</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -38,10 +38,10 @@
                                             <td>{{$permis->created_at}}</td>
                                             <td>
                                                 @can('permission-edit')
-                                                    <a href="/permission/{{$permis->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
+                                                    <a href="/permission/{{$permis->id}}/edit" class="btn btn-warning btn-sm">Ubah</a>
                                                 @endcan
                                                 @can('permission-delete')
-                                                    <a href="#" class="btn btn-danger btn-sm delete" permission-id="{{$permis->id}}">Delete</a>
+                                                    <a href="#" class="btn btn-danger btn-sm delete" permission-id="{{$permis->id}}">Hapus</a>
                                                 @endcan
                                             </td>
                                         </tr>
@@ -61,7 +61,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">ADD PERMISSION</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">TAMBAH PERMISSION</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -74,8 +74,8 @@
                             <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="permission">
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -91,20 +91,20 @@
             $('#datatable').on( "click",'.delete', function()  {
                 var permis_id = $(this).attr('permission-id');
                 swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
+                    title: "Apakah anda yakin?",
+                    text: "Jika data dihapus, data tidak bisa kembali!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
                 })
                     .then((willDelete) => {
                         if (willDelete) {
-                            swal("Poof! Your data has been deleted!", {
+                            swal("Poof! Data telah dihapus!", {
                                 icon: "success",
                             });
-                            window.location = "/permission/"+permis_id+"/delete";
+                            window.location = "/pegawai/"+peg_id+"/delete";
                         } else {
-                            swal("Your data is safe!");
+                            swal("Data batal dihapus!");
                         }
                     });
             });

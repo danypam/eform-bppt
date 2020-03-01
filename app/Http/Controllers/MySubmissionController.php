@@ -62,7 +62,7 @@ class MySubmissionController extends Controller
         $submission = Submission::where(['user_id' => $user->id, 'id' => $id])
                             ->with('form')
                             ->firstOrFail();
-        $identitas = Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id', '=', auth()->user()->id)->firstOrFail();
+        $identitas = Pegawai::with('unit_jabatan','unit_kerja')->where('user_id', '=', auth()->user()->id)->firstOrFail();
         $form_headers = $submission->form->getEntriesHeader();
 
         $pageTitle = "View Submission";

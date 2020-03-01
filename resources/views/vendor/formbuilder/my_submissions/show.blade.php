@@ -6,7 +6,7 @@
                 <div class="panel">
                     <div class="panel-heading">
                         <h3>Progres</h3>
-                        <h5 class="right">No. Form: {{ $submission->id  }}</h5>
+                        <h5 class="right">Permohonan ke  {{ $submission->id  }}</h5>
                     </div>
                     <div class="panel-body ">
                         <div class="progress-bar-wrapper"></div>
@@ -14,8 +14,8 @@
                 </div>
                 <div class="panel">
                     <div class="panel-heading">
-                        <h3>Detail</h3>
-                        <h5 class="right">No. Form: {{ $submission->id  }}</h5>
+                        <h3>Rincian</h3>
+                        <h5 class="right">Permohonan ke   {{ $submission->id  }}</h5>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -41,7 +41,7 @@
                                     </tr>
                                     <tr>
                                         <td><h6><strong>Unit Kerja</strong></h6></td>
-                                        <td><h6>{{$identitas->unit_kerja->nama_unit}}</h6></td>
+                                        <td><h6>{{$identitas->unit_kerja->unit}}</h6></td>
                                     </tr>
                                     <tr>
 
@@ -109,7 +109,7 @@
                                         </li>
                                         <li>
                                             <time datetime="{{ $submission->complete_at }}">{{ $submission->complete_at }}</time>
-                                            <span ><strong>Complete</strong> </span>
+                                            <span ><strong>Completed</strong> </span>
                                         </li>
                                     @endif
                                     @if($submission->rejected)
@@ -127,7 +127,7 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Viewing Submission #{{ $submission->id }} for form '{{ $submission->form->name }}'</h3>
+                                <h3 class="panel-title">Permohonan ke #{{ $submission->id }} dari Formulir '{{ $submission->form->name }}'</h3>
                             </div>
                             <div class="panel-body">
                                 <div class="btn-toolbar float-right" role="toolbar">

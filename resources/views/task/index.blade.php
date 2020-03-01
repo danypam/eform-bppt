@@ -25,7 +25,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Email</th>
-                                            <th>Form Type</th>
+                                            <th>Formulir</th>
                                             <th>Status</th>
                                             <th>Keterangan</th>
                                             <th>Created At</th>
@@ -67,12 +67,12 @@
                                                 </td>
                                                 <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($task->created_at)}}</td>
                                                 <td>
-                                                    <a href="/task/{{$task->form_id}}/submissions/{{$task->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                    <a href="/task/{{$task->form_id}}/submissions/{{$task->submission_id}}" class="btn btn-warning btn-sm">Lihat</a>
                                                     @can('task-take')
                                                     @if($task->status == -1)
-                                                        <a href="/submissions/{{$task->submission_id}}/approve" class="btn btn-primary btn-sm hidden">Take</a>
+                                                        <a href="/submissions/{{$task->submission_id}}/approve" class="btn btn-primary btn-sm hidden">Kerjakan</a>
                                                     @else
-                                                        <a href="#" class="btn btn-primary btn-sm take" take-id="{{$task->submission_id}}">Take</a>
+                                                        <a href="#" class="btn btn-primary btn-sm take" take-id="{{$task->submission_id}}">Kerjakan</a>
                                                     @endif
                                                      @endcan
 
@@ -89,7 +89,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Email</th>
-                                            <th>Form Type</th>
+                                            <th>Formulir</th>
                                             <th>Status</th>
                                             <th>Catatan</th>
                                             <th>Created At</th>
@@ -130,12 +130,12 @@
                                                 </td>
                                                 <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($mytask->created_at)}}</td>
                                                 <td>
-                                                    <a href="/task/{{$mytask->form_id}}/submissions/{{$mytask->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                    <a href="/task/{{$mytask->form_id}}/submissions/{{$mytask->submission_id}}" class="btn btn-warning btn-sm">Lihat</a>
 
                                                 @can('task-take')
                                                         @if($mytask->status == -1)
-                                                            <a href="/task/{{$mytask->submission_id}}/cancel" class="btn btn-danger btn-sm hidden">Cancel</a>
-                                                            <a href="/task/{{$mytask->submission_id}}/complete" class="btn btn-danger btn-sm hidden">Cancel</a>
+                                                            <a href="/task/{{$mytask->submission_id}}/cancel" class="btn btn-danger btn-sm hidden">Batalkan</a>
+                                                            <a href="/task/{{$mytask->submission_id}}/complete" class="btn btn-danger btn-sm hidden">Batalkan</a>
                                                         @else
                                                             <a href="/task/{{$mytask->submission_id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
                                                             <a href="#" data-toggle="modal" data-target="#comp" data-id="{{$mytask->submission_id}}" data-ket1="{{json_decode($mytask->keterangan)->ket1}}" data-nama1="{{json_decode($mytask->keterangan)->nama1}}" data-ket2="{{json_decode($mytask->keterangan)->ket2}}" data-nama2="{{json_decode($mytask->keterangan)->nama2}}" class="btn btn-success btn-sm">Complete</a>
@@ -158,7 +158,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Email</th>
-                                                <th>Form Type</th>
+                                                <th>Formulir</th>
                                                 <th>Status</th>
                                                 <th>Catatan</th>
                                                 <th>Created At</th>
@@ -199,12 +199,12 @@
                                                     </td>
                                                     <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($complete->created_at)}}</td>
                                                     <td>
-                                                        <a href="/task/{{$complete->form_id}}/submissions/{{$complete->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                        <a href="/task/{{$complete->form_id}}/submissions/{{$complete->submission_id}}" class="btn btn-warning btn-sm">Lihat</a>
                                                         @can('task-take')
                                                             @if($complete->status == -1)
-                                                                <a href="/task/{{$complete->submission_id}}/cancel" class="btn btn-danger btn-sm hidden">Cancel</a>
+                                                                <a href="/task/{{$complete->submission_id}}/cancel" class="btn btn-danger btn-sm hidden">Batalkan</a>
                                                             @else
-                                                                    <a href="/task/{{$complete->submission_id}}/cancel" class="btn btn-danger btn-sm">Cancel</a>
+                                                                    <a href="/task/{{$complete->submission_id}}/cancel" class="btn btn-danger btn-sm">Batalkan</a>
 
                                                             @endif
                                                         @endcan
@@ -247,8 +247,8 @@
                             <textarea name="keterangan[ket3]" type="text" class="form-control" placeholder="Silakan Isi Keterangan Jika Diperlukan"></textarea>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Complete</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                            <button type="submit" class="btn btn-success">Selesai</button>
                         </div>
                     </form>
                 </div>
@@ -353,20 +353,20 @@
             $('.take').click(function () {
                 var take_id = $(this).attr('take-id');
                 swal({
-                    title: "Are you sure?",
-                    text: "Sebelum mengambil pekejaan, Pastikan anda melihat keterangan yang terlampir ",
+                    title: "Apakah anda yakin?",
+                    text: "Sebelum mengambil pekerjaan , Pastikan anda melihat keterangan yang terlampir ",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
                 })
                     .then((willDelete) => {
                         if (willDelete) {
-                            swal("Good Luck!", "Kamu berhasil mengambil pekerjaan!", "success", {
+                            swal("Good Luck!", "Kamu berhasil mengambil pekerjaan ini!", "success", {
                                 button: "OK",
                             });
                             window.location = "/task/"+take_id+"/take";
                         } else {
-                            swal("Anda Ragu dalam mengambil pekerjaan");
+                            swal("Anda batal mengambil pekerjaan");
                         }
                     });
             });

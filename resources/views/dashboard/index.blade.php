@@ -14,10 +14,10 @@
                         <h1 class="panel-title text-center">PUSAT MANAJEMEN INFORMASI</h1>
                         <h4 class="panel-title text-center">Bidang Infrastruktur Informasi</h4>
                             @role('member')
-                            <a href="/formulir"><p style="text-align: center"><b>>> Saya ingin mengajukan surat <<</b></p></a>
+                            <a href="/formulir"><p style="text-align: center"><b>>> Saya ingin mengajukan Permohonan <<</b></p></a>
                             @endrole
                             @role('atasan')
-                            <a href="/inbox"><p style="text-align: center"><b>>> Lihat daftar pengajuan surat <<</b></p></a>
+                            <a href="/inbox"><p style="text-align: center"><b>>> Lihat daftar pengajuan Permohonan <<</b></p></a>
                             @endrole
                         </div>
                     </div>
@@ -37,7 +37,7 @@
 
 
                     <div class="panel-heading">
-                        <h3 class="panel-title">Submissions Status</h3>
+                        <h3 class="panel-title">Permohonan Masuk</h3>
                         <p class="panel-subtitle">All Time</p>
                     </div>
                     <div class="panel-body">
@@ -47,7 +47,7 @@
                                     <span class="icon"><i class="fa fa-folder-open-o"></i></span>
                                     <p>
                                         <span class="number">{{$status['all']}}</span><br><br>
-                                        <span class="title label label-default"> All Submissions</span>
+                                        <span class="title label label-default"> Semua Permohonan</span>
                                     </p>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 style="margin-bottom:10px" class="panel-title">CHART</h3>
+                                <h3 style="margin-bottom:10px" class="panel-title">GRAFIK</h3>
                                 <ul class="nav nav-tabs">
                                     <li class="active" id="tab-status"><a href="#chart">By Status</a></li>
                                     <li id="tab-month"><a href="#chart">By Month</a></li>
@@ -134,7 +134,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-md-7">
                         <div class="panel panel-scrolling">
@@ -175,7 +174,7 @@
                     <div class="col-md-5">
                         <div class="panel panel-scrolling">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Recent User Activity</h3>
+                                <h3 class="panel-title">Aktifitas User</h3>
                                 <div class="right">
                                     <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
                                     <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
@@ -194,7 +193,7 @@
                                     @endforeach
                                 </ul>
 
-                                <a href="/log" type="button" class="btn btn-primary btn-bottom center-block">Load More</a>
+                                <a href="/log" type="button" class="btn btn-primary btn-bottom center-block">Tampilkan Semua</a>
                             </div>
                         </div>
                     </div>

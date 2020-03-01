@@ -10,10 +10,10 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Position Unit Data</h3>
+                                <h3 class="panel-title">Data Unit Jabatan</h3>
                                 <div class="right">
                                     @can('unitjab-create')
-                                    <a href="#" class="btn btn-info btn-lg " data-toggle="modal" data-target="#exampleModal">Add New Position Unit</a>
+                                    <a href="#" class="btn btn-info btn-lg " data-toggle="modal" data-target="#exampleModal">Tambah Unit Jabatan</a>
                                     @endcan
                                 </div>
                             </div>
@@ -21,13 +21,13 @@
                                 <table class="table table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>Category</th>
-                                        <th>ID Position Unit</th>
-                                        <th>Department</th>
+                                        <th>Kategori</th>
+                                        <th>Kode</th>
+                                        <th>Unit Jabatan</th>
                                         <th>Unit Atasan 1</th>
                                         <th>Unit Atasan 2</th>
-                                        <th>Abbreviation</th>
-                                        <th>Action</th>
+                                        <th>Singkatan Unit</th>
+                                        <th>Aksi</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -64,7 +64,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New Data</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Unit Jabatan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -79,7 +79,7 @@
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Kode Unit Jabatan</label>
                             <input name="id_unit_jabatan" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Kode Unit Jabatan"pattern="[0-9]{2,}"required>
-                            <small id="kodeunit" class="form-text text-muted">Numeric Characters Only. At Least 2 Characters </small>
+                            <small id="kodeunit" class="form-text text-muted">Hanya Huruf. Minimal 2 karakter </small>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Unit Kerja</label>
@@ -88,7 +88,7 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Unit Atasan Pertama</label>
                             <select name="kode_unitatas1" class="form-control selectpicker"  data-live-search="true" id="exampleFormControlSelect1"required>
-                                <option selected disabled value="">-select-</option>
+                                <option selected disabled value="">-Pilih-</option>
                                 @foreach($data_unitjab1 as $jab1)
                                     <option value="{{$jab1->id_unit_jabatan}}">{{$jab1->unit}}</option>
                                 @endforeach
@@ -97,19 +97,19 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Unit Atasan Kedua</label>
                             <select name="kode_unitatas2" class="form-control selectpicker"  data-live-search="true" id="exampleFormControlSelect1"required>
-                                <option selected disabled value="">-select-</option>
+                                <option selected disabled value="">-Pilih-</option>
                                 @foreach($data_unitjab1 as $jab2)
                                     <option value="{{$jab2->id_unit_jabatan}}">{{$jab2->unit}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Sngkatan</label>
+                            <label for="exampleFormControlInput1">Singkatan</label>
                             <input name="singkat" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Singkatan"required>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -125,20 +125,20 @@
             $('.delete').click(function () {
                 var unitjab_id = $(this).attr('unitjab-id');
                 swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
+                    title: "Apakah anda yakin?",
+                    text: "Jika data dihapus, data tidak bisa kembali!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
                 })
                     .then((willDelete) => {
                         if (willDelete) {
-                            swal("Poof! Your data has been deleted!", {
+                            swal("Poof! Data telah dihapus!", {
                                 icon: "success",
                             });
-                            window.location = "/unitjab/"+unitjab_id+"/delete";
+                            window.location = "/pegawai/"+peg_id+"/delete";
                         } else {
-                            swal("Your data is safe!");
+                            swal("Data batal dihapus!");
                         }
                     });
             });

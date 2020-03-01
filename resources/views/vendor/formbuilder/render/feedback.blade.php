@@ -13,7 +13,7 @@
                                         <h5 class="card-title">
                                             @auth
                                                 <a href="{{ route('formbuilder::my-submissions.index') }}" class="btn btn-primary btn-sm float-md-right">
-                                                    <i class="fa fa-th-list"></i> Go To My Submissions
+                                                    <i class="fa fa-th-list"></i> Kembali
                                                 </a>
                                             @endauth
                                         </h5>
@@ -21,7 +21,7 @@
 
                                     <div class="card-body">
                                         <h3 class="text-center text-success">
-                                            Your entry for <strong>{{ $form->name }}</strong> was successfully submitted.
+                                            Permohonan <strong>{{ $form->name }}</strong> berhasil diajukan.
                                         </h3>
                                     </div>
 

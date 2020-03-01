@@ -23,13 +23,13 @@
                                     <div class="row">
 {{--                                        @foreach(totalsurat() as $c)--}}
                                         <div class="col-md-4 stat-item">
-                                           {{totalsurat()}} <span>Form Submitted</span>
+                                           {{totalsurat()}} <span>Pengajuan Permohonan</span>
                                         </div>
                                         <div class="col-md-4 stat-item">
-                                            {{formFinish()}} <span>Form Complete</span>
+                                            {{formFinish()}} <span>Permohonan Selesai</span>
                                         </div>
                                         <div class="col-md-4 stat-item">
-                                            {{formReject()}} <span>Form Reject</span>
+                                            {{formReject()}} <span>Permohonan Ditolak</span>
                                         </div>
 {{--                                        @endforeach    --}}
                                     </div>
@@ -53,7 +53,7 @@
                                                     <td><h6> {{auth()->user()->pegawai->nip18}}</h6></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><h6><strong>Phone Number</strong></h6></td>
+                                                    <td><h6><strong>No Handphone</strong></h6></td>
                                                     <td>:</td>
                                                     <td><h6> {{auth()->user()->pegawai->no_hp}}</h6></td>
                                                 </tr>
@@ -96,7 +96,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="text-center"><a href="/pegawai/{{auth()->user()->pegawai->id}}/edit" class="btn btn-primary">Edit Profile</a></div>
+                                    <div class="text-center"><a href="/pegawai/{{auth()->user()->pegawai->id}}/edit" class="btn btn-primary">Ubah Profil</a></div>
                                 </div>
 
 
