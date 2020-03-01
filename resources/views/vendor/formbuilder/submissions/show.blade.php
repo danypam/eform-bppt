@@ -188,7 +188,7 @@
                                                 <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
                                                 <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
 
-                                            @elseif(auth()->user()->can('inbox-approve-menyetujui') && $inbox->status == config("constants.status.pending"))
+                                            @elseif(auth()->user()->can('inbox-approve-menyetujui') && $submission->status == config("constants.status.pending"))
                                                 <a href="/submissions/{{$submission->id}}/approve" class="btn btn-primary btn-sm">Approve</a>
                                                 <a href="/submissions/{{$submission->id}}/reject" class="btn btn-danger btn-sm">Reject</a>
                                             @endif

@@ -8,6 +8,7 @@ use App\Mail\email_kepala;
 use App\Mail\email_pic;
 use App\Mail\email_rejected;
 use App\Mail\email_progress;
+use App\Mail\email_pending;
 use App\Notifications\NewForm;
 use App\Pegawai;
 use App\UnitJabatan;
@@ -131,7 +132,7 @@ class InboxController extends Controller
                 ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
                 ->join('forms as f','form_submissions.form_id','=','f.id')
                 ->join('unit_jabatan as uj', 'uj.id_unit_jabatan', '=', 'p.unit_jabatan_id')
-                ->select('nama_lengkap','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan')
+                ->select('nama_lengkap','keterangan','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at', 'form_submissions.keterangan')
                 ->where('form_submissions.id', $id);
         }
         $inboxs = inbox_table($id)->get();
@@ -214,6 +215,8 @@ class InboxController extends Controller
                     {
                         return back();
                     }
+
+                    //email ke kepala
                     $emails = $this->getEmailPIC($request->submission_id);
                 $submission = Submission::where('id', $request->submission_id)->with('form')->firstOrFail();
 
@@ -229,6 +232,7 @@ class InboxController extends Controller
 
                     \Mail::to($email->email)->send(new email_pic($details));
                 }
+                //email ke pemohon
                 $emailtouser = $this->getEmailPegawai($request->submission_id);
                 $details = [
                     'name' => $emailtouser->nama_lengkap,
@@ -255,6 +259,8 @@ class InboxController extends Controller
                     {
                         return back();
                     }
+
+                    //email ke atasan
                     $emails = $this->getEmailKepala();
                     $submission = Submission::where('id', $request->submission_id)->with('form')->firstOrFail();
 
@@ -267,6 +273,15 @@ class InboxController extends Controller
                         'pageTitle' => "View Submission"
                     ];
                     \Mail::to($emails->email)->send(new email_kepala($details));
+
+                    //email ke pemohon
+                    $emailtouser = $this->getEmailPegawai($request->submission_id);
+                    $details = [
+                        'name' => $emailtouser->nama_lengkap,
+                        'url'    => url('/my-submissions/'.$request->submission_id)
+                    ];
+                    \Mail::to($emailtouser->email)->send(new email_pending($details));
+
 
                     LogActivity::addToLog('Form '.$request->submission_id.' Was Approved');
                     return redirect('/inbox')->with('sukses', 'Form Berhasil DiSetujui');
@@ -300,12 +315,14 @@ class InboxController extends Controller
            'keterangan'=>$request->keterangan,
 */
         ]);
-         $emails = $this->getEmailRejected($request->submission_id, $request->keterangan);
+        //email rejected
+        $emails = $this->getEmailRejected($request->submission_id, $request->keterangan);
         $details = [
             'name' => $emails->nama_lengkap,
             'keterangan' => $request->keterangan
         ];
         \Mail::to($emails->email)->send(new email_rejected($details));
+
         LogActivity::addToLog('Form '.$request->submission_id.' Was Rejected');
         return redirect('/inbox')->with('sukses','Formulir Berhasil Ditolak');
     }

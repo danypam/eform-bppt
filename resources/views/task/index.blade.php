@@ -200,7 +200,7 @@
                                             @foreach($completes as $complete)
                                                 <tr>
                                                     <td>{{$loop->iteration}}</td>
-                                                    <td>{{$mytask->email}}</td>
+                                                    <td>{{$complete->email}}</td>
                                                     <td>{{$complete->name}}</td>
                                                     @if($complete->status == -1)
                                                         <td><span class="label label-danger">REJECTED</span></td>
