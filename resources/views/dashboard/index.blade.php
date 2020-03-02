@@ -8,18 +8,33 @@
                 <!-- OVERVIEW -->
                 <div class="panel panel-headline">
                     <div class="panel-heading">
-                        <div class="padding-top-30">
-                        <h1 class="panel-title text-center">SELAMAT DATANG DI PUSAT BANTUAN SISTEM INFORMASI</h1>
-                        <h1 class="panel-title text-center"><b>E-FORM SERVICE DESK</b></h1>
-                        <h1 class="panel-title text-center">PUSAT MANAJEMEN INFORMASI</h1>
-                        <h4 class="panel-title text-center">Bidang Infrastruktur Informasi</h4>
+
+                        <div class="jumbotron">
+                            <p ><img src="{{asset('assets/img/Picture2.png')}}" alt="" class="img-responsive logo"></p>
+                            <br>
+                            <h2 class="text-info">SELAMAT DATANG DI E-FORM BPPT!</h2>
+                            <h4 class="text-secondary" style="font-style: italic">Merupakan formulir layanan Helpdesk elektronik yang diberikan kepada stakeholder internal Lembaga Pemerintah Non Kementerian BPPT</h4>
                             @role('member')
-                            <a href="/formulir"><p style="text-align: center"><b>>> Saya ingin mengajukan Permohonan <<</b></p></a>
+                            <b><a class="btn btn-primary btn-lg" href="/formulir" role="button">Formulir</a></b>
+                            @endrole
+                            @role('atasan')
+                            <b><a class="btn btn-primary btn-lg" href="/inbox" role="button">Surat Masuk</a></b>
+                            @endrole
+                        </div>
+                        {{--<div class="padding-top-30">
+                        <h1 class="panel-title text-center"><b>E-FORM BPPT</b></h1>
+                        <h1 class="panel-title text-center">PUSAT MANAJEMEN INFORMASI</h1>
+                        <h3 class="panel-title text-center">Bidang Infrastruktur Informasi</h3>
+                            <br>
+                            <h4 class="panel-title text-center">Merupakan formulir layanan Helpdesk elektronik yang diberikan kepada stakeholder internal Lembaga Pemerintah Non Kementerian BPPT</h4>
+
+                            @role('member')
+                            <a class ="btn" href="/formulir"><p style="text-align: center"><b>>> Saya ingin mengajukan Permohonan <<</b></p></a>
                             @endrole
                             @role('atasan')
                             <a href="/inbox"><p style="text-align: center"><b>>> Lihat daftar pengajuan Permohonan <<</b></p></a>
                             @endrole
-                        </div>
+                        </div>--}}
                     </div>
                 </div>
             </div>
@@ -138,43 +153,34 @@
                     <div class="col-md-7">
                         <div class="panel panel-scrolling">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Submission by Unit Kerja</h3><br>
-                                <ul class="list-group">
-                                    @foreach($data_unit as $unit)
-                                    <li class="list-group-item list-hover">
-                                        <span class="badge">{{$unit->total}}</span>
-                                        {{$unit->nama_unit}}
-                                    </li>
-                                    @endforeach
-                                </ul>                                {{--<table class="table table-hover table-striped" >
-                                    <thead>
-                                    <tr>
-                                        <th scope="col" width="50%" class="text-center">Unit Kerja</th>
-                                        <th scope="col" width="30%" class="text-center">Total Submission</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-
-                                        <tr>
-                                            <td></td>
-                                            <td class="text-center"></td>
-                                        </tr>
-
-                                    </tbody>
-
-                                </table>--}}
+                                <h3 class="panel-title">TOTAL SURAT MASUK PER-UNIT KERJA</h3><br>
 
                             </div>
-                            <div class="panel-body">
+                            <div class="panel-body panel-scrolling">
+                                <div class="panel-body" runat="server" style="overflow-y: scroll; height: 870px">
+                                    <div class="mid-width wrapItems" style="background-color:aqua; height:870px">
 
+                                        {{--<div id="Test1" runat="server" width="100%"></div>
+                                        <div id="Test2" runat="server" width="100%"></div>--}}
+
+                                        <ul class="list-group">
+                                            @foreach($data_unit as $unit)
+                                                <li class="list-group-item list-hover">
+                                                    <span class="badge">{{$unit->total}}</span>
+                                                    {{$unit->nama_unit}}
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-5">
                         <div class="panel panel-scrolling">
+
                             <div class="panel-heading">
-                                <h3 class="panel-title">Aktifitas User</h3>
+                                <h3 class="panel-title">AKTIFITAS USER</h3>
                                 <div class="right">
                                     <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
                                     <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
@@ -252,7 +258,7 @@
     // CHART 2 - MONTH //
     Highcharts.chart('chart-month', {
         chart: {
-            type: 'column'
+            type: 'spline'
         },
         title: {
             text: 'Submission By Month'
@@ -287,7 +293,7 @@
     // CHART 3 - YEAR //
     Highcharts.chart('chart-year', {
         chart: {
-            type: 'column'
+            type: 'spline'
         },
         title: {
             text: 'Submission By Year'

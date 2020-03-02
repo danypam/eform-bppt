@@ -589,8 +589,8 @@ ul.list-justify > li span {
     padding: 5px 14px; }
 
 .btn-primary {
-    background-color: #00AAFF;
-    border-color: #00a0f0; }
+    background-color: #3282b8;
+    border-color: #8ac6d1; }
 .btn-primary:hover, .btn-primary:focus {
     background-color: #00a0f0;
     border-color: #00a0f0; }
@@ -1178,7 +1178,7 @@ ul.activity-list > li .timestamp {
 .profile-header .profile-main {
     position: relative;
     padding: 20px;
-    background-image: url("../../assets/img/profile-bg.png");
+    background-image: url("https://i.pinimg.com/originals/a5/fa/b7/a5fab706a5f27715f1e3ee477412b60b.jpg");
     background-repeat: no-repeat;
     background-size: cover; }
 .profile-header .name {
@@ -1205,9 +1205,9 @@ ul.activity-list > li .timestamp {
     background-color: #41B314; }
 .profile-header .profile-stat {
     position: relative;
-    background-color: #00AAFF; }
+    background-color: #30475e; }
 .profile-header .profile-stat .stat-item {
-    padding: 20px;
+    padding: 10px;
     position: relative; }
 .profile-header .profile-stat .stat-item:after {
     content: "";
@@ -1217,7 +1217,7 @@ ul.activity-list > li .timestamp {
     right: 0;
     width: 1px;
     height: 100%;
-    background-color: #33bbff; }
+    background-color: #ededed; }
 .profile-header .profile-stat .stat-item:last-child:after {
     display: none; }
 .profile-header .profile-stat .stat-item span {
@@ -1855,4 +1855,8 @@ ul.activity-timeline > li:last-child:after {
     padding: 10px;
     margin-top: 10px;
     border: 1px solid rgba(0, 0, 0, .1);
+}
+
+.jumbotron{
+    background-color:#f7f7fa;
 }
