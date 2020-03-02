@@ -53,7 +53,7 @@
                                                     <td>
                                                         <div class="btn-group">
                                                             <a type="button" class="label label-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                New
+                                                                NEW
                                                             </a>
                                                             <div class="dropdown-menu" style="padding: 2px">
                                                                 <h6  class="dropdown-item">Menunggu persetujuan atasan</h6>
@@ -221,7 +221,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Keterangan</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Catatan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -232,7 +232,7 @@
                         {{csrf_field()}}
                             <input type="hidden" name="submission_id" id="id" value="" >
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Keterangan</label>
+                            <label for="exampleFormControlInput1">Catatan</label>
                             <textarea name="keterangan[ket]" type="text" class="form-control" placeholder="Alasan di ditolak"></textarea>
                         </div>
                         <div class="modal-footer">
@@ -248,7 +248,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Keterangan</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Catatan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -283,7 +283,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Keterangan</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Catatan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -296,6 +296,7 @@
                         <input type="hidden" name="keterangan[nama2]" value="{{auth()->user()->name}}" >
                         <input type="hidden" name="keterangan[nama3]" value="" >
                         <div class="form-group">
+                            <label for="exampleFormControlInput1">Catatan Atasan Langsung</label>
                             <textarea name="keterangan[ket1]" id="ket1" type="text" class="form-control" readonly placeholder="Tidak ada Catatan dari Atasan"></textarea>
                             <small for="exampleFormControlInput1" id="nama1"></small><hr>
                             <label for="exampleFormControlInput1">Tambah Catatan</label>

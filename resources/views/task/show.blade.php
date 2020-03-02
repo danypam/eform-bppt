@@ -180,19 +180,19 @@
 @section('footer')
     <script>
         $(document).ready(function () {
-            var array = [ 'NEW', 'PENDING', 'ON GOING', 'COMPLETED'];
+            var array = [ 'NEW <br><br> {!! $submission->created_at !!}', 'PENDING <br><br> {!! $submission->mengetahui_at !!}', 'ON GOING <br><br> {!! $submission->menyetujui_at !!}', 'COMPLETED <br><br> {!! $submission->complete_at !!}'];
             var status = {!! $submission->status !!};
             var mengetahui = {!! $submission->mengetahui !!} + '';
             var menyetujui = {!! $submission->menyetujui !!} + '';
             var wizard = '';
             if (status === 0){
-                wizard = 'NEW';
+                wizard = 'NEW <br><br> {!! $submission->created_at !!}';
             }else if(status === 1 || status === 2){
-                wizard = 'PENDING';
+                wizard = 'PENDING <br><br> {!! $submission->mengetahui_at !!}';
             }else if(status === 3){
-                wizard = 'ON GOING';
+                wizard = 'ON GOING <br><br> {!! $submission->menyetujui_at !!}';
             }else if(status === 4){
-                wizard = 'COMPLETED';
+                wizard = 'COMPLETED <br><br> {!! $submission->complete_at !!}';
             }else{
                 if(mengetahui === 0){
                     array = [ 'REJECTED',  'PENDING', 'ON GOING', 'COMPLETED'];
@@ -208,6 +208,8 @@
                 'progress-bar-wrapper' // created this optional parameter for container name (otherwise default container created)
             );
         });
+
+    </script>
 
     </script>
 @stop

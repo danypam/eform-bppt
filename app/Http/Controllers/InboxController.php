@@ -90,7 +90,7 @@ class InboxController extends Controller
                 ->orWhere('mengetahui','=', pegawai()->id)
                 ->get();
 
-            return view('/inbox/index',compact($primary_inboxs, $approved_inboxs), $rejected_inboxs);
+            return view('/inbox/index',compact('primary_inboxs', 'approved_inboxs', 'rejected_inboxs'));
         }
         //atasan langsung
         else if (auth()->user()->can('inbox-list-mengetahui')){
