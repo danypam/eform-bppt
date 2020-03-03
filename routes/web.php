@@ -56,7 +56,7 @@ Route::post('/cas/logout', [ 'middleware' => 'cas.auth', function() {
     cas()->logout();
     cas()->logout(url('/'));
     cas()->logout('', url('/'));
-    Auth::logout();
+    //Auth::logout();
 }])->name('cas.logout');
 
 
