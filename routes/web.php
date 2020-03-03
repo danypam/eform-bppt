@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use Illuminate\Support\Facades\Auth;
+
 Route::middleware('web')
     ->name('formbuilder::')
     ->group(function () {
@@ -45,20 +48,16 @@ Route::middleware('web')
 
 
 
-//Route::get('/', function() {
-//    return cas()->authenticate();
-//})->name('cas.login');
-//Route::get('/cas/callback', 'Auth\CasController@callback')->name('cas.callback');
-//Route::post('/cas/logout', [ 'middleware' => 'cas.auth', function() {
-//    cas()->logout();
-//
-//    // Anda juga dapat menambahkan @param string $url di parameter[0]
-//    cas()->logout(url('/'));
-//
-//    // Or menambahkan @param string $service di parameter[1]
-//    cas()->logout('', url('/'));
-//
-//}])->name('cas.logout');
+Route::get('/', function() {
+    return cas()->authenticate();
+})->name('cas.login');
+Route::get('/cas/callback', 'Auth\CasController@callback')->name('cas.callback');
+Route::post('/cas/logout', [ 'middleware' => 'cas.auth', function() {
+    cas()->logout();
+    cas()->logout(url('/'));
+    cas()->logout('', url('/'));
+    Auth::logout();
+}])->name('cas.logout');
 
 
 
@@ -66,9 +65,9 @@ Route::middleware('web')
 
 
 //AKSES LOGIN TANPA CAS
-Route::get('/', function () {
-    return view('/auth/login');
-});
+//Route::get('/', function () {
+//    return view('/auth/login');
+//});
 
 Auth::routes();
 
@@ -76,7 +75,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard','DashboardController@index');
 Route::get('/login','AuthController@login')->name('login');
 Route::post('/postlogin','AuthController@postlogin');
-Route::get('/logout','AuthController@logout');
+//Route::get('/logout','AuthController@logout');
 
 Route::group(['middleware' => ['auth']], function() {
 
