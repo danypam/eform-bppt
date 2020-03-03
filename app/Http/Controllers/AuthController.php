@@ -38,6 +38,7 @@ class AuthController extends Controller
     {
 //        LogActivity::addToLog('User Was Logout');
         Auth::logout();
+        Cas::logout();
 
         return redirect('/login');
     }

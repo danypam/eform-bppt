@@ -196,14 +196,14 @@ class RenderFormController extends Controller
             ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas2)
             ->select('user_id','email')
             ->first();
-
+        $userid = 0;
         if(isset($id1)){
             $userid[] = User::find($id1->user_id);
         }
         if (isset($id2)){
             $userid[] = User::find($id2->user_id);
         }
-   //     $userid = $userid ? $userid : 0;
+        $userid = $userid ? $userid : $userid;
 
         //dd($userid);
 
