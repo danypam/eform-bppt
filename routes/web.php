@@ -77,7 +77,7 @@ Route::get('/login','AuthController@login')->name('login');
 Route::post('/postlogin','AuthController@postlogin');
 Route::get('/logout','AuthController@logout');
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['cas.auth']], function() {
 
     Route::get('/auth/ubahpass','AuthController@edit');
     Route::post('/auth/ubahpass/update','AuthController@update');
