@@ -123,8 +123,38 @@
                         </div>
                     </div>
                 </div>
-                <!-- END OVERVIEW -->
+
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 style="margin-bottom:10px" class="panel-title">GRAFIK</h3>
+                                <div id="container" style="height: 400px; min-width: 310px">
+
+                                </div>
+                            </div>
+                            {{--<div class="panel-body">
+                                <div id="status" class="">
+                                    <div id="chart-status"></div>
+                                </div>
+                                <div id="month" class="hidden">
+                                    <div id="chart-month"></div>
+                                </div>
+                                <div id="year" class="hidden">
+                                    <div id="chart-year"></div>
+                                </div>
+                            </div>--}}
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <!-- END OVERVIEW -->
+                {{--<div class="row">
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
@@ -148,7 +178,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>--}}
+
                 <div class="row">
                     <div class="col-md-7">
                         <div class="panel panel-scrolling">
@@ -219,7 +250,7 @@
 
 <script>
     // CHART 1 - STATUS //
-    Highcharts.chart('chart-status', {
+    /*Highcharts.chart('chart-status', {
         chart: {
             type: 'column'
         },
@@ -289,9 +320,89 @@
         },
         series: {!! json_encode($chart2['series']) !!}
     });
-
+*/
     // CHART 3 - YEAR //
-    Highcharts.chart('chart-year', {
+
+
+
+
+
+    var seriesOptions = [],
+        seriesCounter = 0,
+        names = ['MSFT', 'AAPL', 'GOOG'];
+
+    /**
+     * Create the chart when all data is loaded
+     * @returns {undefined}
+     */
+    function createChart() {
+
+        Highcharts.stockChart('container', {
+
+            rangeSelector: {
+                selected: 4
+            },
+
+            yAxis: {
+                labels: {
+                    formatter: function () {
+                        return (this.value > 0 ? ' + ' : '') + this.value + '%';
+                    }
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 2,
+                    color: 'silver'
+                }]
+            },
+
+            plotOptions: {
+                series: {
+                    compare: 'percent',
+                    showInNavigator: true
+                }
+            },
+
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+                valueDecimals: 2,
+                split: true
+            },
+
+            series: seriesOptions
+        });
+    }
+
+    function success(data) {
+        var name = this.url.match(/(msft|aapl|goog)/)[0].toUpperCase();
+        var i = names.indexOf(name);
+        seriesOptions[i] = {
+            name: name,
+            data: data
+        };
+
+        // As we're loading the data asynchronously, we don't know what order it
+        // will arrive. So we keep a counter and create the chart when all the data is loaded.
+        seriesCounter += 1;
+
+        if (seriesCounter === names.length) {
+            createChart();
+        }
+    }
+
+    Highcharts.getJSON(
+        'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/msft-c.json',
+        success
+    );
+    Highcharts.getJSON(
+        'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/aapl-c.json',
+        success
+    );
+    Highcharts.getJSON(
+        'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/goog-c.json',
+        success
+    );
+    /*Highcharts.chart('chart-year', {
         chart: {
             type: 'spline'
         },
@@ -323,7 +434,7 @@
             }
         },
         series: {!! json_encode($chart3['series']) !!}
-    });
+    });*/
 
     $(document).ready(function () {
 
