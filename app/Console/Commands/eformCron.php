@@ -81,6 +81,10 @@ class eformCron extends Command
                         'unit_jabatan_id' => $s->unit_jabatan_id,
                         'jabatan_id' => $s->kode_jabatan
                     ]
+                    //role -> isunit,isdeputi,iskabppt = atasan
+                    //role -> !(isunit,isdeputi,iskabppt) = member
+                    //email -> sidadu
+                    //
                 );
         }
     }

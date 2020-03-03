@@ -12,6 +12,7 @@ class CasController extends Controller
 {
     public function callback()
     {
+        dd(Cas::user());
         $id = Cas::user()->attributes['Email'][1];
 //        dd($id);
         $user = User::where('email',$id)->first();

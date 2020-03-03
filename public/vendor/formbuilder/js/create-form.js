@@ -11,15 +11,14 @@ jQuery(function() {
         }
     });
 
-
     //get database
     function getTableName(fld) {
+        console.log($('.selectfromdatabase' ,fld));
         $.ajax({
             type: "GET",
             dataType: "json",
             url: "/getTable",
             success: function(result){
-                console.log(result);
                 result.forEach(function (r) {
                     $('.fld-table', fld).append($('<option>', {
                         value: r.TABLE_NAME,
@@ -36,16 +35,15 @@ jQuery(function() {
                 dataType: "json",
                 url: "/getColumn/" + $('.fld-table', fld).val(),
                 success: function(result){
-                    console.log(result);
                     result.forEach(function (r) {
-                        $('.fld-value', fld).append($('<option>', {
+                        $('.fld-value, .fld-lbl', fld).append($('<option>', {
                             value: r,
                             text: r
                         }));
-                        $('.fld-lbl', fld).append($('<option>', {
+                        /*$('.fld-lbl', fld).append($('<option>', {
                             value: r,
                             text: r
-                        }));
+                        }));*/
                     })
                 }});
         })
@@ -105,7 +103,7 @@ jQuery(function() {
             },
             selectFromDatabase: function(fieldData){
                 return {
-                    field: ' <select type="selectFromDatabase" id="' + fieldData.name + '" class="form-control"/>',
+                    field: ' <select type="selectFromDatabase" id="' + fieldData.name + '" class="form-control selectfromdatabase"/>',
                     onRender: function () {
                         /*$(document.getElementById(fieldData.name)).on('change',function () {
 
@@ -175,19 +173,27 @@ jQuery(function() {
               'value'
             ],
             'checkbox-group': [
-                'multiple']
-            /*'file': [
+                'multiple'],
+            'file': [
                 'multiple',
                 'subtype',
-            ],*//*
+            ],/*
             'checkbox-group': [
                 'other',
             ],*/
         },
         typeUserAttrs: {
+            datetimepicker: {
+                label:{
+                    value: ''
+                },
+            },
             selectFromDatabase: {
+                label:{
+                  value: ''
+                },
                 className:{
-                  value: 'form-builder'
+                  value: 'form-control'
                 },
                 table:{
                     label: '<span style="color: red">Table</span>',
@@ -201,21 +207,25 @@ jQuery(function() {
                     options: {},
                     required: 'true'
                 },
-
                 lbl:{
                     label: '<span style="color: red">Label Option</span>',
                     options: {},
                     required: 'true'
                 }
-            }
-            /*
+            },
             text: {
+                label:{
+                    value: ''
+                },
                 name: {
                     label: 'field',
                     required: 'true'
                 },
             },
             Text2ColumnDynamic: {
+                label:{
+                    value: ''
+                },
                 column1: {
                     label: 'column 1',
                     value: ''
@@ -226,54 +236,68 @@ jQuery(function() {
                 }
             },
             textarea: {
+                label:{
+                    value: ''
+                },
                 name: {
                     label: 'field',
                     required: 'true'
                 }
             },
-            */  /*
             'checkbox-group': {
+                label:{
+                    value: ''
+                },
                 name: {
                     label: 'field',
                     required: 'true'
                 }
             },
             number: {
+                label:{
+                    value: ''
+                },
                 name: {
                     label: 'field',
                     required: 'true'
                 }
             },
             date: {
+                label:{
+                    value: ''
+                },
                 name: {
                     label: 'field',
                     required: 'true'
                 }
             },
             file: {
+                label:{
+                    value: ''
+                },
                 name: {
                     label: 'field',
                     required: 'true'
                 }
             },
             hidden: {
+                label:{
+                    value: ''
+                },
                 name: {
                     label: 'field',
                     required: 'true'
                 }
             },
             'radio-group': {
+                label:{
+                    value: ''
+                },
                 name: {
                     label: 'field',
                     required: 'true'
                 }
             },
-            'Text2ColumnDynamic':{
-                name: {
-                    label: 'field',
-                    required: 'true'
-                }
-            },*/
         },
         typeUserEvents: {
             number: {
@@ -507,19 +531,7 @@ jQuery(function() {
         //formBuilder.actions.showData();
     });
 
-    $(".ajax").click(function(){
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: "/testAjax",
-            success: function(result){
-                console.log(result);
-                result.forEach(function (r) {
-                    $('#get-ajax').append($('<option>', {
-                        value: r.id,
-                        text: r.nama_lengkap
-                    }));
-                })
-            }});
+    $('.getJSON').on('click', function() {
+        alert(formBuilder.actions.getData('json', true));
     });
 })
