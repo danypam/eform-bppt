@@ -53,10 +53,10 @@ Route::get('/', function() {
 })->name('cas.login');
 Route::get('/cas/callback', 'Auth\CasController@callback')->name('cas.callback');
 Route::post('/cas/logout', [ 'middleware' => 'cas.auth', function() {
+    Auth::logout();
     cas()->logout();
     cas()->logout(url('/'));
     cas()->logout('', url('/'));
-    Auth::logout();
 }])->name('cas.logout');
 
 
