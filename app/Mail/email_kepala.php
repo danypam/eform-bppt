@@ -29,7 +29,7 @@ class email_kepala extends Mailable
     public function build()
     {
         $detail=$this->details;
-        return $this->subject('You Have One Form to Approved')
+        return $this->subject('Anda memiliki satu form yang harus disetujui')
             ->view('email.sendmailkepala', compact('detail'));
     }
 }

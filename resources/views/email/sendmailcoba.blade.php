@@ -7,6 +7,7 @@
 <h1>Hello, {{ $detail['name'] }}</h1>
 <p class="h3"> There is one form to approved. Please check this link <a href="{{ $detail['url'] }}">http://inboxbyid</a> for approval</p>
 <p class="h3"> Here is the data that need approval</p>
+
 <div class="main">
     <div class="main-content">
         <div class="container-fluid">
@@ -40,7 +41,7 @@
                                     <tr>
                                         <td style="border: none;word-wrap: break-word; width: 50%"><strong>Unit Kerja</strong></td>
                                         <td>:</td>
-                                        <td style="border: none;word-wrap: break-word; width: 50%">{{$detail['identitas']->unit_kerja->unit}}</td>
+                                        <td style="border: none;word-wrap: break-word; width: 50%">{{$detail['identitas']->unit_kerja->nama_unit}}</td>
                                     </tr>
                                     <tr>
                                         <td style="border: none;word-wrap: break-word; width: 50%"><strong>Unit Jabatan</strong></td>
