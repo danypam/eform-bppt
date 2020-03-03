@@ -54,16 +54,24 @@
                                             <td>{{$peg->nama_unit}}</td>
                                             <td>{{$peg->nama_jabatan}}</td>
                                             <td>{{$peg->unit}}</td>
-                                            @foreach($data_jabatan as $peg1)
-                                                @if($peg1->id == $peg->idjab)
-                                                    <td>{{$peg1->nama_jabatan}}</td>
-                                                @endif
-                                            @endforeach
-                                            @foreach($data_unitjab as $unjab1)
-                                                @if($unjab1->id_unit_jabatan == $peg->unjab_atas)
-                                                    <td>{{$unjab1->unit}}</td>
-                                                @endif
-                                            @endforeach
+                                            @if($peg->idjab == null)
+                                                <td>-</td>
+                                            @else
+                                                @foreach($data_jabatan as $peg1)
+                                                    @if($peg1->id == $peg->idjab)
+                                                        <td>{{$peg1->nama_jabatan}}</td>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                            @if($peg->unjab_atas == null)
+                                                <td>-</td>
+                                            @else
+                                                @foreach($data_unitjab as $unjab1)
+                                                    @if($unjab1->id_unit_jabatan == $peg->unjab_atas)
+                                                        <td>{{$unjab1->unit}}</td>
+                                                    @endif
+                                                @endforeach
+                                            @endif
 
                                             <td><span class="label label-success">{{$peg->status}}</span></td>
                                             {{--                                            @if($peg->status == '1')--}}

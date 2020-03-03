@@ -38,7 +38,7 @@
                                                             <td>
                                                                 <div class="btn-group">
                                                                     <a type="button" class="label label-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                        Rejected
+                                                                        REJECTED
                                                                     </a>
                                                                     <div class="dropdown-menu" style="padding: 2px">
                                                                         <h6  class="dropdown-item">Permohonan anda ditolak </h6>
@@ -51,7 +51,7 @@
                                                             <td>
                                                                 <div class="btn-group">
                                                                     <a type="button" class="label label-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                        New
+                                                                        NEW
                                                                     </a>
                                                                     <div class="dropdown-menu" style="padding: 2px">
                                                                         <h6  class="dropdown-item">Menunggu persetujuan atasan</h6>
@@ -64,7 +64,7 @@
                                                             <td>
                                                                 <div class="btn-group">
                                                                     <a type="button" class="label label-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                        Pending
+                                                                        PENDING
                                                                     </a>
                                                                     <div class="dropdown-menu" style="padding: 2px">
                                                                         <h6  class="dropdown-item">Menunggu persetujuan Kepala BII</h6>
@@ -90,7 +90,7 @@
                                                             <td>
                                                                 <div class="btn-group">
                                                                     <a type="button" class="label label-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                        Completed
+                                                                        COMPLETED
                                                                     </a>
                                                                     <div class="dropdown-menu" style="padding: 2px">
                                                                         <h6  class="dropdown-item">Permohonan Telah Diproses</h6>
@@ -187,10 +187,13 @@
                     <form action="#" method="post">
                         {{csrf_field()}}
                         <div class="form-group">
+                            <label for="exampleFormControlInput1">Catatan Atasan Langsung</label>
                             <textarea name="" id="ket1" type="text" class="form-control" readonly placeholder="Tidak ada Catatan dari Atasan"></textarea>
-                            <small for="exampleFormControlInput1" id="nama1"></small><hr>
+                            <small for="exampleFormControlInput1" id="nama1"></small><br><br>
+                            <label for="exampleFormControlInput1">Catatan Kepala BII</label>
                             <textarea name="" id="ket2" type="text" class="form-control" readonly placeholder="Tidak ada Catatan dari Kepala"></textarea>
                             <small for="exampleFormControlInput1" id="nama2"></small><hr>
+                            <label for="exampleFormControlInput1">Catatan PIC</label>
                             <textarea name="" id="ket3" type="text" class="form-control" readonly placeholder="Tidak ada Catatan dari Pic"></textarea>
                             <small for="exampleFormControlInput1" id="nama3"></small>
                         </div>

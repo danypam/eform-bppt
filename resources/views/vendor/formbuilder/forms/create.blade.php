@@ -128,6 +128,9 @@
                                                 <button type="button" class="btn btn-primary fb-save-btn">
                                                     <i class="fa fa-save"></i> Simpan Formulir
                                                 </button>
+                                               <button type="button" class="btn btn-primary fb-save-btn getJSON">
+                                                   <i class="fa fa-save"></i> get Json
+                                               </button>
                                            </div>
                                         </div>
                                     </form>

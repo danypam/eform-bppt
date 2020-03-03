@@ -81,6 +81,10 @@ class eformCron extends Command
                         'unit_jabatan_id' => $s->unit_jabatan_id,
                         'jabatan_id' => $s->kode_jabatan
                     ]
+                    //role -> isunit,isdeputi,iskabppt = atasan
+                    //role -> !(isunit,isdeputi,iskabppt) = member
+                    //email -> sidadu
+                    //
                 );
         }
     }
@@ -89,9 +93,9 @@ class eformCron extends Command
         //
         \Log::info("Working on Update");
 
-        $this->cronUnitJabatan();
-        $this->cronJabatan();
-        $this->cronPegawai();
+//        $this->cronUnitJabatan();
+//        $this->cronJabatan();
+//        $this->cronPegawai();
 
         \Log::info("Database Updated");
         $this->info('Demo:Cron Cummand Run successfully!');
