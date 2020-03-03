@@ -311,7 +311,7 @@ class InboxController extends Controller
             'id'=>$request->submission_id,
         ])->update([
             'status'=>-1,
-            'keterangan'=>$kete,
+            'keterangan'=>$request->keterangan,
             'rejected'=> $id_pegawai->id,
             'rejected_at'=> Carbon::now()->toDateTimeString()
 

@@ -131,6 +131,9 @@ class PicController extends Controller
     public function complete(Request $request)
     {
         $kete = json_encode($request->keterangan);
+        $k=json_decode($kete);
+        $keterangan3=$k->ket3;
+//        dd($keterangan3);
         \Illuminate\Support\Facades\DB::table('form_submissions')->where([
             'id'=>$request->submission_id,
         ])->update([
@@ -144,7 +147,7 @@ class PicController extends Controller
         $details = [
             'name' => $emails->nama_lengkap,
             'url'=>'servicedesk.bppt.go.id',
-            'keterangan'=> $request->keterangan
+            'keterangan'=> $keterangan3
         ];
         //dd($email);
         \Mail::to($emails->email)->send(new email_complete($details));
