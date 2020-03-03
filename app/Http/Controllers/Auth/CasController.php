@@ -20,7 +20,7 @@ class CasController extends Controller
                     $id = $email;
                 }
             }
-            $user = User::where('email',$id)->first();
+            $user = User::where('email','=',$id)->first();
             dd($email);
             Auth::login($user);
         }catch (Exception $e){
