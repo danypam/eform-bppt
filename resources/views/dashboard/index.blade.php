@@ -326,10 +326,14 @@
 
 
 
-
+    var chart = {!! json_encode( $chart) !!};
+    var name;
+    for (i = 0 ; i < chart.length ; i++){
+        name[i] = chart[i][0];
+    }
     var seriesOptions = [],
         seriesCounter = 0,
-        names = ['MSFT', 'AAPL', 'GOOG'];
+        names = name;
 
     /**
      * Create the chart when all data is loaded
@@ -373,35 +377,35 @@
         });
     }
 
-    function success(data) {
-        var name = this.url.match(/(msft|aapl|goog)/)[0].toUpperCase();
-        var i = names.indexOf(name);
-        seriesOptions[i] = {
-            name: name,
-            data: data
-        };
+
+    //function success(data) {
+        for(i = 0 ; i < chart.length ; i++){
+            seriesOptions[i] = {
+                name: chart[i][0],
+                data: chart[i][1]
+            };
+        }
+
 
         // As we're loading the data asynchronously, we don't know what order it
         // will arrive. So we keep a counter and create the chart when all the data is loaded.
-        seriesCounter += 1;
+      //  seriesCounter += 1;
 
-        if (seriesCounter === names.length) {
+        //if (seriesCounter === names.length) {
             createChart();
-        }
-    }
+        //}
+   // }
 
-    Highcharts.getJSON(
-        'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/msft-c.json',
-        success
-    );
-    Highcharts.getJSON(
-        'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/aapl-c.json',
-        success
-    );
-    Highcharts.getJSON(
-        'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/goog-c.json',
-        success
-    );
+
+      // console.log(chart.length);
+      //   for (i=0 ; i < chart.length ; i++){
+      //       //console.log(chart[i][1]);
+      //       Highcharts.getJSON(
+      //           chart[i][1],
+      //           success
+      //       );
+      //   }
+
     /*Highcharts.chart('chart-year', {
         chart: {
             type: 'spline'
