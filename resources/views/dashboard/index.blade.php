@@ -129,40 +129,23 @@
                         <div class="panel">
                             <div class="panel-heading">
                                 <h3 style="margin-bottom:10px" class="panel-title">GRAFIK</h3>
-                                <div id="container" style="height: 400px; min-width: 310px">
+                                <div id="chart-date" style="height: 550px; min-width: 310px">
 
                                 </div>
                             </div>
-                            {{--<div class="panel-body">
-                                <div id="status" class="">
-                                    <div id="chart-status"></div>
-                                </div>
-                                <div id="month" class="hidden">
-                                    <div id="chart-month"></div>
-                                </div>
-                                <div id="year" class="hidden">
-                                    <div id="chart-year"></div>
-                                </div>
-                            </div>--}}
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
                 <!-- END OVERVIEW -->
-                {{--<div class="row">
+                <div class="row">
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading">
                                 <h3 style="margin-bottom:10px" class="panel-title">GRAFIK</h3>
                                 <ul class="nav nav-tabs">
                                     <li class="active" id="tab-status"><a href="#chart">By Status</a></li>
-                                    <li id="tab-month"><a href="#chart">By Month</a></li>
-                                    <li id="tab-year"><a href="#chart">By Year</a></li>
+                                    {{--<li id="tab-month"><a href="#chart">By Month</a></li>
+                                    <li id="tab-year"><a href="#chart">By Year</a></li>--}}
                                 </ul>
                             </div>
                             <div class="panel-body">
@@ -178,7 +161,7 @@
                             </div>
                         </div>
                     </div>
-                </div>--}}
+                </div>
 
                 <div class="row">
                     <div class="col-md-7">
@@ -250,7 +233,7 @@
 
 <script>
     // CHART 1 - STATUS //
-    /*Highcharts.chart('chart-status', {
+    Highcharts.chart('chart-status', {
         chart: {
             type: 'column'
         },
@@ -286,6 +269,7 @@
         series: {!! json_encode($chart1['series']) !!}
     });
 
+    /*
     // CHART 2 - MONTH //
     Highcharts.chart('chart-month', {
         chart: {
@@ -337,10 +321,37 @@
      */
     function createChart() {
 
-        Highcharts.stockChart('container', {
+        Highcharts.stockChart('chart-date', {
 
             rangeSelector: {
-                selected: 4
+                //selected: 4
+
+                buttons: [{
+                    type: 'month',
+                    count: 1,
+                    text: '1M',
+                    events: {
+                        click: function() {
+                            alert('Clicked button');
+                        }
+                    }
+                }, {
+                    type: 'month',
+                    count: 3,
+                    text: '3M'
+                }, {
+                    type: 'month',
+                    count: 6,
+                    text: '6M'
+                }, {
+                    type: 'year',
+                    count: 1,
+                    text: '1Y'
+                }, {
+                    type: 'all',
+                    text: 'All'
+                }]
+
             },
 
             yAxis: {
@@ -365,7 +376,7 @@
 
             tooltip: {
                 pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
-                valueDecimals: 2,
+                valueDecimals: 0,
                 split: true
             },
 
