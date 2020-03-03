@@ -47,7 +47,6 @@ Route::middleware('web')
 
 
 
-
 //Route::get('/', function() {
 //    return cas()->authenticate();
 //})->name('cas.login');
@@ -58,6 +57,7 @@ Route::middleware('web')
 //    cas()->logout('', url('/'));
 //    Auth::logout();
 //}])->name('cas.logout');
+
 
 
 
