@@ -144,8 +144,8 @@
                                 <h3 style="margin-bottom:10px" class="panel-title">GRAFIK</h3>
                                 <ul class="nav nav-tabs">
                                     <li class="active" id="tab-status"><a href="#chart">By Status</a></li>
-                                    {{--<li id="tab-month"><a href="#chart">By Month</a></li>
-                                    <li id="tab-year"><a href="#chart">By Year</a></li>--}}
+                                    <li id="tab-month"><a href="#chart">By Month</a></li>
+                                    <li id="tab-year"><a href="#chart">By Year</a></li>
                                 </ul>
                             </div>
                             <div class="panel-body">
@@ -269,7 +269,7 @@
         series: {!! json_encode($chart1['series']) !!}
     });
 
-    /*
+
     // CHART 2 - MONTH //
     Highcharts.chart('chart-month', {
         chart: {
@@ -304,9 +304,41 @@
         },
         series: {!! json_encode($chart2['series']) !!}
     });
-*/
-    // CHART 3 - YEAR //
 
+    // CHART 3 - YEAR //
+    Highcharts.chart('chart-year', {
+            chart: {
+                type: 'spline'
+            },
+            title: {
+                text: 'Submission By Year'
+            },
+            xAxis: {
+                categories: {!! json_encode($chart3['category']) !!},
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Total (pcs)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name} </td>' +
+                '<td style="padding:0"><b> : {point.y:1f} pcs</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: {!! json_encode($chart3['series']) !!}
+    });
 
 
 
@@ -328,9 +360,9 @@
         Highcharts.stockChart('chart-date', {
 
             rangeSelector: {
-                //selected: 4
+                selected: 4,
 
-                buttons: [{
+                /*buttons: [{
                     type: 'month',
                     count: 1,
                     text: '1M',
@@ -354,7 +386,7 @@
                 }, {
                     type: 'all',
                     text: 'All'
-                }]
+                }]*/
 
             },
 
@@ -417,39 +449,7 @@
       //       );
       //   }
 
-    /*Highcharts.chart('chart-year', {
-        chart: {
-            type: 'spline'
-        },
-        title: {
-            text: 'Submission By Year'
-        },
-        xAxis: {
-            categories: {!! json_encode($chart3['category']) !!},
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Total (pcs)'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name} </td>' +
-                '<td style="padding:0"><b> : {point.y:1f} pcs</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: {!! json_encode($chart3['series']) !!}
-    });*/
+
 
     $(document).ready(function () {
 
