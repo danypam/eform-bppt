@@ -329,6 +329,7 @@ html.fullscreen-bg #wrapper {
     margin-right: 8px; }
 
 ul.notifications > li {
+    width: 250px;
     border-bottom: 1px solid #F0F0F0; }
 ul.notifications > li:last-child {
     border-bottom: none; }

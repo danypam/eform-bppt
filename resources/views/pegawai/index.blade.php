@@ -48,7 +48,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td><a href="/{{$peg->id}}/profile">{{$peg->nama_lengkap}}</a></td>
+                                            <td>{{$peg->nama_lengkap}}</td>
                                             <td>{{$peg->no_hp}}</td>
                                             <td>{{$peg->email}}</td>
                                             @if($peg->unit_id == null)
@@ -183,7 +183,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Jabatan</label>
-                            <select name="jabatan_id" class="form-control selectpicker" id="exampleFormControlSelect1" data-live-search="true"required>
+                            <select name="jabatan_id" class="form-control selectpicker" id="exampleFormControlSelect1" data-live-search="true">
                                 <option selected disabled value="">-Pilih-</option>
                                 @foreach($data_jabatan as $jab)
                                     <option value="{{$jab->id}}">{{$jab->nama_jabatan}}</option>
@@ -222,7 +222,7 @@
                 scrollX:     300
             });
 
-            $('.delete').click(function () {
+            $('#datatable').on( "click",'.delete', function() {
                 var peg_id = $(this).attr('pegawai-id');
                 swal({
                     title: "Apakah anda yakin?",
