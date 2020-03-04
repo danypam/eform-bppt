@@ -17,15 +17,14 @@ class CasController extends Controller
         try {
             $id = '';
 //            dd(Cas::user()->attributes['Email']);
-            if (gettype(Cas::user()->attributes['Email'] == 'string')) {
-                $id = Cas::user()->attributes['Email'];
-            }else{
+            if (gettype(Cas::user()->attributes['Email'] == 'array')) {
                 foreach (Cas::user()->attributes['Email'] as $email) {
                     if (fnmatch("*bppt.go.id", $email)) {
                         $id = $email;
-                        dd($id);
                     }
                 }
+            }else{
+                $id = Cas::user()->attributes['Email'];
             }
             $user = User::where('email',$id)->first();
 
