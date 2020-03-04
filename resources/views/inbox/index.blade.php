@@ -239,7 +239,7 @@
                             <input type="hidden" name="submission_id" id="id" value="" >
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Catatan</label>
-                            <textarea name="keterangan[ket]" type="text" class="form-control" placeholder="Alasan di ditolak"></textarea>
+                            <textarea name="keterangan" type="text" class="form-control" placeholder="Alasan di ditolak"></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -123,6 +123,19 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 style="margin-bottom:10px" class="panel-title">GRAFIK</h3>
+                                <div id="chart-date" style="height: 550px; min-width: 310px">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- END OVERVIEW -->
                 <div class="row">
                     <div class="col-md-12">
@@ -149,6 +162,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-7">
                         <div class="panel panel-scrolling">
@@ -255,6 +269,7 @@
         series: {!! json_encode($chart1['series']) !!}
     });
 
+
     // CHART 2 - MONTH //
     Highcharts.chart('chart-month', {
         chart: {
@@ -292,14 +307,14 @@
 
     // CHART 3 - YEAR //
     Highcharts.chart('chart-year', {
-        chart: {
-            type: 'spline'
-        },
-        title: {
-            text: 'Submission By Year'
-        },
-        xAxis: {
-            categories: {!! json_encode($chart3['category']) !!},
+            chart: {
+                type: 'spline'
+            },
+            title: {
+                text: 'Submission By Year'
+            },
+            xAxis: {
+                categories: {!! json_encode($chart3['category']) !!},
             crosshair: true
         },
         yAxis: {
@@ -324,6 +339,117 @@
         },
         series: {!! json_encode($chart3['series']) !!}
     });
+
+
+
+    var chart = {!! json_encode( $chart) !!};
+    var name;
+    for (i = 0 ; i < chart.length ; i++){
+        name[i] = chart[i][0];
+    }
+    var seriesOptions = [],
+        seriesCounter = 0,
+        names = name;
+
+    /**
+     * Create the chart when all data is loaded
+     * @returns {undefined}
+     */
+    function createChart() {
+
+        Highcharts.stockChart('chart-date', {
+
+            rangeSelector: {
+                selected: 4,
+
+                /*buttons: [{
+                    type: 'month',
+                    count: 1,
+                    text: '1M',
+                    events: {
+                        click: function() {
+                            alert('Clicked button');
+                        }
+                    }
+                }, {
+                    type: 'month',
+                    count: 3,
+                    text: '3M'
+                }, {
+                    type: 'month',
+                    count: 6,
+                    text: '6M'
+                }, {
+                    type: 'year',
+                    count: 1,
+                    text: '1Y'
+                }, {
+                    type: 'all',
+                    text: 'All'
+                }]*/
+
+            },
+
+            yAxis: {
+                labels: {
+                    formatter: function () {
+                        return (this.value > 0 ? ' + ' : '') + this.value + '%';
+                    }
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 2,
+                    color: 'silver'
+                }]
+            },
+
+            plotOptions: {
+                series: {
+                    compare: 'percent',
+                    showInNavigator: true
+                }
+            },
+
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+                valueDecimals: 0,
+                split: true
+            },
+
+            series: seriesOptions
+        });
+    }
+
+
+    //function success(data) {
+        for(i = 0 ; i < chart.length ; i++){
+            seriesOptions[i] = {
+                name: chart[i][0],
+                data: chart[i][1]
+            };
+        }
+
+
+        // As we're loading the data asynchronously, we don't know what order it
+        // will arrive. So we keep a counter and create the chart when all the data is loaded.
+      //  seriesCounter += 1;
+
+        //if (seriesCounter === names.length) {
+            createChart();
+        //}
+   // }
+
+
+      // console.log(chart.length);
+      //   for (i=0 ; i < chart.length ; i++){
+      //       //console.log(chart[i][1]);
+      //       Highcharts.getJSON(
+      //           chart[i][1],
+      //           success
+      //       );
+      //   }
+
+
 
     $(document).ready(function () {
 
