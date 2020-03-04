@@ -84,6 +84,8 @@ class RenderFormController extends Controller
     public function submit(Request $request, $identifier)
     {
         $form = Form::where('identifier', $identifier)->firstOrFail();
+
+
         DB::beginTransaction();
 
         try {
@@ -143,15 +145,16 @@ class RenderFormController extends Controller
             $submission = Submission::where(['user_id' => $user_id, 'id' => $submission_id])->with('form')->firstOrFail();
 
             $details = [
-                'name' => auth()->user()->name,
+                'name' => '',
                 'url'    => url('/inbox/'.$submission_id),
                 'submission' => $submission,
                 'identitas' => Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id', '=', auth()->user()->id)->firstOrFail(),
                 'form_headers' => $submission->form->getEntriesHeader(),
                 'pageTitle' => "View Submission"
             ];
-            $email = $this->getEmail();
             //dd($email);
+            $email = $this->getEmail();
+
             if(isset($email[0])){
                 try {
                     \Mail::to($email[0])->send(new email_atasan($details));
@@ -166,7 +169,7 @@ class RenderFormController extends Controller
            /* return redirect()
                     ->route('formbuilder::form.feedback', $identifier)
                     ->with('success', 'Form successfully submitted. Please wait');*/
-            return redirect('/my-submissions')->with('sukses', 'Formulir Berhasil diajukan');
+            return redirect('/my-submissions')->with('sukses', 'Terimakasih. Formulir Berhasil diajukan. Mohon Tunggu');
         } catch (Throwable $e) {
             dd($e);
             info($e);

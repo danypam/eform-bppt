@@ -1,15 +1,15 @@
 <html>
 <head>
     <style>
-        @media screen and (min-width: 720px) {
-            .banner-color {
-                background-color: #002433;
-            }
+        /*@media screen and (min-width: 720px) {*/
+        /*    .banner-color {*/
+        /*        background-color: #002433;*/
+        /*    }*/
             .title-color {
                 color: #3357C0;
             }
 
-        }
+        /*}*/
     </style>
 </head>
 <body>
@@ -19,7 +19,7 @@
         <tr>
             <td align="center">
                 <center style="width:100%">
-                    <table bgcolor="#f5fcff" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto;max-width:800px;font-weight:200;width:inherit;font-family:Helvetica,Arial,sans-serif" width="512">
+                    <table bgcolor="#f5fcff" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto;max-width:512px;font-weight:200;width:inherit;font-family:Helvetica,Arial,sans-serif" width="512">
                         <tbody>
                         <tr>
                             <td bgcolor="#72868f" width="100%" style="background-color:#f3f3f3;padding:12px;border-bottom:1px solid #ececec">
@@ -48,7 +48,7 @@
                                                             <tbody>
                                                             <tr>
                                                                 <td align="center" width="100%">
-                                                                    <h1 style="padding:0;margin:0;color:#ffffff;font-weight:500;font-size:20px;line-height:20px">Form Anda ditolak</h1>
+                                                                    <h1 style="padding:0;margin:0;color:#ffffff;font-weight:500;font-size:20px;line-height:20px">Permohonan Anda ditolak</h1>
                                                                 </td>
                                                             </tr>
                                                             </tbody>
@@ -63,7 +63,7 @@
                                                                 <td align="center" width="100%" style="padding: 0 15px;text-align: justify;color: black;font-size: 12px;line-height: 18px;">
                                                                     <img src="https://66.media.tumblr.com/d57f23a1c1d2721e5e2934ac555fb307/70bdf9d7e190cc98-e4/s1280x1920/2d4e05e0b50d7d56511b8dab0d6a77d8fe16676c.png" width="100%"><br><br>
                                                                     <h3 style="font-weight: 600; padding: 0px; margin: 0px; font-size: 18px; line-height: 24px; text-align: center; color:#3357C0;" class="title-color">Maaf, {{$detail['name']}}</h3>
-                                                                    <p style="margin: 20px 0 30px 0;font-size: 16px;text-align: center;">Form Anda ditolak oleh {{Auth::user()->name}} karena alasan berikut:</p>
+                                                                    <p style="margin: 20px 0 30px 0;font-size: 16px;text-align: center;">Permohonan Anda ditolak oleh {{Auth::user()->name}} karena alasan berikut:</p>
                                                                     <p style="margin: 20px 0 30px 0;color: #3357C0; text-align: center; font-size: 16px; font-weight: bold;">{{$detail['keterangan']}}</p>
 {{--                                                                    <p style="margin: 20px 0 30px 0;font-size: 16px;text-align: center;">Silahkan periksa kembali form yang Anda telah ajukan pada tombol di bawah ini </p>--}}
 {{--                                                                    <center><a href="{{$detail['url']}}" style="background-color: #3D6EC9; border-radius:40px; color: #ffffff; padding: 10px; font-size: 16px;margin: 20px 0 30px 0;display: inline-block; font-weight: bold; text-decoration:none; border: none;cursor: pointer;">Beri Ulasan di sini</a></center>--}}

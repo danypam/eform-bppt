@@ -38,7 +38,7 @@ class AuthController extends Controller
     {
 //        LogActivity::addToLog('User Was Logout');
         Auth::logout();
-        cas()->logout('', url('/'));
+//        cas()->logout('', url('/'));
     }
 
     public function edit(Request $request)

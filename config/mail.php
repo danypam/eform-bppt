@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Admin BPPT'),
+        'name' => env('MAIL_FROM_NAME', 'E-Form Service Desk BPPT'),
     ],
 
     /*

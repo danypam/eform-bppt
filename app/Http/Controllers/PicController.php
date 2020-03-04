@@ -109,10 +109,16 @@ class PicController extends Controller
                 $this->commit($id);
                 $this->fillWhoTake($id);
                 DB::commit();
+                $emailtouser = $this->getEmailPegawai($id);
+                $details = [
+                    'name' => $emailtouser->nama_lengkap,
+                    'url'    => url('/my-submissions/'.$id)
+                ];
+                \Mail::to($emailtouser->email)->send(new email_progress($details));
                 return redirect('/task')->with('sukses', 'Selamat Mengerjakan');
             }else{
                 DB::rollback();
-                return redirect('/task')->with('error', 'Formulir Telah Dieksekusi oleh pic lain');
+                return redirect('/task')->with('error', 'Formulir telah dieksekusi oleh PIC lain');
             }
         }
     }
@@ -125,7 +131,7 @@ class PicController extends Controller
             'status'=>DB::raw('status - 1'),
             'pic'=>null
         ]);
-        return redirect('/task')->with('sukses','Task Berhasil Dibatalkan');
+        return redirect('/task')->with('sukses','Tugas Berhasil Dibatalkan');
     }
 
     public function complete(Request $request)
@@ -149,9 +155,9 @@ class PicController extends Controller
             'url'=>'servicedesk.bppt.go.id',
             'keterangan'=> $keterangan3
         ];
-        //dd($email);
+//        dd($details);
         \Mail::to($emails->email)->send(new email_complete($details));
-        return redirect('/task')->with('sukses','Task Complete');
+        return redirect('/task')->with('sukses','Tugas telah selesai');
     }
 
     public function create()
@@ -282,5 +288,11 @@ class PicController extends Controller
 
         return $pegawai;
     }
+    private function getEmailPegawai($id){
+        $submission=Submission::find($id);
+        $user_id = $submission->user_id;
+        $pegawai = Pegawai::select('nama_lengkap','email')->where('user_id',$user_id)->first();
 
+        return $pegawai;
+    }
 }
