@@ -187,11 +187,11 @@
                 wizard = 'COMPLETED <br><br> {!! $submission->complete_at !!}';
             }else{
                 if(mengetahui === 0){
-                    array = [ 'REJECTED',  'PENDING', 'ON GOING', 'COMPLETED'];
+                    array = [ 'REJECTED <br><br> {!! $submission->rejected_at !!}',  'PENDING', 'ON GOING', 'COMPLETED'];
                 }else if(menyetujui === 0){
-                    array = [ 'NEW', 'REJECTED', 'ON GOING', 'COMPLETED'];
+                    array = [ 'NEW <br><br> {!! $submission->created_at !!}', 'REJECTED <br><br> {!! $submission->rejected_at !!}', 'ON GOING', 'COMPLETED'];
                 }
-                wizard = 'REJECTED';
+                wizard = 'REJECTED <br><br> {!! $submission->rejected_at !!}';
             }
             ProgressBar.singleStepAnimation = 1500;
             ProgressBar.init(

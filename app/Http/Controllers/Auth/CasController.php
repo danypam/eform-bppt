@@ -20,13 +20,10 @@ class CasController extends Controller
                     $id = $email;
                 }
             }
-            $user = User::where('email','=',$id)->first();
-            if($user == null){
-                return view('/layouts/unregistered');
-            }
+            $user = User::where('email',$id)->first();
             Auth::login($user);
         }catch (Exception $e){
-            return view('/layouts/unregistered');
+
         }
 
 //         dd($id);

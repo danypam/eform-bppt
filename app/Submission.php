@@ -272,4 +272,23 @@ class Submission extends Model
         return ['series' => $series, 'category' => $category];
     }
 
+    public static function chart()
+    {
+        $forms = Submission::with('form:id,name')->select('form_id')->groupBy('form_id')->get();
+        foreach ($forms as $form){
+            $result = Submission::select(DB::raw('TIMESTAMP(DATE(created_at)) as time, COUNT(form_id) as data'))
+                ->groupBy('time')
+                ->where('form_id',$form->form_id)
+                ->get();
+            $value = null;
+            foreach ($result as $r){
+                $value[] = [$r->time, $r->data];
+            }
+
+                $chart[] = [$form->form->name, $value] ;
+        }
+        //dd($chart);
+        return $chart;
+    }
+
 }

@@ -323,10 +323,8 @@ class InboxController extends Controller
     {
 //        dd($request->keterangan);
         $kete = json_encode($request->keterangan);
-        $k=json_decode($kete)->ket;
-//        dd($k);
 
-//        $kettolak=
+        $k = json_decode($kete)->ket;
         $id_pegawai = DB::table('pegawai')
             ->select('id')
             ->where('user_id','=',Auth()->user()->id)
