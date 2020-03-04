@@ -302,6 +302,7 @@ class InboxController extends Controller
     public function update(Request $request)
     {
         $kete = json_encode($request->keterangan);
+        $k = json_decode($kete)->ket;
         $id_pegawai = DB::table('pegawai')
             ->select('id')
             ->where('user_id','=',Auth()->user()->id)
@@ -326,7 +327,7 @@ class InboxController extends Controller
 
         $details = [
             'name' => $emails->nama_lengkap,
-            'keterangan' => $kete
+            'keterangan' => $k
         ];
         \Mail::to($emails->email)->send(new email_rejected($details));
 
