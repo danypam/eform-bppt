@@ -15,7 +15,7 @@ use jazmy\FormBuilder\Helper;
 use jazmy\FormBuilder\Models\Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\UnitJabatan;
 use phpDocumentor\Reflection\Types\Null_;
 use mysql_xdevapi\Exception;
 use Spatie\Permission\Models\Role;
@@ -83,8 +83,15 @@ class RenderFormController extends Controller
 
     public function submit(Request $request, $identifier)
     {
-        $form = Form::where('identifier', $identifier)->firstOrFail();
 
+        $form = Form::where('identifier', $identifier)->firstOrFail();
+        $i =  DB::table('form_submissions')
+            ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
+            ->join('forms as f','form_submissions.form_id','=','f.id')
+            ->join('unit_jabatan as uj', 'uj.id_unit_jabatan', '=', 'p.unit_jabatan_id')
+            ->select('nama_lengkap','keterangan','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at', 'form_submissions.keterangan')
+            ->where('form_submissions.id', )
+            ->first();
 
         DB::beginTransaction();
 
@@ -142,18 +149,20 @@ class RenderFormController extends Controller
             }
             LogActivity::addToLog('Submitted Form'.$form->name);
 
-            $submission = Submission::where(['user_id' => $user_id, 'id' => $submission_id])->with('form')->firstOrFail();
+            $email = $this->getEmail($submission_id);
+            $submission = Submission::where([ 'id' => $submission_id])->with('form')->firstOrFail();
 
             $details = [
                 'name' => '',
-                'url'    => url('/inbox/'.$submission_id),
+                'url'    => url('/forms/'.$form->id.'/submissions/'.$submission_id),
                 'submission' => $submission,
-                'identitas' => Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id', '=', auth()->user()->id)->firstOrFail(),
+                'identitas' => Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id', '=',  $submission->user_id)->firstOrFail(),
                 'form_headers' => $submission->form->getEntriesHeader(),
                 'pageTitle' => "View Submission"
             ];
+
             //dd($email);
-            $email = $this->getEmail();
+//            $email = $this->getEmail();
 
             if(isset($email[0])){
                 try {
@@ -214,7 +223,7 @@ class RenderFormController extends Controller
 
     }
 
-    private function getEmail(){
+    private function getEmail($id){
         $unit_jabatan_user=DB::table('pegawai')
             ->select('unit_jabatan_id')
             ->where('user_id',auth()->user()->id)
