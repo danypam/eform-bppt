@@ -17,7 +17,7 @@ class CasController extends Controller
         try {
             $id = '';
 //            dd(Cas::user()->attributes['Email']);
-            if (gettype(Cas::user()->attributes['Email'] === 'array')) {
+            if (is_array(Cas::user()->attributes['Email'])) {
                 foreach (Cas::user()->attributes['Email'] as $email) {
                     if (fnmatch("*bppt.go.id", $email)) {
                         $id = $email;
