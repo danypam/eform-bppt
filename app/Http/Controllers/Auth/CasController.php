@@ -23,11 +23,12 @@ class CasController extends Controller
                 foreach (Cas::user()->attributes['Email'] as $email) {
                     if (fnmatch("*bppt.go.id", $email)) {
                         $id = $email;
+                        dd($id);
                     }
                 }
             }
             $user = User::where('email',$id)->first();
-            dd($id);
+
             if ($user){
                 Auth::login($user);
             }else{
