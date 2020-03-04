@@ -106,7 +106,7 @@
                                                                 @foreach($pegawai as $p)
 
                                                                     @if($p->id == $submission->rejected)
-                                                                        <a href="#" data-id="{{$submission->submission_id}}" data-status="{{$p->nama_lengkap}}" data-ket="{{$submission->keterangan}}" class="label label-default view" >LIHAT KETERANGAN</a>
+                                                                        <a href="#" data-id="{{$submission->submission_id}}" data-status="{{$p->nama_lengkap}}" data-ket="{{$submission->keterangan->ket}}" class="label label-default view" >LIHAT KETERANGAN</a>
                                                                     @endif
                                                                 @endforeach
                                                             @elseif($submission->keterangan == null)
