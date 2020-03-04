@@ -11,14 +11,11 @@
         /*.button-color {*/
         /*    background-color: #0066cc;*/
         /*}*/
-        @media screen and (min-width: 720px) {
             .banner-color {
-                background-color: #002433;
+                background-color: #3D6EC9;
             }
-            .title-color {
-                color: #3357C0;
-            }
-        }
+
+        /*}*/
     </style>
 </head>
 <body>
@@ -35,7 +32,7 @@
                                 <table border="0" cellspacing="0" cellpadding="0" style="font-weight:200;width:100%!important;font-family:Helvetica,Arial,sans-serif;min-width:100%!important" width="100%">
                                     <tbody>
                                     <tr>
-                                        <td align="left" valign="middle" width="50%"><h4 style="margin:0;color:black;white-space:normal;display:inline-block;text-decoration:none;font-size:14px;line-height:20px">E-form Service Desk BPPT</h4></td>
+                                        <td align="left" valign="middle" width="50%"><div style="margin:0;color:black;white-space:normal;display:inline-block;text-decoration:none;font-size:16px;line-height:20px"><img src="https://66.media.tumblr.com/3730510473163ee1f293ddabe1648e42/451a7dd054f0687b-23/s250x400/091da9ce2e8d0f1c4cec39c77c16f0ca19f67573.png" width="100%"></div></td>
                                         <td valign="middle" width="50%" align="right" style="padding:0 0 0 10px"><span style="margin:0;color:#4c4c4c;white-space:normal;display:inline-block;text-decoration:none;font-size:12px;line-height:20px"></span></td>
                                         <td width="1">&nbsp;</td>
                                     </tr>
@@ -52,12 +49,12 @@
                                             <table border="0" cellspacing="0" cellpadding="0" style="font-weight:200;font-family:Helvetica,Arial,sans-serif" width="100%">
                                                 <tbody>
                                                 <tr>
-                                                    <td align="center" bgcolor="#8BC34A" style="padding:20px 48px;color:#ffffff" class="banner-color">
+                                                    <td align="center" bgcolor="#3D6EC9" style="padding:20px 48px;color:#ffffff" class="banner-color">
                                                         <table border="0" cellspacing="0" cellpadding="0" style="font-weight:200;font-family:Helvetica,Arial,sans-serif" width="100%">
                                                             <tbody>
                                                             <tr>
                                                                 <td align="center" width="100%">
-                                                                    <h1 style="padding:0;margin:0;color:#ffffff;font-weight:500;font-size:20px;line-height:20px">Form Anda telah disetujui</h1>
+                                                                    <h1 style="padding:0;margin:0;color:#ffffff;font-weight:500;font-size:20px;line-height:20px">Permohonan Anda telah disetujui</h1>
                                                                 </td>
                                                             </tr>
                                                             </tbody>
@@ -70,10 +67,10 @@
                                                             <tbody>
                                                             <tr>
                                                                 <td align="center" width="100%" style="padding: 0 15px;text-align: justify;color: rgb(76, 76, 76);font-size: 12px;line-height: 18px;">
+                                                                    <img src="https://66.media.tumblr.com/96298dc1158e944fb1e519cb02818770/70bdf9d7e190cc98-28/s1280x1920/aa659bdffce2049873132bcd08d4d80d06c5a679.png" width="100%"><br><br>
                                                                     <h3 style="font-weight: 600; padding: 0px; margin: 0px; font-size: 16px; line-height: 24px; text-align: center;" class="title-color">Halo, {{$detail['name']}}</h3>
-                                                                    <p style="margin: 20px 0 30px 0;font-size: 15px;text-align: center;">Form Anda telah disetujui oleh atasan Anda. Mohon tunggu form Anda akan segera diproses<br><br></p>
-                                                                    <p style="margin: 20px 0 30px 0;font-size: 15px;text-align: center;">Tekan tombol di bawah ini apabila ingin melihat detail proses form Anda</p>
-                                                                    <center><a href="{{$detail['url']}}" style="background-color: #3D6EC9; border-radius:40px; color: #ffffff; padding: 10px; font-size: 16px;margin: 20px 0 30px 0;display: inline-block; font-weight: bold; text-decoration:none; border: none;cursor: pointer;">My Submission</a></center>
+                                                                    <p style="margin: 20px 0 30px 0;font-size: 15px;text-align: center;">Mohon tunggu. Permohonan Anda sedang diproses. Tekan tombol di bawah ini apabila ingin melihat detail proses permohonan Anda</p>
+                                                                    <center><a href="{{$detail['url']}}" style="background-color: #3D6EC9; border-radius:40px; color: #ffffff; padding: 10px; font-size: 16px;margin: 20px 0 30px 0;display: inline-block; font-weight: bold; text-decoration:none; border: none;cursor: pointer;">Permohonan Saya</a></center>
                                                                 </td>
                                                             </tr>
                                                             </tbody>

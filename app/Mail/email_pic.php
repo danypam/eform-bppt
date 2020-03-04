@@ -29,7 +29,7 @@ class email_pic extends Mailable
     public function build()
     {
         $detail=$this->details;
-        return $this->subject('Anda memiliki form yang harus dikerjakan')
+        return $this->subject('Anda memiliki permohonan yang harus dikerjakan')
             ->view('email.sendmailpic', compact('detail'));
     }
 }

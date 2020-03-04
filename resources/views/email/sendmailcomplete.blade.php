@@ -134,7 +134,7 @@
                                                             <tbody>
                                                             <tr>
                                                                 <td align="center" width="100%">
-                                                                    <h1 style="padding:0;margin:0;color:#ffffff;font-weight:500;font-size:20px;line-height:20px">Form Anda telah diselesaikan!</h1>
+                                                                    <h1 style="padding:0;margin:0;color:#ffffff;font-weight:500;font-size:20px;line-height:20px">Permohonan Anda telah diselesaikan!</h1>
                                                                 </td>
                                                             </tr>
                                                             </tbody>
@@ -153,9 +153,8 @@
                                                                     <p style="margin: 20px 0 30px 0;font-size: 16px;text-align: center;">Berikut keterangan yang diberikan PIC</p>
                                                                     <p style="margin: 20px 0 30px 0;color: #3357C0; text-align: center; font-size: 16px; font-weight: bold;">{{$detail['keterangan']}}</p>
                                                                     <p style="margin: 20px 0 30px 0;font-size: 16px;text-align: center;">Silahkan tekan tombol di bawah ini apabila ada yang ingin ditanyakan.</p>
-                                                                    <center><a href="{{$detail['url']}}" style="background-color: #3D6EC9; border-radius:40px; color: #ffffff; padding: 10px; font-size: 16px;margin: 20px 0 30px 0;display: inline-block; font-weight: bold; text-decoration:none; border: none;cursor: pointer;">Beri Ulasan di sini</a></center>
+                                                                    <center><a href="{{$detail['url']}}" style="background-color: #3D6EC9; border-radius:40px; color: #ffffff; padding: 10px; font-size: 16px;margin: 20px 0 30px 0;display: inline-block; font-weight: bold; text-decoration:none; border: none;cursor: pointer;">servicedesk.bppt.go.id</a></center>
                                                                 </td>
-
                                                             </tr>
                                                             </tbody>
                                                         </table>

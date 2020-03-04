@@ -51,6 +51,7 @@ Route::get('/', function() {
     return cas()->authenticate();
 })->name('cas.login');
 Route::get('/cas/callback', 'Auth\CasController@callback')->name('cas.callback');
+
 //Route::post('/cas/logout', [ 'middleware' => 'cas.auth', function() {
 //    cas()->logout();
 //    cas()->logout(url('/'));

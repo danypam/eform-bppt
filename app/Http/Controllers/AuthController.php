@@ -42,6 +42,7 @@ class AuthController extends Controller
 
 
        // return redirect('/login');
+
     }
 
     public function edit(Request $request)
