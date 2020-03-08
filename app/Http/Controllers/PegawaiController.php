@@ -29,15 +29,22 @@ class PegawaiController extends Controller
         $data_jabatan = Jabatan::all();
         $data_unit = UnitKerja::all();
         $pegawai = Pegawai::all();
+        $data_unjab = DB::table('unit_jabatan')
+            ->select('id_unit_jabatan','unit')
+            ->where('is_unit','=',true)
+            ->Orwhere('is_deputi','=',true)
+            ->Orwhere('is_kabppt','=',true)
+            ->get();
+
         $data_pegawai = DB::table('pegawai as a')
             ->LeftJoin('jabatan','jabatan.id','=','a.jabatan_id')
             ->LeftJoin('unit_kerja','unit_kerja.id','=','a.unit_id')
             ->LeftJoin('unit_jabatan','unit_jabatan.id_unit_jabatan','a.unit_jabatan_id')
             ->LeftJoin('pegawai as b','b.id','=','a.nip_atas')
-            ->select('a.id','a.nip','a.nip18','a.nama_lengkap','a.no_hp','a.email','a.status','b.jabatan_id as idjab as nama','b.nama_lengkap as nama_atas','b.unit_jabatan_id as unjab_atas','unit_kerja.nama_unit','jabatan.nama_jabatan','unit_jabatan.unit')
+            ->select('a.id','a.nip','a.nip18','a.nama_lengkap','a.no_hp','a.email','a.unit_id','a.status','b.jabatan_id as idjab as nama','b.nama_lengkap as nama_atas','b.unit_jabatan_id as unjab_atas','unit_kerja.nama_unit','jabatan.nama_jabatan','unit_jabatan.unit')
             ->where('a.status','AKTIF')
             ->get();
-        return view('/pegawai.index',['pegawai'=>$pegawai,'data_unitjab'=>$data_unitjab,'data_pegawai'=>$data_pegawai,'data_jabatan'=>$data_jabatan,'data_unit'=>$data_unit,'data_role'=>$data_role]);
+        return view('/pegawai.index',['data_unjab'=>$data_unjab,'pegawai'=>$pegawai,'data_unitjab'=>$data_unitjab,'data_pegawai'=>$data_pegawai,'data_jabatan'=>$data_jabatan,'data_unit'=>$data_unit,'data_role'=>$data_role]);
 
     }
 

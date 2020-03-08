@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\LogActivity;
 use Illuminate\Http\Request;
 use DB;
 use Spatie\Activitylog\Models\Activity;
@@ -25,7 +26,7 @@ class LogController extends Controller
     }
     public function delete($id)
     {
-        $a = Activity::find($id);
+        $a = LogActivity::find($id);
         $a->delete();
         return redirect('/log')->with('sukses','Data berhasil dihapus');
     }

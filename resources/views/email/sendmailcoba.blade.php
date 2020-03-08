@@ -54,7 +54,7 @@
                                                             <tbody>
                                                             <tr>
                                                                 <td align="center" width="100%">
-                                                                    <h1 style="padding:0;margin:0;color:#ffffff;font-weight:500;font-size:20px;line-height:20px">Anda memiliki permohonan yang harus disetujui!</h1>
+                                                                    <h1 style="padding:0;margin:0;color:#ffffff;font-weight:500;font-size:20px;line-height:20px">Anda memiliki permohonan yang harus dikerjakan!</h1>
                                                                 </td>
                                                             </tr>
                                                             </tbody>
@@ -67,11 +67,11 @@
                                                             <tbody>
                                                             <tr>
                                                                 <td align="center" width="100%" style="padding: 0 15px;text-align: justify;color: rgb(76, 76, 76);font-size: 12px;line-height: 18px;">
-                                                                    <img src="https://66.media.tumblr.com/f7bfc5cd323b6e9859216df96cafef85/664c6edd8af4169f-a6/s1280x1920/103eedcd9d580f1364e173aeeb567a068b189765.png" width="100%"><br><br>
-                                                                    <h3 style="font-weight: 600; padding: 0px; margin: 0px; font-size: 16px; line-height: 24px; text-align: center;" class="title-color">Halo {{$detail['name']}}</h3>
-                                                                    <p style="margin: 20px 0 30px 0;font-size: 15px;text-align: center;">Tekan tombol di bawah ini apabila ingin menyetujui</p>
-                                                                    <center><a href="{{$detail['url']}}" style="background-color: #3D6EC9; border-radius:40px; color: #ffffff; padding: 10px; font-size: 16px;margin: 20px 0 30px 0;display: inline-block; font-weight: bold; text-decoration:none; border: none;cursor: pointer;">Surat Masuk</a></center>
-                                                                    <p style="margin: 20px 0 30px 0;font-size: 15px;text-align: center;">Berikut data permohonan yang perlu disetujui</p>
+                                                                    <img src="https://66.media.tumblr.com/96298dc1158e944fb1e519cb02818770/70bdf9d7e190cc98-28/s1280x1920/aa659bdffce2049873132bcd08d4d80d06c5a679.png" width="100%"><br><br>
+                                                                    <h3 style="font-weight: 600; padding: 0px; margin: 0px; font-size: 16px; line-height: 24px; text-align: center;" class="title-color">Halo, {{$detail['name']}}</h3>
+                                                                    <p style="margin: 20px 0 30px 0;font-size: 15px;text-align: center;">Tekan tombol di bawah ini apabila ingin mengerjakan</p>
+                                                                    <center><a href="{{$detail['url']}}" style="background-color: #3D6EC9; border-radius:40px; color: #ffffff; padding: 10px; font-size: 16px;margin: 20px 0 30px 0;display: inline-block; font-weight: bold; text-decoration:none; border: none;cursor: pointer;">Tugas Saya</a></center>
+                                                                    <p style="margin: 20px 0 30px 0;font-size: 15px;text-align: center;">Berikut data permohonan yang perlu dikerjakan</p>
 
                                                                 </td>
                                                             </tr>
@@ -102,7 +102,7 @@
                                                 <tr>
                                                     <td align="center" valign="middle" width="100%" style="border-top:1px solid #d9d9d9;padding:12px 0px 20px 0px;text-align:left;color:#4c4c4c;font-weight:200;font-size:17px;line-height:18px"><br><b style="color: #043152"><center>Permohonan #{{ $detail['submission']->id }} dari formulir '{{ $detail['submission']->form->name }}'</center></b><br><br>
 
-                                                        <table border="0" cellspacing="0" cellpadding="0" style="font-weight:200;font-family:Helvetica,Arial,sans-serif;font-size:15px;" width="100%">
+                                                    <table border="0" cellspacing="0" cellpadding="0" style="font-weight:200;font-family:Helvetica,Arial,sans-serif;font-size:15px;" width="100%">
                                                             <tbody style="border: none">
                                                             <tr>
                                                                 <td style="border: none;word-wrap: break-word; width: 50%"><strong>Nama Lengkap</strong></td>
@@ -196,6 +196,26 @@
                                                                 <td style="border: none;word-wrap: break-word; width: 50%"><strong>Terakhir Diperbarui</strong></td>
                                                                 <td>:</td>
                                                                 <td style="border: none;text-indent: 2%;word-wrap: break-word; width: 50%">{{$detail['submission']->created_at->toDayDateTimeString()}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="border: none;word-wrap: break-word; width: 50%"><strong>Diketahui oleh</strong></td>
+                                                                <td>:</td>
+                                                                <td style="border: none;text-indent: 2%;word-wrap: break-word; width: 50%">{{ isset(\App\Http\Controllers\FormController::getNamePic($detail['submission']->mengetahui)->nama_lengkap)? \App\Http\Controllers\FormController::getNamePic($detail['submission']->mengetahui)->nama_lengkap:'' }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="border: none;word-wrap: break-word; width: 50%"><strong>Waktu Diketahui</strong></td>
+                                                                <td>:</td>
+                                                                <td style="border: none;text-indent: 2%;word-wrap: break-word; width: 50%">{{ isset($detail['submission']->mengetahui_at)? $detail['submission']->mengetahui_at: '' }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="border: none;word-wrap: break-word; width: 50%"><strong>Disetujui oleh</strong></td>
+                                                                <td>:</td>
+                                                                <td style="border: none;text-indent: 2%;word-wrap: break-word; width: 50%">{{ isset(\App\Http\Controllers\FormController::getNamePic($detail['submission']->menyetujui)->nama_lengkap) ? \App\Http\Controllers\FormController::getNamePic($detail['submission']->menyetujui)->nama_lengkap: ''}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="border: none;word-wrap: break-word; width: 50%"><strong>Waktu Disetujui</strong></td>
+                                                                <td>:</td>
+                                                                <td style="border: none;text-indent: 2%;word-wrap: break-word; width: 50%">{{ isset($detail['submission']->menyetujui_at)? $detail['submission']->menyetujui_at: ''}}</td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
