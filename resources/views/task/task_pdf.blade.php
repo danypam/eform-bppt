@@ -85,25 +85,10 @@
         </thead>
         <tbody>
             <tr>
-                <td><strong>NOTES </strong></td>
+                <td><strong>Notes : </strong></td>
             </tr>
             <tr>
-                <td>Ket 1:</td>
-            </tr>
-            <tr>
-                <td><i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{json_decode($submission->keterangan)->ket1}}</i></td>
-            </tr>
-            <tr>
-                <td>Ket 2:</td>
-            </tr>
-            <tr>
-                <td><i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{json_decode($submission->keterangan)->ket2}}</i></td>
-            </tr>
-            <tr>
-                <td>Ket 3:</td>
-            </tr>
-            <tr>
-                <td><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{json_decode($submission->keterangan)->ket3}}</i></td>
+                <td><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$submission->keterangan}}</i></td>
             </tr>
         </tbody>
     </table>

@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use Kabupaten\Tasikmalaya\Cas\Facades\Cas;
 use Illuminate\Support\Facades\Auth;
 use mysql_xdevapi\Exception;
-use phpDocumentor\Reflection\Types\String_;
 
 class CasController extends Controller
 {
@@ -16,26 +15,18 @@ class CasController extends Controller
     {
         try {
             $id = '';
-//            dd(Cas::user()->attributes['Email']);
-            if (is_array(Cas::user()->attributes['Email'])) {
-                foreach (Cas::user()->attributes['Email'] as $email) {
-                    if (fnmatch("*bppt.go.id", $email)) {
-                        $id = $email;
-                    }
+            foreach (Cas::user()->attributes['Email'] as $email){
+                if (fnmatch("*bppt.go.id",$email)){
+                    $id = $email;
                 }
-            }else{
-                $id = Cas::user()->attributes['Email'];
             }
-            $user = User::where('email',$id)->first();
-            if ($user){
-                Auth::login($user);
-            }else{
-                return view('layouts/unregistered');
+            $user = User::where('email','=',$id)->first();
+            if($user == null){
+                return view('/layouts/unregistered');
             }
-
-
+            Auth::login($user);
         }catch (Exception $e){
-
+            return view('/layouts/unregistered');
         }
 
 //         dd($id);

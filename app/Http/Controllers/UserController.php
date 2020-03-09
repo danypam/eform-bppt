@@ -67,7 +67,7 @@ class UserController extends Controller
         $user->assignRole($request->input('roles'));
 
         $request->request->add(['user_id' => $user->id]);
-        $request->request->add(['status' =>'AKTIF']);
+        $request->request->add(['status' =>'NON AKTIF']);
         $request->request->add(['nama_lengkap'=>$user->name]);
         $request->request->add(['role'=>$user->getRoleNames()]);
         Pegawai::create($request->all());
@@ -148,11 +148,6 @@ class UserController extends Controller
             'status'=>false,
         ])->update([
             'status' => true,
-        ]);
-        DB::table('pegawai')->where([
-           'user_id'=>$id,
-        ])->update([
-            'status'=>'AKTIF',
         ]);
         LogActivity::addToLog('User Was Active');
         return redirect('/users')->with('sukses','Data berhasil diaktifkan');

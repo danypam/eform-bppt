@@ -29,7 +29,7 @@ class email_pending extends Mailable
     public function build()
     {
         $detail=$this->details;
-        return $this->subject('Permohonan Anda telah disetujui')
+        return $this->subject('Yeay!! Your email have been approved by your boss. Please wait :)')
             ->view('email.sendmailpending', compact('detail'));
     }
 }
