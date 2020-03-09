@@ -150,9 +150,9 @@
                                                                     <img src="https://66.media.tumblr.com/4fec70a67530bab96c8d5bd43cc46834/70bdf9d7e190cc98-32/s1280x1920/c641b72da3da79dc186cf031a7fa0c619b23e012.png" width="100%"><br><br>
 {{--                                                                    <hr color="#999999" width="100%" size="10">--}}
                                                                     <h3 style="font-weight: 600; padding: 0px; margin: 0px; font-size: 18px; line-height: 24px; text-align: center; color:#3357C0;" class="title-color">Halo, {{$detail['name']}}</h3>
-                                                                    <p style="margin: 20px 0 30px 0;font-size: 16px;text-align: center;">Berikut keterangan yang diberikan PIC</p>
+                                                                    <p style="margin: 20px 0 30px 0;font-size: 16px;text-align: center;">Permohonan Anda telah selesai dikerjakan. Berikut keterangan yang diberikan PIC</p>
                                                                     <p style="margin: 20px 0 30px 0;color: #3357C0; text-align: center; font-size: 16px; font-weight: bold;">{{$detail['keterangan']}}</p>
-                                                                    <p style="margin: 20px 0 30px 0;font-size: 16px;text-align: center;">Silahkan tekan tombol di bawah ini apabila ada yang ingin ditanyakan.</p>
+                                                                    <p style="margin: 20px 0 30px 0;font-size: 16px;text-align: center;">Silahkan tekan tombol di bawah ini apabila ada pertanyaan atau keluhan lainnya</p>
                                                                     <center><a href="{{$detail['url']}}" style="background-color: #3D6EC9; border-radius:40px; color: #ffffff; padding: 10px; font-size: 16px;margin: 20px 0 30px 0;display: inline-block; font-weight: bold; text-decoration:none; border: none;cursor: pointer;">servicedesk.bppt.go.id</a></center>
                                                                 </td>
                                                             </tr>
