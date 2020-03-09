@@ -45,7 +45,7 @@ class MySubmissionController extends Controller
             $sub->keterangan = json_decode($sub->keterangan);
         }
 
-        $pageTitle = "Permohonan Layanan";
+        $pageTitle = "My Submissions";
 //        dd($submissions);
         return view('formbuilder::my_submissions.index', compact('submissions','pegawai', 'pageTitle'));
     }
@@ -65,7 +65,7 @@ class MySubmissionController extends Controller
         $identitas = Pegawai::with('unit_jabatan','unit_kerja')->where('user_id', '=', auth()->user()->id)->firstOrFail();
         $form_headers = $submission->form->getEntriesHeader();
 
-        $pageTitle = "Permohonan Layanan";
+        $pageTitle = "View Submission";
 
         return view('formbuilder::my_submissions.show', compact('submission', 'pageTitle', 'form_headers', 'identitas'));
     }
@@ -87,7 +87,7 @@ class MySubmissionController extends Controller
         // form is pre-filled with the previous submission we are trying to edit.
         $submission->loadSubmissionIntoFormJson();
 
-        $pageTitle = "Mengubah permohonan ke-{$submission->form->name}";
+        $pageTitle = "Edit My Submission for '{$submission->form->name}'";
 
         return view('formbuilder::my_submissions.edit', compact('submission', 'pageTitle'));
     }

@@ -218,4 +218,15 @@ class FormController extends Controller
         return $result;
     }
 
+    public function upload(Request $request){
+        $uploadedFiles = $request->allFiles();
+        foreach ($uploadedFiles as $key => $file) {
+            // store the file and set it's path to the value of the key holding it
+            if ($file->isValid()) {
+                $input[$key] = $file->store('fb_uploads', 'public');
+            }
+        }
+        return $input[0];
+    }
+
 }

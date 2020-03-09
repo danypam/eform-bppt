@@ -122,7 +122,7 @@
         $(document).ready(function () {
             $('#datatable').DataTable();
 
-            $('#datatable').on( "click",'.delete', function() {
+            $('.delete').click(function () {
                 var unitjab_id = $(this).attr('unitjab-id');
                 swal({
                     title: "Apakah anda yakin?",
@@ -136,7 +136,7 @@
                             swal("Poof! Data telah dihapus!", {
                                 icon: "success",
                             });
-                            window.location = "/unitjab/"+unitjab_id+"/delete";
+                            window.location = "/pegawai/"+peg_id+"/delete";
                         } else {
                             swal("Data batal dihapus!");
                         }

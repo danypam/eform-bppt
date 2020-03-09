@@ -49,25 +49,12 @@
                                             <td>
                                                 <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
                                                 @can('inbox-management')
-
-                                                    @if(!($inbox->status == config("constants.status.rejected") || ($inbox->status > config("constants.status.pending"))))
-                                                        @if(auth()->user()->can('inbox-approve-mengetahui') && $inbox->status == config("constants.status.new"))
-                                                            <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$inbox->submission_id}}" class="btn btn-primary btn-sm">Approve</a>
-                                                            <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
-
-                                                        @elseif(auth()->user()->can('inbox-approve-mengetahui') && auth()->user()->can('inbox-approve-menyetujui'))
-                                                            <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-primary btn-sm">Approve</a>
-                                                            <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
-                                                        @elseif(auth()->user()->can('inbox-approve-menyetujui') && $inbox->status == config("constants.status.pending"))
-                                                            @if($inbox->keterangan === null)
-                                                                <a href="#" data-toggle="modal" data-target="#approve1" data-id="{{$inbox->submission_id}}" class="btn btn-primary btn-sm">Approve</a>
-                                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
-                                                            @else
-                                                                <a href="#" data-toggle="modal" data-target="#approve1" data-id="{{$inbox->submission_id}}" data-ket="{{json_decode($inbox->keterangan)->ket1}}" data-nama="{{json_decode($inbox->keterangan)->nama1}}" class="btn btn-primary btn-sm">Approve</a>
-                                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
-                                                            @endif
-
-                                                        @endif
+                                                    @if($inbox->status == -1)
+                                                        <a href="/submissions/{{$inbox->submission_id}}/approve" class="btn btn-primary btn-sm hidden">Approve</a>
+                                                        <a href="/submissions/{{$inbox->submission_id}}/reject" class="btn btn-danger btn-sm hidden">Reject</a>
+                                                    @else
+                                                        <a href="/submissions/{{$inbox->submission_id}}/approve" class="btn btn-primary btn-sm">Approve</a>
+                                                        <a href="/submissions/{{$inbox->submission_id}}/reject" class="btn btn-danger btn-sm">Reject</a>
                                                     @endif
                                                 @endcan
                                             </td>
@@ -78,102 +65,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Catatan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{route('inbox.update','test')}}" method="post">
-                        {{method_field('patch')}}
-                        {{csrf_field()}}
-                        <input type="hidden" name="submission_id" id="id" value="" >
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Catatan</label>
-                            <textarea name="keterangan" type="text" class="form-control" placeholder="Alasan di ditolak"></textarea>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-danger">Reject</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="approve" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Catatan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="/submissions/approve" method="post">
-                        {{csrf_field()}}
-                        <input type="hidden" name="submission_id" id="id" value="" >
-                        <input type="hidden" name="keterangan[nama1]" value="{{auth()->user()->name}}" >
-                        <input type="hidden" name="keterangan[nama2]" value="" >
-                        <input type="hidden" name="keterangan[nama3]" value="" >
-                        {{--                        <div class="form-group">--}}
-                        {{--                            <label for="exampleFormControlInput1">Keterangan Sebelumnya</label>--}}
-                        {{--                            <textarea name="keterangan1" type="text" class="form-control" id="ket" readonly placeholder="Tidak ada keterangan"></textarea>--}}
-                        {{--                        </div>--}}
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Tambah Catatan</label>
-                            <textarea name="keterangan[ket1]" type="text" class="form-control" placeholder="Silakan Isi Catatan Jika Diperlukan"></textarea>
-                            <input type="hidden" name="keterangan[ket2]" value="" >
-                            <input type="hidden" name="keterangan[ket3]" value="" >
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Approve</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="approve1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Catatan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="/submissions/approve" method="post">
-                        {{csrf_field()}}
-                        <input type="hidden" name="submission_id" id="id" value="" >
-                        <input type="hidden" name="keterangan[nama1]" id="namaatasan" value="" >
-                        <input type="hidden" name="keterangan[nama2]" value="{{auth()->user()->name}}" >
-                        <input type="hidden" name="keterangan[nama3]" value="" >
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Catatan Atasan Langsung</label>
-                            <textarea name="keterangan[ket1]" id="ket1" type="text" class="form-control" readonly placeholder="Tidak ada Catatan dari Atasan"></textarea>
-                            <small for="exampleFormControlInput1" id="nama1"></small><hr>
-                            <label for="exampleFormControlInput1">Tambah Catatan</label>
-                            <textarea name="keterangan[ket2]" type="text" class="form-control" placeholder="Silakan Isi Catatan Jika Diperlukan"></textarea>
-                            <input type="hidden" name="keterangan[ket3]" value="" >
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Approve</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
@@ -209,39 +100,7 @@
                     });
             });
 
-        });
-        $('#edit').on('show.bs.modal',function (event) {
-
-            var button = $(event.relatedTarget)
-            var id = button.data('id')
-            var keterangan = button.data('ket')
-            var modal = $(this)
-
-            modal.find('.modal-body #id').val(id);
-            modal.find('.modal-body #ket').val(keterangan);
-        });
-        $('#approve').on('show.bs.modal',function (event) {
-
-            var button = $(event.relatedTarget)
-            var id = button.data('id')
-            var modal = $(this)
-
-            modal.find('.modal-body #id').val(id);
-        });
-        $('#approve1').on('show.bs.modal',function (event) {
-
-            var button = $(event.relatedTarget)
-            var id = button.data('id')
-            var nama1 = button.data('nama')
-            var keterangan1 = button.data('ket')
-            var modal = $(this)
-
-            modal.find('.modal-body #id').val(id);
-            modal.find('.modal-body #ket1').val(keterangan1);
-            modal.find('.modal-body #namaatasan').val(nama1);
-
-            $('#nama1').text('Ditambahkan oleh : '+nama1)
-        });
+        })
     </script>
 
 @stop

@@ -105,7 +105,6 @@
                                                                     <a href="#" data-id="{{$submission->submission_id}}" data-status="-" data-ket="Tidak ada catatan" class="label label-default view" >LIHAT KETERANGAN</a>
                                                                 @else
                                                                 @foreach($pegawai as $p)
-
                                                                     @if($p->id == $submission->rejected)
                                                                         <a href="#" data-id="{{$submission->submission_id}}" data-status="{{$p->nama_lengkap}}" data-ket="{{$submission->keterangan->ket}}" class="label label-default view" >LIHAT KETERANGAN</a>
                                                                     @endif
