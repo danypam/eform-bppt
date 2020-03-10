@@ -149,30 +149,34 @@ class RenderFormController extends Controller
             }
             LogActivity::addToLog('Submitted Form'.$form->name);
 
-            $email = $this->getEmail($submission_id);
-            $submission = Submission::where([ 'id' => $submission_id])->with('form')->firstOrFail();
+            $pegawai = Pegawai::where('user_id', auth()->user()->id)->firstOrFail();
 
-            $details = [
-                'name' => '',
-                'url'    => url('/forms/'.$form->id.'/submissions/'.$submission_id),
-                'submission' => $submission,
-                'identitas' => Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id', '=',  $submission->user_id)->firstOrFail(),
-                'form_headers' => $submission->form->getEntriesHeader(),
-                'pageTitle' => "View Submission"
-            ];
+            if($pegawai->role != 'kepala') {
+                $email = $this->getEmail($submission_id);
+                $submission = Submission::where(['id' => $submission_id])->with('form')->firstOrFail();
 
-            //dd($email);
-//            $email = $this->getEmail();
+                $details = [
+                    'url' => url('/forms/' . $form->id . '/submissions/' . $submission_id),
+                    'submission' => $submission,
+                    'identitas' => Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id', '=', $submission->user_id)->firstOrFail(),
+                    'form_headers' => $submission->form->getEntriesHeader(),
+                    'pageTitle' => "View Submission"
+                ];
 
-            if(isset($email[0])){
-                try {
-                    \Mail::to($email[0])->send(new email_atasan($details));
-                }catch (Throwable $e){}
-            }
-            if(isset($email[1])){
-                try {
-                    \Mail::to($email[1])->send(new email_atasan($details));
-                }catch (Throwable $e){}
+                if (isset($email[0])) {
+                    $details['name'] = $email[0]->nama_lengkap;
+                    try {
+                        \Mail::to($email[0])->send(new email_atasan($details));
+                    } catch (Throwable $e) {
+                    }
+                }
+                if (isset($email[1])) {
+                  $details['name']=$email[1]->nama_lengkap;
+                    try {
+                        \Mail::to($email[1])->send(new email_atasan($details));
+                    } catch (Throwable $e) {
+                    }
+                }
             }
             DB::commit();
            /* return redirect()
@@ -236,12 +240,12 @@ class RenderFormController extends Controller
 
         $email1=DB::table('pegawai')
             ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas1)
-            ->select('email')
+            ->select('email','nama_lengkap')
             ->first();
 
         $email2=DB::table('pegawai')
             ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas2)
-            ->select('email')
+            ->select('email','nama_lengkap')
             ->first();
 
         return $email[] = [$email1,$email2];
