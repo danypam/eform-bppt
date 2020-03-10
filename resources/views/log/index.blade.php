@@ -61,7 +61,7 @@
         $(document).ready(function () {
             $('#datatable').DataTable();
 
-            $('#datatable').on( "click",'.delete', function() {
+            $('.delete').click(function () {
                 var log_id = $(this).attr('log-id');
                 swal({
                     title: "Apakah anda yakin?",
@@ -75,7 +75,7 @@
                             swal("Poof! Data telah dihapus!", {
                                 icon: "success",
                             });
-                            window.location = "/log/"+log_id+"/delete";
+                            window.location = "/pegawai/"+peg_id+"/delete";
                         } else {
                             swal("Data batal dihapus!");
                         }

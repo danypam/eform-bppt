@@ -102,7 +102,7 @@
                             swal("Poof! Data telah dihapus!", {
                                 icon: "success",
                             });
-                            window.location = "/permission/"+permis_id+"/delete";
+                            window.location = "/pegawai/"+peg_id+"/delete";
                         } else {
                             swal("Data batal dihapus!");
                         }

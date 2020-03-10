@@ -29,7 +29,7 @@ class email_complete extends Mailable
     public function build()
     {
         $detail=$this->details;
-        return $this->subject('Permohonan Anda telah selesai dilaksanakan')
+        return $this->subject('Your form has completed')
 
             ->view('email.sendmailcomplete', compact('detail'));
     }

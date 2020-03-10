@@ -78,15 +78,6 @@
                                                     @endforeach
                                                 </tr>
                                                 <tr>
-                                                    @foreach($data_unitjab as $u)
-                                                        @if($u->id_unit_jabatan == auth()->user()->pegawai->unit_id)
-                                                            <td><h6><strong> Unit Kerja</strong></h6></td>
-                                                            <td>:</td>
-                                                            <td><h6>{{$u->unit}}</h6></td>
-                                                        @endif
-                                                    @endforeach
-                                                </tr>
-                                                <tr>
                                                     @foreach($data_unitjab as $uj)
                                                         @if($uj->id_unit_jabatan == auth()->user()->pegawai->unit_jabatan_id)
                                                             <td><h6><strong> Unit Jabatan</strong></h6></td>
@@ -96,9 +87,18 @@
                                                     @endforeach
                                                 </tr>
                                                 <tr>
+                                                    @foreach($data_unit as $u)
+                                                        @if($u->id == auth()->user()->pegawai->unit_id)
+                                                            <td><h6><strong> Unit Kerja</strong></h6></td>
+                                                            <td>:</td>
+                                                            <td><h6>{{$u->nama_unit}}</h6></td>
+                                                        @endif
+                                                    @endforeach
+                                                </tr>
+                                                <tr>
                                                     <td><h6><strong>Status</strong></h6></td>
                                                     <td>:</td>
-                                                    <td><h6 class="label label-success"> {{auth()->user()->pegawai->status}}</h6></td>
+                                                    <td><h6> {{auth()->user()->pegawai->status}}</h6></td>
                                                 </tr>
                                                 </tbody>
                                             </table>

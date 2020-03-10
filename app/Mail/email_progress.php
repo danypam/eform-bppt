@@ -29,7 +29,7 @@ class email_progress extends Mailable
     public function build()
     {
         $detail=$this->details;
-        return $this->subject('Permohonan Anda sedang diproses oleh PIC')
+        return $this->subject('Yeay!! Your form will processed by PIC')
             ->view('email.sendemailprogress', compact('detail'));
 
     }

@@ -153,11 +153,11 @@
                                        @if(!($submission->status == config("constants.status.rejected")))
                                            @if(auth()->user()->can('task-take'))
                                                @if($submission->status == config("constants.status.waitForPic"))
-                                                <a href="#q" class="btn btn-primary btn-sm take" take-id="{{$submission->id}}">Kerjakan</a>
+                                                   <a href="/task/{{$submission->id}}/take" class="btn btn-primary btn-sm">Kerjakan</a>
 
                                                @elseif($submission->status == config("constants.status.onGoing"))
                                                     <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Batalkan</a>
-                                                <a href="#" data-toggle="modal" data-target="#comp" data-id="{{$submission->id}}" data-ket1="{{$submission->keterangan['ket1']}}" data-nama1="{{$submission->keterangan['nama1']}}" data-ket2="{{$submission->keterangan['ket2']}}" data-nama2="{{$submission->keterangan['nama2']}}" class="btn btn-success btn-sm">Complete</a>
+                                                    <a href="/task/{{$submission->id}}/complete" class="btn btn-success btn-sm">Selesai</a>
 
 
                                                @elseif($submission->status == config("constants.status.completed"))
@@ -170,38 +170,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="comp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Keterangan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="/task/complete" method="post">
-                        {{csrf_field()}}
-                        <input type="hidden" name="submission_id" id="id" value="" >
-                        <input type="hidden" name="keterangan[nama1]" id="namaatasan" value="" >
-                        <input type="hidden" name="keterangan[nama2]" id="namakepala" >
-                        <input type="hidden" name="keterangan[nama3]" value="{{auth()->user()->name}}" >
-                        <div class="form-group">
-                            <input type="hidden" name="keterangan[ket1]" id="ketatasan" value="" >
-                            <input type="hidden" name="keterangan[ket2]" id="ketkepala" value="" >
-                            <label for="exampleFormControlInput1">Catatan</label>
-                            <textarea name="keterangan[ket3]" type="text" class="form-control" placeholder="Silakan Isi Keterangan Jika Diperlukan"></textarea>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                            <button type="submit" class="btn btn-success">Selesai</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
@@ -240,42 +208,8 @@
                 'progress-bar-wrapper' // created this optional parameter for container name (otherwise default container created)
             );
         });
-        $('.take').click(function () {
-            var take_id = $(this).attr('take-id');
-            swal({
-                title: "Apakah anda yakin?",
-                text: "Sebelum mengambil pekerjaan , Pastikan anda melihat keterangan yang terlampir ",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        swal("Good Luck!", "Kamu berhasil mengambil pekerjaan ini!", "success", {
-                            button: "OK",
-                        });
-                        window.location = "/task/"+take_id+"/take";
-                    } else {
-                        swal("Anda batal mengambil pekerjaan");
-                    }
-                });
-        });
-        $('#comp').on('show.bs.modal',function (event) {
 
-            var button = $(event.relatedTarget)
-            var id = button.data('id')
-            var keterangan1 = button.data('ket1')
-            var nama1 = button.data('nama1')
-            var keterangan2 = button.data('ket2')
-            var nama2 = button.data('nama2')
-            var modal = $(this)
-
-            modal.find('.modal-body #id').val(id);
-            modal.find('.modal-body #ketatasan').val(keterangan1);
-            modal.find('.modal-body #namaatasan').val(nama1);
-            modal.find('.modal-body #ketkepala').val(keterangan2);
-            modal.find('.modal-body #namakepala').val(nama2);
-        });
+    </script>
 
     </script>
 @stop

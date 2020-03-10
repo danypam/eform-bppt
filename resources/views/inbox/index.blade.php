@@ -111,14 +111,8 @@
                                                                 <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-primary btn-sm">Approve</a>
                                                                 <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
                                                             @elseif(auth()->user()->can('inbox-approve-menyetujui') && $inbox->status == config("constants.status.pending"))
-                                                                @if($inbox->keterangan === null)
-                                                                    <a href="#" data-toggle="modal" data-target="#approve1" data-id="{{$inbox->submission_id}}" class="btn btn-primary btn-sm">Approve</a>
-                                                                    <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
-                                                                 @else
-                                                                    <a href="#" data-toggle="modal" data-target="#approve1" data-id="{{$inbox->submission_id}}" data-ket="{{json_decode($inbox->keterangan)->ket1}}" data-nama="{{json_decode($inbox->keterangan)->nama1}}" class="btn btn-primary btn-sm">Approve</a>
-                                                                    <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
-                                                                 @endif
-
+                                                                <a href="#" data-toggle="modal" data-target="#approve1" data-id="{{$inbox->submission_id}}" data-ket="{{json_decode($inbox->keterangan)->ket1}}" data-nama="{{json_decode($inbox->keterangan)->nama1}}" class="btn btn-primary btn-sm">Approve</a>
+                                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
                                                             @endif
                                                         @endif
                                                 @endcan
@@ -239,7 +233,7 @@
                             <input type="hidden" name="submission_id" id="id" value="" >
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Catatan</label>
-                            <textarea name="keterangan" type="text" class="form-control" placeholder="Alasan di ditolak"></textarea>
+                            <textarea name="keterangan[ket]" type="text" class="form-control" placeholder="Alasan di ditolak"></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

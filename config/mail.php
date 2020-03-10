@@ -56,7 +56,6 @@ return [
     */
 
     'from' => [
-
         'name' => env('MAIL_FROM_NAME', 'E-Form Service Desk BPPT'),
     ],
 
