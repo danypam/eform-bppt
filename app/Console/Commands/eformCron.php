@@ -70,8 +70,8 @@ class eformCron extends Command
     }
 
     public function cronPegawai(){
-        $sidadu = DB::table('eform_sidadu.pegawai')
-            ->join('eform_sidadu.unitjabatan as uj','unit_jabatan_id','uj.kode_unit')->get();
+        $sidadu = DB::table('eform_sidadu.pegawai as p')
+            ->join('eform_sidadu.unitjabatan as uj','p.unit_jabatan_id','uj.kode_unit')->get();
         foreach ($sidadu as $s){
             //cek isdeputi/isunit/iskabppt
             $role = ($s->is_unit == 1 || $s->is_deputi == 1 || $s->is_kabppt == 1) ? 'atasan' : 'member';
@@ -82,7 +82,7 @@ class eformCron extends Command
                     [   'nip18' => $s->nip18,
                         'nama_lengkap' => $s->nama_lengkap,
                         'unit_id' => $s->kode_unitkerja,
-                        'unit_jabatan_id' => $s->unit_jabatan_id,
+                        'unit_jabatan_id' => $s->kode_unit,
                         'jabatan_id' => $s->kode_jabatan,
                         'nip_atas' => $s->nip_atas,
                         'role' => $role,
