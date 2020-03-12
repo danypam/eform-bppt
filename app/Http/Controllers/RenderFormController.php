@@ -15,7 +15,7 @@ use jazmy\FormBuilder\Helper;
 use jazmy\FormBuilder\Models\Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\UnitJabatan;
 use phpDocumentor\Reflection\Types\Null_;
 use mysql_xdevapi\Exception;
 use Spatie\Permission\Models\Role;
@@ -83,7 +83,16 @@ class RenderFormController extends Controller
 
     public function submit(Request $request, $identifier)
     {
+
         $form = Form::where('identifier', $identifier)->firstOrFail();
+        $i =  DB::table('form_submissions')
+            ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
+            ->join('forms as f','form_submissions.form_id','=','f.id')
+            ->join('unit_jabatan as uj', 'uj.id_unit_jabatan', '=', 'p.unit_jabatan_id')
+            ->select('nama_lengkap','keterangan','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at', 'form_submissions.keterangan')
+            ->where('form_submissions.id', $request->submission_id)
+            ->first();
+
         DB::beginTransaction();
 
         try {
@@ -168,13 +177,12 @@ class RenderFormController extends Controller
                     } catch (Throwable $e) {
                     }
                 }
-
             }
             DB::commit();
            /* return redirect()
                     ->route('formbuilder::form.feedback', $identifier)
                     ->with('success', 'Form successfully submitted. Please wait');*/
-            return redirect('/my-submissions')->with('sukses', 'Formulir Berhasil diajukan');
+            return redirect('/my-submissions')->with('sukses', 'Terimakasih. Formulir Berhasil diajukan. Mohon Tunggu');
         } catch (Throwable $e) {
             dd($e);
             info($e);
@@ -204,14 +212,14 @@ class RenderFormController extends Controller
             ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas2)
             ->select('user_id','email')
             ->first();
-
+//        $userid = 0;
         if(isset($id1)){
             $userid[] = User::find($id1->user_id);
         }
         if (isset($id2)){
             $userid[] = User::find($id2->user_id);
         }
-   //     $userid = $userid ? $userid : 0;
+        $userid = $userid ? $userid : 0;
 
         //dd($userid);
 
@@ -219,7 +227,7 @@ class RenderFormController extends Controller
 
     }
 
-    private function getEmail(){
+    private function getEmail($id){
         $unit_jabatan_user=DB::table('pegawai')
             ->select('unit_jabatan_id')
             ->where('user_id',auth()->user()->id)

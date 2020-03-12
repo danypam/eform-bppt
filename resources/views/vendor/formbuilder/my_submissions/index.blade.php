@@ -100,16 +100,16 @@
                                                                 @endif
                                                         <td>
                                                             @if($submission->status == -1)
-                                                                @if($submission->keterangan==null)
-
-                                                                    <a href="#" data-id="{{$submission->submission_id}}" data-status="-" data-ket="Tidak ada catatan" class="label label-default view" >LIHAT KETERANGAN</a>
-                                                                @else
+                                                                {{--@if($submission->keterangan==null)
+                                                                    <a href="#" data-toggle="modal" data-target="#ket" data-id="{{$submission->submission_id}}" class="label label-default" >LIHAT KETERANGAN</a>
+                                                                @endif--}}
                                                                 @foreach($pegawai as $p)
-                                                                    @if($p->id == $submission->rejected)
+                                                                    @if($submission->keterangan == null)
+                                                                        <a href="#" data-id="{{$submission->submission_id}}" data-status="{{$p->nama_lengkap}}" data-ket="Tidak Ada Catatan" class="label label-default view" >LIHAT KETERANGAN</a>
+                                                                    @else($p->id == $submission->rejected)
                                                                         <a href="#" data-id="{{$submission->submission_id}}" data-status="{{$p->nama_lengkap}}" data-ket="{{$submission->keterangan->ket}}" class="label label-default view" >LIHAT KETERANGAN</a>
                                                                     @endif
                                                                 @endforeach
-                                                                @endif
                                                             @elseif($submission->keterangan == null)
                                                                 <a href="#" data-toggle="modal" data-target="#ket" data-id="{{$submission->submission_id}}" class="label label-default" >LIHAT KETERANGAN</a>
                                                             @else

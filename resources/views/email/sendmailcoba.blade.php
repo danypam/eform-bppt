@@ -2,9 +2,20 @@
 <html>
 <head>
     <style>
+        /*.banner-color {*/
+        /*    background-color: #002433;*/
+        /*}*/
+        /*.title-color {*/
+        /*    color: #bae8f5;*/
+        /*}*/
+        /*.button-color {*/
+        /*    background-color: #0066cc;*/
+        /*}*/
         .banner-color {
             background-color: #3D6EC9;
         }
+
+        /*}*/
     </style>
 </head>
 <body>
@@ -91,7 +102,7 @@
                                                 <tr>
                                                     <td align="center" valign="middle" width="100%" style="border-top:1px solid #d9d9d9;padding:12px 0px 20px 0px;text-align:left;color:#4c4c4c;font-weight:200;font-size:17px;line-height:18px"><br><b style="color: #043152"><center>Permohonan #{{ $detail['submission']->id }} dari formulir '{{ $detail['submission']->form->name }}'</center></b><br><br>
 
-                                                        <table border="0" cellspacing="0" cellpadding="0" style="font-weight:200;font-family:Helvetica,Arial,sans-serif;font-size:15px;" width="100%">
+                                                    <table border="0" cellspacing="0" cellpadding="0" style="font-weight:200;font-family:Helvetica,Arial,sans-serif;font-size:15px;" width="100%">
                                                             <tbody style="border: none">
                                                             <tr>
                                                                 <td style="border: none;word-wrap: break-word; width: 50%"><strong>Nama Lengkap</strong></td>

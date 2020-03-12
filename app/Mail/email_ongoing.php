@@ -29,7 +29,7 @@ class email_ongoing extends Mailable
     public function build()
     {
         $detail=$this->details;
-        return $this->subject('Yeay!! Your email have been approved by Kepala BII. Now your request being reviewed by PIC')
+        return $this->subject('Permohonan Anda telah disetujui oleh Kepala BII')
             ->view('email.sendmailongoing', compact('detail'));
     }
 }
