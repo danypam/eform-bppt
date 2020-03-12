@@ -168,6 +168,7 @@ class RenderFormController extends Controller
                     try {
                         \Mail::to($email[0])->send(new email_atasan($details));
                     } catch (Throwable $e) {
+                        dd($e);
                     }
                 }
                 if (isset($email[1])) {
@@ -184,9 +185,6 @@ class RenderFormController extends Controller
                     ->with('success', 'Form successfully submitted. Please wait');*/
             return redirect('/my-submissions')->with('sukses', 'Terimakasih. Formulir Berhasil diajukan. Mohon Tunggu');
         } catch (Throwable $e) {
-            dd($e);
-            info($e);
-            //dd($e);
             DB::rollback();
 
             return back()->withInput()->with('error', Helper::wtf())->with('error','');
