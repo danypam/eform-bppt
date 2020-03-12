@@ -15,7 +15,7 @@ use jazmy\FormBuilder\Helper;
 use jazmy\FormBuilder\Models\Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\UnitJabatan;
 use phpDocumentor\Reflection\Types\Null_;
 use mysql_xdevapi\Exception;
 use Spatie\Permission\Models\Role;
@@ -83,7 +83,16 @@ class RenderFormController extends Controller
 
     public function submit(Request $request, $identifier)
     {
+
         $form = Form::where('identifier', $identifier)->firstOrFail();
+        $i =  DB::table('form_submissions')
+            ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
+            ->join('forms as f','form_submissions.form_id','=','f.id')
+            ->join('unit_jabatan as uj', 'uj.id_unit_jabatan', '=', 'p.unit_jabatan_id')
+            ->select('nama_lengkap','keterangan','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at', 'form_submissions.keterangan')
+            ->where('form_submissions.id', $request->submission_id)
+            ->first();
+
         DB::beginTransaction();
 
         try {
@@ -140,33 +149,40 @@ class RenderFormController extends Controller
             }
             LogActivity::addToLog('Submitted Form'.$form->name);
 
-            $submission = Submission::where(['user_id' => $user_id, 'id' => $submission_id])->with('form')->firstOrFail();
+            $pegawai = Pegawai::where('user_id', auth()->user()->id)->firstOrFail();
 
-            $details = [
-                'name' => auth()->user()->name,
-                'url'    => url('/inbox/'.$submission_id),
-                'submission' => $submission,
-                'identitas' => Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id', '=', auth()->user()->id)->firstOrFail(),
-                'form_headers' => $submission->form->getEntriesHeader(),
-                'pageTitle' => "View Submission"
-            ];
-            $email = $this->getEmail();
-            //dd($email);
-            if(isset($email[0])){
-                try {
-                    \Mail::to($email[0])->send(new email_atasan($details));
-                }catch (Throwable $e){}
-            }
-            if(isset($email[1])){
-                try {
-                    \Mail::to($email[1])->send(new email_atasan($details));
-                }catch (Throwable $e){}
+            if($pegawai->role != 'kepala') {
+                $email = $this->getEmail($submission_id);
+                $submission = Submission::where(['id' => $submission_id])->with('form')->firstOrFail();
+
+                $details = [
+                    'url' => url('/forms/' . $form->id . '/submissions/' . $submission_id),
+                    'submission' => $submission,
+                    'identitas' => Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id', '=', $submission->user_id)->firstOrFail(),
+                    'form_headers' => $submission->form->getEntriesHeader(),
+                    'pageTitle' => "View Submission"
+                ];
+
+                if (isset($email[0])) {
+                    $details['name'] = $email[0]->nama_lengkap;
+                    try {
+                        \Mail::to($email[0])->send(new email_atasan($details));
+                    } catch (Throwable $e) {
+                    }
+                }
+                if (isset($email[1])) {
+                  $details['name']=$email[1]->nama_lengkap;
+                    try {
+                        \Mail::to($email[1])->send(new email_atasan($details));
+                    } catch (Throwable $e) {
+                    }
+                }
             }
             DB::commit();
            /* return redirect()
                     ->route('formbuilder::form.feedback', $identifier)
                     ->with('success', 'Form successfully submitted. Please wait');*/
-            return redirect('/my-submissions')->with('sukses', 'Formulir Berhasil diajukan');
+            return redirect('/my-submissions')->with('sukses', 'Terimakasih. Formulir Berhasil diajukan. Mohon Tunggu');
         } catch (Throwable $e) {
             dd($e);
             info($e);
@@ -196,14 +212,14 @@ class RenderFormController extends Controller
             ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas2)
             ->select('user_id','email')
             ->first();
-
+//        $userid = 0;
         if(isset($id1)){
             $userid[] = User::find($id1->user_id);
         }
         if (isset($id2)){
             $userid[] = User::find($id2->user_id);
         }
-   //     $userid = $userid ? $userid : 0;
+        $userid = $userid ? $userid : 0;
 
         //dd($userid);
 
@@ -211,7 +227,7 @@ class RenderFormController extends Controller
 
     }
 
-    private function getEmail(){
+    private function getEmail($id){
         $unit_jabatan_user=DB::table('pegawai')
             ->select('unit_jabatan_id')
             ->where('user_id',auth()->user()->id)
@@ -224,12 +240,12 @@ class RenderFormController extends Controller
 
         $email1=DB::table('pegawai')
             ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas1)
-            ->select('email')
+            ->select('email','nama_lengkap')
             ->first();
 
         $email2=DB::table('pegawai')
             ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas2)
-            ->select('email')
+            ->select('email','nama_lengkap')
             ->first();
 
         return $email[] = [$email1,$email2];

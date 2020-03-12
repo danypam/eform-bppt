@@ -1,10 +1,10 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <title>Completed Form</title>
+    <style>
+
+    </style>
 </head>
 <body>
-
 <div style="background-color:#ffffff;padding:0;margin:0 auto;font-weight:200;width:100%!important">
     <table align="center" border="0" cellspacing="0" cellpadding="0" style="table-layout:fixed;font-weight:200;font-family:Helvetica,Arial,sans-serif" width="100%">
         <tbody>
@@ -117,6 +117,6 @@
         </tbody>
     </table>
 </div>
-
 </body>
 </html>
+

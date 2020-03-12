@@ -29,7 +29,7 @@ class email_atasan extends Mailable
     public function build()
     {
         $detail=$this->details;
-        return $this->subject('You Have One Form to Approved')
+        return $this->subject('Anda memiliki permohonan yang harus disetujui')
             ->view('email.sendmail', compact('detail'));
     }
 }

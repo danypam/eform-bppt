@@ -26,9 +26,9 @@
                                         <th>Nomor Handphone</th>
                                         <th>Email</th>
                                         <th>Unit Kerja</th>
-                                        <th>Jabatan</th>
                                         <th>Unit Jabatan</th>
-                                        <th>Jabatn Atasan</th>
+                                        <th>Jabatan</th>
+                                        <th>Jabatan Atasan</th>
                                         <th>Unit Jabatan Atasan</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
@@ -48,12 +48,28 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td><a href="/pegawai/{{$peg->id}}/profile">{{$peg->nama_lengkap}}</a></td>
+                                            <td>{{$peg->nama_lengkap}}</td>
                                             <td>{{$peg->no_hp}}</td>
                                             <td>{{$peg->email}}</td>
-                                            <td>{{$peg->nama_unit}}</td>
-                                            <td>{{$peg->nama_jabatan}}</td>
-                                            <td>{{$peg->unit}}</td>
+                                            @if($peg->unit_id == null)
+                                                <td>-</td>
+                                            @else
+                                                @foreach($data_unitjab as $unjab)
+                                                    @if($unjab->id_unit_jabatan == $peg->unit_id)
+                                                        <td>{{$unjab->unit}}</td>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                            @if($peg->unit == null)
+                                                <td>-</td>
+                                            @else
+                                                <td>{{$peg->unit}}</td>
+                                            @endif
+                                            @if($peg->nama_jabatan == null)
+                                                <td>-</td>
+                                            @else
+                                                <td>{{$peg->nama_jabatan}}</td>
+                                            @endif
                                             @if($peg->idjab == null)
                                                 <td>-</td>
                                             @else
@@ -147,8 +163,8 @@
                             <label for="exampleFormControlSelect1">Unit Kerja</label>
                             <select name="unit_id" class="form-control selectpicker"  data-live-search="true"id="exampleFormControlSelect1"required>
                                 <option selected disabled value="">-Pilih-</option>
-                                @foreach($data_unit as $unit)
-                                    <option value="{{$unit->id}}">{{$unit->nama_unit}}</option>
+                                @foreach($data_unjab as $ujab)
+                                    <option value="{{$ujab->id_unit_jabatan}}">{{$ujab->unit}}</option>
                                 @endforeach
                             </select>
                             <small id="unit" class="form-text text-muted">Pilih Unit Kerja! </small>
@@ -163,6 +179,17 @@
                                 @endforeach
                             </select>
                             <small id="unjab" class="form-text text-muted">Pilih Unit Jabatan! </small>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Jabatan</label>
+                            <select name="jabatan_id" class="form-control selectpicker" id="exampleFormControlSelect1" data-live-search="true">
+                                <option selected disabled value="">-Pilih-</option>
+                                @foreach($data_jabatan as $jab)
+                                    <option value="{{$jab->id}}">{{$jab->nama_jabatan}}</option>
+                                @endforeach
+                            </select>
+                            <small id="unjab" class="form-text text-muted">Pilih Jabatan! </small>
 
                         </div>
                         <div class="form-group">
@@ -195,7 +222,7 @@
                 scrollX:     300
             });
 
-            $('.delete').click(function () {
+            $('#datatable').on( "click",'.delete', function() {
                 var peg_id = $(this).attr('pegawai-id');
                 swal({
                     title: "Apakah anda yakin?",

@@ -154,15 +154,14 @@
 
                                         @if(!($submission->status == config("constants.status.rejected") || ($submission->status > config("constants.status.pending"))))
                                             @if(auth()->user()->can('inbox-approve-mengetahui') && $submission->status == config("constants.status.new"))
-                                                <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$submission->submission_id}}" class="btn btn-primary btn-sm">Approve</a>
-                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$submission->submission_id}}" data-ket="{{$submission->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
-
+                                                <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$submission->id}}" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$submission->id}}" data-ket="{{$submission->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
                                             @elseif(auth()->user()->can('inbox-approve-mengetahui') && auth()->user()->can('inbox-approve-menyetujui'))
-                                                <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$submission->submission_id}}" data-ket="{{$submission->keterangan}}" class="btn btn-primary btn-sm">Approve</a>
-                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$submission->submission_id}}" data-ket="{{$submission->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
+                                                <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$submission->id}}" data-ket="{{$submission->keterangan}}" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$submission->id}}" data-ket="{{$submission->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
                                             @elseif(auth()->user()->can('inbox-approve-menyetujui') && $submission->status == config("constants.status.pending"))
-                                                <a href="#" data-toggle="modal" data-target="#approve1" data-id="{{$submission->submission_id}}" data-ket="{{json_decode($submission->keterangan)->ket1}}" data-nama="{{json_decode($submission->keterangan)->nama1}}" class="btn btn-primary btn-sm">Approve</a>
-                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$submission->submission_id}}" data-ket="{{$submission->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
+                                                <a href="#" data-toggle="modal" data-target="#approve1" data-id="{{$submission->id}}" data-ket="{{json_decode($submission->keterangan)->ket1}}" data-nama="{{json_decode($submission->keterangan)->nama1}}" class="btn btn-primary btn-sm">Approve</a>
+                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$submission->id}}" data-ket="{{$submission->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
                                             @endif
                                         @endif
                                     @endcan
@@ -292,11 +291,11 @@
                 wizard = 'COMPLETED <br><br> {!! $submission->complete_at !!}';
             }else{
                 if(mengetahui === 0){
-                    array = [ 'REJECTED',  'PENDING', 'ON GOING', 'COMPLETED'];
+                    array = [ 'REJECTED <br><br> {!! $submission->rejected_at !!}',  'PENDING', 'ON GOING', 'COMPLETED'];
                 }else if(menyetujui === 0){
-                    array = [ 'NEW', 'REJECTED', 'ON GOING', 'COMPLETED'];
+                    array = [ 'NEW <br><br> {!! $submission->created_at !!}', 'REJECTED <br><br> {!! $submission->rejected_at !!}', 'ON GOING', 'COMPLETED'];
                 }
-                wizard = 'REJECTED';
+                wizard = 'REJECTED <br><br> {!! $submission->rejected_at !!}';
             }
             ProgressBar.singleStepAnimation = 1500;
             ProgressBar.init(

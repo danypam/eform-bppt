@@ -70,16 +70,23 @@ class eformCron extends Command
     }
 
     public function cronPegawai(){
-        $sidadu = DB::table('eform_sidadu.pegawai')->get();
+        $sidadu = DB::table('eform_sidadu.pegawai as p')
+            ->join('eform_sidadu.unitjabatan as uj','p.kodeunit_posisi','=','uj.kode_unit')->get();
         foreach ($sidadu as $s){
+            //cek isdeputi/isunit/iskabppt
+            $role = ($s->is_unit == 1 || $s->is_deputi == 1 || $s->is_kabppt == 1) ? 'atasan' : 'member';
+            \Log::info("role is " . $role);
             DB::table('pegawai')
                 ->updateOrInsert(
                     ['nip' => $s->nip],
                     [   'nip18' => $s->nip18,
                         'nama_lengkap' => $s->nama_lengkap,
                         'unit_id' => $s->kode_unitkerja,
-                        'unit_jabatan_id' => $s->unit_jabatan_id,
-                        'jabatan_id' => $s->kode_jabatan
+                        'unit_jabatan_id' => $s->kode_unit,
+                        'jabatan_id' => $s->kode_jabatan,
+                        'nip_atas' => $s->nip_atas,
+                        'role' => $role,
+                        'email' => $s->username . '@bppt.go.id'
                     ]
                     //role -> isunit,isdeputi,iskabppt = atasan
                     //role -> !(isunit,isdeputi,iskabppt) = member
@@ -93,9 +100,9 @@ class eformCron extends Command
         //
         \Log::info("Working on Update");
 
-//        $this->cronUnitJabatan();
-//        $this->cronJabatan();
-//        $this->cronPegawai();
+        $this->cronUnitJabatan();
+        $this->cronJabatan();
+        $this->cronPegawai();
 
         \Log::info("Database Updated");
         $this->info('Demo:Cron Cummand Run successfully!');
