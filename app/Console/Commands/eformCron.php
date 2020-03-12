@@ -52,8 +52,18 @@ class eformCron extends Command
                     ]
                 );
         }
+    }
 
-
+    public function cronUser(){
+        $pegawai = DB::table('pegawai')->get();
+        foreach ($pegawai as $p){
+            DB::table('users')
+                ->updateOrInsert(
+                    ['email' => $p->email],
+                    [
+                        'name' => $p->nama_lengkap
+                    ]);
+        }
     }
 
     public function cronJabatan(){
