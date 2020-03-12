@@ -52,8 +52,18 @@ class eformCron extends Command
                     ]
                 );
         }
+    }
 
-
+    public function cronUser(){
+        $pegawai = DB::table('pegawai')->get();
+        foreach ($pegawai as $p){
+            DB::table('users')
+                ->updateOrInsert(
+                    ['email' => $p->email],
+                    [
+                        'name' => $p->nama_lengkap
+                    ]);
+        }
     }
 
     public function cronJabatan(){
@@ -103,6 +113,7 @@ class eformCron extends Command
         $this->cronUnitJabatan();
         $this->cronJabatan();
         $this->cronPegawai();
+        $this->cronUser();
 
         \Log::info("Database Updated");
         $this->info('Demo:Cron Cummand Run successfully!');
