@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-
+        'address' => 'an3yana@gmail.com',
         'name' => env('MAIL_FROM_NAME', 'E-Form Service Desk BPPT'),
     ],
 
