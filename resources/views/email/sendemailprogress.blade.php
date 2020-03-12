@@ -2,19 +2,8 @@
 <html>
 <head>
     <style>
-        /*.banner-color {*/
-        /*    background-color: #002433;*/
-        /*}*/
-        /*.title-color {*/
-        /*    color: #bae8f5;*/
-        /*}*/
-        /*.button-color {*/
-        /*    background-color: #0066cc;*/
-        /*}*/
         .banner-color {
             background-color: #3D6EC9;
-        }
-
         }
     </style>
 </head>

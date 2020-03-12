@@ -379,16 +379,6 @@ class InboxController extends Controller
 
 
     private function getEmailPegawai($id){
-//        $formsub = DB::table('form_submissions')
-////            ->select('user_id')
-////            ->where('user_id','=',auth()->user()->id)
-////            ->first();
-////        $pegawai=DB::table('pegawai')
-////            ->join('form_submissions as fs', 'fs.user_id', '=', 'pegawai.user_id')
-////            ->select('email')
-////            ->where('pegawai.user_id', '=', $formsub->user_id)
-////            ->first();
-////        return $pegawai->email;
         $submission=Submission::find($id);
         $user_id = $submission->user_id;
         $pegawai = Pegawai::select('nama_lengkap','email')->where('user_id',$user_id)->first();

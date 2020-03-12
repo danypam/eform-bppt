@@ -1,15 +1,10 @@
 <html>
 <head>
     <style>
-        /*@media screen and (min-width: 720px) {*/
-        /*    .banner-color {*/
-        /*        background-color: #002433;*/
-        /*    }*/
+
             .title-color {
                 color: #3357C0;
             }
-
-        /*}*/
     </style>
 </head>
 <body>

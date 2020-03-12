@@ -265,23 +265,6 @@ class PicController extends Controller
         //
     }
     private function getemailuser($id){
-//        $iduser= DB::table('pegawai')
-//            ->select('id')
-//            ->where('id',auth()->user()->id)
-//            ->first();
-//        $id_form_submission = DB::table('form_submissions')
-//            ->join('pegawai as p', 'p.id', '=', 'user_id')
-//            ->select('status')
-//            ->where('user_id', '=', $iduser->id )
-//            ->first();
-////        $nilai=config('constants.status.completed');
-//        $nilai =4;
-//        $emailtouser=DB::table('pegawai')
-//            ->where('id','=',$id_form_submission->status->$nilai)
-//            ->select('email')
-//            ->first();
-//
-//        return $emailtouser->email;
         $submission=Submission::find($id);
         $user_id = $submission->user_id;
         $pegawai = Pegawai::select('nama_lengkap','email')->where('user_id',$user_id)->first();
