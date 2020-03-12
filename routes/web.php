@@ -48,10 +48,10 @@ Route::middleware('web')
 
 
 
-Route::get('/', function() {
-    return cas()->authenticate();
-})->name('cas.login');
-Route::get('/cas/callback', 'Auth\CasController@callback')->name('cas.callback');
+//Route::get('/', function() {
+//    return cas()->authenticate();
+//})->name('cas.login');
+//Route::get('/cas/callback', 'Auth\CasController@callback')->name('cas.callback');
 //Route::post('/cas/logout', [ 'middleware' => 'cas.auth', function() {
 //    Auth::logout();
 //    cas()->logout();
@@ -65,9 +65,9 @@ Route::get('/cas/callback', 'Auth\CasController@callback')->name('cas.callback')
 
 
 //AKSES LOGIN TANPA CAS
-//Route::get('/', function () {
-//    return view('/auth/login');
-//});
+Route::get('/', function () {
+    return view('/auth/login');
+});
 
 Auth::routes();
 
@@ -77,7 +77,7 @@ Route::get('/login','AuthController@login')->name('login');
 Route::post('/postlogin','AuthController@postlogin');
 Route::get('/logout','AuthController@logout');
 
-Route::group(['middleware' => ['cas.auth']], function() {
+Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/auth/ubahpass','AuthController@edit');
     Route::post('/auth/ubahpass/update','AuthController@update');

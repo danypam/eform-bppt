@@ -130,55 +130,6 @@ jQuery(function() {
                     }
                 }
             },
-            /*Text2ColumnDynamic: function (fieldData) {
-                var random_class    = Math.floor(Math.random()*90000) + 1000000000;
-                return {
-                    field:
-                        '<table class="table table-hover input_fields_wrap-' + random_class + '">' +
-                        '   <thead>' +
-                        '       <tr class="text-center">' +
-                        '           <th>column1</th>' +
-                        '           <th>column2</th>' +
-                        '           <th> </th>' +
-                        '       </tr>' +
-                        '   </thead>' +
-                        '   <tbody class="table-body">' +
-                        '    <tr>' +
-                        '       <td><input class="form-control" type="text" name="mytext[]" ></td>' +
-                        '       <td><input class="form-control" type="text" name="mytext[]" ></></td>' +
-                        '       <td></td>' +
-                        '   </tr>' +
-                        '   </tbody>' +
-                        '</table>' +
-                        '<div><button class="btn btn-success add_field_button-'+ random_class +'">╋</button></div>',
-                    onRender: function () {
-                        var max_fields      = 6; //maximum input boxes allowed
-                        var wrapper   		= $(".input_fields_wrap-" + random_class); //Fields wrapper
-                        var add_button      = $(".add_field_button-" + random_class); //Add button ID
-
-
-                        var x = 1; //initlal text box count
-                        $(add_button).click(function(e){ //on add input button click
-                            e.preventDefault();
-                            if(x < max_fields){ //max input box allowed
-                                x++; //text box increment
-                                $(wrapper).append('<tr>' +
-                                    '<td><input class="form-control"  type="text" name="mytext[]" required/></td>' +
-                                    '<td><input class="form-control " type="text" name="mytext[]" required/></td>' +
-                                    '<td><a href="#" class="remove_field btn btn-danger">－</a></td>' +
-                                    '</tr>'); //add input box
-                            }else{
-                                add_button.prop("disabled", true);
-                            }
-                        });
-
-                        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-                            add_button.prop("disabled", false);
-                            e.preventDefault(); $(this).parent('td').parent('tr').remove(); x--;
-                        })
-                    }
-                };
-            }*/
         },
         disableFields: [
             'button',

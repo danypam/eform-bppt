@@ -6,13 +6,6 @@ jQuery(function() {
 		formData: window._form_builder_content ? window._form_builder_content : '',
 		render: true,
         layoutTemplates: {
-           /* label: function(label, data) {
-
-                // cheeky styling
-                return $('<label class="bright" style="color: red"/>')
-                    .attr('for', data.id)
-                    .append(label);
-            }*/
         },
             templates:{
                 datetimepicker: function(fieldData) {

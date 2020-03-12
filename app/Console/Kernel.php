@@ -27,8 +27,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('eform:cron')
-            ->daily();
+        $schedule->command('eform:cron');
     }
 
     /**
