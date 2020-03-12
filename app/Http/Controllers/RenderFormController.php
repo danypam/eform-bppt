@@ -168,7 +168,6 @@ class RenderFormController extends Controller
                     try {
                         \Mail::to($email[0])->send(new email_atasan($details));
                     } catch (Throwable $e) {
-                        dd($e);
                     }
                 }
                 if (isset($email[1])) {
