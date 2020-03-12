@@ -82,7 +82,7 @@ class eformCron extends Command
                     [   'nip18' => $s->nip18,
                         'nama_lengkap' => $s->nama_lengkap,
                         'unit_id' => $s->kode_unitkerja,
-                        'unit_jabatan_id' => $s->unit_jabatan_id,
+                        'unit_jabatan_id' => $s->kode_unit,
                         'jabatan_id' => $s->kode_jabatan,
                         'nip_atas' => $s->nip_atas,
                         'role' => $role,
