@@ -29,7 +29,7 @@ class CasController extends Controller
             $user = User::where('email',$id)->first();
             Auth::login($user);
         }catch (Exception $e){
-
+            return view('/layouts/unregistered');
         }
 
 //         dd($id);
