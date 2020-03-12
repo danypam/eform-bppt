@@ -100,14 +100,17 @@
                                                                 @endif
                                                         <td>
                                                             @if($submission->status == -1)
-                                                                {{--@if($submission->keterangan==null)
-                                                                    <a href="#" data-toggle="modal" data-target="#ket" data-id="{{$submission->submission_id}}" class="label label-default" >LIHAT KETERANGAN</a>
-                                                                @endif--}}
+{{--                                                                --}}{{--@if($submission->keterangan==null)--}}
+{{--                                                                    <a href="#" data-toggle="modal" data-target="#ket" data-id="{{$submission->submission_id}}" class="label label-default" >LIHAT KETERANGAN</a>--}}
+{{--                                                                @endif--}}
                                                                 @foreach($pegawai as $p)
-                                                                    @if($submission->keterangan == null)
-                                                                        <a href="#" data-id="{{$submission->submission_id}}" data-status="{{$p->nama_lengkap}}" data-ket="Tidak Ada Catatan" class="label label-default view" >LIHAT KETERANGAN</a>
-                                                                    @else($p->id == $submission->rejected)
+                                                                    @if($p->id == $submission->rejected)
+                                                                        @if($submission->keterangan==null)
+                                                                            <a href="#" data-id="{{$submission->submission_id}}" data-status="{{$p->nama_lengkap}}" data-ket="Tidak ada catatan" class="label label-default view" >LIHAT KETERANGAN</a>
+
+                                                                        @else
                                                                         <a href="#" data-id="{{$submission->submission_id}}" data-status="{{$p->nama_lengkap}}" data-ket="{{$submission->keterangan->ket}}" class="label label-default view" >LIHAT KETERANGAN</a>
+                                                                        @endif
                                                                     @endif
                                                                 @endforeach
                                                             @elseif($submission->keterangan == null)
