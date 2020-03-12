@@ -29,7 +29,7 @@ class email_rejected extends Mailable
     public function build()
     {
         $detail=$this->details;
-        return $this->subject('Sorry, your form is rejected')
+        return $this->subject('Maaf, permohonan Anda ditolak')
             ->view('email.sendmailrejected', compact('detail'));
     }
 }

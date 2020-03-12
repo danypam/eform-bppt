@@ -93,9 +93,9 @@ class eformCron extends Command
         //
         \Log::info("Working on Update");
 
-//        $this->cronUnitJabatan();
-//        $this->cronJabatan();
-//        $this->cronPegawai();
+        $this->cronUnitJabatan();
+        $this->cronJabatan();
+        $this->cronPegawai();
 
         \Log::info("Database Updated");
         $this->info('Demo:Cron Cummand Run successfully!');

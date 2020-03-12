@@ -49,16 +49,7 @@ jQuery(function() {
         })
     }
 
-    //upload file
-    function uploadFile(fld) {
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: "/getTable",
-            success: function(result){
-                fld.value = result;
-            }});
-    }
+
     var fbEditor = $(document.getElementById('fb-editor'))
     var formBuilder;
 
@@ -90,23 +81,13 @@ jQuery(function() {
                 },
                 icon: '🛢'
             },{
-            label: 'file',
+            label: 'Two Column Text Field',
             attrs: {
-                type: 'uploadFile'
+                type: 'Text2ColumnDynamic'
             },
-            icon: '◻'
+            icon: '◻◻'
         }],
         templates: {
-            uploadFile: function(fieldData){
-                return{
-                    field: '<input type="file" id="' + fieldData.name + '" class="form-control"/>',
-                    onRender: function () {
-                        $(#fieldData.name).on('change', function () {
-                            uploadFile(fieldData);
-                        })
-                    }
-                }
-            },
             datetimepicker: function(fieldData) {
                 return {
                     field: ' <input type="text" id="' + fieldData.name + '" class="form-control"/>',
@@ -130,7 +111,7 @@ jQuery(function() {
                     }
                 }
             },
-            /*Text2ColumnDynamic: function (fieldData) {
+            Text2ColumnDynamic: function (fieldData) {
                 var random_class    = Math.floor(Math.random()*90000) + 1000000000;
                 return {
                     field:
@@ -178,7 +159,7 @@ jQuery(function() {
                         })
                     }
                 };
-            }*/
+            }
         },
         disableFields: [
             'button',

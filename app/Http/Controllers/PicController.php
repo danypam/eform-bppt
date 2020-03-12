@@ -109,10 +109,16 @@ class PicController extends Controller
                 $this->commit($id);
                 $this->fillWhoTake($id);
                 DB::commit();
+                $emailtouser = $this->getEmailPegawai($id);
+                $details = [
+                    'name' => $emailtouser->nama_lengkap,
+                    'url'    => url('/my-submissions/'.$id)
+                ];
+                \Mail::to($emailtouser->email)->send(new email_progress($details));
                 return redirect('/task')->with('sukses', 'Selamat Mengerjakan');
             }else{
                 DB::rollback();
-                return redirect('/task')->with('error', 'Formulir Telah Dieksekusi oleh pic lain');
+                return redirect('/task')->with('error', 'Formulir telah dieksekusi oleh PIC lain');
             }
         }
     }
@@ -125,12 +131,15 @@ class PicController extends Controller
             'status'=>DB::raw('status - 1'),
             'pic'=>null
         ]);
-        return redirect('/task')->with('sukses','Task Berhasil Dibatalkan');
+        return redirect('/task')->with('sukses','Tugas Berhasil Dibatalkan');
     }
 
     public function complete(Request $request)
     {
         $kete = json_encode($request->keterangan);
+        $k=json_decode($kete);
+        $keterangan3=$k->ket3;
+//        dd($keterangan3);
         \Illuminate\Support\Facades\DB::table('form_submissions')->where([
             'id'=>$request->submission_id,
         ])->update([
@@ -143,11 +152,12 @@ class PicController extends Controller
 
         $details = [
             'name' => $emails->nama_lengkap,
-            'url'=>'servicedesk.bppt.go.id'
+            'url'=>'servicedesk.bppt.go.id',
+            'keterangan'=> $keterangan3
         ];
-        //dd($email);
+//        dd($details);
         \Mail::to($emails->email)->send(new email_complete($details));
-        return redirect('/task')->with('sukses','Task Complete');
+        return redirect('/task')->with('sukses','Tugas telah selesai');
     }
 
     public function create()
@@ -168,14 +178,40 @@ class PicController extends Controller
             ->where('user_id', '=', auth()->user()->id)
             ->first();
 
-        return DB::table('form_submissions')
-            ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
-            ->join('forms as f','form_submissions.form_id', '=', 'f.id')
-            ->whereRaw("JSON_SEARCH(f.pic, 'one', $pic->id) is not null")
-            ->where('form_submissions.status', '=', $status)
-            ->where('form_submissions.id', $id)
-            ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
-            ->get();
+//        return DB::table('form_submissions')
+//            ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
+//            ->join('forms as f','form_submissions.form_id', '=', 'f.id')
+//            ->whereRaw("JSON_SEARCH(f.pic, 'one', $pic->id) is not null")
+//            ->where('form_submissions.status', '=', $status)
+//            ->where('form_submissions.id', $id)
+//            ->select('nama_lengkap','nip','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at')
+//            ->get();
+        if($status == config('constants.status.waitForPic')){
+            return DB::table('form_submissions')
+                ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
+                ->join('forms as f','form_submissions.form_id', '=', 'f.id')
+                ->whereRaw("JSON_SEARCH(f.pic, 'one', $pic->id) is not null")
+                ->where('form_submissions.status', '=', $status)
+                ->select('nama_lengkap','nip','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan','form_submissions.mengetahui','form_submissions.menyetujui','form_submissions.pic')
+                ->get();
+        }elseif ($status == config('constants.status.onGoing')){
+            return DB::table('form_submissions')
+                ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
+                ->join('forms as f','form_submissions.form_id', '=', 'f.id')
+                ->where('form_submissions.pic','=',$pic->id)
+                ->where('form_submissions.status', '=', $status)
+                ->select('nama_lengkap','nip','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan','form_submissions.mengetahui','form_submissions.menyetujui','form_submissions.pic')
+                ->get();
+        }else{
+            return DB::table('form_submissions')
+                ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
+                ->join('forms as f','form_submissions.form_id', '=', 'f.id')
+                ->where('form_submissions.pic','=',$pic->id)
+                ->whereRaw('form_submissions.complete_at IS NOT NULL')
+                ->where('form_submissions.status', '=', $status)
+                ->select('nama_lengkap','nip','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan','form_submissions.mengetahui','form_submissions.menyetujui','form_submissions.pic')
+                ->get();
+        }
 
     }
 
@@ -205,9 +241,12 @@ class PicController extends Controller
         $tasks = $this->show_form_submissions(2,$id);    //approved by kepala
         $mytasks = $this->show_form_submissions(3,$id);  //take by pic
         $completes = $this->show_form_submissions(4,$id);    //complete by pic
+        $pegawai = Pegawai::all();
 
-        return view('/task/index',['tasks'=>$tasks, 'mytasks'=>$mytasks, 'completes'=>$completes]);
+        return view('/task/index',['tasks'=>$tasks, 'mytasks'=>$mytasks, 'completes'=>$completes,'pegawai'=>$pegawai]);
+
     }*/
+
 
     public function edit($id)
     {
@@ -249,5 +288,11 @@ class PicController extends Controller
 
         return $pegawai;
     }
+    private function getEmailPegawai($id){
+        $submission=Submission::find($id);
+        $user_id = $submission->user_id;
+        $pegawai = Pegawai::select('nama_lengkap','email')->where('user_id',$user_id)->first();
 
+        return $pegawai;
+    }
 }
