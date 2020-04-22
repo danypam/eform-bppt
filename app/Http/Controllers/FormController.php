@@ -14,7 +14,7 @@ use jazmy\FormBuilder\Events\Form\FormCreated;
 use jazmy\FormBuilder\Events\Form\FormDeleted;
 use jazmy\FormBuilder\Events\Form\FormUpdated;
 use jazmy\FormBuilder\Helper;
-use jazmy\FormBuilder\Models\Form;
+use App\Form;
 use jazmy\FormBuilder\Requests\SaveFormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;

@@ -80,13 +80,7 @@ jQuery(function() {
                     type: 'selectFromDatabase'
                 },
                 icon: '🛢'
-            },{
-            label: 'Two Column Text Field',
-            attrs: {
-                type: 'Text2ColumnDynamic'
-            },
-            icon: '◻◻'
-        }],
+            },],
         templates: {
             datetimepicker: function(fieldData) {
                 return {
