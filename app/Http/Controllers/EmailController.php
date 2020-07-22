@@ -43,13 +43,13 @@ class EmailController extends Controller
     }
 
     public static function sent_user($submission_id){
+
         $i = Submission::with(['pegawai.unit_jabatan', 'form'])->find($submission_id);
         $status = $i->status;
         $details = [
             'name' => $i->pegawai->nama_lengkap,
             'url'    => url('/my-submissions/'.$submission_id)
         ];
-
         if ($status == config('constants.status.pending')){
             \Mail::to($i->pegawai->email)->send(new email_pending($details));
         }else if ($status == config('constants.status.onGoing')){
@@ -58,8 +58,6 @@ class EmailController extends Controller
             \Mail::to($i->pegawai->email)->send(new email_complete($details));
         }else if ($status == config('constants.status.rejected')){
             \Mail::to($i->pegawai->email)->send(new email_rejected($details));
-        }else{
-
         }
     }
 

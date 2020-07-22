@@ -110,6 +110,7 @@ class InboxController extends Controller
         $isFilled = Submission::find($request->submission_id)->first();
         $empty_Menyetujui = (!isset($isFilled->menyetujui));
         $empty_Mengetahui = (!isset($isFilled->mengetahui));
+//        dd($can_mengetahui);
 
             if ($can_menyetujui && $can_mengetahui && ($empty_Menyetujui || $empty_Mengetahui)) {
                 if ($empty_Mengetahui) {
@@ -145,6 +146,7 @@ class InboxController extends Controller
                 }
                 return redirect('/inbox')->with('sukses', 'Form Berhasil DiSetujui');
             } else {
+                dd('sini');
                 return redirect('/inbox')->with('error', 'Formulir Error atau Telah Dieksekusi oleh user lain');
             }
 
