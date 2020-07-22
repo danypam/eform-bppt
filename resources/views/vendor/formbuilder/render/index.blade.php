@@ -22,7 +22,6 @@
 
 
                                         <div class="card-body">
-                                            <input type="datetime-local" class="form-control" name="nana" id="nana1">
                                             <div id="fb-render"></div>
                                         </div>
 
