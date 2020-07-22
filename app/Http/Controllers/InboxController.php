@@ -161,18 +161,19 @@ class InboxController extends Controller
         ])->update([
             'status'=>-1,
             'keterangan'=>$kete,
-            'rejected'=> $id_pegawai->id,
+            'rejected'=> $id_pegawai,
             'rejected_at'=> Carbon::now()->toDateTimeString()
         ]);
-        $emails = $this->getEmailRejected($request->submission_id);
+        $peg = Submission::with('pegawai')->find($request->submission_id);
+        $emails = $peg->pegawai->email;
+        $nama = Pegawai::find($id_pegawai)->nama_lengkap;
         $details = [
-            'name' => $emails->nama_lengkap,
+            'name' => $nama,
             'keterangan' => $k
         ];
-        \Mail::to($emails->email)->send(new email_rejected($details));
+        \Mail::to($emails)->send(new email_rejected($details));
 
         LogActivity::addToLog('Form '.$request->submission_id.' Was Rejected');
         return redirect('/inbox')->with('sukses','Formulir Berhasil Ditolak');
     }
-
 }

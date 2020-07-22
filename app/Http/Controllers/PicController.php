@@ -32,16 +32,10 @@ class PicController extends Controller
         $mytasks = $this->form_submissions(3);  //take   by pic
         $completes = $this->form_submissions(4);    //complete by pic
         $pegawai = Pegawai::all();
-
         foreach ($tasks as $sub){
             $sub->keterangan = json_decode(json_decode($sub->keterangan));
         }
-/*        foreach ($mytasks as $sub){
-            $sub->keterangan = json_decode(json_decode($sub->keterangan));
-        }
-        foreach ($completes as $sub){
-            $sub->keterangan = json_decode(json_decode($sub->keterangan));
-        }*/
+
         return view('/task/index',['tasks'=>$tasks, 'mytasks'=>$mytasks, 'completes'=>$completes, 'pegawai'=>$pegawai]);
     }
 
@@ -52,8 +46,6 @@ class PicController extends Controller
             ->first();
 
         if($status == config('constants.status.waitForPic')){
-
-            Submission::where('');
                 return DB::table('form_submissions')
                 ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
                 ->join('forms as f','form_submissions.form_id', '=', 'f.id')
@@ -158,7 +150,15 @@ class PicController extends Controller
             'complete_at'=> Carbon::now()->toDateTimeString()
         ]);
 
-        EmailController::sent_user($request->submission_id);
+        $emails = $this->getemailuser($request->submission_id);
+
+        $details = [
+            'name' => $emails->nama_lengkap,
+            'url'=>'servicedesk.bppt.go.id',
+            'keterangan'=> $keterangan3
+        ];
+//        dd($details);
+        \Mail::to($emails->email)->send(new email_complete($details));
         return redirect('/task')->with('sukses','Tugas telah selesai');
     }
 
