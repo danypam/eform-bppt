@@ -33,44 +33,34 @@ class PicController extends Controller
         $completes = $this->form_submissions(4);    //complete by pic
         $pegawai = Pegawai::all();
         foreach ($tasks as $sub){
-            $sub->keterangan = json_decode($sub->keterangan);
+            $sub->keterangan = json_decode(json_decode($sub->keterangan));
         }
 
         return view('/task/index',['tasks'=>$tasks, 'mytasks'=>$mytasks, 'completes'=>$completes, 'pegawai'=>$pegawai]);
     }
 
     public function form_submissions($status){
-        $pic = DB::table('pegawai')
-            ->select('id')
-            ->where('user_id', '=', auth()->user()->id)
-            ->first();
+        $pic  = Pegawai::all()->where('user_id','=', auth()->user()->id)
+            ->first()->id;
 
         if($status == config('constants.status.waitForPic')){
-                return DB::table('form_submissions')
-                ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
-                ->join('forms as f','form_submissions.form_id', '=', 'f.id')
+            return Submission::with('pegawai','form')
                 ->whereRaw("JSON_SEARCH(f.pic, 'one', $pic->id) is not null")
                 ->where('form_submissions.status', '=', $status)
-                ->select('nama_lengkap','nip','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan','form_submissions.mengetahui','form_submissions.menyetujui','form_submissions.pic')
                 ->get();
         }
         elseif ($status == config('constants.status.onGoing')){
-            return DB::table('form_submissions')
-                ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
-                ->join('forms as f','form_submissions.form_id', '=', 'f.id')
+            return Submission::with('pegawai','form')
                 ->where('form_submissions.pic','=',$pic->id)
                 ->where('form_submissions.status', '=', $status)
-                ->select('nama_lengkap','nip','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan','form_submissions.mengetahui','form_submissions.menyetujui','form_submissions.pic')
                 ->get();
         }
         else{
-            return DB::table('form_submissions')
-                ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
-                ->join('forms as f','form_submissions.form_id', '=', 'f.id')
+            Submission::with('pegawai','form')
                 ->where('form_submissions.pic','=',$pic->id)
+                ->where('form_submissions.status', '=', $status)
                 ->whereRaw('form_submissions.complete_at IS NOT NULL')
                 ->where('form_submissions.status', '=', $status)
-                ->select('nama_lengkap','nip','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan','form_submissions.mengetahui','form_submissions.menyetujui','form_submissions.pic')
                 ->get();
         }
     }

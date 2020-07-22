@@ -119,24 +119,23 @@ class RenderFormController extends Controller
                 'status' => $status,
                 'content' => $input,
             ])->id;
-
             //===Notifikasi
-            try {
+//            try {
                 if($this->cek_jabatan()){
-                    NotifikasiController::sent_atasan($request->submission_id);
-                    EmailController::sent_atasan($request->submission_id);
+                    NotifikasiController::sent_atasan($submission_id);
+                    EmailController::sent_atasan($submission_id);
                 }else{
-                    NotifikasiController::sent_kepala($request->submission_id);
-                    EmailController::sent_kepala($request->submission_id);
+                    NotifikasiController::sent_kepala($submission_id);
+                    EmailController::sent_kepala($submission_id);
                 }
                 LogActivity::addToLog('Submitted Form'.$form->name);
-            }catch (Throwable $e){}
+//            }catch (Throwable $e){}
             DB::commit();
             return redirect('/my-submissions')->with('sukses', 'Terimakasih. Formulir Berhasil diajukan. Mohon Tunggu');
 //        } catch (Throwable $e) {
-            DB::rollback();
+//            DB::rollback();
 //            dd($e);
-            return back()->withInput()->with('error', Helper::wtf())->with('error','');
+//            return back()->withInput()->with('error', Helper::wtf())->with('error','');
 //        }
     }
     /**
