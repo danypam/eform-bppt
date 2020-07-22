@@ -19,7 +19,7 @@ class EmailController extends Controller
     //
     public static function sent_atasan($submission_id){
         $emails = self::get_email_atasan($submission_id);
-        $form_id = Submission::find($submission_id)->first()->form_id;
+        $form_id = Submission::find($submission_id)->form_id;
         $url = url('/forms/' . $form_id . '/submissions/' . $submission_id);
         $details = self::get_details($submission_id, $url);
         \Mail::to($emails)->send(new email_atasan($details));
@@ -27,7 +27,7 @@ class EmailController extends Controller
 
 
     public static function sent_pic($submission_id){
-        $form_id = Submission::find($submission_id)->first()->form_id;
+        $form_id = Submission::find($submission_id)->form_id;
         $url = url('/task/'.$form_id.'/submissions/'.$submission_id);
         $details = self::get_details($submission_id, $url);
         $email = self::get_email_pic($submission_id);
@@ -43,7 +43,7 @@ class EmailController extends Controller
     }
 
     public static function sent_user($submission_id){
-        $i = Submission::with(['pegawai.unit_jabatan', 'form'])->find($submission_id)->first();
+        $i = Submission::with(['pegawai.unit_jabatan', 'form'])->find($submission_id);
         $status = $i->status;
         $details = [
             'name' => $i->pegawai->nama_lengkap,
@@ -64,7 +64,7 @@ class EmailController extends Controller
     }
 
     static function get_details($submission_id, $url){
-        $i = Submission::with(['pegawai.unit_jabatan', 'form'])->find($submission_id)->first();
+        $i = Submission::with(['pegawai.unit_jabatan', 'form'])->find($submission_id);
         return [
             'name' => $i->pegawai->nama_lengkap,
             'url'    => $url,
@@ -82,7 +82,7 @@ class EmailController extends Controller
     }
 
     static function get_email_atasan($submission_id){
-        $sub = Submission::with('pegawai.unit_jabatan')->find($submission_id)->first();
+        $sub = Submission::with('pegawai.unit_jabatan')->find($submission_id);
         $unit_atas1 = $sub->pegawai->unit_jabatan->kode_unitatas1;
         $unit_atas2 = $sub->pegawai->unit_jabatan->kode_unitatas2;
 

@@ -42,7 +42,7 @@ class NotifikasiController extends Controller
         $users = User::whereHas('roles',function($q){
             $q->where('name', 'kepala');
         })->get();
-        if (\Notification::send($users, new NewForm(Submission::find($submisions_id)->first()))){
+        if (\Notification::send($users, new NewForm(Submission::find($submisions_id)))){
             return back();
         }
     }
@@ -51,7 +51,7 @@ class NotifikasiController extends Controller
         $pic = json_decode($pic);
         $users = Pegawai::with('user')->find($pic)->pluck('user_id');
         $users = User::find($users);
-        if (\Notification::send($users, new NewForm(Submission::find($submisions_id)->first()))){
+        if (\Notification::send($users, new NewForm(Submission::find($submisions_id)))){
             return back();
         }
     }
@@ -64,7 +64,7 @@ class NotifikasiController extends Controller
             $q->where('unit_jabatan_id', '=',$unit_atas1)
                 ->orWhere('unit_jabatan_id', '=', $unit_atas2);
         }) ->get();
-        if (\Notification::send($users, new NewForm(Submission::find($submissions_id)->first()))){
+        if (\Notification::send($users, new NewForm(Submission::find($submissions_id)))){
             return back();
         }
     }

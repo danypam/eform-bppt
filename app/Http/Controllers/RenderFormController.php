@@ -96,8 +96,9 @@ class RenderFormController extends Controller
     {
 //        print_r($request->all());
         $form = Form::where('identifier', $identifier)->firstOrFail();
-        DB::beginTransaction();
+
         try {
+            DB::beginTransaction();
 //            dd($request->all());
             $input = $request->except('_token');
 
@@ -120,6 +121,7 @@ class RenderFormController extends Controller
                 'content' => $input,
             ])->id;
             //===Notifikasi
+            DB::commit();
             try {
                 if($this->cek_jabatan()){
                     NotifikasiController::sent_kepala($submission_id);
@@ -130,7 +132,7 @@ class RenderFormController extends Controller
                 }
                 LogActivity::addToLog('Submitted Form'.$form->name);
             }catch (Throwable $e){dd($e);}
-            DB::commit();
+
             return redirect('/my-submissions')->with('sukses', 'Terimakasih. Formulir Berhasil diajukan. Mohon Tunggu');
         } catch (Throwable $e) {
             DB::rollback();
