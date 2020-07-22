@@ -20,7 +20,7 @@ class EmailController extends Controller
     public static function sent_atasan($submission_id){
         $emails = self::get_email_atasan($submission_id);
         $form_id = Submission::find($submission_id)->first()->form_id;
-        $url = url('/forms/' . $form_id->id . '/submissions/' . $submission_id);
+        $url = url('/forms/' . $form_id . '/submissions/' . $submission_id);
         $details = self::get_details($submission_id, $url);
         \Mail::to($emails)->send(new email_atasan($details));
     }
@@ -82,10 +82,11 @@ class EmailController extends Controller
     }
 
     static function get_email_atasan($submission_id){
-        $sub = Submission::with('pegawai.unit_jabatan')->find($submission_id);
+        $sub = Submission::with('pegawai.unit_jabatan')->find($submission_id)->first();
         $unit_atas1 = $sub->pegawai->unit_jabatan->kode_unitatas1;
         $unit_atas2 = $sub->pegawai->unit_jabatan->kode_unitatas2;
-         return Pegawai::all()->where('unit_jabatan_id','=',$unit_atas1)
-            ->where('unit_jabatan_id','=',$unit_atas1)->pluck('email');
+
+         return Pegawai::where('unit_jabatan_id','=',$unit_atas1)
+            ->orWhere('unit_jabatan_id','=',$unit_atas2)->pluck('email');
     }
 }
