@@ -50,13 +50,13 @@ class EmailController extends Controller
             'url'    => url('/my-submissions/'.$submission_id)
         ];
 
-        if ($status == config(constant('constants.status.pending'))){
+        if ($status == config('constants.status.pending')){
             \Mail::to($i->pegawai->email)->send(new email_pending($details));
-        }else if ($status == config(constant('constants.status.onGoing'))){
+        }else if ($status == config('constants.status.onGoing')){
             \Mail::to($i->pegawai->email)->send(new email_ongoing($details));
-        }else if ($status == config(constant('constants.status.completed'))){
+        }else if ($status == config('constants.status.completed')){
             \Mail::to($i->pegawai->email)->send(new email_complete($details));
-        }else if ($status == config(constant('constants.status.rejected'))){
+        }else if ($status == config('constants.status.rejected')){
             \Mail::to($i->pegawai->email)->send(new email_rejected($details));
         }else{
 
