@@ -42,7 +42,7 @@ class MySubmissionController extends Controller
         $submissions = Submission::getForUser($user);
         $pegawai = Pegawai::all();
         foreach ($submissions as $sub){
-            $sub->keterangan = json_decode($sub->keterangan);
+            $sub->keterangan = json_decode(json_decode($sub->keterangan));
         }
 
         $pageTitle = "Permohonan Layanan";

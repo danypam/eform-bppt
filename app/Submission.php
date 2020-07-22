@@ -56,7 +56,7 @@ class Submission extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     /**
@@ -66,7 +66,12 @@ class Submission extends Model
      */
     public function form()
     {
-        return $this->belongsTo(Form::class);
+        return $this->belongsTo(Form::class, 'form_id', 'id');
+    }
+
+    public function pegawai()
+    {
+        return $this->belongsTo('App\Pegawai', 'pegawai_id', 'id');
     }
 
     /**

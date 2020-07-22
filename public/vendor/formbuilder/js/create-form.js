@@ -66,11 +66,12 @@ jQuery(function() {
             'date',
             'file',
         ],
+        userDefinedControls: [{ label: 'User Control', attrs: { type: 'datetime', className: 'text-input', name: 'customcontrol', identifier: 'customcontrol' } }],
         fields: [
         {
             label: 'Time Picker',
             attrs: {
-                type: 'datetimepicker'
+                type: 'datetime-local'
             },
             icon: '⏰'
         },
@@ -82,26 +83,23 @@ jQuery(function() {
                 icon: '🛢'
             },],
         templates: {
-            datetimepicker: function(fieldData) {
+            "datetime-local": function(fieldData) {
                 return {
-                    field: ' <input type="text" id="' + fieldData.name + '" class="form-control"/>',
-                    onRender: function() {
+                    field: ' <input type="datetime-local" id="' + fieldData.name + '" class="form-control"/>'
+                 /*   onRender: function() {
                         $(document.getElementById(fieldData.name)).daterangepicker({
                             timePicker: true,
                             locale: {
                                 format: 'DD/MM/YYYY hh:mm A'
                             }
                         });
-                    }
+                    }*/
                 }
             },
             selectFromDatabase: function(fieldData){
                 return {
                     field: ' <select type="selectFromDatabase" id="' + fieldData.name + '" class="form-control selectfromdatabase"/>',
                     onRender: function () {
-                        /*$(document.getElementById(fieldData.name)).on('change',function () {
-
-                        })*/
                     }
                 }
             },
@@ -129,11 +127,11 @@ jQuery(function() {
             ],*/
         },
         typeUserAttrs: {
-            datetimepicker: {
-                label:{
-                    value: ''
-                },
-            },
+        //     datetimepicker: {
+        //         label:{
+        //             value: ''
+        //         },
+        //     },
             selectFromDatabase: {
                 label:{
                   value: ''
@@ -159,91 +157,91 @@ jQuery(function() {
                     required: 'true'
                 }
             },
-            text: {
-                label:{
-                    value: ''
-                },
-                name: {
-                    label: 'field',
-                    required: 'true'
-                },
-            },
-            Text2ColumnDynamic: {
-                label:{
-                    value: ''
-                },
-                column1: {
-                    label: 'column 1',
-                    value: ''
-                },
-                column2: {
-                    label: 'column 2',
-                    value: ''
-                }
-            },
-            textarea: {
-                label:{
-                    value: ''
-                },
-                name: {
-                    label: 'field',
-                    required: 'true'
-                }
-            },
-            'checkbox-group': {
-                label:{
-                    value: ''
-                },
-                name: {
-                    label: 'field',
-                    required: 'true'
-                }
-            },
-            number: {
-                label:{
-                    value: ''
-                },
-                name: {
-                    label: 'field',
-                    required: 'true'
-                }
-            },
-            date: {
-                label:{
-                    value: ''
-                },
-                name: {
-                    label: 'field',
-                    required: 'true'
-                }
-            },
-            file: {
-                label:{
-                    value: ''
-                },
-                name: {
-                    label: 'field',
-                    required: 'true'
-                }
-            },
-            hidden: {
-                label:{
-                    value: ''
-                },
-                name: {
-                    label: 'field',
-                    required: 'true'
-                }
-            },
-            'radio-group': {
-                label:{
-                    value: ''
-                },
-                name: {
-                    label: 'field',
-                    required: 'true'
-                }
-            },
+        //     text: {
+        //         label:{
+        //             value: ''
+        //         },
+        //         name: {
+        //             label: 'field',
+        //             required: 'true'
+        //         },
+        //     },
+        //     Text2ColumnDynamic: {
+        //         label:{
+        //             value: ''
+        //         },
+        //         column1: {
+        //             label: 'column 1',
+        //             value: ''
+        //         },
+        //         column2: {
+        //             label: 'column 2',
+        //             value: ''
+        //         }
+        //     },
+        //     textarea: {
+        //         label:{
+        //             value: ''
+        //         },
+        //         name: {
+        //             label: 'field',
+        //             required: 'true'
+        //         }
+        //     },
+        //     'checkbox-group': {
+        //         label:{
+        //             value: ''
+        //         },
+        //         name: {
+        //             label: 'field',
+        //             required: 'true'
+        //         }
+        //     },
+        //     number: {
+        //         label:{
+        //             value: ''
+        //         },
+        //         name: {
+        //             label: 'field',
+        //             required: 'true'
+        //         }
+        //     },
+        //     date: {
+        //         label:{
+        //             value: ''
+        //         },
+        //         name: {
+        //             label: 'field',
+        //             required: 'true'
+        //         }
+        //     },
+        //     file: {
+        //         label:{
+        //             value: ''
+        //         },
+        //         name: {
+        //             label: 'field',
+        //             required: 'true'
+        //         }
+        //     },
+        //     hidden: {
+        //         label:{
+        //             value: ''
+        //         },
+        //         name: {
+        //             label: 'field',
+        //             required: 'true'
+        //         }
+        //     },
+        //     'radio-group': {
+        //         label:{
+        //             value: ''
+        //         },
+        //         name: {
+        //             label: 'field',
+        //             required: 'true'
+        //         }
+        //     },
         },
         typeUserEvents: {
             number: {

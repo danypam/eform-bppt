@@ -45,12 +45,10 @@ class PegawaiController extends Controller
             ->where('a.status','AKTIF')
             ->get();
         return view('/pegawai.index',['data_unjab'=>$data_unjab,'pegawai'=>$pegawai,'data_unitjab'=>$data_unitjab,'data_pegawai'=>$data_pegawai,'data_jabatan'=>$data_jabatan,'data_unit'=>$data_unit,'data_role'=>$data_role]);
-
     }
 
     public function create(Request $request)
     {
-
         $user = new User;
         $user->assignRole($request->role);
         $user->name = $request->nama_lengkap;

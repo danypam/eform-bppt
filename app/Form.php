@@ -63,7 +63,7 @@ class Form extends Model
      */
     public function submissions()
     {
-        return $this->hasMany(Submission::class);
+        return $this->hasMany(Submission::class,'id_unit_jabatan','unit_jabatan_id' );
     }
 
     /**
@@ -140,7 +140,6 @@ class Form extends Model
                     ->latest()
                     ->paginate(100);
     }
-
 
     /**
      * Get an array containing the name of the fields in the form and their label

@@ -30,12 +30,8 @@ class UnitjabatanController extends Controller
         return view('/unitjab.index',['data_unitjab'=>$data_unitjab,'data_unitjab1'=>$data_unitjab1]);
 //
     }
-    public function create(Request $request)
-    {
-//        dd($request);
+    public function create(Request $request){
         UnitJabatan::create($request->all());
-
-
         LogActivity::addToLog('Unit Jabatan Was Created');
         return redirect('/unitjab')->with('sukses','Data Berhasil Ditambah');
     }

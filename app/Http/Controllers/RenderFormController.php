@@ -80,22 +80,25 @@ class RenderFormController extends Controller
      * @return Response
      */
 
-
+    function cek_jabatan(){
+        //cek is_deputi, is_unit, is_kabppt
+        $user_id = auth()->user()->id ?? null;
+        $status = Pegawai::with('unit_jabatan')
+            ->where('user_id','=',$user_id)
+            ->whereHas('unit_jabatan', function ($q){
+                $q->where('is_unit', '=', '1')
+                    ->orWhere('is_kabppt', '=', '1')
+                    ->orWhere('is_deputi','=', '1');
+            })->first();
+        return $status ? true : false;
+    }
     public function submit(Request $request, $identifier)
     {
-
+        print_r($request->all());
         $form = Form::where('identifier', $identifier)->firstOrFail();
-        $i =  DB::table('form_submissions')
-            ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
-            ->join('forms as f','form_submissions.form_id','=','f.id')
-            ->join('unit_jabatan as uj', 'uj.id_unit_jabatan', '=', 'p.unit_jabatan_id')
-            ->select('nama_lengkap','keterangan','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at', 'form_submissions.keterangan')
-            ->where('form_submissions.id', $request->submission_id)
-            ->first();
-
-        DB::beginTransaction();
-
-        try {
+//        DB::beginTransaction();
+//        try {
+            dd($request->all());
             $input = $request->except('_token');
 
             // check if files were uploaded and process them
@@ -106,148 +109,36 @@ class RenderFormController extends Controller
                     $input[$key] = $file->store('fb_uploads', 'public');
                 }
             }
-
-            //cek is_deputi, is_unit, is_kabppt
-            $status = DB::table('unit_jabatan')
-                ->join('pegawai as p', 'p.unit_jabatan_id', '=', 'id_unit_jabatan')
-                ->where('p.user_id','=',auth()->user()->id)
-                ->where(function ($q){
-                    $q->where('is_deputi','>',config('constants.status.new'))
-                        ->orWhere('is_unit','>',config('constants.status.new'))
-                        ->orWhere('is_kabppt','>',config('constants.status.new'));
-                })->first();
-
-
-            $status = $status?  config('constants.status.pending') : config('constants.status.new');
-
             $user_id = auth()->user()->id ?? null;
+            $pegawai_id = Pegawai::all()->where('user_id','=',$user_id)->first()->id;
+            $status = $this->cek_jabatan() ? config('constants.status.pending') : config('constants.status.new');
 
             $submission_id = $form->submissions()->create([
                 'user_id' => $user_id,
+                'pegawai_id' => $pegawai_id,
                 'status' => $status,
                 'content' => $input,
             ])->id;
 
-            $userid = $this->getAtasan();
-//            $users = User::whereHas('roles',function($q){
-//                $q->where('name','atasan');
-//            })->get();
-
-            if (isset($userid[0]))
-            {
-                try {
-                    \Notification::send($userid[0], new NewForm(Submission::latest('id')->first()));
-
-                }catch (Throwable $e){}
-
-            }
-            if (isset($userid[1]))
-            {
-                try {
-                    \Notification::send($userid[1], new NewForm(Submission::latest('id')->first()));
-                }catch (Throwable $e){}
-            }
-            LogActivity::addToLog('Submitted Form'.$form->name);
-
-            $pegawai = Pegawai::where('user_id', auth()->user()->id)->firstOrFail();
-
-            if($pegawai->role != 'kepala') {
-                $email = $this->getEmail($submission_id);
-                $submission = Submission::where(['id' => $submission_id])->with('form')->firstOrFail();
-
-                $details = [
-                    'url' => url('/forms/' . $form->id . '/submissions/' . $submission_id),
-                    'submission' => $submission,
-                    'identitas' => Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id', '=', $submission->user_id)->firstOrFail(),
-                    'form_headers' => $submission->form->getEntriesHeader(),
-                    'pageTitle' => "View Submission"
-                ];
-
-                if (isset($email[0])) {
-                    $details['name'] = $email[0]->nama_lengkap;
-                    try {
-                        \Mail::to($email[0])->send(new email_atasan($details));
-                    } catch (Throwable $e) {
-                    }
+            //===Notifikasi
+            try {
+                if($this->cek_jabatan()){
+                    NotifikasiController::sent_atasan($request->submission_id);
+                    EmailController::sent_atasan($request->submission_id);
+                }else{
+                    NotifikasiController::sent_kepala($request->submission_id);
+                    EmailController::sent_kepala($request->submission_id);
                 }
-                if (isset($email[1])) {
-                  $details['name']=$email[1]->nama_lengkap;
-                    try {
-                        \Mail::to($email[1])->send(new email_atasan($details));
-                    } catch (Throwable $e) {
-                    }
-                }
-            }
+                LogActivity::addToLog('Submitted Form'.$form->name);
+            }catch (Throwable $e){}
             DB::commit();
-           /* return redirect()
-                    ->route('formbuilder::form.feedback', $identifier)
-                    ->with('success', 'Form successfully submitted. Please wait');*/
             return redirect('/my-submissions')->with('sukses', 'Terimakasih. Formulir Berhasil diajukan. Mohon Tunggu');
-        } catch (Throwable $e) {
+//        } catch (Throwable $e) {
             DB::rollback();
-
+//            dd($e);
             return back()->withInput()->with('error', Helper::wtf())->with('error','');
-
-        }
-
+//        }
     }
-    private function getAtasan(){
-        $unit_jabatan_user = DB::table('pegawai')
-            ->select('unit_jabatan_id')
-            ->where('user_id',auth()->user()->id)
-            ->first();
-        $id_unitatas = DB::table('unit_jabatan')
-            ->join('pegawai','pegawai.unit_jabatan_id','=','unit_jabatan.id_unit_jabatan')
-            ->select('kode_unitatas1','kode_unitatas2')
-            ->where('id_unit_jabatan','=',$unit_jabatan_user->unit_jabatan_id)
-            ->first();
-        $id1 = DB::table('pegawai')
-            ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas1)
-            ->select('user_id','email')
-            ->first();
-        $id2 = DB::table('pegawai')
-            ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas2)
-            ->select('user_id','email')
-            ->first();
-//        $userid = 0;
-        if(isset($id1)){
-            $userid[] = User::find($id1->user_id);
-        }
-        if (isset($id2)){
-            $userid[] = User::find($id2->user_id);
-        }
-        $userid = $userid ? $userid : 0;
-
-        //dd($userid);
-
-        return $userid;
-
-    }
-
-    private function getEmail($id){
-        $unit_jabatan_user=DB::table('pegawai')
-            ->select('unit_jabatan_id')
-            ->where('user_id',auth()->user()->id)
-            ->first();
-        $id_unitatas = DB::table('unit_jabatan')
-            ->join('pegawai as p', 'p.unit_jabatan_id', '=', 'id_unit_jabatan')
-            ->select('kode_unitatas1', 'kode_unitatas2')
-            ->where('id_unit_jabatan', '=', $unit_jabatan_user->unit_jabatan_id )
-            ->first();
-
-        $email1=DB::table('pegawai')
-            ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas1)
-            ->select('email','nama_lengkap')
-            ->first();
-
-        $email2=DB::table('pegawai')
-            ->where('unit_jabatan_id','=',$id_unitatas->kode_unitatas2)
-            ->select('email','nama_lengkap')
-            ->first();
-
-        return $email[] = [$email1,$email2];
-    }
-
     /**
      * Display a feedback page
      *

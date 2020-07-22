@@ -71,7 +71,6 @@ class SubmissionController extends Controller
                                 'id' => $submission_id,
                             ])
                             ->firstOrFail();
-
         $form_headers = $submission->form->getEntriesHeader();
 
         $identitas = Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id',$submission->user_id)->first();

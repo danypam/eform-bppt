@@ -41,7 +41,7 @@
                                         </tr>
                                         <tr>
                                             <td><h6><strong>Unit Kerja</strong></h6></td>
-                                            <td><h6>: {{$identitas->unit_kerja->unit}}</h6></td>
+                                            <td><h6>: {{isset($identitas->unit_kerja->nama_unit) ? $identitas->unit_kerja->nama_unit : ''}}</h6></td>
                                         </tr>
                                         <tr>
 
@@ -137,6 +137,7 @@
 
                                             <tbody style="border: none">
                                             @foreach($form_headers as $header)
+
                                             <tr>
                                                 <td style="border: none;word-wrap: break-word; width: 50%"><strong>{{ $header['label'] ?? title_case($header['name']) }} </strong></td>
                                                 <td>:</td>

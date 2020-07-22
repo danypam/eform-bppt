@@ -43,9 +43,7 @@ class FormController extends Controller
     public function index()
     {
         $pageTitle = "Forms";
-
         $forms = Form::getForUser(auth()->user());
-
         return view('formbuilder::forms.index', compact('pageTitle', 'forms'));
     }
 
@@ -63,14 +61,11 @@ class FormController extends Controller
     public function create()
     {
         $pageTitle = "Create New Form";
-
         $saveURL = route('formbuilder::forms.store');
-
         //get pegawai
         $pegawai = Pegawai::all();
         // get the roles to use to populate the make the 'Access' section of the form builder work
         $form_roles = Helper::getConfiguredRoles();
-
         return view('formbuilder::forms.create', compact('pageTitle', 'saveURL', 'form_roles', 'pegawai'));
     }
 

@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     public function pegawai(){
-        return $this->hasOne(Pegawai::class);
+        return $this->hasOne(Pegawai::class,'user_id','id');
     }
     protected $fillable = [
         'name', 'email', 'password','status',

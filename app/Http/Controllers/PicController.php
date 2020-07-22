@@ -53,7 +53,8 @@ class PicController extends Controller
                 ->where('form_submissions.status', '=', $status)
                 ->select('nama_lengkap','nip','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan','form_submissions.mengetahui','form_submissions.menyetujui','form_submissions.pic')
                 ->get();
-        }elseif ($status == config('constants.status.onGoing')){
+        }
+        elseif ($status == config('constants.status.onGoing')){
             return DB::table('form_submissions')
                 ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
                 ->join('forms as f','form_submissions.form_id', '=', 'f.id')
@@ -61,7 +62,8 @@ class PicController extends Controller
                 ->where('form_submissions.status', '=', $status)
                 ->select('nama_lengkap','nip','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan','form_submissions.mengetahui','form_submissions.menyetujui','form_submissions.pic')
                 ->get();
-        }else{
+        }
+        else{
             return DB::table('form_submissions')
                 ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
                 ->join('forms as f','form_submissions.form_id', '=', 'f.id')
