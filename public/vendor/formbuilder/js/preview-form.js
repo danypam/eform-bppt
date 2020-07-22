@@ -17,7 +17,19 @@ jQuery(function() {
                     }
                 }
             },
-
+            "duration": function(fieldData) {
+                return {
+                    field: ' <input type="text" name="' + fieldData.name + '" id="' + fieldData.name + '" class="form-control"/>',
+                    onRender: function () {
+                        $(document.getElementById(fieldData.name)).daterangepicker({
+                            timePicker: true,
+                            locale: {
+                                format: 'DD/MM/YYYY hh:mm A'
+                            }
+                        });
+                    }
+                }
+            }
         }
 	}
 	$('#fb-render').formRender(fbRenderOptions)

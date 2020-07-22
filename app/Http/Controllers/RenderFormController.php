@@ -94,11 +94,11 @@ class RenderFormController extends Controller
     }
     public function submit(Request $request, $identifier)
     {
-        print_r($request->all());
+//        print_r($request->all());
         $form = Form::where('identifier', $identifier)->firstOrFail();
 //        DB::beginTransaction();
 //        try {
-            dd($request->all());
+//            dd($request->all());
             $input = $request->except('_token');
 
             // check if files were uploaded and process them

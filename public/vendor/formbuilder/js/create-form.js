@@ -40,10 +40,6 @@ jQuery(function() {
                             value: r,
                             text: r
                         }));
-                        /*$('.fld-lbl', fld).append($('<option>', {
-                            value: r,
-                            text: r
-                        }));*/
                     })
                 }});
         })
@@ -69,12 +65,19 @@ jQuery(function() {
         userDefinedControls: [{ label: 'User Control', attrs: { type: 'datetime', className: 'text-input', name: 'customcontrol', identifier: 'customcontrol' } }],
         fields: [
         {
-            label: 'Time Picker',
+            label: 'Time',
             attrs: {
                 type: 'datetime-local'
             },
             icon: '⏰'
         },
+            {
+                label: 'Duration',
+                attrs: {
+                    type: 'duration'
+                },
+                icon: '⏰'
+            },
             {
                 label: 'Select From Database',
                 attrs: {
@@ -94,6 +97,19 @@ jQuery(function() {
                             }
                         });
                     }*/
+                }
+            },
+            "duration": function(fieldData) {
+                return {
+                    field: ' <input type="text" name="' + fieldData.name + '" id="' + fieldData.name + '" class="form-control"/>',
+                       onRender: function() {
+                           $(document.getElementById(fieldData.name)).daterangepicker({
+                               timePicker: true,
+                               locale: {
+                                   format: 'DD/MM/YYYY hh:mm A'
+                               }
+                           });
+                       }
                 }
             },
             selectFromDatabase: function(fieldData){

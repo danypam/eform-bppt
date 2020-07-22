@@ -1,6 +1,7 @@
 @extends('formbuilder::layout')
 @section('head')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="{{ asset('vendor/formbuilder/js/jquery-formbuilder/form-render.min.js') }}" defer></script>
 @endsection
 @section('content')
@@ -42,13 +43,7 @@
 
 @endsection
 @section('footer')
-{{--    <script>--}}
-{{--        $( '.card-title' ).on('click',function() {--}}
-{{--            alert('wadidaw')--}}
-{{--            $('.rendered-form').addClass('form-horizontal');--}}
-{{--        });--}}
-{{--    </script>--}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 @endsection
 @push(config('formbuilder.layout_js_stack', 'scripts'))
 
