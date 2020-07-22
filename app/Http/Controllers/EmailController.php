@@ -6,6 +6,8 @@ use App\Mail\email_atasan;
 use App\Mail\email_kepala;
 use App\Mail\email_ongoing;
 use App\Mail\email_pending;
+use App\Mail\email_rejected;
+use App\Mail\email_complete;
 use App\Mail\email_pic;
 use App\Pegawai;
 use App\Submission;
@@ -48,18 +50,14 @@ class EmailController extends Controller
             'url'    => url('/my-submissions/'.$submission_id)
         ];
 
-        if($status == config(constant('constants.status.new'))){
-            \Mail::to($i->pegawai->email)->send(new email_ongoing($details));
-        }else if ($status == config(constant('constants.status.pending'))){
+        if ($status == config(constant('constants.status.pending'))){
             \Mail::to($i->pegawai->email)->send(new email_pending($details));
-        }else if ($status == config(constant('constants.status.waitForPic'))){
-            \Mail::to($i->pegawai->email)->send(new email_ongoing($details));
         }else if ($status == config(constant('constants.status.onGoing'))){
             \Mail::to($i->pegawai->email)->send(new email_ongoing($details));
         }else if ($status == config(constant('constants.status.completed'))){
-            \Mail::to($i->pegawai->email)->send(new email_ongoing($details));
+            \Mail::to($i->pegawai->email)->send(new email_complete($details));
         }else if ($status == config(constant('constants.status.rejected'))){
-            \Mail::to($i->pegawai->email)->send(new email_ongoing($details));
+            \Mail::to($i->pegawai->email)->send(new email_rejected($details));
         }else{
 
         }

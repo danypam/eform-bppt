@@ -96,8 +96,8 @@ class RenderFormController extends Controller
     {
 //        print_r($request->all());
         $form = Form::where('identifier', $identifier)->firstOrFail();
-//        DB::beginTransaction();
-//        try {
+        DB::beginTransaction();
+        try {
 //            dd($request->all());
             $input = $request->except('_token');
 
@@ -120,7 +120,7 @@ class RenderFormController extends Controller
                 'content' => $input,
             ])->id;
             //===Notifikasi
-//            try {
+            try {
                 if($this->cek_jabatan()){
                     NotifikasiController::sent_atasan($submission_id);
                     EmailController::sent_atasan($submission_id);
@@ -129,14 +129,14 @@ class RenderFormController extends Controller
                     EmailController::sent_kepala($submission_id);
                 }
                 LogActivity::addToLog('Submitted Form'.$form->name);
-//            }catch (Throwable $e){}
+            }catch (Throwable $e){}
             DB::commit();
             return redirect('/my-submissions')->with('sukses', 'Terimakasih. Formulir Berhasil diajukan. Mohon Tunggu');
-//        } catch (Throwable $e) {
-//            DB::rollback();
-//            dd($e);
-//            return back()->withInput()->with('error', Helper::wtf())->with('error','');
-//        }
+        } catch (Throwable $e) {
+            DB::rollback();
+            dd($e);
+            return back()->withInput()->with('error', Helper::wtf())->with('error','');
+        }
     }
     /**
      * Display a feedback page
