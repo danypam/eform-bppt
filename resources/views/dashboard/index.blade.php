@@ -205,7 +205,7 @@
                                 <ul class="list-unstyled activity-list">
                                     @foreach($data as $d)
                                         <li>
-                                            <img src="{{auth()->user()->pegawai->getFoto()}}" alt="Avatar" class="img-circle pull-left avatar">
+                                            <img src="{{--{{auth()->user()->pegawai->getFoto()}}--}}" alt="Avatar" class="img-circle pull-left avatar">
                                             <p><a href="#">{{$d->name}}</a>
                                                 <br><span>{{$d->subject}} </span>
                                                 <span class="timestamp">{{\Carbon\Carbon::parse($d->created_at)->diffForHumans()}}</span></p>

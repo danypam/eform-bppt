@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\NewForm;
+use App\Submission;
+use App\User;
+use App\Pegawai;
 use Illuminate\Http\Request;
 use App\Notification;
 use Illuminate\Support\Facades\DB;
@@ -29,5 +33,39 @@ class NotifikasiController extends Controller
             ->where('form_submissions.id', '=', $id)
             ->get();
         return view('/inbox/read',['inboxs'=>$inboxs]);
+    }
+
+    public function get_user($submisions_id){
+
+    }
+    public static function sent_kepala($submisions_id){
+        $users = User::whereHas('roles',function($q){
+            $q->where('name', 'kepala');
+        })->get();
+        if (\Notification::send($users, new NewForm(Submission::find($submisions_id)))){
+            return back();
+        }
+    }
+    public static function sent_pic($submisions_id){
+        $pic = Submission::with('form')->find($submisions_id)->form->pic;
+        $pic = json_decode($pic);
+        $users = Pegawai::with('user')->find($pic)->pluck('user_id');
+        $users = User::find($users);
+        if (\Notification::send($users, new NewForm(Submission::find($submisions_id)))){
+            return back();
+        }
+    }
+
+    public static function sent_atasan($submissions_id){
+        $sub = Submission::with('pegawai.unit_jabatan')->find($submissions_id);
+        $unit_atas1 = $sub->pegawai->unit_jabatan->kode_unitatas1;
+        $unit_atas2 = $sub->pegawai->unit_jabatan->kode_unitatas2;
+        $users =   User::with('pegawai')->whereHas('pegawai', function($q) use ($unit_atas2, $unit_atas1){
+            $q->where('unit_jabatan_id', '=',$unit_atas1)
+                ->orWhere('unit_jabatan_id', '=', $unit_atas2);
+        }) ->get();
+        if (\Notification::send($users, new NewForm(Submission::find($submissions_id)))){
+            return back();
+        }
     }
 }

@@ -33,10 +33,11 @@
                                         </thead>
                                         <tbody>
                                         @foreach($primary_inboxs as $inbox)
+{{--                                            {{dd($inbox->id)}}--}}
                                             <tr>
-                                                <td>{{$inbox->email}}</td>
-                                                <td>{{$inbox->nama_lengkap}}</td>
-                                                <td>{{$inbox->name}}</td>
+                                                <td>{{isset($inbox->pegawai->email) ? $inbox->pegawai->email : '-'}}</td>
+                                                <td>{{isset($inbox->pegawai->nama_lengkap) ? $inbox->pegawai->nama_lengkap : '-'}}</td>
+                                                <td>{{isset($inbox->form->name) ? $inbox->form->name : '-'}}</td>
                                                 @if($inbox->status == -1)
                                                     <td>
                                                         <div class="btn-group">
@@ -99,24 +100,24 @@
                                                 @endif
                                                 <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($inbox->created_at)}}</td>
                                                 <td>
-                                                    <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">Lihat</a>
+                                                    <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->id}}" class="btn btn-warning btn-sm">Lihat</a>
                                                 @can('inbox-management')
 
                                                         @if(!($inbox->status == config("constants.status.rejected") || ($inbox->status > config("constants.status.pending"))))
                                                             @if(auth()->user()->can('inbox-approve-mengetahui') && $inbox->status == config("constants.status.new"))
-                                                                <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$inbox->submission_id}}" class="btn btn-primary btn-sm">Approve</a>
-                                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
+                                                                <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$inbox->id}}" class="btn btn-primary btn-sm">Approve</a>
+                                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
 
                                                             @elseif(auth()->user()->can('inbox-approve-mengetahui') && auth()->user()->can('inbox-approve-menyetujui'))
-                                                                <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-primary btn-sm">Approve</a>
-                                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
+                                                                <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$inbox->id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-primary btn-sm">Approve</a>
+                                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
                                                             @elseif(auth()->user()->can('inbox-approve-menyetujui') && $inbox->status == config("constants.status.pending"))
                                                                 @if($inbox->keterangan === null)
-                                                                    <a href="#" data-toggle="modal" data-target="#approve1" data-id="{{$inbox->submission_id}}" class="btn btn-primary btn-sm">Approve</a>
-                                                                    <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
+                                                                    <a href="#" data-toggle="modal" data-target="#approve1" data-id="{{$inbox->id}}" class="btn btn-primary btn-sm">Approve</a>
+                                                                    <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
                                                                  @else
-                                                                    <a href="#" data-toggle="modal" data-target="#approve1" data-id="{{$inbox->submission_id}}" data-ket="{{json_decode($inbox->keterangan)->ket1}}" data-nama="{{json_decode($inbox->keterangan)->nama1}}" class="btn btn-primary btn-sm">Approve</a>
-                                                                    <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->submission_id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
+                                                                    <a href="#" data-toggle="modal" data-target="#approve1" data-id="{{$inbox->id}}" data-ket="{{json_decode($inbox->keterangan)->ket1}}" data-nama="{{json_decode($inbox->keterangan)->nama1}}" class="btn btn-primary btn-sm">Approve</a>
+                                                                    <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
                                                                  @endif
 
                                                             @endif
@@ -145,9 +146,9 @@
                                         <tbody>
                                         @foreach($approved_inboxs as $inbox)
                                             <tr>
-                                                <td>{{$inbox->email}}</td>
-                                                <td>{{$inbox->nama_lengkap}}</td>
-                                                <td>{{$inbox->name}}</td>
+                                                <td>{{isset($inbox->pegawai->email) ? $inbox->pegawai->email : '-'}}</td>
+                                                <td>{{isset($inbox->pegawai->nama_lengkap) ? $inbox->pegawai->nama_lengkap : '-'}}</td>
+                                                <td>{{isset($inbox->form->name) ? $inbox->form->name : '-'}}</td>
                                                 @if($inbox->status == -1)
                                                     <td><span class="label label-danger">REJECTED</span></td>
                                                 @endif
@@ -165,7 +166,7 @@
                                                 @endif
                                                 <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($inbox->created_at)}}</td>
                                                 <td>
-                                                    <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                    <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->id}}" class="btn btn-warning btn-sm">View</a>
                                                 </td>
                                             </tr>
                                              @endforeach
@@ -188,9 +189,9 @@
                                         <tbody>
                                         @foreach($rejected_inboxs as $inbox)
                                             <tr>
-                                                <td>{{$inbox->email}}</td>
-                                                <td>{{$inbox->nama_lengkap}}</td>
-                                                <td>{{$inbox->name}}</td>
+                                                <td>{{isset($inbox->pegawai->email) ? $inbox->pegawai->email : '-'}}</td>
+                                                <td>{{isset($inbox->pegawai->nama_lengkap) ? $inbox->pegawai->nama_lengkap : '-'}}</td>
+                                                <td>{{isset($inbox->form->name) ? $inbox->form->name : '-'}}</td>
                                                 @if($inbox->status == -1)
                                                     <td><span class="label label-danger">REJECTED</span></td>
                                                 @endif
@@ -208,7 +209,7 @@
                                                 @endif
                                                 <td>{{\App\Http\Controllers\TimeController::time_elapsed_string($inbox->created_at)}}</td>
                                                 <td>
-                                                    <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->submission_id}}" class="btn btn-warning btn-sm">View</a>
+                                                    <a href="/forms/{{$inbox->form_id}}/submissions/{{$inbox->id}}" class="btn btn-warning btn-sm">View</a>
                                                 </td>
                                             </tr>
                                         @endforeach

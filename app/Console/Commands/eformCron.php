@@ -54,6 +54,18 @@ class eformCron extends Command
         }
     }
 
+/*    public function cronRole(){
+        $users = DB::table('users')->get();
+        foreach ($users as $user){
+            DB::table('model_has_roles')
+                ->updateOrInsert(
+                    ['model_id' => $user->id],
+                    [
+                        'name' => $p->nama_lengkap
+                    ]);
+        }
+    }*/
+
     public function cronUser(){
         $pegawai = DB::table('pegawai')->get();
         foreach ($pegawai as $p){

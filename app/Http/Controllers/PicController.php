@@ -53,7 +53,8 @@ class PicController extends Controller
                 ->where('form_submissions.status', '=', $status)
                 ->select('nama_lengkap','nip','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan','form_submissions.mengetahui','form_submissions.menyetujui','form_submissions.pic')
                 ->get();
-        }elseif ($status == config('constants.status.onGoing')){
+        }
+        elseif ($status == config('constants.status.onGoing')){
             return DB::table('form_submissions')
                 ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
                 ->join('forms as f','form_submissions.form_id', '=', 'f.id')
@@ -61,7 +62,8 @@ class PicController extends Controller
                 ->where('form_submissions.status', '=', $status)
                 ->select('nama_lengkap','nip','email','f.name','f.id as form_id','form_submissions.id as submission_id','form_submissions.status','form_submissions.created_at','form_submissions.keterangan','form_submissions.mengetahui','form_submissions.menyetujui','form_submissions.pic')
                 ->get();
-        }else{
+        }
+        else{
             return DB::table('form_submissions')
                 ->join('pegawai as p','form_submissions.user_id','=','p.user_id')
                 ->join('forms as f','form_submissions.form_id', '=', 'f.id')
@@ -109,12 +111,13 @@ class PicController extends Controller
                 $this->commit($id);
                 $this->fillWhoTake($id);
                 DB::commit();
-                $emailtouser = $this->getEmailPegawai($id);
-                $details = [
-                    'name' => $emailtouser->nama_lengkap,
-                    'url'    => url('/my-submissions/'.$id)
-                ];
-                \Mail::to($emailtouser->email)->send(new email_progress($details));
+//                $emailtouser = $this->getEmailPegawai($id);
+//                $details = [
+//                    'name' => $emailtouser->nama_lengkap,
+//                    'url'    => url('/my-submissions/'.$id)
+//                ];
+//                \Mail::to($emailtouser->email)->send(new email_progress($details));
+                EmailController::sent_user($id);
                 return redirect('/task')->with('sukses', 'Selamat Mengerjakan');
             }else{
                 DB::rollback();
@@ -147,16 +150,17 @@ class PicController extends Controller
             'keterangan'=>$kete,
             'complete_at'=> Carbon::now()->toDateTimeString()
         ]);
+        EmailController::sent_user($request->submission_id);
 
-        $emails = $this->getemailuser($request->submission_id);
-
-        $details = [
-            'name' => $emails->nama_lengkap,
-            'url'=>'servicedesk.bppt.go.id',
-            'keterangan'=> $keterangan3
-        ];
-//        dd($details);
-        \Mail::to($emails->email)->send(new email_complete($details));
+//        $emails = $this->getemailuser($request->submission_id);
+//
+//        $details = [
+//            'name' => $emails->nama_lengkap,
+//            'url'=>'servicedesk.bppt.go.id',
+//            'keterangan'=> $keterangan3
+//        ];
+////        dd($details);
+//        \Mail::to($emails->email)->send(new email_complete($details));
         return redirect('/task')->with('sukses','Tugas telah selesai');
     }
 

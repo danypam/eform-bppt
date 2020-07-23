@@ -60,7 +60,7 @@
                                                             <tr>
                                                                 <td align="center" width="100%" style="padding: 0 15px;text-align: justify;color: rgb(76, 76, 76);font-size: 12px;line-height: 18px;">
                                                                     <img src="https://66.media.tumblr.com/96298dc1158e944fb1e519cb02818770/70bdf9d7e190cc98-28/s1280x1920/aa659bdffce2049873132bcd08d4d80d06c5a679.png" width="100%"><br><br>
-                                                                    <h3 style="font-weight: 600; padding: 0px; margin: 0px; font-size: 16px; line-height: 24px; text-align: center;" class="title-color">Halo, {{$detail['name']}}</h3>
+                                                                    <h3 style="font-weight: 600; padding: 0px; margin: 0px; font-size: 16px; line-height: 24px; text-align: center;" class="title-color">Halo</h3>
                                                                     <p style="margin: 20px 0 30px 0;font-size: 15px;text-align: center;">Tekan tombol di bawah ini apabila ingin menyetujui</p>
                                                                     <center><a href="{{$detail['url']}}" style="background-color: #3D6EC9; border-radius:40px; color: #ffffff; padding: 10px; font-size: 16px;margin: 20px 0 30px 0;display: inline-block; font-weight: bold; text-decoration:none; border: none;cursor: pointer;">Surat Masuk</a></center>
                                                                     <p style="margin: 20px 0 30px 0;font-size: 15px;text-align: center;">Berikut data permohonan yang perlu disetujui</p>
@@ -114,7 +114,7 @@
                                                             <tr>
                                                                 <td style="border: none;word-wrap: break-word; width: 50%"><strong>Unit Kerja</strong></td>
                                                                 <td>:</td>
-                                                                <td style="border: none;word-wrap: break-word; text-indent: 2%;width: 50%">{{$detail['identitas']->unit_kerja->unit}}</td>
+                                                                <td style="border: none;word-wrap: break-word; text-indent: 2%;width: 50%">{{isset($detail['identitas']->unit_kerja->unit)?$detail['identitas']->unit_kerja->unit:""}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="border: none;word-wrap: break-word; width: 50%"><strong>Unit Jabatan</strong></td>

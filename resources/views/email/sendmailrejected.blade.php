@@ -57,7 +57,7 @@
                                                             <tr>
                                                                 <td align="center" width="100%" style="padding: 0 15px;text-align: justify;color: black;font-size: 12px;line-height: 18px;">
                                                                     <img src="https://66.media.tumblr.com/d57f23a1c1d2721e5e2934ac555fb307/70bdf9d7e190cc98-e4/s1280x1920/2d4e05e0b50d7d56511b8dab0d6a77d8fe16676c.png" width="100%"><br><br>
-                                                                    <h3 style="font-weight: 600; padding: 0px; margin: 0px; font-size: 18px; line-height: 24px; text-align: center; color:#3357C0;" class="title-color">Maaf, {{$detail['name']}}</h3>
+                                                                    <h3 style="font-weight: 600; padding: 0px; margin: 0px; font-size: 18px; line-height: 24px; text-align: center; color:#3357C0;" class="title-color">Maaf</h3>
                                                                     <p style="margin: 20px 0 30px 0;font-size: 16px;text-align: center;">Permohonan Anda ditolak oleh {{Auth::user()->name}} karena alasan berikut:</p>
                                                                     <p style="margin: 20px 0 30px 0;color: #3357C0; text-align: center; font-size: 16px; font-weight: bold;">{{$detail['keterangan']}}</p>
 {{--                                                                    <p style="margin: 20px 0 30px 0;font-size: 16px;text-align: center;">Silahkan periksa kembali form yang Anda telah ajukan pada tombol di bawah ini </p>--}}

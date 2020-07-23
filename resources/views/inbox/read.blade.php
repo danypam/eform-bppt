@@ -27,9 +27,9 @@
                                     <tbody>
                                     @foreach($inboxs as $inbox)
                                         <tr>
-                                            <td>{{$inbox->email}}</td>
-                                            <td>{{$inbox->nama_lengkap}}</td>
-                                            <td>{{$inbox->name}}</td>
+                                            <td>{{isset($inbox->pegawai->email) ? $inbox->pegawai->email : '-'}}</td>
+                                            <td>{{isset($inbox->pegawai->nama_lengkap) ? $inbox->pegawai->nama_lengkap : '-'}}</td>
+                                            <td>{{isset($inbox->form->name) ? $inbox->form->name : '-'}}</td>
                                             @if($inbox->status == -1)
                                                 <td><span class="label label-danger">REJECTED</span></td>
                                             @endif
