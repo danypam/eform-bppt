@@ -33,7 +33,7 @@ class PicController extends Controller
         $completes = $this->form_submissions(4);    //complete by pic
         $pegawai = Pegawai::all();
         foreach ($tasks as $sub){
-            $sub->keterangan = json_decode(json_decode($sub->keterangan));
+            $sub->keterangan = json_decode($sub->keterangan);
         }
 
         return view('/task/index',['tasks'=>$tasks, 'mytasks'=>$mytasks, 'completes'=>$completes, 'pegawai'=>$pegawai]);
@@ -111,12 +111,13 @@ class PicController extends Controller
                 $this->commit($id);
                 $this->fillWhoTake($id);
                 DB::commit();
-                $emailtouser = $this->getEmailPegawai($id);
-                $details = [
-                    'name' => $emailtouser->nama_lengkap,
-                    'url'    => url('/my-submissions/'.$id)
-                ];
-                \Mail::to($emailtouser->email)->send(new email_progress($details));
+//                $emailtouser = $this->getEmailPegawai($id);
+//                $details = [
+//                    'name' => $emailtouser->nama_lengkap,
+//                    'url'    => url('/my-submissions/'.$id)
+//                ];
+//                \Mail::to($emailtouser->email)->send(new email_progress($details));
+                EmailController::sent_user($id);
                 return redirect('/task')->with('sukses', 'Selamat Mengerjakan');
             }else{
                 DB::rollback();
@@ -149,16 +150,17 @@ class PicController extends Controller
             'keterangan'=>$kete,
             'complete_at'=> Carbon::now()->toDateTimeString()
         ]);
+        EmailController::sent_user($request->submission_id);
 
-        $emails = $this->getemailuser($request->submission_id);
-
-        $details = [
-            'name' => $emails->nama_lengkap,
-            'url'=>'servicedesk.bppt.go.id',
-            'keterangan'=> $keterangan3
-        ];
-//        dd($details);
-        \Mail::to($emails->email)->send(new email_complete($details));
+//        $emails = $this->getemailuser($request->submission_id);
+//
+//        $details = [
+//            'name' => $emails->nama_lengkap,
+//            'url'=>'servicedesk.bppt.go.id',
+//            'keterangan'=> $keterangan3
+//        ];
+////        dd($details);
+//        \Mail::to($emails->email)->send(new email_complete($details));
         return redirect('/task')->with('sukses','Tugas telah selesai');
     }
 

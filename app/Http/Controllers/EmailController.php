@@ -6,6 +6,7 @@ use App\Mail\email_atasan;
 use App\Mail\email_kepala;
 use App\Mail\email_ongoing;
 use App\Mail\email_pending;
+use App\Mail\email_progress;
 use App\Mail\email_rejected;
 use App\Mail\email_complete;
 use App\Mail\email_pic;
@@ -44,6 +45,7 @@ class EmailController extends Controller
 
     public static function sent_user($submission_id){
 
+
         $i = Submission::with(['pegawai.unit_jabatan', 'form'])->find($submission_id);
         $status = $i->status;
         $details = [
@@ -52,8 +54,10 @@ class EmailController extends Controller
         ];
         if ($status == config('constants.status.pending')){
             \Mail::to($i->pegawai->email)->send(new email_pending($details));
-        }else if ($status == config('constants.status.onGoing')){
+        }else if ($status == config('constants.status.waitForPic')){
             \Mail::to($i->pegawai->email)->send(new email_ongoing($details));
+        }else if ($status == config('constants.status.onGoing')){
+            \Mail::to($i->pegawai->email)->send(new email_progress($details));
         }else if ($status == config('constants.status.completed')){
             \Mail::to($i->pegawai->email)->send(new email_complete($details));
         }else if ($status == config('constants.status.rejected')){

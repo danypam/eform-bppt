@@ -89,7 +89,7 @@ class InboxController extends Controller
         try {
             DB::beginTransaction();
             $id_pegawai = Pegawai::get_id_pegawai(auth()->user()->id);
-            $kete = json_encode($ket, JSON_UNESCAPED_SLASHES);
+            $kete = $ket;
             $commit = Submission::find($id);
             $commit->$column = $id_pegawai;
             $commit->$column2 = Carbon::now()->toDateTimeString();
@@ -139,7 +139,7 @@ class InboxController extends Controller
                 $this->commit($request->submission_id, $request->keterangan, "mengetahui", "mengetahui_at");
                 try {
                     NotifikasiController::sent_kepala($request->submission_id);
-                    EmailController::sent_atasan($request->submission_id);
+                    EmailController::sent_kepala($request->submission_id);
                     EmailController::sent_user($request->submission_id);
                     LogActivity::addToLog('Form ' . $request->submission_id . ' Was Approved');
                 } catch (Throwable $e) {

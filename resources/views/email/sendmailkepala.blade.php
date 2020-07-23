@@ -114,7 +114,7 @@
                                                             <tr>
                                                                 <td style="border: none;word-wrap: break-word; width: 50%"><strong>Unit Kerja</strong></td>
                                                                 <td>:</td>
-                                                                <td style="border: none;word-wrap: break-word; text-indent: 2%;width: 50%">{{$detail['identitas']->unit_kerja->unit}}</td>
+                                                                <td style="border: none;word-wrap: break-word; text-indent: 2%;width: 50%">{{isset($detail['identitas']->unit_kerja->unit)?$detail['identitas']->unit_kerja->unit:""}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="border: none;word-wrap: break-word; width: 50%"><strong>Unit Jabatan</strong></td>
