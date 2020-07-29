@@ -22,9 +22,9 @@ class AuthController extends Controller
             if(auth()->user()->status == true) {
 //                LogActivity::addToLog('User Was Login');
                 if ($request->password == '123456') {
-                    return redirect('/dashboard')->with('warning', 'PLEASE CHANGE YOUR PASSWORD!!!!');
+                    return redirect()->intended('/dashboard')->with('warning', 'PLEASE CHANGE YOUR PASSWORD!!!!');
                 }else{
-                    return redirect('/dashboard');
+                    return redirect()->intended('/dashboard');;
                 }
             }else{
 
