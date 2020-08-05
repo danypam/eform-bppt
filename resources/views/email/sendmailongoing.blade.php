@@ -17,7 +17,7 @@
         <tr>
             <td align="center">
                 <center style="width:100%">
-                    <table bgcolor="#f5fcff" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto;max-width:512px;font-weight:200;width:inherit;font-family:Helvetica,Arial,sans-serif" width="512">
+                    <table bgcolor="#f5fcff" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto;max-width:600px;font-weight:200;width:inherit;font-family:Helvetica,Arial,sans-serif" width="512">
                         <tbody>
                         <tr>
                             <td bgcolor="#72868f" width="100%" style="background-color:#f3f3f3;padding:12px;border-bottom:1px solid #ececec">

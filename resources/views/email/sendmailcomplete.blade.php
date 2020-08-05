@@ -57,9 +57,10 @@
 {{--                                                                    <hr color="#999999" width="100%" size="10">--}}
                                                                     <h3 style="font-weight: 600; padding: 0px; margin: 0px; font-size: 18px; line-height: 24px; text-align: center; color:#3357C0;" class="title-color">Halo, {{$detail['name']}}</h3>
                                                                     <p style="margin: 20px 0 30px 0;font-size: 16px;text-align: center;">Permohonan Anda telah selesai dikerjakan. Berikut keterangan yang diberikan PIC</p>
+{{--                                                                    <p style="margin: 20px 0 30px 0;color: #3357C0; text-align: center; font-size: 16px; font-weight: bold;"> {{$detail['keterangan']}}</p>--}}
                                                                     <p style="margin: 20px 0 30px 0;color: #3357C0; text-align: center; font-size: 16px; font-weight: bold;">{{isset($detail['keterangan']) ? $detail['keterangan'] : ''}}</p>
                                                                     <p style="margin: 20px 0 30px 0;font-size: 16px;text-align: center;">Silahkan tekan tombol di bawah ini apabila ada pertanyaan atau keluhan lainnya</p>
-                                                                    <center><a href="{{$detail['url']}}" style="background-color: #3D6EC9; border-radius:40px; color: #ffffff; padding: 10px; font-size: 16px;margin: 20px 0 30px 0;display: inline-block; font-weight: bold; text-decoration:none; border: none;cursor: pointer;">servicedesk.bppt.go.id</a></center>
+                                                                    <center><a href="servicedesk.bppt.go.id" style="background-color: #3D6EC9; border-radius:40px; color: #ffffff; padding: 10px; font-size: 16px;margin: 20px 0 30px 0;display: inline-block; font-weight: bold; text-decoration:none; border: none;cursor: pointer;">servicedesk.bppt.go.id</a></center>
                                                                 </td>
                                                             </tr>
                                                             </tbody>
