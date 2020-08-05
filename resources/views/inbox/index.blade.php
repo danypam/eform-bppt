@@ -116,7 +116,7 @@
                                                                     <a href="#" data-toggle="modal" data-target="#approve1" data-id="{{$inbox->id}}" class="btn btn-primary btn-sm">Approve</a>
                                                                     <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
                                                                  @else
-                                                                    <a href="#" data-toggle="modal" data-target="#approve1" data-id="{{$inbox->id}}" data-ket="{{json_decode($inbox->keterangan)->ket1}}" data-nama="{{json_decode($inbox->keterangan)->nama1}}" class="btn btn-primary btn-sm">Approve</a>
+                                                                    <a href="#" data-toggle="modal" data-target="#approve1" data-id="{{$inbox->id}}" data-ket="{{$inbox->keterangan['ket1']}}" data-nama="{{$inbox->keterangan['nama1']}}" class="btn btn-primary btn-sm">Approve</a>
                                                                     <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
                                                                  @endif
 
