@@ -109,8 +109,8 @@
                                                                 <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
 
                                                             @elseif(auth()->user()->can('inbox-approve-mengetahui') && auth()->user()->can('inbox-approve-menyetujui'))
-                                                                <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$inbox->id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-primary btn-sm">Approve</a>
-                                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->id}}" data-ket="{{$inbox->keterangan}}" class="btn btn-danger btn-sm">Reject</a>
+                                                                <a href="#" data-toggle="modal" data-target="#approve" data-id="{{$inbox->id}}" class="btn btn-primary btn-sm">Approve</a>
+                                                                <a href="#" data-toggle="modal" data-target="#edit" data-id="{{$inbox->id}}" data-ket="{{json_encode($inbox->keterangan)}}" class="btn btn-danger btn-sm">Reject</a>
                                                             @elseif(auth()->user()->can('inbox-approve-menyetujui') && $inbox->status == config("constants.status.pending"))
                                                                 @if($inbox->keterangan === null)
                                                                     <a href="#" data-toggle="modal" data-target="#approve1" data-id="{{$inbox->id}}" class="btn btn-primary btn-sm">Approve</a>
