@@ -150,17 +150,17 @@ class PicController extends Controller
             'keterangan'=>$kete,
             'complete_at'=> Carbon::now()->toDateTimeString()
         ]);
-        EmailController::sent_user($request->submission_id);
+//        EmailController::sent_user($request->submission_id);
 
-//        $emails = $this->getemailuser($request->submission_id);
-//
-//        $details = [
-//            'name' => $emails->nama_lengkap,
-//            'url'=>'servicedesk.bppt.go.id',
-//            'keterangan'=> $keterangan3
-//        ];
-////        dd($details);
-//        \Mail::to($emails->email)->send(new email_complete($details));
+        $emails = $this->getemailuser($request->submission_id);
+
+        $details = [
+            'name' => $emails->nama_lengkap,
+            'url'=>'servicedesk.bppt.go.id',
+            'keterangan'=> $keterangan3
+        ];
+//        dd($details);
+        \Mail::to($emails->email)->send(new email_complete($details));
         return redirect('/task')->with('sukses','Tugas telah selesai');
     }
 

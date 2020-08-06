@@ -122,6 +122,7 @@ class InboxController extends Controller
                 try {
                     NotifikasiController::sent_pic($request->submission_id);
                     EmailController::sent_pic($request->submission_id);
+                    EmailController::sent_user($request->submission_id);
                     LogActivity::addToLog('Form ' . $request->submission_id . ' Was Approved');
                 } catch (Throwable $e) {
                 }

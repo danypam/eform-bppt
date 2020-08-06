@@ -51,6 +51,7 @@ class EmailController extends Controller
         $details = [
             'name' => $i->pegawai->nama_lengkap,
             'url'    => url('/my-submissions/'.$submission_id)
+            
         ];
         if ($status == config('constants.status.pending')){
             \Mail::to($i->pegawai->email)->send(new email_pending($details));
