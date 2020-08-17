@@ -406,8 +406,8 @@ jQuery(function() {
 
             var postData = {
                 name: $('#name').val(),
-                visibility: $('#visibility').val(),
-                allows_edit: $('#allows_edit').val(),
+                visibility: "PRIVATE",//$('#visibility').val(),
+                allows_edit: "0",//$('#allows_edit').val(),
                 form_builder_json: formBuilderJSONData,
                 letter_code: $('#letter-code').val(),
                 pic: pic_json,

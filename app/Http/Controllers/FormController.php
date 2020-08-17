@@ -43,6 +43,7 @@ class FormController extends Controller
     public function index()
     {
         $pageTitle = "Forms";
+        // $forms = Form::getForUser(auth()->user());
         $forms = Form::getForUser(auth()->user());
         return view('formbuilder::forms.index', compact('pageTitle', 'forms'));
     }
@@ -80,7 +81,7 @@ class FormController extends Controller
         $user = $request->user();
 
         $input = $request->merge(['user_id' => $user->id])->except('_token');
-
+        // dd($input);
         DB::beginTransaction();
 
         // generate a random identifier

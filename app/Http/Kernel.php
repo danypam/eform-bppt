@@ -13,6 +13,7 @@ class Kernel extends HttpKernel
      *
      * @var array
      */
+
     protected $middleware = [
         \App\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
@@ -64,6 +65,7 @@ class Kernel extends HttpKernel
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'cas.auth'  => \Kabupaten\Tasikmalaya\Cas\Middleware\Authenticate::class,
         'cas.guest' => \Kabupaten\Tasikmalaya\Cas\Middleware\RedirectIfAuthenticated::class,
+        'preventBackHistory' => \App\Http\Middleware\PreventBackHistory::class,
     ];
 
     /**

@@ -38,7 +38,7 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <!-- <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="visibility" class="col-form-label">Visibilitas Formulir</label>
 
@@ -73,7 +73,7 @@
                                                                 </span>
                                                     @endif
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                             <div class="col-md-4">
                                                 <div class="form-group">

@@ -51,7 +51,7 @@ class EmailController extends Controller
         $details = [
             'name' => $i->pegawai->nama_lengkap,
             'url'    => url('/my-submissions/'.$submission_id)
-            
+
         ];
         if ($status == config('constants.status.pending')){
             \Mail::to($i->pegawai->email)->send(new email_pending($details));
@@ -72,7 +72,7 @@ class EmailController extends Controller
             'name' => $i->pegawai->nama_lengkap,
             'url'    => $url,
             'submission' => $i,
-            'identitas' => Pegawai::with('unit_kerja', 'unit_jabatan')->find($i->pegawai_id)->firstOrFail(),
+            'identitas' => Pegawai::with('unit_kerja', 'unit_jabatan')->find($i->pegawai_id),
             'form_headers' => $i->form->getEntriesHeader(),
             'pageTitle' => "View Submission"
         ];

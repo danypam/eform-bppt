@@ -107,10 +107,9 @@ class InboxController extends Controller
         $can_menyetujui = auth()->user()->can('inbox-approve-menyetujui');
         $can_mengetahui = auth()->user()->can('inbox-approve-mengetahui');
 
-        $isFilled = Submission::find($request->submission_id)->first();
+        $isFilled = Submission::find($request->submission_id);
         $empty_Menyetujui = (!isset($isFilled->menyetujui));
         $empty_Mengetahui = (!isset($isFilled->mengetahui));
-//        dd($can_mengetahui);
 
             if ($can_menyetujui && $can_mengetahui && ($empty_Menyetujui || $empty_Mengetahui)) {
                 if ($empty_Mengetahui) {
@@ -129,6 +128,9 @@ class InboxController extends Controller
                 return redirect('/inbox')->with('sukses', 'Formulir Berhasil DiSetujui');
             } else if ($can_menyetujui && $empty_Menyetujui) {
                 $this->commit($request->submission_id, $request->keterangan, "menyetujui", "menyetujui_at");
+                if ($empty_Mengetahui) {
+                    $this->commit($request->submission_id, $request->keterangan, "mengetahui", "mengetahui_at");
+                }
                 try {
                     NotifikasiController::sent_pic($request->submission_id);
                     EmailController::sent_pic($request->submission_id);
