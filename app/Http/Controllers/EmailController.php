@@ -72,7 +72,7 @@ class EmailController extends Controller
             'name' => $i->pegawai->nama_lengkap,
             'url'    => $url,
             'submission' => $i,
-            'identitas' => Pegawai::with('unit_kerja', 'unit_jabatan')->find($i->pegawai_id),
+            'identitas' => Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id', '=', $i->user_id)->firstOrFail(),
             'form_headers' => $i->form->getEntriesHeader(),
             'pageTitle' => "View Submission"
         ];
