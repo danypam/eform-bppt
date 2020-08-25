@@ -233,6 +233,8 @@ class Submission extends Model
             $series[4]['data'][] = self::where('status', '=', '4')->where('form_id', '=', $fm->id)->get()->count();
             $series[5]['data'][] = self::where('status', '=', '-1')->where('form_id', '=', $fm->id)->get()->count();
         }
+				// isset($series) ? $series : '';
+				// dd($series);
         return ['category' => $category, 'series' => $series];
     }
 
@@ -241,7 +243,7 @@ class Submission extends Model
         $forms = Form::all();
         $tahun = date('Y');
         $category = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEPT', 'OCT', 'NOV', 'DES'];
-
+				$series = [];
         $i = -1;
         foreach ($forms as $fm) {
             $i++;
@@ -250,7 +252,7 @@ class Submission extends Model
                 $series[$i]['data'][] = self::where('form_id', '=', $fm->id)->whereMonth('created_at', '=', $j + 1)->whereYear('created_at', '=', $tahun)->get()->count();
             }
         }
-        //dd($series);
+        // dd($series);
         //dd($category);
         return ['series' => $series, 'category' => $category];
     }
@@ -258,10 +260,10 @@ class Submission extends Model
     public static function count_form3()
     {
         $forms = Form::all();
-        $tahun_akhir = date('Y', strtotime('+1years'));
-        $tahun_awal = date('Y', strtotime('-5years'));
+        $tahun_akhir = date('Y', strtotime('+5years'));
+        $tahun_awal = date('Y', strtotime('-1years'));
         $category = [];
-
+				$series = [];
         $i = -1;
         foreach ($forms as $fm) {
             $i++;
@@ -277,23 +279,24 @@ class Submission extends Model
         return ['series' => $series, 'category' => $category];
     }
 
-    public static function chart()
-    {
-        $forms = Submission::with('form:id,name')->select('form_id')->groupBy('form_id')->get();
-        foreach ($forms as $form){
-            $result = Submission::select(DB::raw('TIMESTAMP(DATE(created_at)) as time, COUNT(form_id) as data'))
-                ->groupBy('time')
-                ->where('form_id',$form->form_id)
-                ->get();
-            $value = null;
-            foreach ($result as $r){
-                $value[] = [$r->time, $r->data];
-            }
-
-                $chart[] = [$form->form->name, $value] ;
-        }
-        //dd($chart);
-        return $chart;
-    }
+    // public static function chart()
+    // {
+    //     $forms = Submission::with('form:id,name')->select('form_id')->groupBy('form_id')->get();
+		// 		$chart = [];
+    //     foreach ($forms as $form){
+    //         $result = Submission::select(DB::raw('TIMESTAMP(DATE(created_at)) as time, COUNT(form_id) as data'))
+    //             ->groupBy('time')
+    //             ->where('form_id',$form->form_id)
+    //             ->get();
+    //         $value = null;
+    //         foreach ($result as $r){
+    //             $value[] = [$r->time, $r->data];
+    //         }
+		//
+    //             $chart[] = [$form->form->name, $value] ;
+    //     }
+    //     //dd($chart);
+    //     return $chart;
+    // }
 
 }

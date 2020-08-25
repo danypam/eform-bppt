@@ -10,10 +10,9 @@
                 <hr class="my-4">
                 <p>Kontak Administrator</p>
                 <p class="lead">
-                    <a class="btn btn-primary btn-lg" href="/logout" role="button">Log Out</a>
+                    <a class="btn btn-primary btn-lg" href="/cas/logout" role="button">Log Out</a>
                 </p>
             </div>
     </div>
     </body>
 </html>
-

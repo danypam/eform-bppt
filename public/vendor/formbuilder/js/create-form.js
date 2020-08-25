@@ -64,13 +64,13 @@ jQuery(function() {
         ],
         userDefinedControls: [{ label: 'User Control', attrs: { type: 'datetime', className: 'text-input', name: 'customcontrol', identifier: 'customcontrol' } }],
         fields: [
-        {
-            label: 'Time',
-            attrs: {
-                type: 'datetime-local'
-            },
-            icon: '⏰'
-        },
+        // {
+        //     label: 'Time',
+        //     attrs: {
+        //         type: 'datetime-local'
+        //     },
+        //     icon: '⏰'
+        // },
             {
                 label: 'Duration',
                 attrs: {
@@ -86,19 +86,19 @@ jQuery(function() {
                 icon: '🛢'
             },],
         templates: {
-            "datetime-local": function(fieldData) {
-                return {
-                    field: ' <input type="datetime-local" id="' + fieldData.name + '" class="form-control"/>'
-                 /*   onRender: function() {
-                        $(document.getElementById(fieldData.name)).daterangepicker({
-                            timePicker: true,
-                            locale: {
-                                format: 'DD/MM/YYYY hh:mm A'
-                            }
-                        });
-                    }*/
-                }
-            },
+            // "datetime-local": function(fieldData) {
+            //     return {
+            //         field: ' <input type="datetime-local" name="' + fieldData.name + '"  id="' + fieldData.name + '" class="form-control"/>'
+            //      /*   onRender: function() {
+            //             $(document.getElementById(fieldData.name)).daterangepicker({
+            //                 timePicker: true,
+            //                 locale: {
+            //                     format: 'DD/MM/YYYY hh:mm A'
+            //                 }
+            //             });
+            //         }*/
+            //     }
+            // },
             "duration": function(fieldData) {
                 return {
                     field: ' <input type="text" name="' + fieldData.name + '" id="' + fieldData.name + '" class="form-control"/>',
@@ -114,7 +114,7 @@ jQuery(function() {
             },
             selectFromDatabase: function(fieldData){
                 return {
-                    field: ' <select type="selectFromDatabase" id="' + fieldData.name + '" class="form-control selectfromdatabase"/>',
+                    field: ' <select type="selectFromDatabase" name="' + fieldData.name + '" id="' + fieldData.name + '" class="form-control selectfromdatabase"/>',
                     onRender: function () {
                     }
                 }
