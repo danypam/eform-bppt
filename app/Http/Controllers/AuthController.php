@@ -21,11 +21,11 @@ class AuthController extends Controller
         if (Auth::attempt($request->only('email','password','status'))){
             if(auth()->user()->status == true) {
 //                LogActivity::addToLog('User Was Login');
-                if ($request->password == '123456') {
-                    return redirect()->intended('/dashboard')->with('warning', 'PLEASE CHANGE YOUR PASSWORD!!!!');
-                }else{
-                    return redirect()->intended('/dashboard');;
-                }
+                // if ($request->password == '123456') {
+                    // return redirect()->intended('/dashboard')->with('warning', 'PLEASE CHANGE YOUR PASSWORD!!!!');
+                // }else{
+                    return redirect()->intended('/dashboard');
+                // }
             }else{
 
                 return redirect('/login')->with('error','Your Account is not Active! Please Contact (021) 757 91262');

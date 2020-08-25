@@ -11,7 +11,7 @@ use App\Pegawai;
 use Illuminate\Support\Carbon;
 use jazmy\FormBuilder\Helper;
 use jazmy\FormBuilder\Models\Form;
-use jazmy\FormBuilder\Models\Submission;
+use App\Submission;
 use Illuminate\Http\Request;
 
 class SubmissionController extends Controller
@@ -24,6 +24,7 @@ class SubmissionController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        // $this->middleware('permission:inbox-list-mengetahui|inbox-list-menyetujui|inbox-list-all', ['only' => ['index','show']]);
     }
 
     /**
@@ -65,19 +66,36 @@ class SubmissionController extends Controller
      */
     public function show($form_id, $submission_id)
     {
-        $submission = Submission::with('user', 'form')
-                            ->where([
-                                'form_id' => $form_id,
-                                'id' => $submission_id,
-                            ])
-                            ->firstOrFail();
-        $form_headers = $submission->form->getEntriesHeader();
 
-        $identitas = Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id',$submission->user_id)->first();
+      $id_pegawai = Pegawai::get_id_pegawai(auth()->user()->id);
+      $unjab = Pegawai::find($id_pegawai)->unit_jabatan_id;
+      // dd($unjab);
 
-        $pageTitle = "View Submission";
 
-        return view('formbuilder::submissions.show', compact('pageTitle', 'submission', 'form_headers','identitas'));
+      $all = auth()->user()->can('inbox-list-all');
+      $menyetujui = auth()->user()->can('inbox-list-menyetujui');
+      $mengetahui = auth()->user()->can('inbox-list-mengetahui');
+
+      $submission = Submission::with(['user', 'form', 'pegawai.unit_jabatan'])
+                          ->where([
+                              'form_id' => $form_id,
+                              'id' => $submission_id,
+                          ])
+                          ->firstOrFail();
+
+        $atasan_form = ($submission->pegawai->unit_jabatan->kode_unitatas1 == $unjab || $submission->pegawai->unit_jabatan->kode_unitatas2 == $unjab);
+        if(($menyetujui && $submission->status >= config('constants.status.pending')) ||
+            ($mengetahui  && $atasan_form) ||
+              $all){
+
+                        $form_headers = $submission->form->getEntriesHeader();
+                        $identitas = Pegawai::with('unit_kerja', 'unit_jabatan')->where('user_id',$submission->user_id)->first();
+                        $pageTitle = "View Submission";
+                        return view('formbuilder::submissions.show', compact('pageTitle', 'submission', 'form_headers','identitas'));
+        }else{
+          abort(404);
+        }
+
     }
 
     public static function duration($start, $end){

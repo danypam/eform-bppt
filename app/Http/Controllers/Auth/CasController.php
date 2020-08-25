@@ -24,7 +24,7 @@ class CasController extends Controller
             }else{
                 $id = Cas::user()->attributes['Email'];
             }
-            //dd(Cas::user()->attributes['Email']);
+            // dd(Cas::user()->attributes['Email']);
 
             $user = User::where('email',$id)->first();
             if($user ==  null){
@@ -41,6 +41,6 @@ class CasController extends Controller
         // This is particularly usefull in case of profile construction with roles and other details
         // e.g. Auth::login($local_user);
 
-        return redirect('/dashboard')->with('warning', 'PLEASE CHANGE YOUR PASSWORD!!!!');
+        return redirect('/dashboard');//->with('warning', 'PLEASE CHANGE YOUR PASSWORD!!!!');
     }
 }

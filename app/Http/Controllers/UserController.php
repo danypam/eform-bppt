@@ -15,10 +15,19 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use App\Pegawai;
-
+// https://localhost/users
 
 class UserController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:user-list');
+        // $this->middleware('permission:permission-create', ['only' => ['create','store']]);
+        // $this->middleware('permission:permission-edit', ['only' => ['edit','update']]);
+        // $this->middleware('permission:permission-delete', ['only' => ['delete']]);
+    }
+
     public function profile($id)
     {
         $data = DB::table('log_activity')->limit(7)
