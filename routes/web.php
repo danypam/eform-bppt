@@ -49,8 +49,9 @@ Route::middleware(['cas.auth', 'preventBackHistory', 'web'])
 
 
 Route::get('/', function() {
-    return cas()->authenticate();
-})->name('cas.login');
+    return view('landing');
+})->name('home');
+
 Route::get('/cas/callback', 'Auth\CasController@callback')->name('cas.callback');
 Route::get('/cas/logout', [ 'middleware' => 'cas.auth', function() {
 //    cas()->logout();
@@ -74,8 +75,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard','DashboardController@index');
-// Route::get('/login','AuthController@login')->name('login');
-Route::post('/postlogin','AuthController@postlogin');
+Route::get('/login',function(){
+  return cas()->authenticate();
+})->name('cas.login');
+// Route::post('/postlogin','AuthController@postlogin');
 // Route::get('/logout','AuthController@logout');
 
 Route::group(['middleware' => ['cas.auth', 'preventBackHistory']], function() {

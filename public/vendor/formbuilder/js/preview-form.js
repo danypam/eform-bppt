@@ -10,13 +10,13 @@ jQuery(function() {
             //         field: ' <input type="datetime-local" id="' + fieldData.name + '" class="form-control"/>'
             //     }
             // },
-            selectFromDatabase: function(fieldData){
-                return {
-                    field: ' <select type="selectFromDatabase" id="' + fieldData.name + '" class="form-control selectfromdatabase"/>',
-                    onRender: function () {
-                    }
-                }
-            },
+            // selectFromDatabase: function(fieldData){
+            //     return {
+            //         field: ' <select type="selectFromDatabase" id="' + fieldData.name + '" class="form-control selectfromdatabase"/>',
+            //         onRender: function () {
+            //         }
+            //     }
+            // },
             "duration": function(fieldData) {
                 return {
                     field: ' <input type="text" name="' + fieldData.name + '" id="' + fieldData.name + '" class="form-control"/>',

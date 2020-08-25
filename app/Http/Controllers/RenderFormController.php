@@ -131,12 +131,11 @@ class RenderFormController extends Controller
                     EmailController::sent_atasan($submission_id);
                 }
                 LogActivity::addToLog('Submitted Form'.$form->name);
-            }catch (Throwable $e){dd($e);}
+            }catch (Throwable $e){}
 
             return redirect('/my-submissions')->with('sukses', 'Terimakasih. Formulir Berhasil diajukan. Mohon Tunggu');
         } catch (Throwable $e) {
             DB::rollback();
-            dd($e);
             return back()->withInput()->with('error', Helper::wtf())->with('error','');
         }
     }

@@ -78,13 +78,14 @@ jQuery(function() {
                 },
                 icon: '⏰'
             },
-            {
-                label: 'Select From Database',
-                attrs: {
-                    type: 'selectFromDatabase'
-                },
-                icon: '🛢'
-            },],
+            // {
+            //     label: 'Select From Database',
+            //     attrs: {
+            //         type: 'selectFromDatabase'
+            //     },
+            //     icon: '🛢'
+            // },
+          ],
         templates: {
             // "datetime-local": function(fieldData) {
             //     return {
@@ -112,13 +113,13 @@ jQuery(function() {
                        }
                 }
             },
-            selectFromDatabase: function(fieldData){
-                return {
-                    field: ' <select type="selectFromDatabase" name="' + fieldData.name + '" id="' + fieldData.name + '" class="form-control selectfromdatabase"/>',
-                    onRender: function () {
-                    }
-                }
-            },
+            // selectFromDatabase: function(fieldData){
+            //     return {
+            //         field: ' <select type="selectFromDatabase" name="' + fieldData.name + '" id="' + fieldData.name + '" class="form-control selectfromdatabase"/>',
+            //         onRender: function () {
+            //         }
+            //     }
+            // },
 
         },
         disableFields: [
@@ -471,19 +472,19 @@ jQuery(function() {
             formData: formBuilder.actions.getData('json', true) ? formBuilder.actions.getData('json', true) : '',
             render: true,
             templates:{
-                datetimepicker: function(fieldData) {
-                    return {
-                        field: ' <input type="text" id="' + fieldData.name + '" class="form-control" value="' + fieldData.value + '"/>',
-                        onRender: function() {
-                            $(document.getElementById(fieldData.name)).daterangepicker({
-                                timePicker: true,
-                                locale: {
-                                    format: 'DD/MM/YYYY hh:mm A'
-                                }
-                            });
-                        }
-                    }
-                },
+              "duration": function(fieldData) {
+                  return {
+                      field: ' <input type="text" name="' + fieldData.name + '" id="' + fieldData.name + '" class="form-control"/>',
+                         onRender: function() {
+                             $(document.getElementById(fieldData.name)).daterangepicker({
+                                 timePicker: true,
+                                 locale: {
+                                     format: 'DD/MM/YYYY hh:mm A'
+                                 }
+                             });
+                         }
+                  }
+              },
             }
         };
 
