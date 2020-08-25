@@ -24,7 +24,7 @@ class DashboardController extends Controller
         $chart1=\App\Submission::count_form();
         $chart2=\App\Submission::count_form2();
         $chart3=\App\Submission::count_form3();
-        // $chart=\App\Submission::chart();
+        $chart=\App\Submission::chart();
 
 
         $data_unit = DB::table('unit_jabatan')
@@ -38,6 +38,6 @@ class DashboardController extends Controller
             ->get();
 
         //dd($data_unit);
-        return view('dashboard.index',['data'=>$data,'chart1'=>$chart1,'status'=>$status,'chart2'=>$chart2,'chart3'=>$chart3,'data_unit'=>$data_unit]);
+        return view('dashboard.index',['data'=>$data,'chart1'=>$chart1,'status'=>$status,'chart2'=>$chart2,'chart3'=>$chart3,'data_unit'=>$data_unit,'chart'=>$chart]);
     }
 }

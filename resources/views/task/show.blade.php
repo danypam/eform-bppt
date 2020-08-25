@@ -160,8 +160,8 @@
                                                 <a href="#" data-toggle="modal" data-target="#comp" data-id="{{$submission->id}}" data-ket1="{{$submission->keterangan['ket1']}}" data-nama1="{{$submission->keterangan['nama1']}}" data-ket2="{{$submission->keterangan['ket2']}}" data-nama2="{{$submission->keterangan['nama2']}}" class="btn btn-success btn-sm">Complete</a>
 
 
-                        {{--                       @elseif($submission->status == config("constants.status.completed"))
-                                                   <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Batalkan</a> --}}
+                                               @elseif($submission->status == config("constants.status.completed"))
+                                                   <a href="/task/{{$submission->id}}/cancel" class="btn btn-danger btn-sm">Batalkan</a>
                                                @endif
                                            @endif
                                        @endif

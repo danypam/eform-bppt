@@ -5,11 +5,11 @@ jQuery(function() {
 		formData: window._form_builder_content ? window._form_builder_content : '',
 		render: true,
         templates: {
-            // "datetime-local": function(fieldData) {
-            //     return {
-            //         field: ' <input type="datetime-local" id="' + fieldData.name + '" class="form-control"/>'
-            //     }
-            // },
+            "datetime-local": function(fieldData) {
+                return {
+                    field: ' <input type="datetime-local" id="' + fieldData.name + '" class="form-control"/>'
+                }
+            },
             selectFromDatabase: function(fieldData){
                 return {
                     field: ' <select type="selectFromDatabase" id="' + fieldData.name + '" class="form-control selectfromdatabase"/>',
