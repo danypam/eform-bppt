@@ -78,7 +78,6 @@ class InboxController extends Controller
     }
 
     public function show($id){
-        dd($id);
         $inbox = Submission::with(['pegawai.unit_jabatan', 'form'])
             ->where('form_submissions.id', $id)->get();
         return view('/inbox/read',['inboxs'=>$inbox]);
@@ -149,7 +148,6 @@ class InboxController extends Controller
                 }
                 return redirect('/inbox')->with('sukses', 'Form Berhasil DiSetujui');
             } else {
-                dd('sini');
                 return redirect('/inbox')->with('error', 'Formulir Error atau Telah Dieksekusi oleh user lain');
             }
 
